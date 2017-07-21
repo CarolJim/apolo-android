@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/bg_app">
+
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:layout_marginLeft="@dimen/dimen_margin_large"
+    android:layout_marginRight="@dimen/dimen_margin_large"
+    tools:context=".activity.LoginActivity">
+
+         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+
+        <!-- Numero de usuario -->
+         <com.pagatodo.apolo.utils.customviews.MaterialValidationEditText
+             android:id="@+id/edtUserNumber"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             app:formato="number"
+             app:hintColor="@color/colorWhite"
+             app:hintText="@string/hint_numero_usuario" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- Boton continuar  -->
+            <com.pagatodo.apolo.utils.customviews.MaterialButton
+                android:id="@+id/action_next"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_button_height"
+                android:layout_marginBottom="@dimen/dimen_margin_xl"
+                android:text="@string/txt_button_continue"
+                android:textColor="@color/colorWhite"
+                app:buttonNormalColor="@color/teal"
+                app:buttonStrokeColor="@color/teal"
+                app:cornerRadius="@dimen/dimen_button_radius"
+                android:layout_alignParentBottom="true"/>
+
+        </RelativeLayout>
+
+</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

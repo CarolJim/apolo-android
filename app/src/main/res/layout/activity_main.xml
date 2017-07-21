@@ -1,18 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.pagatodo.apolo.MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/bg_app"
+    android:fitsSystemWindows="true">
 
-    <TextView
+<android.support.v4.widget.NestedScrollView
+    android:id="@+id/registerContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <com.pagatodo.apolo.utils.customviews.MaterialTextView
+        android:id="@+id/tv_name_agente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/name_agente"
+        android:textColor="@color/colorWhite"
+        app:tipo="Titulo"
+        android:lineSpacingExtra="0sp"
+        android:textSize="@dimen/dimen_margin_xl"
+        android:layout_marginTop="@dimen/dimen_margin_large"
+        android:layout_marginLeft="@dimen/dimen_margin_large"
+        android:layout_marginRight="@dimen/dimen_margin_large" />
 
-</android.support.constraint.ConstraintLayout>
+    <!-- Celular -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_margin_large"
+        android:layout_marginRight="@dimen/dimen_margin_large"
+        android:orientation="vertical">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <EditText
+                android:id="@+id/editText_celular"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:hint="@string/editText_celular"
+                android:inputType="phone"
+                android:textSize="@dimen/dimen_textSize_large"
+                android:padding="@dimen/dimen_margin_small"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"
+                android:background="@android:color/transparent"
+                android:drawablePadding="@dimen/dimen_margin_large"
+                android:drawableLeft="@drawable/ic_mobile_ap"
+                android:layout_marginTop="@dimen/dimen_margin_medium"/>
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/checkVerificado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|end|right"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:background="@drawable/ic_verificado_ap"/>
+        </FrameLayout>
+    </LinearLayout>
+
+    <!-- Telefono casa -->
+    <EditText
+        android:id="@+id/editText_telefono"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/editText_telefono"
+        android:inputType="phone"
+        android:textSize="@dimen/dimen_textSize_large"
+        android:padding="@dimen/dimen_margin_small"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorWhite"
+        android:background="@android:color/transparent"
+        android:drawablePadding="@dimen/dimen_margin_medium"
+        android:drawableLeft="@drawable/ic_phone_ap"
+        android:layout_marginTop="@dimen/dimen_margin_large"
+        android:layout_marginLeft="@dimen/dimen_margin_large"
+        android:layout_marginRight="@dimen/dimen_margin_large"/>
+
+
+    <RelativeLayout
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_margin_large"
+        android:layout_marginLeft="@dimen/dimen_margin_large"
+        android:layout_marginRight="@dimen/dimen_margin_large"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:scrollbars="vertical" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/dimen_margin_medium"
+        android:layout_marginBottom="@dimen/dimen_margin_xl"
+        android:layout_marginLeft="@dimen/dimen_margin_large"
+        android:layout_marginRight="@dimen/dimen_margin_large">
+
+    <!-- Boton continuar  -->
+    <com.pagatodo.apolo.utils.customviews.MaterialButton
+        android:id="@+id/action_next"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_button_height"
+        android:text="@string/txt_button_continue"
+        android:textColor="@color/colorWhite"
+        app:buttonNormalColor="@color/teal"
+        app:buttonStrokeColor="@color/teal"
+        app:cornerRadius="@dimen/dimen_button_radius"
+        android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
+</android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>

@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#607D8B</color>
+    <color name="colorPrimaryDark">#455A64</color>
+    <color name="primary_light">#CFD8DC</color>
+    <color name="colorAccent">#FFFFFF</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#BDBDBD</color>
+    <color name="colorHint">#ababab</color>
+
+    <color name="transparentGrayBG">#CC000000</color>
+    <color name="bg_app">#303030</color>
+    <color name="teal">#009688</color>
+    <color name="black">#303030</color>
+    <color name="greyish_brown_26">#424f4f4f</color>
+    <color name="black_24">#3c000000</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="lightish_green">#44db5e</color>
+    <color name="light_sea_green">#79f097</color>
+    <color name="colorBlack">#000000</color>
+    <color name="orange_red">#fe3824</color>
+    <color name="colorLowGray">#10efefef</color>
+
+    <color name="colorBackgroundProgressFragment">#b9ffffff</color>
+    <color name="viewPagerTextColor">#4B4A48</color>
+    <color name="colorPrimaryLow">#348d1327</color>
+    <color name="colorRoundedImage">#d9a120</color>
+    <color name="grayTextColor">#4B4A48</color>
 </resources>

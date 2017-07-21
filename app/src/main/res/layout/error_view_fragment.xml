@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/errorViewFragment">
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v4.widget.Space
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.AppCompatImageView
+                app:srcCompat="@drawable/error_state"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:id="@+id/errorResourceFragment"
+                android:layout_margin="@dimen/dimen_margin_small"
+                android:layout_gravity="center"
+                android:layout_width="120dp"
+                android:layout_height="120dp" />
+            <com.pagatodo.apolo.utils.customviews.MaterialTextView
+                android:layout_margin="@dimen/dimen_margin_small"
+                android:id="@+id/errorTextFragment"
+                android:text="@string/txt_errorText"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:maxLines="2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <android.support.v4.widget.Space
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+</LinearLayout>

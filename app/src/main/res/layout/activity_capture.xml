@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/bg_app"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/camera_frame">
+
+                <ImageView
+                    android:id="@+id/camera_image_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:scaleType="fitXY"/>
+
+                <SurfaceView
+                    android:id="@+id/preview_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentTop="true"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="@drawable/transparent_navigation"
+                    android:layout_gravity="top"
+                    android:layout_weight="1"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/transparent_navigation"
+                    android:layout_gravity="bottom"
+                    android:layout_alignParentBottom="true"
+                    android:padding="@dimen/dimen_margin_large"
+                    android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:gravity="left">
+                                <ImageButton
+                                    android:id="@+id/action_close"
+                                    android:layout_width="@dimen/ic_cameras_width"
+                                    android:layout_height="@dimen/ic_cameras_height"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="@dimen/dimen_margin_large"
+                                    android:layout_marginRight="@dimen/dimen_margin_large"
+                                    android:background="@drawable/ic_cerrar_ap"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:gravity="center">
+                                <ImageButton
+                                    android:id="@+id/action_capture"
+                                    android:layout_width="@dimen/ic_capture_width"
+                                    android:layout_height="@dimen/ic_capture_height"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="@dimen/dimen_margin_large"
+                                    android:layout_marginRight="@dimen/dimen_margin_large"
+                                    android:background="@drawable/ic_take_ap"/>
+                                <ImageButton
+                                    android:id="@+id/action_save"
+                                    android:layout_width="@dimen/ic_cameras_width"
+                                    android:layout_height="@dimen/ic_cameras_height"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="@dimen/dimen_margin_large"
+                                    android:layout_marginRight="@dimen/dimen_margin_large"
+                                    android:background="@drawable/ic_done_ap"
+                                    android:visibility="gone"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:gravity="right">
+                                <ImageButton
+                                    android:id="@+id/action_reintent"
+                                    android:layout_width="@dimen/ic_cameras_width"
+                                    android:layout_height="@dimen/ic_cameras_height"
+                                    android:visibility="gone"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="@dimen/dimen_margin_large"
+                                    android:layout_marginRight="@dimen/dimen_margin_large"
+                                    android:background="@drawable/ic_retake_ap"/>
+                        </LinearLayout>
+
+                </RelativeLayout>
+
+    </RelativeLayout>
+
+<include android:visibility="gone" layout="@layout/progress_view_fragment"/>
+</FrameLayout>

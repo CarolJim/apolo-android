@@ -1,11 +1,82 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
 
+    <style name="SCBSwitch" parent="Theme.AppCompat.Light">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">@color/colorPrimary</item>
+    </style>
+    <style name="FabStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">@dimen/dimen_margin_large</item>
+        <item name="borderWidth">0dp</item>
+        <item name="elevation">0dp</item>
+        <item name="rippleColor">@android:color/white</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">center</item>
+    </style>
+
+    <style name="CommercesFabStyle" parent="FabStyle">
+    </style>
+
+    <style name="MiniFabStyle" parent="FabStyle">
+        <item name="android:scaleType">center</item>
+        <item name="fabSize">mini</item>
+        <item name="useCompatPadding">true</item>
+    </style>
+
+    <style name="FabLabel">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginRight">@dimen/dimen_margin_small</item>
+        <item name="android:layout_marginLeft">@dimen/dimen_margin_small</item>
+        <item name="android:layout_marginTop">@dimen/dimen_margin_small</item>
+        <item name="android:layout_marginBottom">@dimen/dimen_margin_small</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">false</item>
+    </style>
+
+    <style name="FabContainer">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_marginRight">@dimen/dimen_margin_medium</item>
+    </style>
+
+    <style name="DetailContent">
+        <item name="android:clipToPadding">false</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">@dimen/dimen_margin_large</item>
+        <item name="android:layout_marginLeft">@dimen/dimen_margin_medium</item>
+        <item name="android:layout_marginRight">@dimen/dimen_margin_medium</item>
+        <item name="android:layout_marginBottom">@dimen/dimen_margin_medium</item>
+    </style>
+
+    <style name="StaticDetailLbls">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">left</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">@dimen/dimen_margin_small</item>
+        <item name="android:layout_marginBottom">@dimen/dimen_margin_small</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

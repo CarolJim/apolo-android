@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+        <FrameLayout
+            android:minHeight="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+                <EditText
+                    android:textColor="@color/colorWhite"
+                    android:layout_gravity="center"
+                    android:id="@+id/edtMain"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:cursorVisible="true"
+                    android:textCursorDrawable="@drawable/cursor_color"
+                    android:background="@drawable/input_border_login"
+                    android:padding="@dimen/dimen_margin_medium"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textColorLink="@color/colorWhite"
+                    android:textColorHint="@color/colorWhite"/>
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/ivStatus"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical|end|right"
+                    android:layout_margin="@dimen/dimen_margin_medium"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/warning"
+                    tools:ignore="VectorDrawableCompat" />
+        </FrameLayout>
+        <com.pagatodo.apolo.utils.customviews.MaterialTextView
+            android:id="@+id/tvMessage"
+            android:layout_marginStart="@dimen/dimen_margin_medium"
+            android:layout_marginLeft="6dp"
+            android:layout_marginEnd="@dimen/dimen_margin_medium"
+            android:layout_marginRight="6dp"
+            android:maxLines="1"
+            android:textSize="10sp"
+            android:layout_gravity="center"
+            android:gravity="top"
+            android:textStyle="italic"
+            android:textColor="@color/colorPrimary"
+            android:text="el texto es correcto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+</LinearLayout>
