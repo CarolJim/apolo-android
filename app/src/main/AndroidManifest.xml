@@ -27,17 +27,21 @@
         <!-- Activity Login -->
         <activity
             android:noHistory="true"
-            android:name=".activity.LoginActivity"
+            android:name=".activity.login.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <!-- Activity Main -->
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.register.RegisterActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <!-- Activity Capture -->
         <activity
             android:name=".activity.CaptureActivity"
+            android:screenOrientation="portrait"/>
+        <!-- Activity end -->
+        <activity
+            android:name=".activity.ConfirmateActivity"
             android:screenOrientation="portrait"/>
     </application>
 

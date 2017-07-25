@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/bg_app"
-    android:orientation="vertical" >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,11 +13,12 @@
         android:orientation="vertical"
         android:id="@+id/camera_frame">
 
-                <ImageView
+                <android.support.v7.widget.AppCompatImageView
+                    android:scaleType="fitXY"
                     android:id="@+id/camera_image_view"
                     android:layout_width="match_parent"
-                    android:layout_height="fill_parent"
-                    android:scaleType="fitXY"/>
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
 
                 <SurfaceView
                     android:id="@+id/preview_view"
@@ -26,7 +28,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="60dp"
                     android:background="@drawable/transparent_navigation"
                     android:layout_gravity="top"
                     android:layout_weight="1"/>
@@ -37,64 +39,80 @@
                     android:background="@drawable/transparent_navigation"
                     android:layout_gravity="bottom"
                     android:layout_alignParentBottom="true"
-                    android:padding="@dimen/dimen_margin_large"
+                    android:padding="@dimen/dimen_margin_small"
                     android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:gravity="left">
-                                <ImageButton
-                                    android:id="@+id/action_close"
-                                    android:layout_width="@dimen/ic_cameras_width"
-                                    android:layout_height="@dimen/ic_cameras_height"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_marginLeft="@dimen/dimen_margin_large"
-                                    android:layout_marginRight="@dimen/dimen_margin_large"
-                                    android:background="@drawable/ic_cerrar_ap"/>
+                            <android.support.v7.widget.AppCompatImageView
+                                android:scaleType="fitCenter"
+                                android:id="@+id/action_close"
+                                android:layout_width="@dimen/ic_cameras_width"
+                                android:layout_height="@dimen/ic_cameras_height"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="@dimen/dimen_margin_large"
+                                android:layout_marginRight="@dimen/dimen_margin_large"
+                                tools:ignore="VectorDrawableCompat"
+                                app:srcCompat="@drawable/ic_cerrar_ap" />
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:gravity="center">
-                                <ImageButton
-                                    android:id="@+id/action_capture"
-                                    android:layout_width="@dimen/ic_capture_width"
-                                    android:layout_height="@dimen/ic_capture_height"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_marginLeft="@dimen/dimen_margin_large"
-                                    android:layout_marginRight="@dimen/dimen_margin_large"
-                                    android:background="@drawable/ic_take_ap"/>
-                                <ImageButton
-                                    android:id="@+id/action_save"
-                                    android:layout_width="@dimen/ic_cameras_width"
-                                    android:layout_height="@dimen/ic_cameras_height"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_marginLeft="@dimen/dimen_margin_large"
-                                    android:layout_marginRight="@dimen/dimen_margin_large"
-                                    android:background="@drawable/ic_done_ap"
-                                    android:visibility="gone"/>
+                            <android.support.v7.widget.AppCompatImageView
+                                android:scaleType="fitCenter"
+                                android:id="@+id/action_capture"
+                                android:layout_width="@dimen/ic_capture_width"
+                                android:layout_height="@dimen/ic_capture_height"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="@dimen/dimen_margin_large"
+                                android:layout_marginRight="@dimen/dimen_margin_large"
+                                tools:ignore="VectorDrawableCompat"
+                                app:srcCompat="@drawable/ic_take_ap" />
+                            <android.support.v7.widget.AppCompatImageView
+                                android:scaleType="fitCenter"
+                                android:id="@+id/action_save"
+                                android:layout_width="@dimen/ic_cameras_width"
+                                android:layout_height="@dimen/ic_cameras_height"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="@dimen/dimen_margin_large"
+                                android:layout_marginRight="@dimen/dimen_margin_large"
+                                tools:ignore="VectorDrawableCompat"
+                                app:srcCompat="@drawable/ic_done_ap"
+                                android:visibility="gone"/>
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:gravity="right">
-                                <ImageButton
-                                    android:id="@+id/action_reintent"
-                                    android:layout_width="@dimen/ic_cameras_width"
-                                    android:layout_height="@dimen/ic_cameras_height"
-                                    android:visibility="gone"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_marginLeft="@dimen/dimen_margin_large"
-                                    android:layout_marginRight="@dimen/dimen_margin_large"
-                                    android:background="@drawable/ic_retake_ap"/>
+                            <android.support.v7.widget.AppCompatImageView
+                                android:scaleType="fitCenter"
+                                android:id="@+id/action_reintent"
+                                android:layout_width="@dimen/ic_cameras_width"
+                                android:layout_height="@dimen/ic_cameras_height"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="@dimen/dimen_margin_large"
+                                android:layout_marginRight="@dimen/dimen_margin_large"
+                                tools:ignore="VectorDrawableCompat"
+                                app:srcCompat="@drawable/ic_retake_ap"
+                                android:visibility="gone"/>
                         </LinearLayout>
 
                 </RelativeLayout>
 
     </RelativeLayout>
 
-<include android:visibility="gone" layout="@layout/progress_view_fragment"/>
+    <ProgressBar
+        android:visibility="gone"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dimen_margin_large"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/progress" />
 </FrameLayout>

@@ -1,13 +1,10 @@
 package com.pagatodo.apolo.data.pojo;
 
-import com.pagatodo.apolo.data.pojo.factory.ModelPattern;
-
 /**
- * Created by jvazquez on 19/05/2017.
+ * Created by rvargas on 21/07/2017.
  */
 
-public class Users extends ModelPattern {
-
+public class Users {
     private String ruta_tarjeta     = "";
     private String ruta_ine_frente  = "";
     private String ruta_ine_vuelta  = "";

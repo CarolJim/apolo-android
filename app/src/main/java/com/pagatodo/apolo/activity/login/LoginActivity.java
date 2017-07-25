@@ -1,0 +1,80 @@
+package com.pagatodo.apolo.activity.login;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.view.Gravity;
+import android.widget.Toast;
+import com.pagatodo.apolo.activity.register.RegisterActivity;
+import com.pagatodo.apolo.R;
+import com.pagatodo.apolo.utils.ValidateForm;
+import com.pagatodo.apolo.utils.ValidatePermission;
+import com.pagatodo.apolo.utils.customviews.MaterialButton;
+import com.pagatodo.apolo.utils.customviews.MaterialValidationEditText;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import static com.pagatodo.apolo.ui.UI.showSnackBar;
+
+/**
+ * Created by rvargas on 21-07-17.
+ */
+
+public class LoginActivity extends Activity implements LoginView{
+
+    LoginPresenter loginpresenter;
+    @BindView(R.id.edtUserNumber) MaterialValidationEditText edtNumber;
+    @BindView(R.id.btnLogin) MaterialButton btnLogin;
+    @BindView(R.id.layoutLogin) CoordinatorLayout layoutLogin;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        loginpresenter = new LoginPresenterImpl(this);
+        ButterKnife.bind(this);
+        validateEditText(btnLogin, edtNumber);
+        edtNumber.setGravity(Gravity.CENTER);
+    }
+
+    private void validateEditText(MaterialButton btnLogin, MaterialValidationEditText edtNumber){
+        if(edtNumber != null){
+            ValidateForm.enableBtn(false, btnLogin);
+            ValidateForm.validateEditText(btnLogin, edtNumber);
+        }
+    }
+
+    @OnClick(R.id.btnLogin)
+    public void login() {
+        loginpresenter.login(edtNumber.getText().toString());
+    }
+
+    @Override
+    public void setUserNumberError() {
+        showSnackBar(layoutLogin,getString((R.string.hint_numero_usuario)));
+    }
+
+    @Override
+    public void setNavigation() {
+        startActivity(new Intent(this,RegisterActivity.class));
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(this, ""+message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ValidatePermission verify = new ValidatePermission(this);
+        verify.verifyPermiso();
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
+}

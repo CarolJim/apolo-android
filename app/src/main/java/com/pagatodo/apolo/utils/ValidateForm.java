@@ -3,6 +3,7 @@ package com.pagatodo.apolo.utils;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.EditText;
 
 import com.pagatodo.apolo.App;
@@ -103,8 +104,6 @@ public class ValidateForm {
     }
 
     public static boolean isValidCreditCard(String card) {
-
-
         return genericCreditCard.matcher(card).matches();
     }
 

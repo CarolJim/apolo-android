@@ -15,17 +15,17 @@ import java.util.List;
  * Created by rvargas on 19/07/2017.
  */
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder>  {
+public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.mViewHolder>  {
 
     private List<Cards> cardsList;
     private Context mContext;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class mViewHolder extends RecyclerView.ViewHolder {
         AppCompatImageView typeCards;
         AppCompatImageView thumbCards;
         AppCompatImageView checkCards;
 
-        public MyViewHolder(View view) {
+        public mViewHolder(View view) {
             super(view);
             typeCards  =  view.findViewById(R.id.typeCard);
             thumbCards =  view.findViewById(R.id.thumbCard);
@@ -38,7 +38,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         this.cardsList = cardList;
     }
 
-
     public Object getItem(int location) {
         return cardsList.get(location);
     }
@@ -49,18 +48,18 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public mViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.layout_cardview, parent, false);
 
-        return new MyViewHolder(itemView);
+        return new mViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) {
+    public void onBindViewHolder(final mViewHolder holder, int position) {
         Cards items = cardsList.get(position);
-        Glide.with(mContext).load(items.getTypeCard()).placeholder(R.drawable.small_preview).crossFade().into(holder.typeCards);
-        Glide.with(mContext).load(items.getThumbCard()).placeholder(R.drawable.small_preview).crossFade().into(holder.thumbCards);
+        Glide.with(mContext).load(items.getTypeCard()).crossFade(2).into(holder.typeCards);
+        Glide.with(mContext).load(items.getThumbCard()).crossFade(2).into(holder.thumbCards);
     }
 
     @Override

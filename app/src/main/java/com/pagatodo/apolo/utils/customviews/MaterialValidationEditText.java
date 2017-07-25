@@ -16,7 +16,9 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -35,6 +37,7 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
     private EditText         edtMain    = null;
     private MaterialTextView tvMessage  = null;
     private AppCompatImageView ivStatus = null;
+    private AppCompatImageView ivVerify = null;
     private boolean isValidField        = false;
     private String  type = null;
     private OnClickIcon iconListener = null;
@@ -192,6 +195,8 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
                     break;
                 case "5"://number
                     edtMain.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    edtMain.setKeyListener(DigitsKeyListener.getInstance(getContext().getString(R.string.input_int_unsigned)));
+                    setValidationListener(txt);
                     break;
                 case "6"://cellPhone
                     edtMain.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_CLASS_PHONE);
@@ -279,6 +284,12 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
                         case "6"://cellPhone
                             result = ValidateForm.isValidCellPhone(txt.trim());
                             message = result ? getString(R.string.valid_phonenumber): getString(R.string.invalid_phonenumber);
+                           /* if(result){
+                                    View view = LayoutInflater.from(getContext()).inflate(R.layout.activity_main, null);
+                                    ivVerify  = view.findViewById(R.id.ivVerify);
+                                    ivVerify.setVisibility(VISIBLE);
+                                    setIconResource(R.drawable.ic_verificar_ap);
+                            }*/
                             if(edtCompare != null && result && edtCompare.isValidField()){
                                 result = edtCompare.getText().equals(txt);
                                 message = result ? getString(R.string.msg_valid_refield): getString(R.string.msg_invalid_refield);
@@ -535,7 +546,7 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
         if(edtMain != null){
             edtMain.setEnabled(enabled);
             edtMain.setAlpha(enabled ? 1f : 0.6f);
-            edtMain.setTextColor(enabled ? ContextCompat.getColor(getContext(), R.color.colorPrimary) : ContextCompat.getColor(getContext(), R.color.colorHint));
+            edtMain.setTextColor(enabled ? ContextCompat.getColor(getContext(), R.color.colorWhite) : ContextCompat.getColor(getContext(), R.color.colorHint));
         }
     }
 

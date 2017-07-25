@@ -13,15 +13,14 @@ import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v7.widget.AppCompatImageView;
 import android.view.Display;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.utils.Constants;
@@ -38,22 +37,20 @@ public class CaptureActivity extends Activity implements PictureCallback, Surfac
     private byte[] mCameraData;
     private boolean mIsCapturing;
     private Bitmap mCameraBitmap;
-    @BindView(R.id.camera_image_view) ImageView mCameraImage;
+    @BindView(R.id.camera_image_view) AppCompatImageView mCameraImage;
     @BindView(R.id.preview_view) SurfaceView mSurfaceView;
-    @BindView(R.id.action_reintent) ImageButton btnReintent;
-    @BindView(R.id.action_save) ImageButton btnSave;
-    @BindView(R.id.action_capture) ImageButton btnCapture;
+    @BindView(R.id.action_reintent) AppCompatImageView btnReintent;
+    @BindView(R.id.action_save) AppCompatImageView btnSave;
+    @BindView(R.id.action_capture) AppCompatImageView btnCapture;
     @BindView(R.id.camera_frame) RelativeLayout camera_frame;
-    @BindView(R.id.progressViewFragment) LinearLayout progressViewFragment;
+    @BindView(R.id.progress) ProgressBar progress;
     int TYPE_CAPTURE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_capture);
         ButterKnife.bind(this);
-
         Bundle extras = getIntent().getExtras();
         TYPE_CAPTURE = extras.getInt(Constants.TYPE_CAPTURE);
 
@@ -198,7 +195,7 @@ public class CaptureActivity extends Activity implements PictureCallback, Surfac
     @OnClick(R.id.action_save)
     public void saveCapture() {
         camera_frame.setVisibility(View.INVISIBLE);
-        progressViewFragment.setVisibility(View.VISIBLE);
+        progress.setVisibility(View.VISIBLE);
         mCameraBitmap = BitmapFactory.decodeByteArray(mCameraData, 0, mCameraData.length);
         mCameraImage.setImageBitmap(mCameraBitmap);
 

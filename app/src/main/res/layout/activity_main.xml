@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/bg_app"
+    android:id="@+id/layoutRegister"
     android:fitsSystemWindows="true">
 
 <android.support.v4.widget.NestedScrollView
@@ -19,7 +20,7 @@
         android:orientation="vertical">
 
     <com.pagatodo.apolo.utils.customviews.MaterialTextView
-        android:id="@+id/tv_name_agente"
+        android:id="@+id/tv_name_afiliado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/name_agente"
@@ -32,7 +33,45 @@
         android:layout_marginRight="@dimen/dimen_margin_large" />
 
     <!-- Celular -->
-    <LinearLayout
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_margin_large"
+        android:layout_marginRight="@dimen/dimen_margin_large">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|start|left"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                tools:ignore="VectorDrawableCompat"
+                app:srcCompat="@drawable/ic_mobile_ap"/>
+            <com.pagatodo.apolo.utils.customviews.MaterialValidationEditText
+                android:id="@+id/edtCellPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:formato="celphone"
+                app:hintColor="@color/colorWhite"
+                app:hintText="@string/editText_celular"
+                android:padding="@dimen/dimen_margin_small"
+                android:layout_marginLeft="@dimen/dimen_margin_xl"
+                android:layout_marginTop="@dimen/dimen_margin_medium"/>
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/ivVerify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|end|right"
+                app:srcCompat="@drawable/ic_verificar_ap"
+                tools:ignore="VectorDrawableCompat"
+                android:visibility="gone"/>
+        </FrameLayout>
+    </RelativeLayout>
+
+    <!-- Telefono casa -->
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dimen_margin_large"
@@ -40,66 +79,38 @@
         android:orientation="vertical">
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <EditText
-                android:id="@+id/editText_celular"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:hint="@string/editText_celular"
-                android:inputType="phone"
-                android:textSize="@dimen/dimen_textSize_large"
-                android:padding="@dimen/dimen_margin_small"
-                android:textColor="@color/colorWhite"
-                android:textColorHint="@color/colorWhite"
-                android:background="@android:color/transparent"
-                android:drawablePadding="@dimen/dimen_margin_large"
-                android:drawableLeft="@drawable/ic_mobile_ap"
-                android:layout_marginTop="@dimen/dimen_margin_medium"/>
-            <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/checkVerificado"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|end|right"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:background="@drawable/ic_verificado_ap"/>
-        </FrameLayout>
-    </LinearLayout>
-
-    <!-- Telefono casa -->
-    <EditText
-        android:id="@+id/editText_telefono"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/editText_telefono"
-        android:inputType="phone"
-        android:textSize="@dimen/dimen_textSize_large"
-        android:padding="@dimen/dimen_margin_small"
-        android:textColor="@color/colorWhite"
-        android:textColorHint="@color/colorWhite"
-        android:background="@android:color/transparent"
-        android:drawablePadding="@dimen/dimen_margin_medium"
-        android:drawableLeft="@drawable/ic_phone_ap"
-        android:layout_marginTop="@dimen/dimen_margin_large"
-        android:layout_marginLeft="@dimen/dimen_margin_large"
-        android:layout_marginRight="@dimen/dimen_margin_large"/>
-
-
-    <RelativeLayout
-        android:layout_centerInParent="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_margin_large"
-        android:layout_marginLeft="@dimen/dimen_margin_large"
-        android:layout_marginRight="@dimen/dimen_margin_large"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view_card"
+            android:layout_height="wrap_content">
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|start|left"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            tools:ignore="VectorDrawableCompat"
+            app:srcCompat="@drawable/ic_phone_ap"/>
+        <com.pagatodo.apolo.utils.customviews.MaterialValidationEditText
+            android:id="@+id/edtPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:scrollbars="vertical" />
+            app:formato="phone"
+            app:hintColor="@color/colorWhite"
+            app:hintText="@string/editText_celular"
+            android:padding="@dimen/dimen_margin_small"
+            android:layout_marginLeft="@dimen/dimen_margin_xl"/>
+        </FrameLayout>
     </RelativeLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"
+        android:layout_marginTop="@dimen/dimen_margin_small"
+        android:layout_marginLeft="@dimen/dimen_margin_large"
+        android:layout_marginRight="@dimen/dimen_margin_large"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <RelativeLayout
         android:orientation="vertical"
@@ -113,7 +124,7 @@
 
     <!-- Boton continuar  -->
     <com.pagatodo.apolo.utils.customviews.MaterialButton
-        android:id="@+id/action_next"
+        android:id="@+id/btnRegister"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_button_height"
         android:text="@string/txt_button_continue"
@@ -127,4 +138,13 @@
 
 </LinearLayout>
 </android.support.v4.widget.NestedScrollView>
+<ProgressBar
+    android:visibility="gone"
+    style="?android:attr/progressBarStyle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginTop="@dimen/dimen_margin_large"
+    android:layout_centerHorizontal="true"
+    android:id="@+id/progress" />
 </android.support.design.widget.CoordinatorLayout>

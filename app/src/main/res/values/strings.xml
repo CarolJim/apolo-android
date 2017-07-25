@@ -21,6 +21,7 @@
     <string name="txt_button_cancel">CANCELAR</string>
     <string name="txt_button_continue">CONTINUAR</string>
     <string name="txt_button_login">INGRESAR</string>
+    <string name="txt_button_end">FINALIZAR</string>
 
     <!-- @see progress_view.xml -->
     <string name="txt_progressText">Espera por favor</string>
@@ -38,6 +39,7 @@
     <string name="valid_field">El campo es válido</string>
     <string name="invalid_phonenumber">Telefono inválido</string>
     <string name="invalid_field">El campo es inválido</string>
+    <string name="invalid_field_numero_usuario">El número de usuario es inválido</string>
     <string name="valid_mail">Correo válido</string>
     <string name="valid_pass">Contraseña válida</string>
     <string name="empty_mail">El campo email no debe estar vacio</string>
@@ -66,5 +68,9 @@
     <string name="unable_camera">No se puede abrir la cámara.</string>
     <string name="unable_to_save">No se puede guardar la imagen en el archivo.</string>
     <string name="save_to">Guardado en:</string>
+
+    <!-- WS errors -->
+    <string name="network_error">Verifica tu conexión a internet.</string>
+
 
 </resources>

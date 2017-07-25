@@ -14,13 +14,6 @@ public class Constants {
     public static final String KEY_IS_CAPTURING     = "is_capturing";
     public static final String IMAGE_DIRECTORY_NAME = "Apolo";
     public static final String TYPE_CAPTURE = "TypeCapture";
-    public static final SparseIntArray ORIENTATIONS = new SparseIntArray();
-    static {
-        ORIENTATIONS.append(Surface.ROTATION_0, 90);
-        ORIENTATIONS.append(Surface.ROTATION_90, 0);
-        ORIENTATIONS.append(Surface.ROTATION_180, 270);
-        ORIENTATIONS.append(Surface.ROTATION_270, 180);
-    }
 
     //SERVER
     public static final String URL_DEBUG = "https://firebasestorage.googleapis.com/v0/b/dummy-ee94d.appspot.com/o/cards.json?alt=media&token=49105f97-c7e7-4877-9497-36e507cc111b";

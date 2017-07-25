@@ -10,6 +10,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import com.pagatodo.apolo.R;
+import com.pagatodo.apolo.activity.login.LoginActivity;
+import com.pagatodo.apolo.activity.register.RegisterActivity;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -39,13 +42,10 @@ public class SplashScreen extends Activity {
                 try {
                     Animation anim = AnimationUtils.loadAnimation(SplashScreen.this, R.anim.alpha);
                     anim.reset();
-
                     layout.clearAnimation();
                     layout.startAnimation(anim);
-
                     anim = AnimationUtils.loadAnimation(SplashScreen.this, R.anim.translate);
                     anim.reset();
-
                     image_icon.clearAnimation();
                     image_icon.startAnimation(anim);
                     sleep(4000);
@@ -53,7 +53,7 @@ public class SplashScreen extends Activity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    Intent i = new Intent(SplashScreen.this, session ? MainActivity.class : LoginActivity.class);
+                    Intent i = new Intent(SplashScreen.this, session ? RegisterActivity.class : LoginActivity.class);
                     startActivity(i);
                 }
             }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/progressViewFragment"
-    android:background="@color/colorBackgroundProgressFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -20,21 +20,22 @@
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <ProgressBar
-                android:id="@+id/progressResourceFragment"
-                android:indeterminateTint="@color/colorPrimary"
+            <android.support.v7.widget.AppCompatImageView
+                app:srcCompat="@drawable/error_state"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:id="@+id/errorResourceActivity"
                 android:layout_margin="@dimen/dimen_margin_small"
                 android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="120dp"
+                android:layout_height="120dp" />
             <com.pagatodo.apolo.utils.customviews.MaterialTextView
                 android:layout_margin="@dimen/dimen_margin_small"
-                android:id="@+id/progressTextFragment"
-                android:text="@string/txt_progressText"
+                android:id="@+id/errorTextActivity"
+                android:text="@string/txt_errorText"
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:maxLines="2"
-                android:textColor="@color/colorBlack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>

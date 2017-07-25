@@ -5,7 +5,6 @@ import android.content.Context;
 import android.provider.Settings;
 import android.text.format.DateFormat;
 import android.util.Base64;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -22,7 +21,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
 import javax.crypto.Cipher;
 
 /**
@@ -128,8 +126,7 @@ public class Utils {
         return fechasActual;
     }
 
-    public static String getFormattedDate(String date)
-    {
+    public static String getFormattedDate(String date) {
         //Note: SimpleDateFormat was tried for this purpose, but it got a time like 24:00:00
         //Marabunta server expects a date like yyyyMMdd 00:00:00.
         try {
@@ -173,40 +170,4 @@ public class Utils {
         return result;
     }
 
-    public static String getFormattedCardNumber(String rawNumber)
-    {
-        if(rawNumber.length() == 16)
-        {
-            StringBuffer buffer = new StringBuffer();
-            char [] auxiliar = rawNumber.toCharArray();
-
-            for(int index = 0; index < rawNumber.length() ; index++)
-            {
-                if((index - 3) % 4 == 0 && index != rawNumber.length()-1)
-                    buffer.append(auxiliar[index]+ "  ");
-                else
-                    buffer.append(auxiliar[index]);
-            }
-
-            return buffer.toString();
-        }
-        else
-            return rawNumber;
-    }
-
-
-    public static String getStringForPurseHistory(String rawDate) {
-
-        try{
-            String preTreatedDate = cambiarFormatoFecha(rawDate);
-            StringBuffer buffer = new StringBuffer();
-            String[] dateAuxiliar = preTreatedDate.split("/");
-            return buffer.append(dateAuxiliar[0] + "-" +  dateAuxiliar[1].toUpperCase()).toString();
-
-        }catch (Exception ex)
-        {
-            return rawDate;
-        }
-    }
-
-}
+  }

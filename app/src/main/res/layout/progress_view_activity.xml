@@ -4,7 +4,10 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/errorViewFragment">
+    app:elevation="20dp"
+    android:elevation="20dp"
+    android:id="@+id/progress_view_activity"
+    android:background="@color/colorBackgroundProgressFragment">
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -21,22 +24,21 @@
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <android.support.v7.widget.AppCompatImageView
-                app:srcCompat="@drawable/error_state"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:id="@+id/errorResourceFragment"
+            <ProgressBar
+                android:id="@+id/progressResourceActivity"
+                android:indeterminateTint="@color/colorPrimary"
                 android:layout_margin="@dimen/dimen_margin_small"
                 android:layout_gravity="center"
-                android:layout_width="120dp"
-                android:layout_height="120dp" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
             <com.pagatodo.apolo.utils.customviews.MaterialTextView
                 android:layout_margin="@dimen/dimen_margin_small"
-                android:id="@+id/errorTextFragment"
-                android:text="@string/txt_errorText"
+                android:textColor="@color/colorBlack"
+                android:id="@+id/progressTextActivity"
+                android:text="@string/txt_progressText"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:maxLines="2"
+                android:maxLines="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>

@@ -6,22 +6,19 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
         <FrameLayout
-            android:minHeight="30dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
                 <EditText
                     android:textColor="@color/colorWhite"
-                    android:layout_gravity="center"
                     android:id="@+id/edtMain"
-                    android:layout_height="wrap_content"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:cursorVisible="true"
                     android:textCursorDrawable="@drawable/cursor_color"
                     android:background="@drawable/input_border_login"
-                    android:padding="@dimen/dimen_margin_medium"
+                    android:padding="@dimen/dimen_margin_small"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
-                    android:gravity="center"
                     android:textStyle="bold"
                     android:textColorLink="@color/colorWhite"
                     android:textColorHint="@color/colorWhite"/>
@@ -35,6 +32,7 @@
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/warning"
                     tools:ignore="VectorDrawableCompat" />
+
         </FrameLayout>
         <com.pagatodo.apolo.utils.customviews.MaterialTextView
             android:id="@+id/tvMessage"

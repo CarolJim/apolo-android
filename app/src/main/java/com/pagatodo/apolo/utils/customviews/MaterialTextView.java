@@ -6,9 +6,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
-
 import com.pagatodo.apolo.R;
-
 import java.util.HashMap;
 
 /**

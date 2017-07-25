@@ -12,15 +12,15 @@ import static com.pagatodo.apolo.ui.UI.showToast;
  * Created by rvargas on 18/07/2017.
  */
 
-public class checkPermission extends Activity {
+public class ValidatePermission extends Activity {
 
     Activity activity;
 
-    public checkPermission(Activity activity) {
+    public ValidatePermission(Activity activity) {
         this.activity = activity;
     }
 
-    public boolean checarPermiso () {
+    public boolean verifyPermiso () {
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constants.REQUEST_CAMERA_PERMISSION);
             return true;
