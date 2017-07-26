@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1038199893990",
+    "firebase_url": "https://apolo-8e38a.firebaseio.com",
+    "project_id": "apolo-8e38a",
+    "storage_bucket": "apolo-8e38a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1038199893990:android:44690fa6962ee35f",
+        "android_client_info": {
+          "package_name": "com.pagatodo.apolo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1038199893990-aig4pgm0i1ck3qa4jvjuc7qnn0u36702.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pagatodo.apolo",
+            "certificate_hash": "49841a04c3dbfa647d7837ea8c8c3ef42e83cf98"
+          }
+        },
+        {
+          "client_id": "1038199893990-cb9rog5g2nrmtrq5gh55dhel0r9qvn6k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXPyUY0eys5e_IGUOp9r-W51fhdkQZHco"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1038199893990-cb9rog5g2nrmtrq5gh55dhel0r9qvn6k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

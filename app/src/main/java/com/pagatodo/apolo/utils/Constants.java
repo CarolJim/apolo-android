@@ -9,6 +9,16 @@ import android.view.Surface;
 
 public class Constants {
 
+    //Enable debug logs
+    public static final boolean DEBUG = true;
+
+    //SERVER
+    public static final String URL_SERVER               = "";
+    public static final String URL_SERVER_MEGA 	        = "";
+    public static final String URL_TERMS_AND_CONDITIONS = "";
+    public static final String URL_PRIVACY_POLICY       = "";
+    public static final String URL_REMOTE_CONFIG        = "";
+
     //CAMERA
     public static final int REQUEST_CAMERA_PERMISSION = 200;
     public static final String KEY_IS_CAPTURING     = "is_capturing";

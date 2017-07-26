@@ -5,6 +5,9 @@ import android.content.Context;
 import android.provider.Settings;
 import android.text.format.DateFormat;
 import android.util.Base64;
+
+import com.pagatodo.apolo.data.model.webservice.remoteconfig.Data;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -13,6 +16,8 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.security.KeyFactory;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
 import java.security.spec.RSAPublicKeySpec;
 import java.text.DateFormatSymbols;
@@ -169,5 +174,56 @@ public class Utils {
         }
         return result;
     }
+    public static Boolean isValidDigest(Data data) {
+        String concat = "PagaTodoMobile"
+                + data.getFechaUltimaActualizacion()
+                + data.getUrlServidor() // servidor
+                + data.getUrlNotificaciones() //notificacion
+                + data.getUrlAvisoPrivacidad() //aviso
+                + data.getUrlTerminosCondiciones() //terminos
+                + data.getUrlConfig(); //config
 
+
+        String sha256 = getSHA256(concat);
+        sha256 = sha256.toLowerCase();
+        String md5 = getMD5(sha256);
+        String digestString = md5.substring(8, 24);
+        digestString.toUpperCase();
+        return digestString.equals(data.getDigesto());
+    }
+    public static String getSHA256(String msg) {
+        String ans = null;
+        try {
+            MessageDigest md;
+            md = MessageDigest.getInstance("SHA256");
+            md.update(msg.getBytes());
+            ans = Utils.bytesToHex(md.digest());
+        } catch (NoSuchAlgorithmException e) {
+            ans = String.valueOf(msg.hashCode());
+        }
+
+        return ans;
+    }
+    public static String getMD5(String msg) {
+        String ans = null;
+        try {
+            MessageDigest md;
+            md = MessageDigest.getInstance("MD5");
+            md.update(msg.getBytes());
+            ans = Utils.bytesToHex(md.digest());
+        } catch (NoSuchAlgorithmException e) {
+            ans = String.valueOf(msg.hashCode());
+        }
+        return ans;
+    }
+    public static String bytesToHex(byte[] b) {
+        char hexDigit[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+                'A', 'B', 'C', 'D', 'E', 'F'};
+        StringBuffer buf = new StringBuffer();
+        for (int j = 0; j < b.length; j++) {
+            buf.append(hexDigit[(b[j] >> 4) & 0x0f]);
+            buf.append(hexDigit[b[j] & 0x0f]);
+        }
+        return buf.toString();
+    }
   }

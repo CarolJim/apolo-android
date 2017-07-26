@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.pagatodo.apolo.data.local.Preferences;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,11 +22,13 @@ public class App extends Application {
     private RequestQueue mRequestQueue;
     private Map<String, String> afiliados = new HashMap<>();
 
+    private Preferences prefs;
     @Override
     public void onCreate() {
         super.onCreate();
         m_singleton = this;
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+        prefs = new Preferences(this);
     }
     public static App getInstance(){
         if (m_singleton == null){
@@ -77,5 +80,7 @@ public class App extends Application {
     public void onLowMemory() {
         super.onLowMemory();
     }
-
+    public Preferences getPrefs() {
+        return this.prefs;
+    }
 }

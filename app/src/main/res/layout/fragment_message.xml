@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<com.facebook.drawee.view.SimpleDraweeView-->
+            <!--android:id="@+id/fragment_message_dv_detail_image"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/app_bar_layout_height"-->
+            <!--app:actualImageScaleType="centerCrop"-->
+            <!--android:adjustViewBounds="true"-->
+            <!--fresco:placeholderImage="@drawable/ic_placeholder_one"-->
+            <!--fresco:placeholderImageScaleType="centerCrop"-->
+            <!--/>-->
+        <!--<com.pagatodo.apolo.utils.customviews.CustomNestedScrollView-->
+            <!--android:id="@+id/fragment_message_ns_detail_container"-->
+            <!--style="@style/DetailContent">-->
+
+            <!--<LinearLayout-->
+                <!--android:orientation="vertical"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+
+                <!--<com.pagatodo.apolo.utils.customviews.MaterialTextView-->
+                    <!--android:text="@string/app_name"-->
+                    <!--app:tipo="Titulo"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="@dimen/dimen_margin_small"-->
+                    <!--android:textColor="@color/colorPrimary"-->
+                    <!--android:id="@+id/fragment_message_tv_promo_title"/>-->
+
+                <!--<ImageView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="@dimen/dimen_margin_small"-->
+                    <!--app:srcCompat="@drawable/ic_pleca"/>-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/fragment_message_tv_promo_desc"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="@dimen/dimen_margin_large"/>-->
+
+            <!--</LinearLayout>-->
+
+        <!--</com.pagatodo.apolo.utils.customviews.CustomNestedScrollView>-->
+
+    <!--</LinearLayout>-->
+
+    <!--&lt;!&ndash; From here to below all these Containers are about FAB effect. &ndash;&gt;-->
+
+    <!--<View-->
+        <!--android:id="@+id/fragment_message_transparent_bg"-->
+        <!--android:visibility="gone"-->
+        <!--android:background="@color/transparentGrayBG"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:elevation="@dimen/transparent_bg_elevation"-->
+        <!--/>-->
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fragment_message_fab_share"-->
+        <!--app:srcCompat="@drawable/ic_share"-->
+        <!--style="@style/FabStyle"-->
+        <!--android:backgroundTint="@color/colorPrimary"-->
+        <!--app:fabSize="normal"-->
+        <!--app:layout_anchor="@+id/fragment_message_dv_detail_image"-->
+        <!--app:layout_anchorGravity="bottom|right|end"/>-->
+
+    <!--<com.pagatodo.apolo.utils.customviews.FabContainerSocialMediaShare-->
+        <!--android:id="@+id/fragment_message_fab_facebook_container"-->
+        <!--style="@style/FabContainer"-->
+        <!--app:socialOption="facebook"-->
+        <!--android:elevation="@dimen/dimen_cardView_elevation"-->
+        <!--useCompatPadding="true"-->
+        <!--app:layout_anchor="@+id/fragment_message_fab_share"-->
+        <!--app:layout_anchorGravity="bottom|right|end">-->
+
+        <!--<com.pagatodo.apolo.utils.customviews.FabContainerSocialMediaShare-->
+            <!--android:id="@+id/fragment_message_ll_share_facebook_lbl"-->
+            <!--app:socialOption="facebook"-->
+            <!--style="@style/FabLabelContainer">-->
+            <!--<com.pagatodo.apolo.utils.customviews.MaterialTextView-->
+                <!--app:tipo="Titulo"-->
+                <!--android:text="@string/fab_facebook"-->
+                <!--style="@style/FabLabel"-->
+                <!--/>-->
+        <!--</com.pagatodo.apolo.utils.customviews.FabContainerSocialMediaShare>-->
+        <!--<com.pagatodo.apolo.utils.customviews.FabSocialMediaShare-->
+            <!--android:id="@+id/fragment_message_fab_share_facebook"-->
+            <!--app:srcCompat="@drawable/ic_facebook_share"-->
+            <!--style="@style/MiniFabStyle"-->
+            <!--android:backgroundTint="@color/colorPrimary"-->
+            <!--android:layout_gravity="center"-->
+            <!--app:fabSize="mini"-->
+            <!--app:fabSocialOption="facebook"/>-->
+
+    <!--</com.pagatodo.apolo.utils.customviews.FabContainerSocialMediaShare>-->
+    <!--<com.pagatodo.apolo.utils.customviews.FabContainerSocialMediaShare-->
+        <!--android:id="@+id/fragment_message_fab_twitter_container"-->
+        <!--style="@style/FabContainer"-->
+        <!--app:socialOption="twitter"-->
+        <!--android:elevation="@dimen/dimen_cardView_elevation"-->
+        <!--app:layout_anchor="@+id/fragment_message_fab_share"-->
+        <!--app:layout_anchorGravity="bottom|right|end">-->
+
+        <!--<com.pagatodo.apolo.utils.customviews.FabContainerSocialMediaShare-->
+            <!--android:id="@+id/fragment_message_ll_share_twitter_lbl"-->
+            <!--app:socialOption="twitter"-->
+            <!--style="@style/FabLabelContainer">-->
+            <!--<com.pagatodo.apolo.utils.customviews.MaterialTextView-->
+                <!--app:tipo="Titulo"-->
+                <!--android:text="@string/fab_twitter"-->
+                <!--style="@style/FabLabel"-->
+                <!--/>-->
+        <!--</com.pagatodo.apolo.utils.customviews.FabContainerSocialMediaShare>-->
+        <!--<com.pagatodo.apolo.utils.customviews.FabSocialMediaShare-->
+            <!--android:id="@+id/fragment_message_fab_share_twitter"-->
+            <!--app:srcCompat="@drawable/ic_twitter_share"-->
+            <!--style="@style/MiniFabStyle"-->
+            <!--android:backgroundTint="@color/colorPrimary"-->
+            <!--app:fabSize="mini"-->
+            <!--app:fabSocialOption="twitter"/>-->
+
+    <!--</com.pagatodo.apolo.utils.customviews.FabContainerSocialMediaShare>-->
+    <!--<com.pagatodo.apolo.utils.customviews.FabContainerSocialMediaShare-->
+        <!--android:id="@+id/fragment_message_fab_whatsapp_container"-->
+        <!--style="@style/FabContainer"-->
+        <!--app:socialOption="whatsapp"-->
+        <!--android:elevation="@dimen/dimen_cardView_elevation"-->
+        <!--app:layout_anchor="@+id/fragment_message_fab_share"-->
+        <!--app:layout_anchorGravity="bottom|right|end">-->
+
+        <!--<com.pagatodo.apolo.utils.customviews.FabContainerSocialMediaShare-->
+            <!--android:id="@+id/fragment_message_ll_share_whatsapp_lbl"-->
+            <!--app:socialOption="whatsapp"-->
+            <!--style="@style/FabLabelContainer">-->
+            <!--<com.pagatodo.apolo.utils.customviews.MaterialTextView-->
+                <!--app:tipo="Titulo"-->
+                <!--android:text="@string/fab_whatsapp"-->
+                <!--style="@style/FabLabel"-->
+                <!--/>-->
+        <!--</com.pagatodo.apolo.utils.customviews.FabContainerSocialMediaShare>-->
+        <!--<com.pagatodo.apolo.utils.customviews.FabSocialMediaShare-->
+            <!--android:id="@+id/fragment_message_fab_share_whatsapp"-->
+            <!--app:srcCompat="@drawable/ic_whatsapp_share"-->
+            <!--style="@style/MiniFabStyle"-->
+            <!--android:backgroundTint="@color/colorPrimary"-->
+            <!--app:fabSize="mini"-->
+            <!--app:fabSocialOption="whatsapp"/>-->
+
+    <!--</com.pagatodo.apolo.utils.customviews.FabContainerSocialMediaShare>-->
+    <!--<com.pagatodo.apolo.utils.customviews.FabContainerSocialMediaShare-->
+        <!--android:id="@+id/fragment_message_fab_email_container"-->
+        <!--style="@style/FabContainer"-->
+        <!--app:socialOption="email"-->
+        <!--android:elevation="@dimen/dimen_cardView_elevation"-->
+        <!--app:layout_anchor="@+id/fragment_message_fab_share"-->
+        <!--app:layout_anchorGravity="bottom|right|end">-->
+
+        <!--<com.pagatodo.apolo.utils.customviews.FabContainerSocialMediaShare-->
+            <!--android:id="@+id/fragment_message_ll_share_email_lbl"-->
+            <!--app:socialOption="email"-->
+            <!--style="@style/FabLabelContainer">-->
+            <!--<com.pagatodo.apolo.utils.customviews.MaterialTextView-->
+                <!--app:tipo="Titulo"-->
+                <!--android:text="@string/fab_email"-->
+                <!--style="@style/FabLabel"-->
+                <!--/>-->
+        <!--</com.pagatodo.apolo.utils.customviews.FabContainerSocialMediaShare>-->
+        <!--<com.pagatodo.apolo.utils.customviews.FabSocialMediaShare-->
+            <!--android:id="@+id/fragment_message_fab_share_email"-->
+            <!--app:srcCompat="@drawable/ic_email_share"-->
+            <!--style="@style/MiniFabStyle"-->
+            <!--android:backgroundTint="@color/colorPrimary"-->
+            <!--app:fabSize="mini"-->
+            <!--app:fabSocialOption="email"/>-->
+
+    <!--</com.pagatodo.apolo.utils.customviews.FabContainerSocialMediaShare>-->
+
+</android.support.design.widget.CoordinatorLayout>

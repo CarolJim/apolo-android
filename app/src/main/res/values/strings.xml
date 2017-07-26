@@ -72,5 +72,39 @@
     <!-- WS errors -->
     <string name="network_error">Verifica tu conexión a internet.</string>
 
+    <!-- Dialogs -->
+    <string name="txt_title">AVISO</string>
+    <string name="dialog_title_aviso">Aviso</string>
+    <string name="dialog_text_next">Continuar</string>
+    <string name="dialog_text_cancel">Cancelar</string>
+    <string name="dialog_text_accept">Aceptar</string>
+    <string name="dialog_text_send">Enviar</string>
+    <string name="dialog_title_mail_confirmation">Confirma tu Correo</string>
+    <string name="dialog_text_mail_confirmation">Te hemos enviado un link para\nConfirmar tu correo.</string>
+    <string name="dialog_title_pass">Restablecer Contraseña</string>
+    <string name="dialog_text_pass">Te hemos enviado un link para\nrestablecer tu contraseña.</string>
+    <string name="dialog_text_resend_email">Te hemos enviado un link para\nrestablecer tu contraseña.</string>
+    <string name="dialog_text_change_mail">Ingresa tu cuenta de correo electrónico</string>
+    <string name="dialog_title_change_mail">Modificar Correo</string>
+    <string name="dialog_title_resemd_mail">Reenviar Correo</string>
+    <string name="dialog_title_contact">Contacto</string>
+    <string name="dialog_hint_title">Ingresa titulo</string>
+    <string name="dialog_hint_message">Ingresa tu mensaje</string>
 
+    <!-- IEventOnView -->
+    <string name="progress_wait">Espera por favor.</string>
+    <string name="progress_validate_card">Validando Tarjeta…</string>
+    <string name="progress_registrando_usuario">Registrando usuario…</string>
+    <string name="progress_login">Iniciando sesión…</string>
+    <string name="progress_logout">Saliendo…</string>
+
+    <!-- Sharing Options-->
+    <string name="whatsapp_sharing_not_found_msg">Para continuar, necesitas instalar la aplicación WhatsApp.</string>
+
+    <!-- Run Time Permissions Msgs -->
+    <string name="run_time_enable_permissions_btn_lbl">Habilitar Permisos</string>
+    <string name="run_time_continue_anyway_btn_lbl">Continuar</string>
+    <string name="general_run_time_message">Para que tu experiencia dentro de la aplicación sea completa, activa los siguientes permisos:</string>
+    <string name="home_activity_run_time_fine_location">Acceder a la ubicación de este dispositivo ( no podrás encontrar nuestras sucursales cerca de ti ).</string>
+    <string name="home_activity_run_time_call_phone">Hacer y administrar llamadas de teléfono ( no podrás llamarnos ).</string>
 </resources>
