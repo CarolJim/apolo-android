@@ -22,11 +22,10 @@ public class RegisterInteractorImpl implements RegisterInteractor {
             listener.messagesError("La fotografía del INE frente es obligatoria");
         } else if (rutaINEBack == null){
             listener.messagesError("La fotografía del INE vuelta es obligatoria");
-        }
-        else if(!isEmpty(numberCelPhone) && !isEmpty(numberPhone) && rutaCard != null && rutaINEFront != null && rutaINEBack != null){
+        } else if(!isEmpty(numberCelPhone) && rutaCard != null && rutaINEFront != null && rutaINEBack != null){
             listener.onSuccess();
         }else {
-            listener.failure("Todos los campos del formulario son obligatorios");
+            listener.failure("Todos los campos son obligatorios");
         }
     }
 

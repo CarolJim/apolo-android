@@ -20,6 +20,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
@@ -45,7 +46,7 @@ public class CaptureActivity extends Activity implements PictureCallback, Surfac
     @BindView(R.id.action_save) AppCompatImageView btnSave;
     @BindView(R.id.action_capture) AppCompatImageView btnCapture;
     @BindView(R.id.camera_frame) RelativeLayout camera_frame;
-    @BindView(R.id.progress) ProgressBar progress;
+    @BindView(R.id.progress_view_activity) LinearLayout progress;
     int TYPE_CAPTURE;
     App Afiliado = App.getInstance();
 

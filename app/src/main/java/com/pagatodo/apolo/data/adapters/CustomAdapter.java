@@ -67,4 +67,5 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.mViewHolde
     public int getItemCount() {
         return cardsList.size();
     }
+
 }

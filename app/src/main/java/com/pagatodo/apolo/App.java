@@ -44,6 +44,8 @@ public class App extends Application {
         return Afiliados.get(key);
     }
 
+    public void clearHashMap(){ Afiliados.clear(); }
+
     @Override
     public Context getApplicationContext() {
         return super.getApplicationContext();

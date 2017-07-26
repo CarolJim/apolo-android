@@ -41,11 +41,10 @@ public class Constants {
 
     //KEY HASHMAP
     public static final String KEY_NUMERO_AFILIADO = "KEY_NUMERO_AFILIADO";
+    public static final String KEY_NOMBRE_AFILIADO = "KEY_NOMBRE_AFILIADO";
     public static final String KEY_CELULAR    = "KEY_CELULAR";
     public static final String KEY_TELEFONO   = "KEY_TELEFONO";
     public static final String KEY_IFE_FRENTE = "KEY_IFE_FRENTE";
     public static final String KEY_IFE_VUELTA = "KEY_IFE_VUELTA";
-    public static final String KEY_TARJETA    = "KEY_CELULAR";
-
-
+    public static final String KEY_TARJETA    = "KEY_TARJETA";
 }
