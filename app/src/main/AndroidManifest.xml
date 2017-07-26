@@ -45,7 +45,8 @@
         <!-- Activity SMS -->
         <activity
             android:name=".activity.smsverification.SmsActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <!-- Activity Confirmate Folio -->
         <activity
             android:name=".activity.ConfirmateActivity"

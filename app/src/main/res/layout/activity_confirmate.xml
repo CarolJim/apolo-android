@@ -30,9 +30,7 @@
         app:tipo="Titulo"
         android:lineSpacingExtra="0sp"
         android:textSize="@dimen/dimen_margin_xl"
-        android:layout_marginTop="@dimen/dimen_margin_large"
-        android:layout_marginLeft="@dimen/dimen_margin_large"
-        android:layout_marginRight="@dimen/dimen_margin_large" />
+        android:layout_marginTop="@dimen/dimen_margin_large" />
 
     <com.pagatodo.apolo.utils.customviews.MaterialTextView
         android:id="@+id/numeroFolio"
@@ -43,9 +41,7 @@
         app:tipo="Subtitulo"
         android:lineSpacingExtra="0sp"
         android:textSize="@dimen/dimen_margin_xl"
-        android:layout_marginTop="@dimen/dimen_margin_large"
-        android:layout_marginLeft="@dimen/dimen_margin_large"
-        android:layout_marginRight="@dimen/dimen_margin_large" />
+        android:layout_marginTop="@dimen/dimen_margin_large" />
 
     </LinearLayout>
 

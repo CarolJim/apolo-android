@@ -1,11 +1,14 @@
 package com.pagatodo.apolo.activity.login;
 
 import android.app.Activity;
+import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.view.Gravity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.pagatodo.apolo.activity.register.RegisterActivity;
@@ -69,6 +72,7 @@ public class LoginActivity extends Activity implements LoginView{
     }
     @Override public void showProgress() {
         progressBar.setVisibility(View.VISIBLE);
+        hideSoftKeyboard(edtNumber);
     }
     @Override public void hideProgress() {
         progressBar.setVisibility(View.GONE);
@@ -86,4 +90,11 @@ public class LoginActivity extends Activity implements LoginView{
         moveTaskToBack(true);
     }
 
+    /*** Hides soft keyboard.* @param editText EditText which has focus*/
+    public void hideSoftKeyboard(MaterialValidationEditText editText) {
+        if (editText == null)
+            return;
+        InputMethodManager imm = (InputMethodManager) getSystemService(Service.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+    }
 }

@@ -5,10 +5,12 @@ import android.content.pm.PackageManager;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 import com.pagatodo.apolo.App;
@@ -22,6 +24,7 @@ import com.pagatodo.apolo.utils.Constants;
 import com.pagatodo.apolo.utils.RecyclerItemClickListener;
 import com.pagatodo.apolo.utils.ValidateForm;
 import com.pagatodo.apolo.utils.customviews.MaterialButton;
+import com.pagatodo.apolo.utils.customviews.MaterialTextView;
 import com.pagatodo.apolo.utils.customviews.MaterialValidationEditText;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +47,9 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     @BindView(R.id.layoutRegister) CoordinatorLayout layoutRegister;
     @BindView(R.id.edtCellPhone) MaterialValidationEditText edtCellPhone;
     @BindView(R.id.edtPhone) MaterialValidationEditText edtPhone;
-    App Afiliado = App.getInstance();
+    @BindView(R.id.tv_name_afiliado) MaterialTextView tvAfiliado;
+    App afiliado = App.getInstance();
+    private static int positionItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +59,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
         ButterKnife.bind(this);
 
         cardsList = new ArrayList<>();
-        adapter = new CustomAdapter(getApplicationContext(), cardsList);
+        adapter = new CustomAdapter(this, cardsList);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getApplicationContext(), 1);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -65,6 +70,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
                     @Override
                     public void onItemClick(View view, int position) {
                         // TODO Handle item click
+                        positionItem = position;
                         Intent i = new Intent(RegisterActivity.this, CaptureActivity.class);
                         i.putExtra(Constants.TYPE_CAPTURE,position);
                         startActivity(i);
@@ -73,7 +79,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
         );
         registerpresenter.request(cardsList);
         validateEditText(btnRegister, edtCellPhone);
-
+        tvAfiliado.setText(afiliado.get(Constants.KEY_NOMBRE_AFILIADO) );
     }
 
     private void validateEditText(MaterialButton btnRegister, MaterialValidationEditText edtCellPhone){
@@ -87,8 +93,8 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
 
     @OnClick(R.id.btnRegister)
     public void registrar() {
-        Log.e("---->"," route "+ Afiliado.get(Constants.KEY_TARJETA) +  " -- " +   Afiliado.get(Constants.KEY_IFE_FRENTE)  + " -- " + Afiliado.get(Constants.KEY_IFE_VUELTA));
-        registerpresenter.register(edtCellPhone.getText().toString(), edtPhone.getText().toString(), Afiliado.get(Constants.KEY_TARJETA), Afiliado.get(Constants.KEY_IFE_FRENTE), Afiliado.get(Constants.KEY_IFE_VUELTA));
+        Log.e("---->"," route "+ afiliado.get(Constants.KEY_TARJETA) +  " -- " +   afiliado.get(Constants.KEY_IFE_FRENTE)  + " -- " + afiliado.get(Constants.KEY_IFE_VUELTA));
+        registerpresenter.register(edtCellPhone.getText().toString(), edtPhone.getText().toString(), afiliado.get(Constants.KEY_TARJETA), afiliado.get(Constants.KEY_IFE_FRENTE), afiliado.get(Constants.KEY_IFE_VUELTA));
     }
 
     @OnClick(R.id.ivVerify)
@@ -123,6 +129,15 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
         if (!isDeviceSupportCamera()) {
             showToast(getString((R.string.not_compatible_camera)), getApplicationContext());
             finish();
+        } if(afiliado.get(Constants.KEY_TARJETA) != null  || afiliado.get(Constants.KEY_IFE_FRENTE) != null || afiliado.get(Constants.KEY_IFE_VUELTA) != null  ){
+            Log.e("--->"," size ---->"+ cardsList.size() + "/" +positionItem);
+            for (int i = 0; i < cardsList.size(); i++) {
+                View view = LayoutInflater.from(this).inflate(R.layout.layout_cardview, null);
+                AppCompatImageView checkImg = view.findViewById(R.id.ivCheck);
+                if (i == positionItem)
+                    checkImg.setVisibility(View.VISIBLE);
+            }
+            adapter.notifyDataSetChanged();
         }
     }
 

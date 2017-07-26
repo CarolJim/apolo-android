@@ -15,8 +15,9 @@ public class LoginInteractorImpl implements LoginInteractor {
         if (TextUtils.isEmpty(numberUser)){
             listener.onUserNumberError();
         } else if(numberUser.equals("12345678")){
-            App Afiliado = App.getInstance();
-            Afiliado.put(Constants.KEY_NUMERO_AFILIADO, numberUser);
+            App afiliado = App.getInstance();
+            afiliado.put(Constants.KEY_NUMERO_AFILIADO, numberUser);
+            afiliado.put(Constants.KEY_NOMBRE_AFILIADO, "Roberto Vargas");
             listener.onSuccess();
         }else {
             listener.failure("El número de usuario es invalido");
