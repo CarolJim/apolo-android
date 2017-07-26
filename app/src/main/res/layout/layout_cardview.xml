@@ -18,6 +18,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/bg_app">
+
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/typeCard"
                 android:layout_height="@dimen/card_height"
@@ -26,6 +31,8 @@
                 tools:ignore="VectorDrawableCompat"
                 app:srcCompat="@drawable/btn_tarjeta_ap"
                 android:scaleType="fitXY"/>
+
+            </RelativeLayout>
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/thumbCard"
@@ -46,9 +53,8 @@
                 android:layout_marginRight="@dimen/dimen_margin_large"
                 android:layout_marginEnd="@dimen/dimen_margin_large"
                 android:scaleType="fitCenter"
-                tools:ignore="VectorDrawableCompat"
                 app:srcCompat="@drawable/ic_check_ap"
-                android:visibility="gone"/>
+                android:visibility="visible"/>
 
         </FrameLayout>
 

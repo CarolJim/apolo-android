@@ -2,10 +2,7 @@ package com.pagatodo.apolo.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.widget.EditText;
-
 import com.pagatodo.apolo.App;
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.activity.login.LoginActivity;
@@ -28,8 +25,7 @@ public class ConfirmateActivity extends Activity {
         setContentView(R.layout.activity_confirmate);
         ButterKnife.bind(this);
 
-        int randomNum = 5 + (int)(Math.random() * 10);
-        String generate = getString(R.string.folio_generado, randomNum);
+        String generate = getString(R.string.folio_generado, String.valueOf(Math.random()));
         numeroFolio.setText(generate);
     }
 

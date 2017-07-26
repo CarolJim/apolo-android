@@ -35,6 +35,4 @@ public class Cards {
         this.ivCheck = ivCheck;
     }
 
-
-
 }

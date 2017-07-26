@@ -1,6 +1,5 @@
 package com.pagatodo.apolo.activity.smsverification;
 
-import android.app.Activity;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,6 +8,8 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -19,10 +20,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.pagatodo.apolo.R;
+import com.pagatodo.apolo.activity.register.RegisterActivity;
 import com.pagatodo.apolo.activity.smsverification._presenter._interfaces.SmsPresenter;
 import com.pagatodo.apolo.activity.smsverification._presenter.SmsPresenterImpl;
 import com.pagatodo.apolo.activity.smsverification._presenter._interfaces.SmsView;
-import com.pagatodo.apolo.ui.base.factoryactivities.BaseActivity;
 import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterActivity;
 
 import butterknife.BindView;
@@ -46,6 +47,7 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
     @BindView(R.id.pin_six)  EditText mPinSix;
     @BindView(R.id.pin_hidden_edittext) EditText mPinHiddenEditText;
     @BindView(R.id.progress_view_activity) LinearLayout progressBar;
+    @BindView(R.id.toolbar) Toolbar toolbar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,12 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
         setContentView(R.layout.activity_sms);
         ButterKnife.bind(this);
         setPINListeners();
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     @Override
@@ -82,13 +90,13 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
 
     @Override
     public void setNavigation() {
-        //startActivity(new Intent(this,RegisterActivity.class));
-        onBackPressed();
+        startActivity(new Intent(this,RegisterActivity.class));
+        //onBackPressed();
     }
 
     @Override
     public void showMessage(String message) {
-        Toast.makeText(this, ""+message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
