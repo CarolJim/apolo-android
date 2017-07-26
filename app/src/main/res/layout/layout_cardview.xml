@@ -7,7 +7,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:elevation="@dimen/dimen_cardView_elevation"
     card_view:cardCornerRadius="@dimen/card_corner_radius"
+    card_view:cardPreventCornerOverlap="false"
     android:layout_marginBottom="@dimen/dimen_margin_small">
+
+    <!-- The line card_view:cardPreventCornerOverlap="false" prevents white border line over the cardview-->
 
 <RelativeLayout
     android:id="@+id/cards"

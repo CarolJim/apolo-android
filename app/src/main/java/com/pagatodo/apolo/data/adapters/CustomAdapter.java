@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.bumptech.glide.Glide;
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.data.pojo.Cards;
 import java.util.List;
@@ -58,9 +57,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.mViewHolde
     @Override
     public void onBindViewHolder(final mViewHolder holder, int position) {
         Cards items = cardsList.get(position);
-        Glide.with(mContext).load(items.getTypeCard()).crossFade(2).into(holder.typeCards);
-        Glide.with(mContext).load(items.getThumbCard()).crossFade(2).into(holder.thumbCards);
-        Glide.with(mContext).load(items.getIvCheck()).crossFade(2).into(holder.checkCards);
+        holder.typeCards.setImageResource(items.getTypeCard());
+        holder.thumbCards.setImageResource(items.getThumbCard());
+        holder.checkCards.setImageResource(items.getIvCheck());
     }
 
     @Override
