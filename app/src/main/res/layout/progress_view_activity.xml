@@ -6,8 +6,9 @@
     android:layout_height="match_parent"
     app:elevation="20dp"
     android:elevation="20dp"
+    android:visibility="gone"
     android:id="@+id/progress_view_activity"
-    android:background="@color/colorBackgroundProgressFragment">
+    android:background="@color/bg_app">
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -33,7 +34,7 @@
                 android:layout_height="wrap_content" />
             <com.pagatodo.apolo.utils.customviews.MaterialTextView
                 android:layout_margin="@dimen/dimen_margin_small"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorWhite"
                 android:id="@+id/progressTextActivity"
                 android:text="@string/txt_progressText"
                 android:gravity="center"

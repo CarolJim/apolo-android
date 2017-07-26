@@ -3,6 +3,8 @@ package com.pagatodo.apolo.utils;
 import android.util.SparseIntArray;
 import android.view.Surface;
 
+import java.io.File;
+
 /**
  * Created by rvargas on 14/07/2017.
  */
@@ -35,6 +37,13 @@ public class Constants {
     //App Version
     public static final String APP_VERSION = "1";
 
+    //KEY HASHMAP
+    public static final String KEY_NUMERO_AFILIADO = "KEY_NUMERO_AFILIADO";
+    public static final String KEY_CELULAR    = "KEY_CELULAR";
+    public static final String KEY_TELEFONO   = "KEY_TELEFONO";
+    public static final String KEY_IFE_FRENTE = "KEY_IFE_FRENTE";
+    public static final String KEY_IFE_VUELTA = "KEY_IFE_VUELTA";
+    public static final String KEY_TARJETA    = "KEY_CELULAR";
 
 
 }

@@ -1,6 +1,5 @@
 package com.pagatodo.apolo.activity.register;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.design.widget.CoordinatorLayout;
@@ -10,15 +9,13 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import com.pagatodo.apolo.App;
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.activity.CaptureActivity;
 import com.pagatodo.apolo.activity.ConfirmateActivity;
+import com.pagatodo.apolo.activity.smsverification.SmsActivity;
 import com.pagatodo.apolo.data.adapters.CustomAdapter;
 import com.pagatodo.apolo.data.pojo.Cards;
 import com.pagatodo.apolo.utils.Constants;
@@ -43,14 +40,11 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     private CustomAdapter adapter;
     private List<Cards> cardsList;
     @BindView(R.id.recycler_view_card) RecyclerView recyclerView;
-    @BindView(R.id.progress) ProgressBar progress;
     @BindView(R.id.btnRegister) MaterialButton btnRegister;
     @BindView(R.id.layoutRegister) CoordinatorLayout layoutRegister;
     @BindView(R.id.edtCellPhone) MaterialValidationEditText edtCellPhone;
     @BindView(R.id.edtPhone) MaterialValidationEditText edtPhone;
-    private String rutaCard     = null;
-    private String rutaINEFront = null;
-    private String rutaINEBack  = null;
+    App Afiliado = App.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +71,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
                     }
                 })
         );
-        progress.setVisibility(View.VISIBLE);
         registerpresenter.request(cardsList);
         validateEditText(btnRegister, edtCellPhone);
 
@@ -88,11 +81,19 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
             ValidateForm.enableBtn(false, btnRegister);
             ValidateForm.validateEditText(btnRegister, edtCellPhone);
         }
+        edtCellPhone.setMaxLength(10);
+        edtPhone.setMaxLength(8);
     }
 
     @OnClick(R.id.btnRegister)
     public void registrar() {
-        registerpresenter.register(edtCellPhone.getText().toString(), edtPhone.getText().toString(), rutaCard, rutaINEFront, rutaINEBack);
+        Log.e("---->"," route "+ Afiliado.get(Constants.KEY_TARJETA) +  " -- " +   Afiliado.get(Constants.KEY_IFE_FRENTE)  + " -- " + Afiliado.get(Constants.KEY_IFE_VUELTA));
+        registerpresenter.register(edtCellPhone.getText().toString(), edtPhone.getText().toString(), Afiliado.get(Constants.KEY_TARJETA), Afiliado.get(Constants.KEY_IFE_FRENTE), Afiliado.get(Constants.KEY_IFE_VUELTA));
+    }
+
+    @OnClick(R.id.ivVerify)
+    public void sms(){
+        startActivity(new Intent(this,SmsActivity.class));
     }
 
     @Override
@@ -107,7 +108,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
 
     @Override
     public void returnData(){
-        progress.setVisibility(View.GONE);
         adapter.notifyDataSetChanged();
     }
 

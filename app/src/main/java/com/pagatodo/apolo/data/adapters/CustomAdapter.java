@@ -29,7 +29,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.mViewHolde
             super(view);
             typeCards  =  view.findViewById(R.id.typeCard);
             thumbCards =  view.findViewById(R.id.thumbCard);
-            checkCards =  view.findViewById(R.id.checkCard);
+            checkCards =  view.findViewById(R.id.ivCheck);
         }
     }
 
@@ -60,6 +60,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.mViewHolde
         Cards items = cardsList.get(position);
         Glide.with(mContext).load(items.getTypeCard()).crossFade(2).into(holder.typeCards);
         Glide.with(mContext).load(items.getThumbCard()).crossFade(2).into(holder.thumbCards);
+        Glide.with(mContext).load(items.getIvCheck()).crossFade(2).into(holder.checkCards);
     }
 
     @Override

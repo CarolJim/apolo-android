@@ -57,6 +57,7 @@
                 app:hintColor="@color/colorWhite"
                 app:hintText="@string/editText_celular"
                 android:padding="@dimen/dimen_margin_small"
+                android:maxLength="10"
                 android:layout_marginLeft="@dimen/dimen_margin_xl"
                 android:layout_marginTop="@dimen/dimen_margin_medium"/>
             <android.support.v7.widget.AppCompatImageView
@@ -66,7 +67,7 @@
                 android:layout_gravity="center|end|right"
                 app:srcCompat="@drawable/ic_verificar_ap"
                 tools:ignore="VectorDrawableCompat"
-                android:visibility="gone"/>
+                android:visibility="visible"/>
         </FrameLayout>
     </RelativeLayout>
 
@@ -93,9 +94,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:formato="phone"
+            android:gravity="left"
             app:hintColor="@color/colorWhite"
-            app:hintText="@string/editText_celular"
+            app:hintText="@string/editText_telefono"
             android:padding="@dimen/dimen_margin_small"
+            android:maxLength="6"
             android:layout_marginLeft="@dimen/dimen_margin_xl"/>
         </FrameLayout>
     </RelativeLayout>
@@ -138,13 +141,4 @@
 
 </LinearLayout>
 </android.support.v4.widget.NestedScrollView>
-<ProgressBar
-    android:visibility="gone"
-    style="?android:attr/progressBarStyle"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:layout_marginTop="@dimen/dimen_margin_large"
-    android:layout_centerHorizontal="true"
-    android:id="@+id/progress" />
 </android.support.design.widget.CoordinatorLayout>

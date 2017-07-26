@@ -3,9 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/layoutLogin"
+    android:id="@+id/layoutSms"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".activity.smsverification.SmsActivity"
     android:background="@color/bg_app">
 
 <RelativeLayout
@@ -13,8 +14,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:layout_marginLeft="@dimen/dimen_margin_large"
-    android:layout_marginRight="@dimen/dimen_margin_large"
-    tools:context=".activity.LoginActivity">
+    android:layout_marginRight="@dimen/dimen_margin_large">
 
          <LinearLayout
             android:layout_width="match_parent"
@@ -22,17 +22,21 @@
             android:orientation="vertical"
             android:gravity="center">
 
-        <!-- Numero de usuario -->
-         <com.pagatodo.apolo.utils.customviews.MaterialValidationEditText
-             android:id="@+id/edtUserNumber"
-             android:layout_width="match_parent"
+         <com.pagatodo.apolo.utils.customviews.MaterialTextView
+             android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             app:formato="number"
+             android:text="@string/codigo_sms"
+             android:textColor="@color/colorWhite"
+             app:tipo="Titulo"
              android:gravity="center"
-             android:padding="@dimen/dimen_padding_medium"
-             android:maxLength="8"
-             app:hintColor="@color/colorWhite"
-             app:hintText="@string/hint_numero_usuario"/>
+             android:lineSpacingExtra="0sp"
+             android:textSize="@dimen/dimen_margin_xl"
+             android:layout_marginTop="@dimen/dimen_margin_large"
+             android:layout_marginLeft="@dimen/dimen_margin_large"
+             android:layout_marginRight="@dimen/dimen_margin_large" />
+
+             <!-- Código SMS -->
+            <include layout="@layout/pin_edittext" />
 
         </LinearLayout>
 
@@ -41,13 +45,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <!-- Boton Login  -->
+            <!-- Boton verificar SMS  -->
             <com.pagatodo.apolo.utils.customviews.MaterialButton
-                android:id="@+id/btnLogin"
+                android:id="@+id/btnVerificar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_button_height"
                 android:layout_marginBottom="@dimen/dimen_margin_xl"
-                android:text="@string/txt_button_continue"
+                android:text="@string/txt_button_reenviar"
                 android:textColor="@color/colorWhite"
                 app:buttonNormalColor="@color/teal"
                 app:buttonStrokeColor="@color/teal"

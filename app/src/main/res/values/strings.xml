@@ -22,6 +22,8 @@
     <string name="txt_button_continue">CONTINUAR</string>
     <string name="txt_button_login">INGRESAR</string>
     <string name="txt_button_end">FINALIZAR</string>
+    <string name="txt_button_reenviar">REENVIAR %d</string>
+
 
     <!-- @see progress_view.xml -->
     <string name="txt_progressText">Espera por favor</string>
@@ -72,6 +74,15 @@
     <!-- WS errors -->
     <string name="network_error">Verifica tu conexión a internet.</string>
 
+    <!-- Activity Confirmate -->
+    <string name="txt_folio">Anota el numero de folio</string>
+    <string name="folio_generado">Folio: %d</string>
+    <string name="pin_label_text">Código</string>
+
+    <!-- Activity SMS -->
+    <string name="codigo_sms">Te enviamos un SMS con el código de verificación</string>
+    <string name="ingresa_codigo">Ingresa el código de verificación</string>
+
     <!-- Dialogs -->
     <string name="txt_title">AVISO</string>
     <string name="dialog_title_aviso">Aviso</string>
@@ -107,4 +118,5 @@
     <string name="general_run_time_message">Para que tu experiencia dentro de la aplicación sea completa, activa los siguientes permisos:</string>
     <string name="home_activity_run_time_fine_location">Acceder a la ubicación de este dispositivo ( no podrás encontrar nuestras sucursales cerca de ti ).</string>
     <string name="home_activity_run_time_call_phone">Hacer y administrar llamadas de teléfono ( no podrás llamarnos ).</string>
+
 </resources>

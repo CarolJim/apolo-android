@@ -5,39 +5,36 @@ package com.pagatodo.apolo.data.pojo;
  */
 
 public class Cards {
-    private String TypeCard;
-    private String ThumbCard;
-    private String CheckCard;
+    private int TypeCard;
+    private int ThumbCard;
+    private int ivCheck;
 
     public Cards() {}
-    public Cards(String TypeCard,String ThumbCard,String CheckCard) {
-        this.TypeCard = TypeCard;
-        this.ThumbCard = ThumbCard;
-        this.CheckCard = CheckCard;
-    }
 
-    public String getTypeCard() {
+    public int getTypeCard() {
         return TypeCard;
     }
 
-    public void setTypeCard(String typeCard) {
+    public void setTypeCard(int typeCard) {
         TypeCard = typeCard;
     }
 
-    public String getThumbCard() {
+    public int getThumbCard() {
         return ThumbCard;
     }
 
-    public void setThumbCard(String thumbCard) {
+    public void setThumbCard(int thumbCard) {
         ThumbCard = thumbCard;
     }
 
-    public String getCheckCard() {
-        return CheckCard;
+    public int getIvCheck() {
+        return ivCheck;
     }
 
-    public void setCheckCard(String checkCard) {
-        CheckCard = checkCard;
+    public void setIvCheck(int ivCheck) {
+        this.ivCheck = ivCheck;
     }
+
+
 
 }

@@ -5,6 +5,9 @@
     <!-- Accessing camera hardware -->
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
         android:name=".App"
@@ -39,10 +42,21 @@
         <activity
             android:name=".activity.CaptureActivity"
             android:screenOrientation="portrait"/>
-        <!-- Activity end -->
+        <!-- Activity SMS -->
+        <activity
+            android:name=".activity.smsverification.SmsActivity"
+            android:screenOrientation="portrait"/>
+        <!-- Activity Confirmate Folio -->
         <activity
             android:name=".activity.ConfirmateActivity"
             android:screenOrientation="portrait"/>
+
+        <receiver android:name=".receiver.ReceiverSms">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
         <service
             android:name="com.pagatodo.apolo.data.remote.notifications.FCMService">
             <intent-filter>
