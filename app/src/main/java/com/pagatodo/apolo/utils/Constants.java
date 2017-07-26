@@ -16,10 +16,8 @@ public class Constants {
 
     //SERVER
     public static final String URL_SERVER               = "";
-    public static final String URL_SERVER_MEGA 	        = "";
-    public static final String URL_TERMS_AND_CONDITIONS = "";
-    public static final String URL_PRIVACY_POLICY       = "";
-    public static final String URL_REMOTE_CONFIG        = "";
+    public static final String URL_SERVER_MEGA 	        = "http://10.10.45.16:62703/ServiceMega.svc/http";
+    public static final String URL_REMOTE_CONFIG        = "https://apolo-8e38a.firebaseapp.com/config.json";
 
     //BASE DE DATOS
     public static final int DATABASE_VERSION = 1;

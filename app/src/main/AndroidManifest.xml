@@ -19,7 +19,7 @@
         android:theme="@style/AppTheme">
         <!-- Activity Splash Start -->
         <activity
-            android:name=".activity.SplashScreen"
+            android:name=".activity.splash.SplashActivity"
             android:noHistory="true"
             android:screenOrientation="portrait">
             <intent-filter>

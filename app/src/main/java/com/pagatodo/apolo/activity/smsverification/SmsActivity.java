@@ -19,6 +19,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.pagatodo.apolo.R;
+import com.pagatodo.apolo.activity.smsverification._presenter._interfaces.SmsPresenter;
+import com.pagatodo.apolo.activity.smsverification._presenter.SmsPresenterImpl;
+import com.pagatodo.apolo.activity.smsverification._presenter._interfaces.SmsView;
+import com.pagatodo.apolo.ui.base.factoryactivities.BaseActivity;
+import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterActivity;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -28,9 +34,8 @@ import static com.pagatodo.apolo.ui.UI.showSnackBar;
  * Created by rvargas on 21-07-17.
  */
 
-public class SmsActivity extends Activity implements SmsView, View.OnFocusChangeListener, View.OnKeyListener, TextWatcher {
+public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements SmsView, View.OnFocusChangeListener, View.OnKeyListener, TextWatcher {
 
-    SmsPresenter smspresenter;
     @BindView(R.id.layoutSms) CoordinatorLayout layoutSms;
     @BindView(R.id.btnVerificar) Button btnVerificar;
     @BindView(R.id.pin_one) EditText mPinOne;
@@ -43,17 +48,31 @@ public class SmsActivity extends Activity implements SmsView, View.OnFocusChange
     @BindView(R.id.progress_view_activity) LinearLayout progressBar;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sms);
-        smspresenter = new SmsPresenterImpl(this);
         ButterKnife.bind(this);
         setPINListeners();
     }
 
+    @Override
+    protected int setIdMainView() {
+        return 0;
+    }
+
+    @Override
+    protected int setIdContainerFragments() {
+        return 0;
+    }
+
+    @Override
+    protected void initializePresenter() {
+        presenter = new SmsPresenterImpl(this);
+    }
+
     @OnClick(R.id.btnVerificar)
     public void verificar() {
-        smspresenter.verify(mPinHiddenEditText.getText().toString());
+        presenter.verify(mPinHiddenEditText.getText().toString());
     }
 
     @Override

@@ -1,7 +1,8 @@
-package com.pagatodo.apolo.activity.login;
+package com.pagatodo.apolo.activity.login._presenter;
 
 import android.text.TextUtils;
 import com.pagatodo.apolo.App;
+import com.pagatodo.apolo.activity.login._presenter._interfaces.LoginInteractor;
 import com.pagatodo.apolo.utils.Constants;
 
 /**

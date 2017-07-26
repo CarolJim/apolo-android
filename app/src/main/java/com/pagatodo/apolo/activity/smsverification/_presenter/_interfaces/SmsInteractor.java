@@ -1,4 +1,4 @@
-package com.pagatodo.apolo.activity.smsverification;
+package com.pagatodo.apolo.activity.smsverification._presenter._interfaces;
 /**
  * Created by rvargas on 21-07-17.
  */

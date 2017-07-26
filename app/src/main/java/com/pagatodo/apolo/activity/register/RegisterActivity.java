@@ -15,9 +15,13 @@ import com.pagatodo.apolo.App;
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.activity.CaptureActivity;
 import com.pagatodo.apolo.activity.ConfirmateActivity;
+import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterPresenter;
+import com.pagatodo.apolo.activity.register._presenter.RegisterPresenterImpl;
+import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterView;
 import com.pagatodo.apolo.activity.smsverification.SmsActivity;
 import com.pagatodo.apolo.data.adapters.CustomAdapter;
 import com.pagatodo.apolo.data.pojo.Cards;
+import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterActivity;
 import com.pagatodo.apolo.utils.Constants;
 import com.pagatodo.apolo.utils.RecyclerItemClickListener;
 import com.pagatodo.apolo.utils.ValidateForm;
@@ -33,9 +37,8 @@ import butterknife.OnClick;
 import static com.pagatodo.apolo.ui.UI.showSnackBar;
 import static com.pagatodo.apolo.ui.UI.showToast;
 
-public class RegisterActivity extends AppCompatActivity implements RegisterView {
+public class RegisterActivity extends BasePresenterActivity<RegisterPresenter> implements RegisterView {
 
-    RegisterPresenter registerpresenter;
     private final String TAG = "MainActivity";
     private CustomAdapter adapter;
     private List<Cards> cardsList;
@@ -47,10 +50,9 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     App Afiliado = App.getInstance();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        registerpresenter = new RegisterPresenterImpl(this);
         ButterKnife.bind(this);
 
         cardsList = new ArrayList<>();
@@ -71,9 +73,24 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
                     }
                 })
         );
-        registerpresenter.request(cardsList);
+        presenter.request(cardsList);
         validateEditText(btnRegister, edtCellPhone);
 
+    }
+
+    @Override
+    protected int setIdMainView() {
+        return 0;
+    }
+
+    @Override
+    protected int setIdContainerFragments() {
+        return 0;
+    }
+
+    @Override
+    protected void initializePresenter() {
+        presenter = new RegisterPresenterImpl(this);
     }
 
     private void validateEditText(MaterialButton btnRegister, MaterialValidationEditText edtCellPhone){
@@ -88,7 +105,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     @OnClick(R.id.btnRegister)
     public void registrar() {
         Log.e("---->"," route "+ Afiliado.get(Constants.KEY_TARJETA) +  " -- " +   Afiliado.get(Constants.KEY_IFE_FRENTE)  + " -- " + Afiliado.get(Constants.KEY_IFE_VUELTA));
-        registerpresenter.register(edtCellPhone.getText().toString(), edtPhone.getText().toString(), Afiliado.get(Constants.KEY_TARJETA), Afiliado.get(Constants.KEY_IFE_FRENTE), Afiliado.get(Constants.KEY_IFE_VUELTA));
+        presenter.register(edtCellPhone.getText().toString(), edtPhone.getText().toString(), Afiliado.get(Constants.KEY_TARJETA), Afiliado.get(Constants.KEY_IFE_FRENTE), Afiliado.get(Constants.KEY_IFE_VUELTA));
     }
 
     @OnClick(R.id.ivVerify)

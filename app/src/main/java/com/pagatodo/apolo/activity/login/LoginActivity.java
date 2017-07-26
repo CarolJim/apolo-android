@@ -8,8 +8,14 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.pagatodo.apolo.activity.login._presenter._interfaces.LoginPresenter;
+import com.pagatodo.apolo.activity.login._presenter.LoginPresenterImpl;
+import com.pagatodo.apolo.activity.login._presenter._interfaces.LoginView;
 import com.pagatodo.apolo.activity.register.RegisterActivity;
 import com.pagatodo.apolo.R;
+import com.pagatodo.apolo.ui.base.factoryactivities.BaseActivity;
+import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterActivity;
 import com.pagatodo.apolo.utils.ValidateForm;
 import com.pagatodo.apolo.utils.ValidatePermission;
 import com.pagatodo.apolo.utils.customviews.MaterialButton;
@@ -23,23 +29,36 @@ import static com.pagatodo.apolo.ui.UI.showSnackBar;
  * Created by rvargas on 21-07-17.
  */
 
-public class LoginActivity extends Activity implements LoginView{
+public class LoginActivity extends BasePresenterActivity<LoginPresenter> implements LoginView {
 
-    LoginPresenter loginpresenter;
     @BindView(R.id.edtUserNumber) MaterialValidationEditText edtNumber;
     @BindView(R.id.btnLogin) MaterialButton btnLogin;
     @BindView(R.id.layoutLogin) CoordinatorLayout layoutLogin;
     @BindView(R.id.progress_view_activity) LinearLayout progressBar;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        loginpresenter = new LoginPresenterImpl(this);
         ButterKnife.bind(this);
         validateEditText(btnLogin, edtNumber);
         edtNumber.setGravity(Gravity.CENTER | Gravity.LEFT);
         edtNumber.setMaxLength(8);
+    }
+
+    @Override
+    protected int setIdMainView() {
+        return 0;
+    }
+
+    @Override
+    protected int setIdContainerFragments() {
+        return 0;
+    }
+
+    @Override
+    protected void initializePresenter() {
+        presenter = new LoginPresenterImpl(this);
     }
 
     private void validateEditText(MaterialButton btnLogin, MaterialValidationEditText edtNumber){
@@ -51,7 +70,7 @@ public class LoginActivity extends Activity implements LoginView{
 
     @OnClick(R.id.btnLogin)
     public void login() {
-        loginpresenter.login(edtNumber.getText().toString());
+        presenter.login(edtNumber.getText().toString());
     }
 
     @Override
@@ -67,10 +86,12 @@ public class LoginActivity extends Activity implements LoginView{
     public void showMessage(String message) {
         Toast.makeText(this, ""+message, Toast.LENGTH_SHORT).show();
     }
-    @Override public void showProgress() {
+    @Override
+    public void showProgress() {
         progressBar.setVisibility(View.VISIBLE);
     }
-    @Override public void hideProgress() {
+    @Override
+    public void hideProgress() {
         progressBar.setVisibility(View.GONE);
     }
 

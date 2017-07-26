@@ -19,8 +19,6 @@ public class PreferencesContract {
     public final static String SURL_SERVIDOR            = "UrlServidor";
     public final static String SURL_NOTIFICACIONES      = "UrlNotificaciones";
     public final static String SURL_CONFIG              = "UrlConfig";
-    public final static String SURL_AVISOPRIVACIDAD     = "UrlAvisoPrivacidad";
-    public final static String SURL_TERMINOSCONDICIONES = "UrlTerminosCondiciones";
     public final static String SDIGESTO                 = "Digesto";
 
 }

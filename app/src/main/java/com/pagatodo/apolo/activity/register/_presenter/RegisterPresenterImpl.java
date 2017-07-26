@@ -1,8 +1,10 @@
-package com.pagatodo.apolo.activity.register;
+package com.pagatodo.apolo.activity.register._presenter;
 
-import android.util.Log;
-
+import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterInteractor;
+import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterPresenter;
+import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterView;
 import com.pagatodo.apolo.data.pojo.Cards;
+import com.pagatodo.apolo.ui.base.factorypresenters.BasePresenter;
 
 import java.util.List;
 
@@ -10,13 +12,12 @@ import java.util.List;
  * Created by rvargas on 21-07-17.
  */
 
-public class RegisterPresenterImpl implements RegisterPresenter, RegisterInteractor.onRegisterListener, RegisterInteractor.onRequestListener  {
+public class RegisterPresenterImpl extends BasePresenter<RegisterView> implements RegisterPresenter, RegisterInteractor.onRegisterListener, RegisterInteractor.onRequestListener  {
 
-    RegisterView registerView;
-    RegisterInteractor registerInteractor;
+    private RegisterInteractor registerInteractor;
 
     public RegisterPresenterImpl(RegisterView registerView) {
-        this.registerView = registerView;
+        super(registerView);
         registerInteractor = new RegisterInteractorImpl();
     }
 
@@ -32,32 +33,32 @@ public class RegisterPresenterImpl implements RegisterPresenter, RegisterInterac
 
     @Override
     public void onSuccess() {
-        if (registerView!=null)
-            registerView.setNavigation();
+        if (view!=null)
+            view.setNavigation();
     }
 
     @Override
     public void failure(String message) {
-        if (registerView!=null)
-            registerView.showMessage(message);
+        if (view!=null)
+            view.showMessage(message);
     }
 
     @Override
     public void onSuccessRequest() {
-        if (registerView!=null)
-            registerView.returnData();
+        if (view!=null)
+            view.returnData();
     }
 
     @Override
     public void failureRequest(String message) {
-        if (registerView!=null)
-            registerView.showMessage(message);
+        if (view!=null)
+            view.showMessage(message);
     }
 
     @Override
     public void messagesError(String message) {
-        if (registerView!=null)
-            registerView.setMessageError(message);
+        if (view!=null)
+            view.setMessageError(message);
     }
 
 }

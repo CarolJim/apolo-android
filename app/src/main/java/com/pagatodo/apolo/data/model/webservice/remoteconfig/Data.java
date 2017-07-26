@@ -11,8 +11,6 @@ public class Data  extends ModelPattern{
     private String UrlServidor;
     private String UrlNotificaciones;
     private String UrlConfig;
-    private String UrlAvisoPrivacidad;
-    private String UrlTerminosCondiciones;
     private String Digesto;
 
     public Data(){
@@ -49,22 +47,6 @@ public class Data  extends ModelPattern{
 
     public void setUrlConfig(String urlConfig) {
         UrlConfig = urlConfig;
-    }
-
-    public String getUrlAvisoPrivacidad() {
-        return UrlAvisoPrivacidad;
-    }
-
-    public void setUrlAvisoPrivacidad(String urlAvisoPrivacidad) {
-        UrlAvisoPrivacidad = urlAvisoPrivacidad;
-    }
-
-    public String getUrlTerminosCondiciones() {
-        return UrlTerminosCondiciones;
-    }
-
-    public void setUrlTerminosCondiciones(String urlTerminosCondiciones) {
-        UrlTerminosCondiciones = urlTerminosCondiciones;
     }
 
     public String getDigesto() {

@@ -1,8 +1,8 @@
-package com.pagatodo.apolo.activity.smsverification;
+package com.pagatodo.apolo.activity.smsverification._presenter;
 
 import android.text.TextUtils;
-import com.pagatodo.apolo.App;
-import com.pagatodo.apolo.utils.Constants;
+
+import com.pagatodo.apolo.activity.smsverification._presenter._interfaces.SmsInteractor;
 
 /**
  * Created by rvargas on 21-07-17.

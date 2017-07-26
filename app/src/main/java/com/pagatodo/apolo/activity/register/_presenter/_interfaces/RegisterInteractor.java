@@ -1,4 +1,4 @@
-package com.pagatodo.apolo.activity.register;
+package com.pagatodo.apolo.activity.register._presenter._interfaces;
 
 import com.pagatodo.apolo.data.pojo.Cards;
 

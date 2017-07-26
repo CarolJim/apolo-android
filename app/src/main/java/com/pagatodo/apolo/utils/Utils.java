@@ -179,8 +179,6 @@ public class Utils {
                 + data.getFechaUltimaActualizacion()
                 + data.getUrlServidor() // servidor
                 + data.getUrlNotificaciones() //notificacion
-                + data.getUrlAvisoPrivacidad() //aviso
-                + data.getUrlTerminosCondiciones() //terminos
                 + data.getUrlConfig(); //config
 
 
