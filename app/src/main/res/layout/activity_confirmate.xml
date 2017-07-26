@@ -25,7 +25,7 @@
     <com.pagatodo.apolo.utils.customviews.MaterialTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Anota el numero de folio"
+        android:text="@string/txt_folio"
         android:textColor="@color/colorWhite"
         app:tipo="Titulo"
         android:lineSpacingExtra="0sp"
@@ -38,7 +38,7 @@
         android:id="@+id/numeroFolio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Folio: 348989343489"
+        android:text="@string/folio_generado"
         android:textColor="@color/colorWhite"
         app:tipo="Subtitulo"
         android:lineSpacingExtra="0sp"

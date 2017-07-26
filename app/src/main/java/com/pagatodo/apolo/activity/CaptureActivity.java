@@ -22,6 +22,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+
+import com.pagatodo.apolo.App;
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.utils.Constants;
 
@@ -45,6 +47,7 @@ public class CaptureActivity extends Activity implements PictureCallback, Surfac
     @BindView(R.id.camera_frame) RelativeLayout camera_frame;
     @BindView(R.id.progress) ProgressBar progress;
     int TYPE_CAPTURE;
+    App Afiliado = App.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,7 @@ public class CaptureActivity extends Activity implements PictureCallback, Surfac
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
         mIsCapturing = true;
+
     }
 
     @Override
@@ -183,8 +187,6 @@ public class CaptureActivity extends Activity implements PictureCallback, Surfac
     @OnClick(R.id.action_close)
     public void closeCapture() {
         onBackPressed();
-        //Intent i = new Intent(CaptureActivity.this, MainActivity.class);
-        //startActivity(i);
     }
 
     @OnClick(R.id.action_capture)
@@ -216,6 +218,17 @@ public class CaptureActivity extends Activity implements PictureCallback, Surfac
                 if (!mCameraBitmap.compress(Bitmap.CompressFormat.JPEG, 60, outStream)) {
                     showToast(getString(R.string.unable_to_save), getApplicationContext());
                 } else {
+                    switch (TYPE_CAPTURE) {
+                        case 0:
+                            Afiliado.put(Constants.KEY_TARJETA, file.toString());
+                            break;
+                        case 1:
+                            Afiliado.put(Constants.KEY_IFE_FRENTE, file.toString());
+                            break;
+                        case 2:
+                            Afiliado.put(Constants.KEY_IFE_VUELTA, file.toString());
+                            break;
+                    }
                     closeCapture();
                 }
                 outStream.close();

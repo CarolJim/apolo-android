@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<LinearLayout
+    android:id="@+id/pin_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_horizontal"
+    android:layout_marginTop="@dimen/dimen_margin_large"
+    android:layout_gravity="center_horizontal">
+
+        <EditText android:id="@+id/pin_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorWhite"
+            android:background="@drawable/edittext_bottom_line"
+            android:layout_marginRight="@dimen/dimen_margin_medium"
+            style="@style/pin_edittext_style" />
+
+        <EditText android:id="@+id/pin_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorWhite"
+            android:layout_marginRight="@dimen/dimen_margin_medium"
+            android:background="@drawable/edittext_bottom_line"
+            style="@style/pin_edittext_style" />
+
+        <EditText android:id="@+id/pin_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorWhite"
+            android:layout_marginRight="@dimen/dimen_margin_medium"
+            android:background="@drawable/edittext_bottom_line"
+            style="@style/pin_edittext_style" />
+
+        <EditText android:id="@+id/pin_four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorWhite"
+            android:layout_marginRight="@dimen/dimen_margin_medium"
+            android:background="@drawable/edittext_bottom_line"
+            style="@style/pin_edittext_style" />
+
+        <EditText android:id="@+id/pin_five"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorWhite"
+            android:background="@drawable/edittext_bottom_line"
+            style="@style/pin_edittext_style" />
+
+        <EditText android:id="@+id/pin_six"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorWhite"
+            android:layout_marginLeft="@dimen/dimen_margin_medium"
+            android:background="@drawable/edittext_bottom_line"
+            style="@style/pin_edittext_style" />
+</LinearLayout>
+
+<EditText android:id="@+id/pin_hidden_edittext"
+android:layout_width="1dp"
+android:layout_height="1dp"
+android:gravity="center_horizontal"
+android:layout_gravity="center_horizontal"
+android:background="@null"
+android:cursorVisible="false"
+android:inputType="numberPassword"
+android:maxLength="6"/>
+
+</RelativeLayout>

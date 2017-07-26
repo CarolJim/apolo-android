@@ -1,5 +1,6 @@
 package com.pagatodo.apolo.utils.customviews;
 
+import android.app.Service;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
@@ -21,6 +22,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -284,12 +286,6 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
                         case "6"://cellPhone
                             result = ValidateForm.isValidCellPhone(txt.trim());
                             message = result ? getString(R.string.valid_phonenumber): getString(R.string.invalid_phonenumber);
-                           /* if(result){
-                                    View view = LayoutInflater.from(getContext()).inflate(R.layout.activity_main, null);
-                                    ivVerify  = view.findViewById(R.id.ivVerify);
-                                    ivVerify.setVisibility(VISIBLE);
-                                    setIconResource(R.drawable.ic_verificar_ap);
-                            }*/
                             if(edtCompare != null && result && edtCompare.isValidField()){
                                 result = edtCompare.getText().equals(txt);
                                 message = result ? getString(R.string.msg_valid_refield): getString(R.string.msg_invalid_refield);
@@ -576,5 +572,14 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
     }
     public void setPinnedIcon(int pinnedIcon) {
         this.pinnedIcon = pinnedIcon;
+    }
+
+    /*** Hides soft keyboard.* @param editText EditText which has focus*/
+    public void hideSoftKeyboard(EditText editText) {
+        if (editText == null)
+            return;
+
+        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Service.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
     }
 }

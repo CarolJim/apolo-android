@@ -1,19 +1,8 @@
 package com.pagatodo.apolo.activity.register;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.pagatodo.apolo.App;
+import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.data.pojo.Cards;
-import com.pagatodo.apolo.utils.Constants;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.List;
-
 import static android.text.TextUtils.isEmpty;
 
 /**
@@ -25,52 +14,36 @@ public class RegisterInteractorImpl implements RegisterInteractor {
     @Override
     public void onRegisterAfiliado(String numberCelPhone, String numberPhone, String rutaCard, String rutaINEFront, String rutaINEBack, onRegisterListener listener) {
         if (isEmpty(numberCelPhone)){
-            listener.messagesError("Número de celular obligatorio");
+            listener.messagesError("Número celular obligatorio");
         } else if (rutaCard == null){
-            listener.messagesError("La fotografia de la tarjeta es obligatoria");
+            listener.messagesError("La fotografía de la tarjeta es obligatoria");
         } else if (rutaINEFront == null){
-            listener.messagesError("La fotografia del INE Enfrente es obligatoria");
+            listener.messagesError("La fotografía del INE frente es obligatoria");
         } else if (rutaINEBack == null){
-            listener.messagesError("La fotografia del INE Vuelta es obligatoria");
+            listener.messagesError("La fotografía del INE vuelta es obligatoria");
         }
         else if(!isEmpty(numberCelPhone) && !isEmpty(numberPhone) && rutaCard != null && rutaINEFront != null && rutaINEBack != null){
             listener.onSuccess();
         }else {
-            listener.failure("Favor de revisar todos los campos del formulario");
+            listener.failure("Todos los campos del formulario son obligatorios");
         }
     }
 
     @Override
     public void onRequestData(final List<Cards> cardsList, final onRequestListener listener) {
 
-        StringRequest jsonObjReq = new StringRequest(Request.Method.GET, Constants.URL_DEBUG,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonObj = new JSONObject(response);
-                            JSONArray objects = jsonObj.getJSONArray("cards");
-                            for(int i=0; i < objects.length(); i++){
-                                JSONObject item = objects.getJSONObject(i);
-                                Cards items = new Cards();
-                                items.setTypeCard(item.getString("card"));
-                                items.setThumbCard(item.getString("thumb"));
-                                cardsList.add(items);
-                            }
-                            listener.onSuccessRequest();
-                        }
-                        catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                listener.failureRequest(error.getMessage());
-            }
-        });
-        App.getInstance().addToRequestQueue(jsonObjReq);
+        int[] cards = new int[]{R.drawable.btn_tarjeta_ap, R.drawable.btn_inefrente_ap, R.drawable.btn_inevuelta_ap};
+        int[] brands = new int[]{R.drawable.ic_tarjeta_ap, R.drawable.ic_inefront_ap, R.drawable.ic_ineback_ap};
+        int[] icon = new int[]{R.drawable.ic_check_ap, R.drawable.ic_check_ap, R.drawable.ic_check_ap};
 
+        for(int i=0; i < cards.length; i++){
+            Cards items = new Cards();
+            items.setTypeCard(cards[i]);
+            items.setThumbCard(brands[i]);
+            items.setIvCheck(icon[i]);
+            cardsList.add(items);
+        }
+        listener.onSuccessRequest();
 
     }
 }

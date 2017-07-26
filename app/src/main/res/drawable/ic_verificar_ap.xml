@@ -15,7 +15,12 @@
         <clip-path
             android:name="clip"
             android:pathData="M -6,-8 L 97,-8 L 97,34 L -6,34 L -6,-8 ZM 15,2 L 76,2 L 76,2 C 82.08,2 87,6.92 87,13 L 87,13 L 87,13 C 87,19.08 82.08,24 76,24 L 15,24 L 15,24 C 8.92,24 4,19.08 4,13 L 4,13 L 4,13 C 4,6.92 8.92,2 15,2 Z" />
-        
+
+        <!-- Rectangle 2 -->
+        <path
+            android:name="rectangle2"
+            android:pathData="M 4,14 C 4,20.08 8.92,25 15,25 L 76,25 C 82.08,25 87,20.08 87,14 L 87,14 C 87,7.92 82.08,3 76,3 L 15,3 C 8.92,3 4,7.92 4,14 Z"
+            android:fillColor="@color/colorBlack" />
         <!-- Rectangle -->
         <path
             android:name="rectangle"

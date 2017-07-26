@@ -23,6 +23,7 @@ public class LoginPresenterImpl implements LoginPresenter,LoginInteractor.onLogi
 
     @Override
     public void onSuccess() {
+        loginView.showProgress();
         if (loginView!=null)
         loginView.setNavigation();
     }
@@ -30,6 +31,7 @@ public class LoginPresenterImpl implements LoginPresenter,LoginInteractor.onLogi
     @Override
     public void failure(String message) {
         if (loginView!=null)
+        loginView.hideProgress();
         loginView.showMessage(message);
 
     }
@@ -37,6 +39,7 @@ public class LoginPresenterImpl implements LoginPresenter,LoginInteractor.onLogi
     @Override
     public void onUserNumberError() {
         if (loginView!=null)
+        loginView.hideProgress();
         loginView.setUserNumberError();
 
     }

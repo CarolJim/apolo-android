@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.view.Gravity;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.pagatodo.apolo.activity.register.RegisterActivity;
 import com.pagatodo.apolo.R;
@@ -27,6 +29,7 @@ public class LoginActivity extends Activity implements LoginView{
     @BindView(R.id.edtUserNumber) MaterialValidationEditText edtNumber;
     @BindView(R.id.btnLogin) MaterialButton btnLogin;
     @BindView(R.id.layoutLogin) CoordinatorLayout layoutLogin;
+    @BindView(R.id.progress_view_activity) LinearLayout progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +38,8 @@ public class LoginActivity extends Activity implements LoginView{
         loginpresenter = new LoginPresenterImpl(this);
         ButterKnife.bind(this);
         validateEditText(btnLogin, edtNumber);
-        edtNumber.setGravity(Gravity.CENTER);
+        edtNumber.setGravity(Gravity.CENTER | Gravity.LEFT);
+        edtNumber.setMaxLength(8);
     }
 
     private void validateEditText(MaterialButton btnLogin, MaterialValidationEditText edtNumber){
@@ -55,14 +59,19 @@ public class LoginActivity extends Activity implements LoginView{
         showSnackBar(layoutLogin,getString((R.string.hint_numero_usuario)));
     }
 
-    @Override
-    public void setNavigation() {
+    @Override public void setNavigation() {
         startActivity(new Intent(this,RegisterActivity.class));
     }
 
     @Override
     public void showMessage(String message) {
         Toast.makeText(this, ""+message, Toast.LENGTH_SHORT).show();
+    }
+    @Override public void showProgress() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+    @Override public void hideProgress() {
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
