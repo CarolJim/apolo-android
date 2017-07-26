@@ -19,6 +19,10 @@ public class Constants {
     public static final String URL_PRIVACY_POLICY       = "";
     public static final String URL_REMOTE_CONFIG        = "";
 
+    //BASE DE DATOS
+    public static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_NAME = "apolo.db";
+
     //CAMERA
     public static final int REQUEST_CAMERA_PERMISSION = 200;
     public static final String KEY_IS_CAPTURING     = "is_capturing";
