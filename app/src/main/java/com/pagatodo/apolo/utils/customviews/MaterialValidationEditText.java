@@ -17,6 +17,7 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -30,7 +31,6 @@ import com.pagatodo.apolo.App;
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.utils.ValidateForm;
 
-import static android.R.attr.layout_gravity;
 
 /**
  * Created by jvazquez on 22/05/2017.
@@ -71,7 +71,7 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
         tvMessage = findViewById(R.id.tvMessage);
         ivStatus  = findViewById(R.id.ivStatus);
         int inputType = EditorInfo.TYPE_NULL;
-        int layout_gravity = EditorInfo.TYPE_NULL;
+        int gravity = EditorInfo.TYPE_NULL;
         int textSize = 20;
         String hint = null;
         int maxLength = 0;
@@ -86,7 +86,6 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
                     R.styleable.MaterialValidationEditText,
                     0, 0);
             try {
-
                 hint = typedArray.getString(R.styleable.MaterialValidationEditText_hintText);
                 type = typedArray.getString(R.styleable.MaterialValidationEditText_formato);
                 maxLength = typedArray.getInteger(R.styleable.MaterialValidationEditText_maxLength, 0);
@@ -103,8 +102,6 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
                 inputType = typedArray.getInt(R.styleable.MaterialValidationEditText_android_inputType, EditorInfo.TYPE_NULL);
                 //textSize = typedArray.getInt(R.styleable.MaterialValidationEditText_android_textSize, EditorInfo.TYPE_NULL);
                 focusable = typedArray.getBoolean(R.styleable.MaterialValidationEditText_focusableInTouchMode, true);
-                layout_gravity = typedArray.getInt(R.styleable.MaterialValidationEditText_layout_gravity, EditorInfo.TYPE_NULL);
-                edtMain.setGravity(layout_gravity);
 
             } catch (Exception e) {
                 //Log.e(context.getPackageName(), "Error loading attributes:" + e.getMessage());
@@ -116,6 +113,11 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
                 edtMain.setInputType(inputType);
             } else {
                 edtMain.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+            }
+            if (gravity  != EditorInfo.TYPE_NULL) {
+                edtMain.setGravity(Gravity.CENTER_HORIZONTAL);
+            } else {
+                edtMain.setGravity(Gravity.START);
             }
 
             if (textSize != EditorInfo.TYPE_NULL) {
@@ -577,13 +579,5 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
     public void setPinnedIcon(int pinnedIcon) {
         this.pinnedIcon = pinnedIcon;
     }
-
-    /*** Hides soft keyboard.* @param editText EditText which has focus*/
-    public void hideSoftKeyboard(EditText editText) {
-        if (editText == null)
-            return;
-
-        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Service.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
-    }
+    
 }

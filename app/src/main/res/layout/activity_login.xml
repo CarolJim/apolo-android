@@ -30,7 +30,7 @@
              app:formato="number"
              android:padding="@dimen/dimen_padding_medium"
              android:maxLength="8"
-             android:layout_gravity="center"
+             android:gravity="center"
              app:hintColor="@color/colorWhite"
              app:hintText="@string/hint_numero_usuario"/>
 
