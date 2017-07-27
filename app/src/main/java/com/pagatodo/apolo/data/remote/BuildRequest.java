@@ -2,7 +2,12 @@ package com.pagatodo.apolo.data.remote;
 
 import com.pagatodo.apolo.App;
 import com.pagatodo.apolo.data.model.webservice.remoteconfig.ResponseRemoteConfig;
-import com.pagatodo.apolo.data.pojo.factory.ModelPattern;
+import com.pagatodo.apolo.data.model.factory.ModelPattern;
+import com.pagatodo.apolo.data.model.webservice.request.CreditRequestRegisterRequest;
+import com.pagatodo.apolo.data.model.webservice.request.DocumentUploadRequest;
+import com.pagatodo.apolo.data.model.webservice.request.SMSCodeValidationRequest;
+import com.pagatodo.apolo.data.model.webservice.request.SMSValidationRequest;
+import com.pagatodo.apolo.data.model.webservice.response.GetPromotersResponse;
 import com.pagatodo.apolo.data.remote.notifications.model.webservice.mega.GetPushStatus;
 import com.pagatodo.apolo.data.remote.notifications.model.webservice.mega.MegaBaseModel;
 import com.pagatodo.apolo.data.remote.notifications.model.webservice.requestinbox.RequestGetInbox;
@@ -19,12 +24,17 @@ import java.util.HashMap;
 
 import static com.android.volley.Request.Method.GET;
 import static com.android.volley.Request.Method.POST;
+import static com.pagatodo.apolo.data.remote.RequestContract.DOCUMENT_UPLOAD;
+import static com.pagatodo.apolo.data.remote.RequestContract.DO_CREDIT_REQUEST_REGISTER;
+import static com.pagatodo.apolo.data.remote.RequestContract.GET_PROMOTERS;
 import static com.pagatodo.apolo.data.remote.RequestContract.GET_REMOTE_CONFIG;
 import static com.pagatodo.apolo.data.remote.RequestContract.MEGA_ACTIVATE_PUSH;
 import static com.pagatodo.apolo.data.remote.RequestContract.MEGA_GET_PUSH_STATUS;
 import static com.pagatodo.apolo.data.remote.RequestContract.MEGA_OBTENER_MSJ_INBOX;
 import static com.pagatodo.apolo.data.remote.RequestContract.MEGA_REGISTER_DEVICE;
 import static com.pagatodo.apolo.data.remote.RequestContract.MEGA_REGISTER_USER;
+import static com.pagatodo.apolo.data.remote.RequestContract.SEND_SMS_CONFIRMATION;
+import static com.pagatodo.apolo.data.remote.RequestContract.SMS_CODE_VALIDATION;
 import static com.pagatodo.apolo.utils.Constants.DEBUG;
 import static com.pagatodo.apolo.utils.Constants.TIMEOUT;
 
@@ -109,5 +119,81 @@ public class BuildRequest {
                 result,
                 TIMEOUT,
                 MegaBaseModel.class);
+    }
+
+    public static void getPromotersRequest(IRequestResult result)
+    {
+        new RequestBuilder().request(App.getInstance(),
+                DEBUG,
+                GET_PROMOTERS,
+                POST,
+                null,
+                RemoteConfig.getUrlServer() + GET_PROMOTERS,
+                new ModelPattern() {
+                    @Override
+                    public String toString() {
+                        return super.toString();
+                    }
+                },
+                result,
+                TIMEOUT,
+                GetPromotersResponse.class);
+    }
+
+    public static void doCreditRequestRegister(IRequestResult result, CreditRequestRegisterRequest body, HashMap<String,String> headers)
+    {
+        new RequestBuilder().request(App.getInstance(),
+                DEBUG,
+                DO_CREDIT_REQUEST_REGISTER,
+                POST,
+                headers,
+                RemoteConfig.getUrlServer() + DO_CREDIT_REQUEST_REGISTER,
+                body,
+                result,
+                TIMEOUT,
+                GetPromotersResponse.class);
+    }
+
+    public static void doDocumentUpload(IRequestResult result, DocumentUploadRequest body, HashMap<String,String> headers)
+    {
+        new RequestBuilder().request(App.getInstance(),
+                DEBUG,
+                DOCUMENT_UPLOAD,
+                POST,
+                headers,
+                RemoteConfig.getUrlServer() + DOCUMENT_UPLOAD,
+                body,
+                result,
+                TIMEOUT,
+                GetPromotersResponse.class);
+    }
+
+
+    public static void sendSMSConfirmation(IRequestResult result, SMSValidationRequest body, HashMap<String,String> headers)
+    {
+        new RequestBuilder().request(App.getInstance(),
+                DEBUG,
+                SEND_SMS_CONFIRMATION,
+                POST,
+                headers,
+                RemoteConfig.getUrlServer() + SEND_SMS_CONFIRMATION,
+                body,
+                result,
+                TIMEOUT,
+                GetPromotersResponse.class);
+    }
+
+    public static void sendSMSCodeValidation(IRequestResult result, SMSCodeValidationRequest body, HashMap<String,String> headers)
+    {
+        new RequestBuilder().request(App.getInstance(),
+                DEBUG,
+                SMS_CODE_VALIDATION,
+                POST,
+                headers,
+                RemoteConfig.getUrlServer() + SMS_CODE_VALIDATION,
+                body,
+                result,
+                TIMEOUT,
+                GetPromotersResponse.class);
     }
 }

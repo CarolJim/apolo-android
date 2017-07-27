@@ -3,6 +3,7 @@ package com.pagatodo.apolo.activity.splash;
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -14,6 +15,7 @@ import com.pagatodo.apolo.activity.register.RegisterActivity;
 import com.pagatodo.apolo.activity.splash._presenter.SplashPresenter;
 import com.pagatodo.apolo.activity.splash._presenter._interfaces.ISplashPresenter;
 import com.pagatodo.apolo.activity.splash._presenter._interfaces.ISplashView;
+import com.pagatodo.apolo.ui.base.factoryactivities.BaseActivity;
 import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterActivity;
 
 import butterknife.BindView;
@@ -25,6 +27,9 @@ public class SplashActivity extends BasePresenterActivity<ISplashPresenter> impl
 
     @BindView(R.id.layout_splash) LinearLayout layout;
     @BindView(R.id.ic_launcher) ImageView image_icon;
+    Boolean session = false;
+    private Handler splashHandler = new Handler();
+    private final static int HANDLER_DELAY = 4000;
 
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
@@ -39,6 +44,13 @@ public class SplashActivity extends BasePresenterActivity<ISplashPresenter> impl
         ButterKnife.bind(this);
 
         StartAnimations();
+        splashHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent i = new Intent(SplashActivity.this, pref.containsData(SESSION_ACTIVE) ? RegisterActivity.class : LoginActivity.class);
+                startActivity(i);
+            }
+        },HANDLER_DELAY);
     }
 
     @Override
@@ -57,28 +69,14 @@ public class SplashActivity extends BasePresenterActivity<ISplashPresenter> impl
     }
 
     private void StartAnimations() {
-        Thread timer = new Thread() {
-            public void run() {
-                try {
-                    Animation anim = AnimationUtils.loadAnimation(SplashActivity.this, R.anim.alpha);
-                    anim.reset();
-                    layout.clearAnimation();
-                    layout.startAnimation(anim);
-                    anim = AnimationUtils.loadAnimation(SplashActivity.this, R.anim.translate);
-                    anim.reset();
-                    image_icon.clearAnimation();
-                    image_icon.startAnimation(anim);
-                    sleep(4000);
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-                    Intent i = new Intent(SplashActivity.this, pref.containsData(SESSION_ACTIVE) ? RegisterActivity.class : LoginActivity.class);
-                    startActivity(i);
-                }
-            }
-        };
-        timer.start();
+        Animation anim = AnimationUtils.loadAnimation(SplashActivity.this, R.anim.alpha);
+        anim.reset();
+        layout.clearAnimation();
+        layout.startAnimation(anim);
+        anim = AnimationUtils.loadAnimation(SplashActivity.this, R.anim.translate);
+        anim.reset();
+        image_icon.clearAnimation();
+        image_icon.startAnimation(anim);
     }
 }
 

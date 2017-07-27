@@ -1,6 +1,6 @@
 package com.pagatodo.apolo.activity.register._presenter._interfaces;
 
-import com.pagatodo.apolo.data.pojo.Cards;
+import com.pagatodo.apolo.data.model.Cards;
 import com.pagatodo.apolo.ui.base.factoryinterfaces.IProcessData;
 
 import java.util.List;

@@ -1,5 +1,6 @@
 package com.pagatodo.apolo.ui.base.factoryactivities;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -9,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
 
+import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.ui.base.factoryinterfaces.IProcessData;
 import com.pagatodo.apolo.ui.dialogs.DialogFactory;
 
@@ -43,7 +45,8 @@ public abstract class BasePresenterPermissionActivity<iProcessData extends IProc
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if(!arePermissionsGranted(permissions))
                 requestPermissions(permissions, PERMISSIONS_ID);
-        }
+        }else
+            doPermissionsGrantedAction();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -87,12 +90,15 @@ public abstract class BasePresenterPermissionActivity<iProcessData extends IProc
                         if (showRationale) {
                             //User declined permissions request, a detail may be shown to the user.
                             //A dialog may be shown to the user with all denied permissions rationale.
-                            DialogFactory.buildRationaleRunTimeDialog(this, getDeniedPermissionsMessage(deniedPermissions));
+                            DialogFactory.buildRationaleRunTimeDialog(this, getDeniedPermissionsMessage(getDeniedPermissionsGroups(deniedPermissions)));
                         } else {
                             //User checked "Never show again", User may be taken to change configuration.
-                            DialogFactory.buildAppSettingsRationaleRTDialog(this, getDeniedPermissionsMessage(deniedPermissions));
+                            DialogFactory.buildAppSettingsRationaleRTDialog(this, getDeniedPermissionsMessage(getDeniedPermissionsGroups(deniedPermissions)));
 
                         }
+                    }else
+                    {
+                        doPermissionsGrantedAction();
                     }
                 }
                 break;
@@ -102,7 +108,68 @@ public abstract class BasePresenterPermissionActivity<iProcessData extends IProc
         }
     }
 
-    protected abstract String getDeniedPermissionsMessage(List<String> permissions);
-    protected abstract String getDeniedPermissionMessage(String permission);
+    protected void doPermissionsGrantedAction(){}
+
+    private List<String> getDeniedPermissionsGroups(List<String> permissions)
+    {
+        List<String> deniedGroups = new ArrayList<>();
+
+        for(String permission : permissions)
+        {
+            switch (permission)
+            {
+                case Manifest.permission.CAMERA:
+                    deniedGroups.add(Manifest.permission_group.CAMERA);
+                    break;
+                case Manifest.permission.READ_SMS:
+                case Manifest.permission.RECEIVE_SMS:
+                    if(!deniedGroups.contains(Manifest.permission_group.SMS))
+                        deniedGroups.add(Manifest.permission_group.SMS);
+                    break;
+                case Manifest.permission.READ_EXTERNAL_STORAGE:
+                case Manifest.permission.WRITE_EXTERNAL_STORAGE:
+                    if(!deniedGroups.contains(Manifest.permission_group.STORAGE))
+                        deniedGroups.add(Manifest.permission_group.STORAGE);
+                    break;
+            }
+        }
+
+        return deniedGroups;
+    }
+
+    protected String getDeniedPermissionsMessage(List<String> permissionsGroups) {
+
+        StringBuffer buffer = new StringBuffer();
+
+        buffer.append(getString(R.string.general_run_time_message) + "\n\n\n");
+
+        for(String permission : permissionsGroups)
+        {
+            if(getDeniedPermissionMessage(permission).trim().length() <= 0)
+                continue;
+            else
+            {
+                buffer.append(getDeniedPermissionMessage(permission));
+                if(permission.indexOf(permission) != permissionsGroups.size()-1)
+                    buffer.append("\n\n");
+            }
+
+        }
+
+        return buffer.toString();
+    }
+    protected String getDeniedPermissionMessage(String permissionGroup)
+    {
+        switch (permissionGroup)
+        {
+            case Manifest.permission_group.CAMERA:
+                return getString(R.string.runtime_camera);
+            case Manifest.permission_group.SMS:
+                return getString(R.string.runtime_sms);
+            case Manifest.permission_group.STORAGE:
+                return getString(R.string.runtime_storage);
+        }
+        return "";
+    }
 
 }

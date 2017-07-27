@@ -1,5 +1,6 @@
 package com.pagatodo.apolo.activity.register;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.design.widget.CoordinatorLayout;
@@ -18,8 +19,8 @@ import com.pagatodo.apolo.activity.register._presenter.RegisterPresenterImpl;
 import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterView;
 import com.pagatodo.apolo.activity.smsverification.SmsActivity;
 import com.pagatodo.apolo.data.adapters.CustomAdapter;
-import com.pagatodo.apolo.data.pojo.Cards;
-import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterActivity;
+import com.pagatodo.apolo.data.model.Cards;
+import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterPermissionActivity;
 import com.pagatodo.apolo.utils.Constants;
 import com.pagatodo.apolo.utils.ValidateForm;
 import com.pagatodo.apolo.utils.customviews.MaterialButton;
@@ -35,7 +36,7 @@ import static com.pagatodo.apolo.App.instance;
 import static com.pagatodo.apolo.ui.UI.showSnackBar;
 import static com.pagatodo.apolo.ui.UI.showToast;
 
-public class RegisterActivity extends BasePresenterActivity<RegisterPresenter> implements RegisterView {
+public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPresenter> implements RegisterView {
     private final String TAG = "MainActivity";
     private CustomAdapter adapter;
     private List<Cards> cardsList;
@@ -45,6 +46,8 @@ public class RegisterActivity extends BasePresenterActivity<RegisterPresenter> i
     @BindView(R.id.edtCellPhone) MaterialValidationEditText edtCellPhone;
     @BindView(R.id.edtPhone) MaterialValidationEditText edtPhone;
     @BindView(R.id.tv_name_afiliado) MaterialTextView tvAfiliado;
+
+    private int listenerPosition;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -166,5 +169,19 @@ public class RegisterActivity extends BasePresenterActivity<RegisterPresenter> i
     public void initData(){
         edtCellPhone.setText(instance.get(Constants.SOL_CELULAR));
         edtPhone.setText(instance.get(Constants.SOL_TELEFONO));
+    }
+
+
+    @Override
+    public void onEvent(String event, Object data) {
+        super.onEvent(event, data);
+    }
+
+    @Override
+    protected void doPermissionsGrantedAction() {
+        assignData();
+        Intent i = new Intent(RegisterActivity.this, CaptureActivity.class);
+        i.putExtra(Constants.TYPE_CAPTURE, listenerPosition);
+        startActivity(i);
     }
 }

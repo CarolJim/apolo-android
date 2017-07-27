@@ -1,6 +1,6 @@
 package com.pagatodo.apolo.data.model;
 
-import com.pagatodo.apolo.data.pojo.factory.ModelPattern;
+import com.pagatodo.apolo.data.model.factory.ModelPattern;
 
 /**
  * Created by jvazquez on 26/07/2017.

@@ -1,5 +1,6 @@
 package com.pagatodo.apolo.activity.login;
 
+import android.Manifest;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +16,7 @@ import com.pagatodo.apolo.activity.login._presenter._interfaces.LoginView;
 import com.pagatodo.apolo.activity.register.RegisterActivity;
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.data.model.Promotor;
-import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterActivity;
+import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterPermissionActivity;
 import com.pagatodo.apolo.utils.ValidateForm;
 import com.pagatodo.apolo.utils.customviews.MaterialButton;
 import com.pagatodo.apolo.utils.customviews.MaterialValidationEditText;
@@ -30,7 +31,7 @@ import static com.pagatodo.apolo.ui.UI.showSnackBar;
  * Created by rvargas on 21-07-17.
  */
 
-public class LoginActivity extends BasePresenterActivity<LoginPresenter> implements LoginView {
+public class LoginActivity extends BasePresenterPermissionActivity<LoginPresenter> implements LoginView {
     private final String TAG = "LoginActivity";
     @BindView(R.id.edtUserNumber) MaterialValidationEditText edtNumber;
     @BindView(R.id.btnLogin) MaterialButton btnLogin;
@@ -45,6 +46,7 @@ public class LoginActivity extends BasePresenterActivity<LoginPresenter> impleme
         ButterKnife.bind(this);
         validateEditText(btnLogin, edtNumber);
         edtNumber.setMaxLength(8);
+        requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE});
     }
 
     @Override

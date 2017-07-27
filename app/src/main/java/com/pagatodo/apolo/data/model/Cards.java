@@ -1,4 +1,4 @@
-package com.pagatodo.apolo.data.pojo;
+package com.pagatodo.apolo.data.model;
 
 
 /**

@@ -1,7 +1,7 @@
 package com.pagatodo.apolo.data.remote.notifications.model.webservice.mega;
 
 
-import com.pagatodo.apolo.data.pojo.factory.ModelPattern;
+import com.pagatodo.apolo.data.model.factory.ModelPattern;
 
 /**
  * Created by Omar on 05/07/2017.
