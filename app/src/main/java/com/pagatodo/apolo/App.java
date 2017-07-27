@@ -7,6 +7,8 @@ import android.text.TextUtils;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+
+import java.io.Serializable;
 import java.util.HashMap;
 import com.pagatodo.apolo.data.local.Preferences;
 
@@ -18,14 +20,15 @@ public class App extends Application {
     private static App m_singleton;
     public static final String TAG = App.class.getSimpleName();
     private RequestQueue mRequestQueue;
-    HashMap <String,String> Afiliados = new HashMap<>();
+    HashMap <String,String> solicitud = new HashMap<>();
     private Preferences prefs;
+    public static final App instance = App.getInstance();
 
     @Override
     public void onCreate() {
         super.onCreate();
         m_singleton = this;
-        Afiliados = new HashMap<>();
+        solicitud = new HashMap<>();
         prefs = new Preferences(this);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
@@ -37,14 +40,14 @@ public class App extends Application {
     }
 
     public void put(String key, String value) {
-        Afiliados.put(key, value);
+        solicitud.put(key, value);
     }
 
     public String get(String key) {
-        return Afiliados.get(key);
+        return solicitud.get(key);
     }
 
-    public void clearHashMap(){ Afiliados.clear(); }
+    public void clearHashMap(){ solicitud.clear(); }
 
     @Override
     public Context getApplicationContext() {

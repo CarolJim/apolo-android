@@ -9,6 +9,8 @@ public class PreferencesContract {
     //Preferencias de cuenta
     public static final String SESSION_ACTIVE           = "sessionActive";
     public static final String CURRENT_PROMOTOR         = "userData";
+    public static final String AFILIADO_DATA            = "afiliadoData";
+
 
     //MEGA
     public static final String TOKEN_MEGA               = "tokenMega";

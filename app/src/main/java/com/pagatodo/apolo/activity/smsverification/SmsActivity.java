@@ -5,10 +5,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -47,7 +49,6 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
     @BindView(R.id.pin_six)  EditText mPinSix;
     @BindView(R.id.pin_hidden_edittext) EditText mPinHiddenEditText;
     @BindView(R.id.progress_view_activity) LinearLayout progressBar;
-    @BindView(R.id.toolbar) Toolbar toolbar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,12 +56,18 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
         setContentView(R.layout.activity_sms);
         ButterKnife.bind(this);
         setPINListeners();
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+
+        //Setting Activity ToolBar reference
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+
+        //Enabling Tool Bar Back Arrow Function
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        //Changing Tool Bar Back Arrow Color
+        Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.ic_back_material);
+        upArrow.setColorFilter(getResources().getColor(R.color.colorWhite), PorterDuff.Mode.DST); // Reference -> https://developer.android.com/reference/android/graphics/PorterDuff.Mode.html
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
     }
 
     @Override
@@ -91,7 +98,6 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
     @Override
     public void setNavigation() {
         startActivity(new Intent(this,RegisterActivity.class));
-        //onBackPressed();
     }
 
     @Override
@@ -119,28 +125,24 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
                     showSoftKeyboard(mPinHiddenEditText);
                 }
                 break;
-
             case R.id.pin_two:
                 if (hasFocus) {
                     setFocus(mPinHiddenEditText);
                     showSoftKeyboard(mPinHiddenEditText);
                 }
                 break;
-
             case R.id.pin_three:
                 if (hasFocus) {
                     setFocus(mPinHiddenEditText);
                     showSoftKeyboard(mPinHiddenEditText);
                 }
                 break;
-
             case R.id.pin_four:
                 if (hasFocus) {
                     setFocus(mPinHiddenEditText);
                     showSoftKeyboard(mPinHiddenEditText);
                 }
                 break;
-
             case R.id.pin_five:
                 if (hasFocus) {
                     setFocus(mPinHiddenEditText);
@@ -310,5 +312,15 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
             }
         }
     };
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 
 }

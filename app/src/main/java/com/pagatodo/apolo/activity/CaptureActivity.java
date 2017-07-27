@@ -22,7 +22,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import com.pagatodo.apolo.App;
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.utils.Constants;
 
@@ -46,7 +45,6 @@ public class CaptureActivity extends Activity implements PictureCallback, Surfac
     @BindView(R.id.camera_frame) RelativeLayout camera_frame;
     @BindView(R.id.progress_view_activity) LinearLayout progress;
     int TYPE_CAPTURE;
-    App Afiliado = App.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -219,13 +217,13 @@ public class CaptureActivity extends Activity implements PictureCallback, Surfac
                 } else {
                     switch (TYPE_CAPTURE) {
                         case 0:
-                            Afiliado.put(Constants.KEY_TARJETA, file.toString());
+                            //datosAfiliado.setKEY_TARJETA( file.toString());
                             break;
                         case 1:
-                            Afiliado.put(Constants.KEY_IFE_FRENTE, file.toString());
+                            //.setKEY_IFE_FRENTE( file.toString());
                             break;
                         case 2:
-                            Afiliado.put(Constants.KEY_IFE_VUELTA, file.toString());
+                            //datosAfiliado.setKEY_IFE_VUELTA( file.toString());
                             break;
                     }
                     closeCapture();

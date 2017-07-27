@@ -1,6 +1,5 @@
 package com.pagatodo.apolo.activity.login;
 
-import android.app.Activity;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,16 +7,14 @@ import android.support.design.widget.CoordinatorLayout;
 import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import com.pagatodo.apolo.activity.login._presenter._interfaces.LoginPresenter;
 import com.pagatodo.apolo.activity.login._presenter.LoginPresenterImpl;
 import com.pagatodo.apolo.activity.login._presenter._interfaces.LoginView;
 import com.pagatodo.apolo.activity.register.RegisterActivity;
 import com.pagatodo.apolo.R;
-import com.pagatodo.apolo.ui.base.factoryactivities.BaseActivity;
+import com.pagatodo.apolo.data.model.Promotor;
 import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterActivity;
 import com.pagatodo.apolo.utils.ValidateForm;
 import com.pagatodo.apolo.utils.ValidatePermission;
@@ -26,6 +23,8 @@ import com.pagatodo.apolo.utils.customviews.MaterialValidationEditText;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.pagatodo.apolo.data.local.Preferences.createSession;
 import static com.pagatodo.apolo.ui.UI.showSnackBar;
 
 /**
@@ -33,11 +32,12 @@ import static com.pagatodo.apolo.ui.UI.showSnackBar;
  */
 
 public class LoginActivity extends BasePresenterActivity<LoginPresenter> implements LoginView {
-
+    private final String TAG = "LoginActivity";
     @BindView(R.id.edtUserNumber) MaterialValidationEditText edtNumber;
     @BindView(R.id.btnLogin) MaterialButton btnLogin;
     @BindView(R.id.layoutLogin) CoordinatorLayout layoutLogin;
     @BindView(R.id.progress_view_activity) LinearLayout progressBar;
+    private Promotor promotor = new Promotor();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,7 +73,7 @@ public class LoginActivity extends BasePresenterActivity<LoginPresenter> impleme
 
     @OnClick(R.id.btnLogin)
     public void login() {
-        presenter.login(edtNumber.getText().toString());
+        presenter.login(edtNumber.getText());
     }
 
     @Override
@@ -82,6 +82,7 @@ public class LoginActivity extends BasePresenterActivity<LoginPresenter> impleme
     }
 
     @Override public void setNavigation() {
+        createSession(pref, promotor);
         startActivity(new Intent(this,RegisterActivity.class));
     }
 

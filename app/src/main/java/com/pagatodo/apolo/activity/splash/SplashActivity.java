@@ -1,6 +1,5 @@
 package com.pagatodo.apolo.activity.splash;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
@@ -15,17 +14,17 @@ import com.pagatodo.apolo.activity.register.RegisterActivity;
 import com.pagatodo.apolo.activity.splash._presenter.SplashPresenter;
 import com.pagatodo.apolo.activity.splash._presenter._interfaces.ISplashPresenter;
 import com.pagatodo.apolo.activity.splash._presenter._interfaces.ISplashView;
-import com.pagatodo.apolo.ui.base.factoryactivities.BaseActivity;
 import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.apolo.data.local.PreferencesContract.SESSION_ACTIVE;
+
 public class SplashActivity extends BasePresenterActivity<ISplashPresenter> implements ISplashView{
 
     @BindView(R.id.layout_splash) LinearLayout layout;
     @BindView(R.id.ic_launcher) ImageView image_icon;
-    Boolean session = false;
 
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
@@ -74,7 +73,7 @@ public class SplashActivity extends BasePresenterActivity<ISplashPresenter> impl
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    Intent i = new Intent(SplashActivity.this, session ? RegisterActivity.class : LoginActivity.class);
+                    Intent i = new Intent(SplashActivity.this, pref.containsData(SESSION_ACTIVE) ? RegisterActivity.class : LoginActivity.class);
                     startActivity(i);
                 }
             }

@@ -18,6 +18,7 @@ public class Constants {
     public static final String URL_SERVER               = "";
     public static final String URL_SERVER_MEGA 	        = "http://10.10.45.16:62703/ServiceMega.svc/http";
     public static final String URL_REMOTE_CONFIG        = "https://apolo-8e38a.firebaseapp.com/config.json";
+    public static final int TIMEOUT = 40000;
 
     //BASE DE DATOS
     public static final int DATABASE_VERSION = 1;
@@ -29,22 +30,15 @@ public class Constants {
     public static final String IMAGE_DIRECTORY_NAME = "Apolo";
     public static final String TYPE_CAPTURE = "TypeCapture";
 
-    //SERVER
-    public static final String URL_DEBUG = "https://firebasestorage.googleapis.com/v0/b/dummy-ee94d.appspot.com/o/cards.json?alt=media&token=49105f97-c7e7-4877-9497-36e507cc111b";
-    public static final int TIMEOUT = 40000;
+    //SOLICITUD
+    public static final String SOL_CELULAR    = "Celular";
+    public static final String SOL_TELEFONO   = "Telefono";
+    public static final String SOL_TARJETA    = "Tarjeta";
+    public static final String SOL_IFE_FRENTE = "IfeFrente";
+    public static final String SOL_IFE_VUELTA = "IfeVuelta";
+    public static String UrlTarjeta;
+    public static String UrlIfeFrente;
+    public static String UrlIfeVuelta;
 
-    //ID PROGRAMA
-    public static final String ID_PROGRAMA = "1";
 
-    //App Version
-    public static final String APP_VERSION = "1";
-
-    //KEY HASHMAP
-    public static final String KEY_NUMERO_AFILIADO = "KEY_NUMERO_AFILIADO";
-    public static final String KEY_NOMBRE_AFILIADO = "KEY_NOMBRE_AFILIADO";
-    public static final String KEY_CELULAR    = "KEY_CELULAR";
-    public static final String KEY_TELEFONO   = "KEY_TELEFONO";
-    public static final String KEY_IFE_FRENTE = "KEY_IFE_FRENTE";
-    public static final String KEY_IFE_VUELTA = "KEY_IFE_VUELTA";
-    public static final String KEY_TARJETA    = "KEY_TARJETA";
 }
