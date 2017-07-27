@@ -321,6 +321,7 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        setNavigation();
     }
 
 }

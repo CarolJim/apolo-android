@@ -58,6 +58,7 @@
                 app:hintText="@string/editText_celular"
                 android:padding="@dimen/dimen_margin_small"
                 android:maxLength="10"
+                android:layout_gravity="left"
                 android:layout_marginLeft="@dimen/dimen_margin_xl"
                 android:layout_marginTop="@dimen/dimen_margin_medium"/>
             <android.support.v7.widget.AppCompatImageView
@@ -94,7 +95,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:formato="phone"
-            android:gravity="left"
+            android:layout_gravity="left"
             app:hintColor="@color/colorWhite"
             app:hintText="@string/editText_telefono"
             android:padding="@dimen/dimen_margin_small"

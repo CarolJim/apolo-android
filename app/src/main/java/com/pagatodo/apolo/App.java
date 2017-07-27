@@ -10,6 +10,8 @@ import com.android.volley.toolbox.Volley;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
+
 import com.pagatodo.apolo.data.local.Preferences;
 
 /**

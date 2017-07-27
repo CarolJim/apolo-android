@@ -26,7 +26,7 @@ public class ConfirmateActivity extends Activity {
         setContentView(R.layout.activity_confirmate);
         ButterKnife.bind(this);
 
-        String generate = getString(R.string.folio_generado, String.valueOf(Math.random()));
+        String generate = getString(R.string.folio_generado,  "000010000");
         numeroFolio.setText(generate);
     }
 
@@ -34,6 +34,7 @@ public class ConfirmateActivity extends Activity {
     public void end() {
         instance.clearHashMap();
         startActivity(new Intent(this,LoginActivity.class));
+        finish();
     }
 
     @Override

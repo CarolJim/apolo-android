@@ -17,7 +17,6 @@ import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.data.model.Promotor;
 import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterActivity;
 import com.pagatodo.apolo.utils.ValidateForm;
-import com.pagatodo.apolo.utils.ValidatePermission;
 import com.pagatodo.apolo.utils.customviews.MaterialButton;
 import com.pagatodo.apolo.utils.customviews.MaterialValidationEditText;
 import butterknife.BindView;
@@ -45,7 +44,6 @@ public class LoginActivity extends BasePresenterActivity<LoginPresenter> impleme
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         validateEditText(btnLogin, edtNumber);
-        edtNumber.setGravity(Gravity.CENTER | Gravity.LEFT);
         edtNumber.setMaxLength(8);
     }
 
@@ -103,8 +101,6 @@ public class LoginActivity extends BasePresenterActivity<LoginPresenter> impleme
     @Override
     protected void onResume() {
         super.onResume();
-        ValidatePermission verify = new ValidatePermission(this);
-        verify.verifyPermiso();
     }
 
     @Override

@@ -17,9 +17,8 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
+import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -31,6 +30,8 @@ import com.pagatodo.apolo.App;
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.utils.ValidateForm;
 
+import static android.R.attr.layout_gravity;
+
 /**
  * Created by jvazquez on 22/05/2017.
  */
@@ -39,7 +40,6 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
     private EditText         edtMain    = null;
     private MaterialTextView tvMessage  = null;
     private AppCompatImageView ivStatus = null;
-    private AppCompatImageView ivVerify = null;
     private boolean isValidField        = false;
     private String  type = null;
     private OnClickIcon iconListener = null;
@@ -71,6 +71,7 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
         tvMessage = findViewById(R.id.tvMessage);
         ivStatus  = findViewById(R.id.ivStatus);
         int inputType = EditorInfo.TYPE_NULL;
+        int layout_gravity = EditorInfo.TYPE_NULL;
         int textSize = 20;
         String hint = null;
         int maxLength = 0;
@@ -85,6 +86,7 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
                     R.styleable.MaterialValidationEditText,
                     0, 0);
             try {
+
                 hint = typedArray.getString(R.styleable.MaterialValidationEditText_hintText);
                 type = typedArray.getString(R.styleable.MaterialValidationEditText_formato);
                 maxLength = typedArray.getInteger(R.styleable.MaterialValidationEditText_maxLength, 0);
@@ -101,6 +103,8 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
                 inputType = typedArray.getInt(R.styleable.MaterialValidationEditText_android_inputType, EditorInfo.TYPE_NULL);
                 //textSize = typedArray.getInt(R.styleable.MaterialValidationEditText_android_textSize, EditorInfo.TYPE_NULL);
                 focusable = typedArray.getBoolean(R.styleable.MaterialValidationEditText_focusableInTouchMode, true);
+                layout_gravity = typedArray.getInt(R.styleable.MaterialValidationEditText_layout_gravity, EditorInfo.TYPE_NULL);
+                edtMain.setGravity(layout_gravity);
 
             } catch (Exception e) {
                 //Log.e(context.getPackageName(), "Error loading attributes:" + e.getMessage());

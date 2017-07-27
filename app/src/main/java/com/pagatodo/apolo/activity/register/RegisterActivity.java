@@ -7,10 +7,11 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.pagatodo.apolo.R;
-import com.pagatodo.apolo.activity.CaptureActivity;
 import com.pagatodo.apolo.activity.ConfirmateActivity;
 import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterPresenter;
 import com.pagatodo.apolo.activity.register._presenter.RegisterPresenterImpl;
@@ -20,7 +21,6 @@ import com.pagatodo.apolo.data.adapters.CustomAdapter;
 import com.pagatodo.apolo.data.pojo.Cards;
 import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterActivity;
 import com.pagatodo.apolo.utils.Constants;
-import com.pagatodo.apolo.utils.RecyclerItemClickListener;
 import com.pagatodo.apolo.utils.ValidateForm;
 import com.pagatodo.apolo.utils.customviews.MaterialButton;
 import com.pagatodo.apolo.utils.customviews.MaterialTextView;
@@ -59,18 +59,6 @@ public class RegisterActivity extends BasePresenterActivity<RegisterPresenter> i
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
-        recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(this, new  RecyclerItemClickListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        // TODO Handle item click
-                        assignData();
-                        Intent i = new Intent(RegisterActivity.this, CaptureActivity.class);
-                        i.putExtra(Constants.TYPE_CAPTURE,position);
-                        startActivity(i);
-                    }
-                })
-        );
         presenter.request(cardsList);
         validateEditText(btnRegister, edtCellPhone);
         initData();
@@ -82,17 +70,13 @@ public class RegisterActivity extends BasePresenterActivity<RegisterPresenter> i
         outState.putString(Constants.SOL_CELULAR, instance.get(Constants.SOL_CELULAR));
         outState.putString(Constants.SOL_TELEFONO, instance.get(Constants.SOL_TELEFONO));
         outState.putString(Constants.SOL_TARJETA, instance.get(Constants.SOL_TARJETA));
-        outState.putString(Constants.SOL_IFE_FRENTE,instance.get(Constants.SOL_IFE_FRENTE));
+        outState.putString(Constants.SOL_IFE_FRENTE, instance.get(Constants.SOL_IFE_FRENTE));
         outState.putString(Constants.SOL_IFE_VUELTA, instance.get(Constants.SOL_IFE_VUELTA));
     }
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState){
         super.onRestoreInstanceState(savedInstanceState);
-        edtCellPhone.setText(instance.get(Constants.SOL_CELULAR));
-        edtPhone.setText(instance.get(Constants.SOL_TELEFONO));
-        Constants.UrlTarjeta   = instance.get(Constants.SOL_TARJETA);
-        Constants.UrlIfeFrente = instance.get(Constants.SOL_IFE_FRENTE);
-        Constants.UrlIfeVuelta = instance.get(Constants.SOL_IFE_VUELTA);
+        initData();
     }
 
     @Override
@@ -121,8 +105,7 @@ public class RegisterActivity extends BasePresenterActivity<RegisterPresenter> i
 
     @OnClick(R.id.btnRegister)
     public void registrar() {
-        presenter.register(edtCellPhone.getText(), edtPhone.getText(), Constants.UrlTarjeta, Constants.UrlIfeFrente, Constants.UrlIfeVuelta);
-
+        presenter.register(edtCellPhone.getText(), edtPhone.getText(), instance.get(Constants.SOL_TARJETA), instance.get(Constants.SOL_IFE_FRENTE),instance.get(Constants.SOL_IFE_VUELTA));
     }
 
     @OnClick(R.id.ivVerify)
@@ -183,8 +166,5 @@ public class RegisterActivity extends BasePresenterActivity<RegisterPresenter> i
     public void initData(){
         edtCellPhone.setText(instance.get(Constants.SOL_CELULAR));
         edtPhone.setText(instance.get(Constants.SOL_TELEFONO));
-        Constants.UrlTarjeta   = instance.get(Constants.SOL_TARJETA);
-        Constants.UrlIfeFrente = instance.get(Constants.SOL_IFE_FRENTE);
-        Constants.UrlIfeVuelta = instance.get(Constants.SOL_IFE_VUELTA);
     }
 }

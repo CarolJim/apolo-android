@@ -1,5 +1,6 @@
 package com.pagatodo.apolo.data.pojo;
 
+
 /**
  * Created by rvargas on 21/07/2017.
  */
