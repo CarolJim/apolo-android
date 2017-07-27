@@ -1,7 +1,7 @@
 package com.pagatodo.apolo.data.remote.notifications.model.webservice.requestinbox;
 
 
-import com.pagatodo.apolo.data.pojo.factory.ModelPattern;
+import com.pagatodo.apolo.data.model.factory.ModelPattern;
 
 /**
  * Created by jvazquez on 14/06/2017.

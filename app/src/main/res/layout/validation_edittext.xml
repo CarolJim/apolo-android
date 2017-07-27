@@ -20,6 +20,7 @@
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:textStyle="bold"
+                    android:gravity="left"
                     android:textColorLink="@color/colorWhite"
                     android:textColorHint="@color/colorWhite"/>
                 <android.support.v7.widget.AppCompatImageView

@@ -1,6 +1,6 @@
 package com.pagatodo.apolo.data.remote.notifications.model.webservice.requestregistrousuario;
 
-import com.pagatodo.apolo.data.pojo.factory.ModelPattern;
+import com.pagatodo.apolo.data.model.factory.ModelPattern;
 
 /**
  * Created by jvazquez on 18/04/2017.

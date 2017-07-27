@@ -1,6 +1,6 @@
 package com.pagatodo.apolo.activity.register._presenter._interfaces;
 
-import com.pagatodo.apolo.data.pojo.Cards;
+import com.pagatodo.apolo.data.model.Cards;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public interface RegisterInteractor {
     }
 
     interface onRequestListener{
-        void onSuccessRequest();
+        void  onSuccessRequest();
         void failureRequest(String message);
     }
     void onRegisterAfiliado(String numberCelPhone, String numberPhone, String rutaCard, String rutaINEFront, String rutaINEBack, onRegisterListener listener);

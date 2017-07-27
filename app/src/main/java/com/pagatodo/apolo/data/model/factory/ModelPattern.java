@@ -1,4 +1,4 @@
-package com.pagatodo.apolo.data.pojo.factory;
+package com.pagatodo.apolo.data.model.factory;
 
 import com.google.gson.Gson;
 

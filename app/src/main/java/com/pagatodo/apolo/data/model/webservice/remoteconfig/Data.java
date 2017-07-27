@@ -1,6 +1,6 @@
 package com.pagatodo.apolo.data.model.webservice.remoteconfig;
 
-import com.pagatodo.apolo.data.pojo.factory.ModelPattern;
+import com.pagatodo.apolo.data.model.factory.ModelPattern;
 
 /**
  * Created by jvazquez on 27/06/2017.

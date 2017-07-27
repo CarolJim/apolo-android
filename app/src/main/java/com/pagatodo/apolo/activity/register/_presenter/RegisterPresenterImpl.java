@@ -3,7 +3,7 @@ package com.pagatodo.apolo.activity.register._presenter;
 import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterInteractor;
 import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterPresenter;
 import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterView;
-import com.pagatodo.apolo.data.pojo.Cards;
+import com.pagatodo.apolo.data.model.Cards;
 import com.pagatodo.apolo.ui.base.factorypresenters.BasePresenter;
 
 import java.util.List;

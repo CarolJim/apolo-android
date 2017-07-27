@@ -1,13 +1,17 @@
 package com.pagatodo.apolo.data.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.pagatodo.apolo.R;
-import com.pagatodo.apolo.data.pojo.Cards;
+import com.pagatodo.apolo.activity.CaptureActivity;
+import com.pagatodo.apolo.data.model.Cards;
+import com.pagatodo.apolo.utils.Constants;
+
 import java.util.List;
 
 /**
@@ -55,11 +59,21 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.mViewHolde
     }
 
     @Override
-    public void onBindViewHolder(final mViewHolder holder, int position) {
+    public void onBindViewHolder(final mViewHolder holder, final int position) {
         Cards items = cardsList.get(position);
         holder.typeCards.setImageResource(items.getTypeCard());
         holder.thumbCards.setImageResource(items.getThumbCard());
         holder.checkCards.setImageResource(items.getIvCheck());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(mContext, CaptureActivity.class);
+                i.putExtra(Constants.TYPE_CAPTURE,position);
+                mContext.startActivity(i);
+            }
+        });
+
     }
 
     @Override

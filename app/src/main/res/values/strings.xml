@@ -113,11 +113,14 @@
     <string name="whatsapp_sharing_not_found_msg">Para continuar, necesitas instalar la aplicación WhatsApp.</string>
 
     <!-- Run Time Permissions Msgs -->
+
+    <string name="general_run_time_message">Para que tu experiencia dentro de la aplicación sea completa, activa los siguientes permisos:</string>
+    <string name="runtime_camera">Hacer uso de la cámara (Necesario para la captura de documentos).</string>
+    <string name="runtime_sms">Leer tu bandeja SMS (Requerido para obtener el código de confirmación).</string>
+    <string name="runtime_storage">Guardar información en el dispositivo (Esencial para el registro de documentos).</string>
+
     <string name="run_time_enable_permissions_btn_lbl">Habilitar Permisos</string>
     <string name="run_time_continue_anyway_btn_lbl">Continuar</string>
-    <string name="general_run_time_message">Para que tu experiencia dentro de la aplicación sea completa, activa los siguientes permisos:</string>
-    <string name="home_activity_run_time_fine_location">Acceder a la ubicación de este dispositivo ( no podrás encontrar nuestras sucursales cerca de ti ).</string>
-    <string name="home_activity_run_time_call_phone">Hacer y administrar llamadas de teléfono ( no podrás llamarnos ).</string>
 
     <string name="error_invalid_id">El número de usuario es invalido.</string>
     <string name="error_empty_id_afiliador">Ingresa tu número de afiliador.</string>

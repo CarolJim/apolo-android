@@ -19,7 +19,7 @@ import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
+import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -31,6 +31,7 @@ import com.pagatodo.apolo.App;
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.utils.ValidateForm;
 
+
 /**
  * Created by jvazquez on 22/05/2017.
  */
@@ -39,7 +40,6 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
     private EditText         edtMain    = null;
     private MaterialTextView tvMessage  = null;
     private AppCompatImageView ivStatus = null;
-    private AppCompatImageView ivVerify = null;
     private boolean isValidField        = false;
     private String  type = null;
     private OnClickIcon iconListener = null;
@@ -71,6 +71,7 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
         tvMessage = findViewById(R.id.tvMessage);
         ivStatus  = findViewById(R.id.ivStatus);
         int inputType = EditorInfo.TYPE_NULL;
+        int gravity = EditorInfo.TYPE_NULL;
         int textSize = 20;
         String hint = null;
         int maxLength = 0;
@@ -112,6 +113,11 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
                 edtMain.setInputType(inputType);
             } else {
                 edtMain.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+            }
+            if (gravity  != EditorInfo.TYPE_NULL) {
+                edtMain.setGravity(Gravity.CENTER_HORIZONTAL);
+            } else {
+                edtMain.setGravity(Gravity.START);
             }
 
             if (textSize != EditorInfo.TYPE_NULL) {
@@ -573,13 +579,5 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
     public void setPinnedIcon(int pinnedIcon) {
         this.pinnedIcon = pinnedIcon;
     }
-
-    /*** Hides soft keyboard.* @param editText EditText which has focus*/
-    public void hideSoftKeyboard(EditText editText) {
-        if (editText == null)
-            return;
-
-        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Service.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
-    }
+    
 }

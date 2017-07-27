@@ -2,7 +2,7 @@ package com.pagatodo.apolo.activity.register._presenter;
 
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterInteractor;
-import com.pagatodo.apolo.data.pojo.Cards;
+import com.pagatodo.apolo.data.model.Cards;
 import java.util.List;
 import static android.text.TextUtils.isEmpty;
 

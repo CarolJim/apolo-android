@@ -3,7 +3,7 @@ package com.pagatodo.apolo.ui.dialogs.model;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 
-import com.pagatodo.apolo.data.pojo.factory.ModelPattern;
+import com.pagatodo.apolo.data.model.factory.ModelPattern;
 import com.pagatodo.apolo.ui.dialogs.GenericDialog;
 
 /**

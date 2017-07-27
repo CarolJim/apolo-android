@@ -22,6 +22,8 @@ import static com.pagatodo.apolo.utils.Constants.URL_SERVER_MEGA;
 public class RemoteConfig {
 
     public static String getUrlServer() {
+        //TODO Remove HardCode
+        /*
         Preferences pref = App.getInstance().getPrefs();
         if (pref != null) {
             if (DEBUG) {
@@ -31,7 +33,8 @@ public class RemoteConfig {
                 return pref.loadString(SURL_SERVIDOR);
             }
         }
-        return URL_SERVER;
+        return URL_SERVER;*/
+        return "http://172.16.2.117:8025/WSSolicitudCreditoAdultoMayor.svc";
     }
 
     static String getUrlMega() {

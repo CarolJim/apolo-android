@@ -1,5 +1,6 @@
 package com.pagatodo.apolo.activity.login;
 
+import android.Manifest;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,8 +18,8 @@ import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.data.model.Promotor;
 import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterActivity;
 import com.pagatodo.apolo.ui.base.factoryinterfaces.IValidateForms;
+import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterPermissionActivity;
 import com.pagatodo.apolo.utils.ValidateForm;
-import com.pagatodo.apolo.utils.ValidatePermission;
 import com.pagatodo.apolo.utils.customviews.MaterialButton;
 import com.pagatodo.apolo.utils.customviews.MaterialValidationEditText;
 import butterknife.BindView;
@@ -33,7 +34,7 @@ import static com.pagatodo.apolo.utils.Constants.MIN_SIZE_ID_AFILIADOR;
  * Created by rvargas on 21-07-17.
  */
 
-public class LoginActivity extends BasePresenterActivity<LoginPresenter> implements LoginView, IValidateForms{
+public class LoginActivity extends BasePresenterPermissionActivity<LoginPresenter> implements LoginView, IValidateForms{
     private final String TAG = "LoginActivity";
     @BindView(R.id.edtUserNumber) MaterialValidationEditText edtNumber;
     @BindView(R.id.btnLogin) MaterialButton btnLogin;
@@ -48,8 +49,8 @@ public class LoginActivity extends BasePresenterActivity<LoginPresenter> impleme
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         validateEditText(btnLogin, edtNumber);
-        edtNumber.setGravity(Gravity.CENTER | Gravity.LEFT);
         edtNumber.setMaxLength(8);
+        requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE});
     }
 
     @Override
@@ -105,8 +106,6 @@ public class LoginActivity extends BasePresenterActivity<LoginPresenter> impleme
     @Override
     protected void onResume() {
         super.onResume();
-        ValidatePermission verify = new ValidatePermission(this);
-        verify.verifyPermiso();
     }
 
     @Override
