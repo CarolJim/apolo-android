@@ -1,6 +1,5 @@
 package com.pagatodo.apolo.activity.register;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.design.widget.CoordinatorLayout;
@@ -8,11 +7,9 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.pagatodo.apolo.R;
+import com.pagatodo.apolo.activity.CaptureActivity;
 import com.pagatodo.apolo.activity.ConfirmateActivity;
 import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterPresenter;
 import com.pagatodo.apolo.activity.register._presenter.RegisterPresenterImpl;
