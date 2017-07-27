@@ -3,7 +3,10 @@ package com.pagatodo.apolo.activity.login._presenter;
 import com.pagatodo.apolo.activity.login._presenter._interfaces.LoginInteractor;
 import com.pagatodo.apolo.activity.login._presenter._interfaces.LoginPresenter;
 import com.pagatodo.apolo.activity.login._presenter._interfaces.LoginView;
+import com.pagatodo.apolo.data.model.Promotor;
 import com.pagatodo.apolo.ui.base.factorypresenters.BasePresenter;
+
+import static com.pagatodo.apolo.data.local.Preferences.createSession;
 
 /**
  * Created by rvargas on 21-07-17.
@@ -24,10 +27,12 @@ public class LoginPresenterImpl extends BasePresenter<LoginView> implements Logi
     }
 
     @Override
-    public void onSuccess() {
+    public void onSuccess(Promotor promotor) {
         view.showProgress();
-        if (view!=null)
-        view.setNavigation();
+        if (view!=null){
+            createSession(pref, promotor);
+            view.setNavigation();
+        }
     }
 
     @Override

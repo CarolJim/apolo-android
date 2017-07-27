@@ -16,6 +16,9 @@ public class PreferencesContract {
     public static final String TOKEN_MEGA               = "tokenMega";
     public static final String LIST_NOTIFICATIONS       = "listNotifications";
 
+    //Preferencias de persistencia de datos
+    public static final String LIST_PROMOTORS           = "listPromotors";
+
     //  Preferencias de configuración remota
     public final static String SFECHA_ACTUALIZACION     = "FechaUltimaActualizacion";
     public final static String SURL_SERVIDOR            = "UrlServidor";

@@ -16,6 +16,7 @@ import com.pagatodo.apolo.activity.register.RegisterActivity;
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.data.model.Promotor;
 import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterActivity;
+import com.pagatodo.apolo.ui.base.factoryinterfaces.IValidateForms;
 import com.pagatodo.apolo.utils.ValidateForm;
 import com.pagatodo.apolo.utils.ValidatePermission;
 import com.pagatodo.apolo.utils.customviews.MaterialButton;
@@ -26,18 +27,20 @@ import butterknife.OnClick;
 
 import static com.pagatodo.apolo.data.local.Preferences.createSession;
 import static com.pagatodo.apolo.ui.UI.showSnackBar;
+import static com.pagatodo.apolo.utils.Constants.MIN_SIZE_ID_AFILIADOR;
 
 /**
  * Created by rvargas on 21-07-17.
  */
 
-public class LoginActivity extends BasePresenterActivity<LoginPresenter> implements LoginView {
+public class LoginActivity extends BasePresenterActivity<LoginPresenter> implements LoginView, IValidateForms{
     private final String TAG = "LoginActivity";
     @BindView(R.id.edtUserNumber) MaterialValidationEditText edtNumber;
     @BindView(R.id.btnLogin) MaterialButton btnLogin;
     @BindView(R.id.layoutLogin) CoordinatorLayout layoutLogin;
     @BindView(R.id.progress_view_activity) LinearLayout progressBar;
-    private Promotor promotor = new Promotor();
+
+    private String ID_Promotor = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,7 +76,7 @@ public class LoginActivity extends BasePresenterActivity<LoginPresenter> impleme
 
     @OnClick(R.id.btnLogin)
     public void login() {
-        presenter.login(edtNumber.getText());
+        validateForm();
     }
 
     @Override
@@ -82,18 +85,17 @@ public class LoginActivity extends BasePresenterActivity<LoginPresenter> impleme
     }
 
     @Override public void setNavigation() {
-        createSession(pref, promotor);
         startActivity(new Intent(this,RegisterActivity.class));
     }
 
     @Override
     public void showMessage(String message) {
-        Toast.makeText(this, ""+message, Toast.LENGTH_SHORT).show();
+        super.showMessage(message);
     }
     @Override
     public void showProgress() {
         progressBar.setVisibility(View.VISIBLE);
-        hideSoftKeyboard(edtNumber);
+        hideSoftKeyboard();
     }
     @Override
     public void hideProgress() {
@@ -112,11 +114,50 @@ public class LoginActivity extends BasePresenterActivity<LoginPresenter> impleme
         moveTaskToBack(true);
     }
 
-    /*** Hides soft keyboard.* @param editText EditText which has focus*/
-    public void hideSoftKeyboard(MaterialValidationEditText editText) {
-        if (editText == null)
+    @Override
+    public void setValuesDefaultForm() {
+
+    }
+
+    @Override
+    public void validateForm() {
+        getDataForm();
+        if(ID_Promotor.isEmpty()){
+            showMessage(getString(R.string.error_empty_id_afiliador));
             return;
-        InputMethodManager imm = (InputMethodManager) getSystemService(Service.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+        }
+        if(ID_Promotor.length() < MIN_SIZE_ID_AFILIADOR){
+            showMessage(getString(R.string.error_empty_id_afiliador));
+            return;
+        }
+        if(!isInteger(ID_Promotor)){
+            showMessage(getString(R.string.error_num_id_afiliador));
+            return;
+        }
+        onValidationSuccess();
+    }
+
+    @Override
+    public void onValidationSuccess() {
+        presenter.login(ID_Promotor);
+    }
+
+    @Override
+    public void getDataForm() {
+        if(edtNumber != null){
+            ID_Promotor = edtNumber.getText();
+            return;
+        }
+        showMessage(getString(R.string.error_empty_id_afiliador));
+    }
+    public static boolean isInteger(String s) {
+        try {
+            Integer.parseInt(s);
+        } catch(NumberFormatException e) {
+            return false;
+        } catch(NullPointerException e) {
+            return false;
+        }
+        return true;
     }
 }

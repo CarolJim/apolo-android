@@ -17,6 +17,16 @@ public class Promotor extends ModelPattern {
     public Promotor(){
 
     }
+
+    public Promotor(boolean activo, String apellidoMaterno, String apellidoPaterno, int ID_Promotor, String nombre, String promotor) {
+        Activo = activo;
+        ApellidoMaterno = apellidoMaterno;
+        ApellidoPaterno = apellidoPaterno;
+        this.ID_Promotor = ID_Promotor;
+        Nombre = nombre;
+        Promotor = promotor;
+    }
+
     public String getApellidoMaterno() {
         return ApellidoMaterno;
     }

@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.pagatodo.apolo.data.model.Mensaje;
 import com.pagatodo.apolo.data.model.Promotor;
+import com.pagatodo.apolo.utils.Constants;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -188,5 +189,12 @@ public class Preferences {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public List<Promotor> getListOfPromotors() {
+//        Type listType = new TypeToken<ArrayList<Promotor>>(){}.getType();
+//        List<Promotor> promotors = new Gson().fromJson(loadString(LIST_NOTIFICATIONS), listType);
+//        return promotors != null ? promotors : new ArrayList<Promotor>();
+        return Constants.dummy_promotores;
     }
 }

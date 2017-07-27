@@ -1,6 +1,8 @@
 package com.pagatodo.apolo.activity.login._presenter._interfaces;
 
 
+import com.pagatodo.apolo.data.model.Promotor;
+
 /**
  * Created by rvargas on 21-07-17.
  */
@@ -8,7 +10,7 @@ package com.pagatodo.apolo.activity.login._presenter._interfaces;
 public interface LoginInteractor {
 
     interface onLoginListener{
-        void onSuccess();
+        void onSuccess(Promotor promotor);
         void failure(String message);
         void onUserNumberError();
     }

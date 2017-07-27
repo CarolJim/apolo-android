@@ -3,7 +3,11 @@ package com.pagatodo.apolo.utils;
 import android.util.SparseIntArray;
 import android.view.Surface;
 
+import com.pagatodo.apolo.data.model.Promotor;
+
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by rvargas on 14/07/2017.
@@ -24,6 +28,9 @@ public class Constants {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "apolo.db";
 
+    //Login
+    public static final int MIN_SIZE_ID_AFILIADOR = 8;
+
     //CAMERA
     public static final int REQUEST_CAMERA_PERMISSION = 200;
     public static final String KEY_IS_CAPTURING     = "is_capturing";
@@ -40,5 +47,25 @@ public class Constants {
     public static String UrlIfeFrente;
     public static String UrlIfeVuelta;
 
+    //App Version
+    public static final String APP_VERSION = "1";
 
+    //KEY HASHMAP
+    public static final String KEY_NUMERO_AFILIADO = "KEY_NUMERO_AFILIADO";
+    public static final String KEY_NOMBRE_AFILIADO = "KEY_NOMBRE_AFILIADO";
+    public static final String KEY_CELULAR    = "KEY_CELULAR";
+    public static final String KEY_TELEFONO   = "KEY_TELEFONO";
+    public static final String KEY_IFE_FRENTE = "KEY_IFE_FRENTE";
+    public static final String KEY_IFE_VUELTA = "KEY_IFE_VUELTA";
+    public static final String KEY_TARJETA    = "KEY_TARJETA";
+
+    public static final List<Promotor> dummy_promotores = new ArrayList<>();
+    static {
+        dummy_promotores.add(new Promotor(false, "Ruiz", "Lopez",           12345671,"Saul", "PROM23"));
+        dummy_promotores.add(new Promotor(true, "Hernandez", "Hernandez",   12345672,"Pablo", "PROM24"));
+        dummy_promotores.add(new Promotor(false, "Santana", "Delgado",      12345673,"Winnie", "PROM25"));
+        dummy_promotores.add(new Promotor(true, "Cruz", "Salgado",          12345674,"Roberto", "PROM26"));
+        dummy_promotores.add(new Promotor(false, "Ruiz", "Lopez",           12345675,"Saul", "PROM27"));
+        dummy_promotores.add(new Promotor(true, "Orozco", "Orozco",         12345676,"Omar", "PROM28"));
+    }
 }
