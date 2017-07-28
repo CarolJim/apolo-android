@@ -6,7 +6,9 @@
     <string name="hint_numero_usuario">Ingresa tu usuario</string>
 
     <!-- Registro -->
-    <string name="name_agente">Mario Fernandez</string>
+    <string name="name_agente">Afiliador</string>
+    <string name="name_agente_format">%1$s %2$s %3$s</string>
+
     <string name="editText_celular">ingresa el numero de móvil</string>
     <string name="editText_telefono">ingresa el numero de casa</string>
     <string name="txt_card">TARJETA</string>
@@ -125,6 +127,9 @@
     <string name="error_invalid_id">Usuario invalido.</string>
     <string name="error_empty_id_afiliador">Ingresa tu usuario.</string>
     <string name="error_min_id_afiliador">Tú usuario es muy corto.</string>
+    <string name="error_cellphone_empty">El telefono celular no puede estar vacio.</string>
+    <string name="error_cellphone_invalid">El numero celular es invalido.</string>
+
 
     <!-- txt btns-->
     <string name="txt_reintent">Reintentar</string>

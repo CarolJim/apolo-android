@@ -10,6 +10,7 @@ public class PreferencesContract {
     public static final String SESSION_ACTIVE           = "sessionActive";
     public static final String CURRENT_PROMOTOR         = "userData";
     public static final String AFILIADO_DATA            = "afiliadoData";
+    public static final String IS_SMS_ENABLE            = "isSMSEnable";
 
 
     //MEGA

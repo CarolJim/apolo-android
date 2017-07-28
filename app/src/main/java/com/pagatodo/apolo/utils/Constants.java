@@ -3,6 +3,9 @@ package com.pagatodo.apolo.utils;
 import android.util.SparseIntArray;
 import android.view.Surface;
 
+import com.pagatodo.apolo.R;
+import com.pagatodo.apolo.data.model.Cards;
+import com.pagatodo.apolo.data.model.Documento;
 import com.pagatodo.apolo.data.model.Promotor;
 
 import java.io.File;
@@ -17,6 +20,9 @@ public class Constants {
 
     //Enable debug logs
     public static final boolean DEBUG = true;
+
+    //RemoteConfig
+    public static final boolean isEnableVerificateSMS = true;
 
     //SERVER
     public static final String URL_SERVER               = "";
@@ -67,5 +73,18 @@ public class Constants {
         dummy_promotores.add(new Promotor(true, "Cruz", "Salgado",          12345674,"Roberto", "PROM26"));
         dummy_promotores.add(new Promotor(false, "Ruiz", "Lopez",           12345675,"Saul", "PROM27"));
         dummy_promotores.add(new Promotor(true, "Orozco", "Orozco",         12345676,"Omar", "PROM28"));
+    }
+    private static final List<Documento> listDocument = new ArrayList<>();
+    static {
+        listDocument.add(new Documento(1, "IFE/INE FRENTE",         "", 0, "", ""));
+        listDocument.add(new Documento(2, "IFE/INE REVERSO",        "", 0, "", ""));
+        listDocument.add(new Documento(3, "TARJETA ADULTO MAYOR",   "", 0, "", ""));
+    }
+
+    public static final List<Cards> DOCUMENTS = new ArrayList<>();
+    static {
+        DOCUMENTS.add(new Cards(R.drawable.btn_tarjeta_ap,  R.drawable.ic_tarjeta_ap,   R.drawable.ic_check_ap, listDocument.get(0)));
+        DOCUMENTS.add(new Cards(R.drawable.btn_inefrente_ap,R.drawable.ic_inefront_ap,  R.drawable.ic_check_ap, listDocument.get(1)));
+        DOCUMENTS.add(new Cards(R.drawable.btn_inevuelta_ap,R.drawable.ic_ineback_ap,   R.drawable.ic_check_ap, listDocument.get(2)));
     }
 }

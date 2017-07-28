@@ -4,6 +4,7 @@ import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterInter
 import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterPresenter;
 import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterView;
 import com.pagatodo.apolo.data.model.Cards;
+import com.pagatodo.apolo.data.model.FormularioAfiliacion;
 import com.pagatodo.apolo.ui.base.factorypresenters.BasePresenter;
 
 import java.util.List;
@@ -24,6 +25,11 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterView> implement
     @Override
     public void register(String numberCelPhone, String numberPhone, String rutaCard, String rutaINEFront, String rutaINEBack) {
         registerInteractor.onRegisterAfiliado(numberCelPhone, numberPhone, rutaCard, rutaINEFront, rutaINEBack, this);
+    }
+
+    @Override
+    public void requestRegister(FormularioAfiliacion request) {
+
     }
 
     @Override

@@ -6,11 +6,19 @@ package com.pagatodo.apolo.data.model;
  */
 
 public class Cards {
-    private int TypeCard;
-    private int ThumbCard;
-    private int ivCheck;
+    private int TypeCard    = 0;
+    private int ThumbCard   = 0;
+    private int ivCheck     = 0;
+    private Documento documento = new Documento();
 
     public Cards() {}
+
+    public Cards(int typeCard, int thumbCard, int ivCheck, Documento documento) {
+        TypeCard = typeCard;
+        ThumbCard = thumbCard;
+        this.ivCheck = ivCheck;
+        this.documento = documento;
+    }
 
     public int getTypeCard() {
         return TypeCard;

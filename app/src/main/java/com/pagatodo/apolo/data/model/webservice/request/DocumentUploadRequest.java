@@ -19,8 +19,8 @@ public class DocumentUploadRequest extends ModelPattern {
     {
         private String Nombre;
         private String DocumentoBase64;
-        private int Longitud;
-        private int IdTipoDocumento;
+        private int    Longitud;
+        private int    IdTipoDocumento;
         private String Folio;
         private String IdCliente;
 

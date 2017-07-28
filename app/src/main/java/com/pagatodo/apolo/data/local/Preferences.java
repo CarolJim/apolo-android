@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.pagatodo.apolo.data.local.PreferencesContract.IS_SMS_ENABLE;
 import static com.pagatodo.apolo.data.local.PreferencesContract.LIST_NOTIFICATIONS;
 import static com.pagatodo.apolo.data.local.PreferencesContract.LIST_PROMOTORS;
 import static com.pagatodo.apolo.data.local.PreferencesContract.SESSION_ACTIVE;
@@ -197,5 +198,8 @@ public class Preferences {
         List<Promotor> promotors = new Gson().fromJson(loadString(LIST_PROMOTORS), listType);
         return promotors != null ? promotors : new ArrayList<Promotor>();
 //        return Constants.dummy_promotores;
+    }
+    public boolean isEnableVerificateSMS(){
+        return preferences.getBoolean(IS_SMS_ENABLE, true);
     }
 }

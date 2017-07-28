@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Toast;
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.activity.CaptureActivity;
@@ -17,7 +18,11 @@ import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterView;
 import com.pagatodo.apolo.activity.smsverification.SmsActivity;
 import com.pagatodo.apolo.data.adapters.CustomAdapter;
 import com.pagatodo.apolo.data.model.Cards;
+import com.pagatodo.apolo.data.model.FormularioAfiliacion;
+import com.pagatodo.apolo.data.model.Promotor;
+import com.pagatodo.apolo.data.model.webservice.request.CreditRequestRegisterRequest;
 import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterPermissionActivity;
+import com.pagatodo.apolo.ui.base.factoryinterfaces.IValidateForms;
 import com.pagatodo.apolo.utils.Constants;
 import com.pagatodo.apolo.utils.ValidateForm;
 import com.pagatodo.apolo.utils.customviews.MaterialButton;
@@ -33,10 +38,10 @@ import static com.pagatodo.apolo.App.instance;
 import static com.pagatodo.apolo.ui.UI.showSnackBar;
 import static com.pagatodo.apolo.ui.UI.showToast;
 
-public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPresenter> implements RegisterView {
+public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPresenter> implements RegisterView, IValidateForms{
     private final String TAG = "MainActivity";
     private CustomAdapter adapter;
-    private List<Cards> cardsList;
+    private List<Cards> cardsList = Constants.DOCUMENTS;
     @BindView(R.id.recycler_view_card) RecyclerView recyclerView;
     @BindView(R.id.btnRegister) MaterialButton btnRegister;
     @BindView(R.id.layoutRegister) CoordinatorLayout layoutRegister;
@@ -45,6 +50,8 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
     @BindView(R.id.tv_name_afiliado) MaterialTextView tvAfiliado;
 
     private int listenerPosition;
+    private Promotor mPromotor = new Promotor();
+    private FormularioAfiliacion mFormularioAfiliacion = new FormularioAfiliacion();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,16 +59,16 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        cardsList = new ArrayList<>();
         adapter = new CustomAdapter(this, cardsList);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getApplicationContext(), 1);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
-
-        presenter.request(cardsList);
         validateEditText(btnRegister, edtCellPhone);
         initData();
+        mPromotor = pref.getCurrentPromotor();
+        setValuesDefaultForm();
+        enableVerificateSMS(pref.isEnableVerificateSMS());
     }
 
     @Override
@@ -102,12 +109,6 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         edtCellPhone.setMaxLength(10);
         edtPhone.setMaxLength(8);
     }
-
-    @OnClick(R.id.btnRegister)
-    public void registrar() {
-        presenter.register(edtCellPhone.getText(), edtPhone.getText(), instance.get(Constants.SOL_TARJETA), instance.get(Constants.SOL_IFE_FRENTE),instance.get(Constants.SOL_IFE_VUELTA));
-    }
-
     @OnClick(R.id.ivVerify)
     public void sms(){
         assignData();
@@ -180,5 +181,49 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         Intent i = new Intent(RegisterActivity.this, CaptureActivity.class);
         i.putExtra(Constants.TYPE_CAPTURE, listenerPosition);
         startActivity(i);
+    }
+
+    @Override
+    public void setValuesDefaultForm() {
+        tvAfiliado.setText(getNamePromotor());
+    }
+
+    private String getNamePromotor(){
+        String nombre           = mPromotor.getNombre() != null ? mPromotor.getNombre():"";
+        String apellido         = mPromotor.getApellidoPaterno() != null ? mPromotor.getApellidoPaterno(): "";
+        String apellidoMaterno  = mPromotor.getApellidoMaterno() != null ? mPromotor.getApellidoMaterno(): "";
+        return  getString(R.string.name_agente_format, nombre, apellido, apellidoMaterno);
+    }
+    @OnClick(R.id.btnRegister)
+    @Override
+    public void validateForm() {
+        getDataForm();
+        if(mFormularioAfiliacion.getTelefonoMovil().isEmpty()){
+            showMessage(getString(R.string.error_cellphone_empty));
+            return;
+        }
+        if(!edtCellPhone.isValidField()){
+            showMessage(getString(R.string.error_cellphone_invalid));
+            return;
+        }
+        onValidationSuccess();
+    }
+
+    @Override
+    public void onValidationSuccess() {
+//        presenter.register(edtCellPhone.getText(), edtPhone.getText(), instance.get(Constants.SOL_TARJETA), instance.get(Constants.SOL_IFE_FRENTE),instance.get(Constants.SOL_IFE_VUELTA));
+    presenter.requestRegister(mFormularioAfiliacion);
+    }
+
+    @Override
+    public void getDataForm() {
+        mFormularioAfiliacion.setTelefonoCasa(edtPhone.getText());
+        mFormularioAfiliacion.setTelefonoMovil(edtPhone.getText());
+
+    }
+    private void enableVerificateSMS(boolean enable){
+        if(findViewById(R.id.ivVerify) != null){
+            findViewById(R.id.ivVerify).setVisibility(enable ? View.VISIBLE: View.GONE);
+        }
     }
 }
