@@ -1,12 +1,14 @@
 package com.pagatodo.apolo.data.remote;
 
 import com.pagatodo.apolo.App;
+import com.pagatodo.apolo.data.model.factory.Respuesta;
 import com.pagatodo.apolo.data.model.webservice.remoteconfig.ResponseRemoteConfig;
 import com.pagatodo.apolo.data.model.factory.ModelPattern;
 import com.pagatodo.apolo.data.model.webservice.request.CreditRequestRegisterRequest;
 import com.pagatodo.apolo.data.model.webservice.request.DocumentUploadRequest;
 import com.pagatodo.apolo.data.model.webservice.request.SMSCodeValidationRequest;
 import com.pagatodo.apolo.data.model.webservice.request.SMSValidationRequest;
+import com.pagatodo.apolo.data.model.webservice.response.CreditRequestRegisterResponse;
 import com.pagatodo.apolo.data.model.webservice.response.GetPromotersResponse;
 import com.pagatodo.apolo.data.remote.notifications.model.webservice.mega.GetPushStatus;
 import com.pagatodo.apolo.data.remote.notifications.model.webservice.mega.MegaBaseModel;
@@ -151,7 +153,7 @@ public class BuildRequest {
                 body,
                 result,
                 TIMEOUT,
-                GetPromotersResponse.class);
+                CreditRequestRegisterResponse.class);
     }
 
     public static void doDocumentUpload(IRequestResult result, DocumentUploadRequest body, HashMap<String,String> headers)
@@ -165,7 +167,7 @@ public class BuildRequest {
                 body,
                 result,
                 TIMEOUT,
-                GetPromotersResponse.class);
+                Respuesta.class);
     }
 
 
@@ -180,7 +182,7 @@ public class BuildRequest {
                 body,
                 result,
                 TIMEOUT,
-                GetPromotersResponse.class);
+                Respuesta.class);
     }
 
     public static void sendSMSCodeValidation(IRequestResult result, SMSCodeValidationRequest body, HashMap<String,String> headers)
@@ -194,6 +196,6 @@ public class BuildRequest {
                 body,
                 result,
                 TIMEOUT,
-                GetPromotersResponse.class);
+                Respuesta.class);
     }
 }
