@@ -43,6 +43,8 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
     private boolean isValidField        = false;
     private String  type = null;
     private OnClickIcon iconListener = null;
+    private int mGravity = Gravity.START;
+    private int minSizeRequired = -23;
 
     private MaterialValidationEditText edtCompare = null;
     @DrawableRes
@@ -71,7 +73,6 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
         tvMessage = findViewById(R.id.tvMessage);
         ivStatus  = findViewById(R.id.ivStatus);
         int inputType = EditorInfo.TYPE_NULL;
-        int gravity = EditorInfo.TYPE_NULL;
         int textSize = 20;
         String hint = null;
         int maxLength = 0;
@@ -102,6 +103,8 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
                 inputType = typedArray.getInt(R.styleable.MaterialValidationEditText_android_inputType, EditorInfo.TYPE_NULL);
                 //textSize = typedArray.getInt(R.styleable.MaterialValidationEditText_android_textSize, EditorInfo.TYPE_NULL);
                 focusable = typedArray.getBoolean(R.styleable.MaterialValidationEditText_focusableInTouchMode, true);
+                mGravity = typedArray.getInteger(R.styleable.MaterialValidationEditText_android_gravity, Gravity.START);
+                minSizeRequired = typedArray.getInteger(R.styleable.MaterialValidationEditText_minSizeRequired, -23);
 
             } catch (Exception e) {
                 //Log.e(context.getPackageName(), "Error loading attributes:" + e.getMessage());
@@ -114,10 +117,8 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
             } else {
                 edtMain.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
             }
-            if (gravity  != EditorInfo.TYPE_NULL) {
-                edtMain.setGravity(Gravity.CENTER_HORIZONTAL);
-            } else {
-                edtMain.setGravity(Gravity.START);
+            if (edtMain  != null) {
+                edtMain.setGravity(mGravity);
             }
 
             if (textSize != EditorInfo.TYPE_NULL) {
@@ -274,7 +275,7 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
                             }
                             break;
                         case "4"://text
-                            result = !txt.isEmpty();
+                            result = !txt.isEmpty() && txt.length() >= minSizeRequired;
                             message = result ? getString(R.string.valid_field) : getString(R.string.invalid_field);
                             if(edtCompare != null && result && edtCompare.isValidField()){
                                 result = edtCompare.getText().equals(txt);

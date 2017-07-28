@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import com.pagatodo.apolo.R;
@@ -22,14 +23,17 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.apolo.data.local.PreferencesContract.SESSION_ACTIVE;
+import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_RE_GET_PROMOTORS;
+import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_SALIR;
 
 public class SplashActivity extends BasePresenterActivity<ISplashPresenter> implements ISplashView{
 
-    @BindView(R.id.layout_splash) LinearLayout layout;
+    @BindView(R.id.layout_splash)
+    FrameLayout layout;
     @BindView(R.id.ic_launcher) ImageView image_icon;
     Boolean session = false;
     private Handler splashHandler = new Handler();
-    private final static int HANDLER_DELAY = 4000;
+    private final static int HANDLER_DELAY = 3000;
 
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
@@ -40,17 +44,11 @@ public class SplashActivity extends BasePresenterActivity<ISplashPresenter> impl
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        inflateView(this, R.layout.activity_splash);
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
-
         StartAnimations();
-        splashHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent i = new Intent(SplashActivity.this, pref.containsData(SESSION_ACTIVE) ? RegisterActivity.class : LoginActivity.class);
-                startActivity(i);
-            }
-        },HANDLER_DELAY);
+        presenter.getPromotersList();
     }
 
     @Override
@@ -77,6 +75,52 @@ public class SplashActivity extends BasePresenterActivity<ISplashPresenter> impl
         anim.reset();
         image_icon.clearAnimation();
         image_icon.startAnimation(anim);
+    }
+
+    @Override
+    protected int setIdProgress() {
+        return R.id.progressSplash;
+        //return super.setIdProgress();
+    }
+
+    @Override
+    public void updatePromotorsSuccess() {
+        splashHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent i = new Intent(SplashActivity.this, pref.containsData(SESSION_ACTIVE) ? RegisterActivity.class : LoginActivity.class);
+                startActivity(i);
+            }
+        },HANDLER_DELAY);
+    }
+
+    @Override
+    public void updatePromotorsFailed(String title, String message) {
+        showDialog(title, message, android.R.drawable.ic_dialog_alert, getString(R.string.txt_reintent), EVENT_RE_GET_PROMOTORS, getString(R.string.txt_exit), EVENT_SALIR);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        super.showMessage(message);
+    }
+
+    @Override
+    public void showProgress(String message) {
+        super.showProgress(message);
+    }
+
+    @Override
+    public void onEvent(String event, Object data) {
+        super.onEvent(event, data);
+        switch (event){
+            case EVENT_RE_GET_PROMOTORS:
+                presenter.getPromotersList();
+                break;
+            case EVENT_SALIR:
+                pref.destroySession();
+                finish();
+                break;
+        }
     }
 }
 

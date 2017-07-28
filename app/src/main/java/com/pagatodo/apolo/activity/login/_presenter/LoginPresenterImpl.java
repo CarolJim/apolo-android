@@ -1,5 +1,8 @@
 package com.pagatodo.apolo.activity.login._presenter;
 
+import android.os.Handler;
+
+import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.activity.login._presenter._interfaces.LoginInteractor;
 import com.pagatodo.apolo.activity.login._presenter._interfaces.LoginPresenter;
 import com.pagatodo.apolo.activity.login._presenter._interfaces.LoginView;
@@ -13,6 +16,7 @@ import static com.pagatodo.apolo.data.local.Preferences.createSession;
  */
 
 public class LoginPresenterImpl extends BasePresenter<LoginView> implements LoginPresenter,LoginInteractor.onLoginListener {
+    private static final int TIME_TO_LOGIN = 2000;
 
     private LoginInteractor loginInteractor;
 
@@ -22,16 +26,22 @@ public class LoginPresenterImpl extends BasePresenter<LoginView> implements Logi
     }
 
     @Override
-    public void login(String numberUser) {
-        loginInteractor.onLogin(numberUser, this);
+    public void login(final String numberUser) {
+        view.showProgress(getString(R.string.progress_login));
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                loginInteractor.onLogin(numberUser, LoginPresenterImpl.this);
+            }
+        },TIME_TO_LOGIN);
     }
 
     @Override
     public void onSuccess(Promotor promotor) {
-        view.showProgress();
         if (view!=null){
             createSession(pref, promotor);
             view.setNavigation();
+//            view.hideProgress();
         }
     }
 

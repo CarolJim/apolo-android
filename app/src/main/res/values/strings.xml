@@ -122,9 +122,12 @@
     <string name="run_time_enable_permissions_btn_lbl">Habilitar Permisos</string>
     <string name="run_time_continue_anyway_btn_lbl">Continuar</string>
 
-    <string name="error_invalid_id">El número de usuario es invalido.</string>
-    <string name="error_empty_id_afiliador">Ingresa tu número de afiliador.</string>
+    <string name="error_invalid_id">Usuario invalido.</string>
+    <string name="error_empty_id_afiliador">Ingresa tu usuario.</string>
     <string name="error_min_id_afiliador">Tú usuario es muy corto.</string>
-    <string name="error_num_id_afiliador">Solo se permiten numeros</string>
+
+    <!-- txt btns-->
+    <string name="txt_reintent">Reintentar</string>
+    <string name="txt_exit">Salir</string>
 
 </resources>

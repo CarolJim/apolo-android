@@ -29,7 +29,7 @@ public class Constants {
     public static final String DATABASE_NAME = "apolo.db";
 
     //Login
-    public static final int MIN_SIZE_ID_AFILIADOR = 8;
+    public static final int MIN_SIZE_ID_AFILIADOR = 6;
 
     //CAMERA
     public static final int REQUEST_CAMERA_PERMISSION = 200;

@@ -21,9 +21,7 @@ public class LoginInteractorImpl implements LoginInteractor {
 
     @Override
     public void onLogin(String numberUser, onLoginListener listener) {
-        try {
-            int ID_Promotor = Integer.parseInt(numberUser);
-            Promotor promotor = validateUser(ID_Promotor);
+            Promotor promotor = validateUser(numberUser);
             if (TextUtils.isEmpty(numberUser)){
                 listener.onUserNumberError();
             } else if(promotor != null){
@@ -31,14 +29,10 @@ public class LoginInteractorImpl implements LoginInteractor {
             }else {
                 listener.failure(context.getString(R.string.error_invalid_id));
             }
-
-        }catch (Exception e){
-            listener.failure(context.getString(R.string.error_invalid_id));
-        }
     }
-    private Promotor validateUser(int ID_Promotor){
+    private Promotor validateUser(String passPromotor){
         for(Promotor promotor: prefs.getListOfPromotors()){
-            if(promotor.getID_Promotor() == ID_Promotor){
+            if(promotor.getPromotor().equalsIgnoreCase(passPromotor)){
                 return promotor;
             }
         }

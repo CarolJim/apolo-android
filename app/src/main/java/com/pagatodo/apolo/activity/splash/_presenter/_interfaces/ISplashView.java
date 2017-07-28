@@ -7,4 +7,7 @@ import com.pagatodo.apolo.ui.base.factoryinterfaces.IEventOnView;
  */
 
 public interface ISplashView extends IEventOnView{
+
+    void updatePromotorsSuccess();
+    void updatePromotorsFailed(String title, String message);
 }

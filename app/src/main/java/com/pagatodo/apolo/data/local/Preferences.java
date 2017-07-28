@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static com.pagatodo.apolo.data.local.PreferencesContract.LIST_NOTIFICATIONS;
+import static com.pagatodo.apolo.data.local.PreferencesContract.LIST_PROMOTORS;
 import static com.pagatodo.apolo.data.local.PreferencesContract.SESSION_ACTIVE;
 import static com.pagatodo.apolo.data.local.PreferencesContract.CURRENT_PROMOTOR;
 import static com.pagatodo.apolo.data.local.PreferencesContract.SFECHA_ACTUALIZACION;
@@ -192,9 +193,9 @@ public class Preferences {
     }
 
     public List<Promotor> getListOfPromotors() {
-//        Type listType = new TypeToken<ArrayList<Promotor>>(){}.getType();
-//        List<Promotor> promotors = new Gson().fromJson(loadString(LIST_NOTIFICATIONS), listType);
-//        return promotors != null ? promotors : new ArrayList<Promotor>();
-        return Constants.dummy_promotores;
+        Type listType = new TypeToken<ArrayList<Promotor>>(){}.getType();
+        List<Promotor> promotors = new Gson().fromJson(loadString(LIST_PROMOTORS), listType);
+        return promotors != null ? promotors : new ArrayList<Promotor>();
+//        return Constants.dummy_promotores;
     }
 }

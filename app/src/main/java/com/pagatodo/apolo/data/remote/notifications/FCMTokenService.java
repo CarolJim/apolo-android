@@ -32,7 +32,7 @@ public class FCMTokenService extends FirebaseInstanceIdService implements IReque
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
 
         pref.saveData(TOKEN_MEGA, UtilsNotifications.getTokenMega(refreshedToken));
-        BuildRequest.registerDeviceMega(UtilsNotifications.getMegaHeaders(null), requestRegistroDispositivo(App.getInstance().getApplicationContext(), refreshedToken), this);
+//        BuildRequest.registerDeviceMega(UtilsNotifications.getMegaHeaders(null), requestRegistroDispositivo(App.getInstance().getApplicationContext(), refreshedToken), this);
     }
 
 

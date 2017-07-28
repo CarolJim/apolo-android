@@ -41,6 +41,7 @@
         <attr name="hintColor" format="color"/>
         <attr name="defaultIcon" format="reference"/>
         <attr name="maxLength" format="integer"/>
+        <attr name="minSizeRequired" format="integer"/>
         <attr name="android:gravity"/>
         <attr name="maxLines" format="integer"/>
         <attr name="isSingleLine" format="boolean"/>

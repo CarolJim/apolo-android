@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -6,13 +6,39 @@
     android:id="@+id/layout_splash"
     android:gravity="center"
     android:orientation="vertical">
-
+    <LinearLayout
+        android:id="@+id/progressSplash"
+        android:layout_gravity="bottom"
+        android:layout_margin="@dimen/dimen_margin_small"
+        android:gravity="center"
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ProgressBar
+            android:id="@+id/progressResourceActivity"
+            android:indeterminateTint="@color/colorPrimary"
+            android:layout_margin="@dimen/dimen_margin_small"
+            android:layout_gravity="center"
+            android:layout_width="25dp"
+            android:layout_height="25dp" />
+        <com.pagatodo.apolo.utils.customviews.MaterialTextView
+            android:layout_margin="@dimen/dimen_margin_small"
+            android:textColor="@color/colorPrimaryDark"
+            android:id="@+id/progressTextActivity"
+            android:text="@string/txt_progressText"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:maxLines="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
     <!-- Logo Apolo  -->
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/ic_launcher"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:scaleType="fitXY"
+        android:layout_gravity="center"
         app:srcCompat="@drawable/logo_splash_screen"/>
-
-</LinearLayout>
+</FrameLayout>

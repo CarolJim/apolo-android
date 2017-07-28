@@ -39,17 +39,16 @@ public class LoginActivity extends BasePresenterPermissionActivity<LoginPresente
     @BindView(R.id.edtUserNumber) MaterialValidationEditText edtNumber;
     @BindView(R.id.btnLogin) MaterialButton btnLogin;
     @BindView(R.id.layoutLogin) CoordinatorLayout layoutLogin;
-    @BindView(R.id.progress_view_activity) LinearLayout progressBar;
 
     private String ID_Promotor = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        inflateView(this, R.layout.activity_login);
+//        setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         validateEditText(btnLogin, edtNumber);
-        edtNumber.setMaxLength(8);
         requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE});
     }
 
@@ -93,14 +92,11 @@ public class LoginActivity extends BasePresenterPermissionActivity<LoginPresente
     public void showMessage(String message) {
         super.showMessage(message);
     }
+
     @Override
-    public void showProgress() {
-        progressBar.setVisibility(View.VISIBLE);
+    public void showProgress(String message) {
+        super.showProgress(message);
         hideSoftKeyboard();
-    }
-    @Override
-    public void hideProgress() {
-        progressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -126,11 +122,7 @@ public class LoginActivity extends BasePresenterPermissionActivity<LoginPresente
             return;
         }
         if(ID_Promotor.length() < MIN_SIZE_ID_AFILIADOR){
-            showMessage(getString(R.string.error_empty_id_afiliador));
-            return;
-        }
-        if(!isInteger(ID_Promotor)){
-            showMessage(getString(R.string.error_num_id_afiliador));
+            showMessage(getString(R.string.error_min_id_afiliador));
             return;
         }
         onValidationSuccess();
@@ -148,15 +140,5 @@ public class LoginActivity extends BasePresenterPermissionActivity<LoginPresente
             return;
         }
         showMessage(getString(R.string.error_empty_id_afiliador));
-    }
-    public static boolean isInteger(String s) {
-        try {
-            Integer.parseInt(s);
-        } catch(NumberFormatException e) {
-            return false;
-        } catch(NullPointerException e) {
-            return false;
-        }
-        return true;
     }
 }

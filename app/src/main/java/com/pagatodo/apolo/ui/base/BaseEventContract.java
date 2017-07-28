@@ -25,6 +25,11 @@ public class BaseEventContract {
     public static final String EVENT_TOKEN_EXPIRED          = "tokenExpired";
     public static final String EVENT_LOGOUT                 = "logout";
 
+    //Login
+    public static final String EVENT_RE_GET_PROMOTORS       = "reGetPromotors";
+    public static final String EVENT_SALIR                  = "goExit";
+
+
     //Run Time Permissions
     public static final String SHOW_APP_SETTINGS            = "appSettings";
     public static final String RT_OPTION_DECLINED           = "rtWereDeclined";

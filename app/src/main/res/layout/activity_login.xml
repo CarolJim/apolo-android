@@ -7,7 +7,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/bg_app">
-
 <RelativeLayout
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -15,7 +14,6 @@
     android:layout_marginLeft="@dimen/dimen_margin_large"
     android:layout_marginRight="@dimen/dimen_margin_large"
     tools:context=".activity.LoginActivity">
-
          <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -27,9 +25,9 @@
              android:id="@+id/edtUserNumber"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
-             app:formato="number"
+             app:formato="text"
              android:padding="@dimen/dimen_padding_medium"
-             android:maxLength="8"
+             app:maxLength="6"
              android:gravity="center"
              app:hintColor="@color/colorWhite"
              app:hintText="@string/hint_numero_usuario"/>
@@ -58,5 +56,4 @@
         </RelativeLayout>
 
 </RelativeLayout>
-<include layout="@layout/progress_view_activity" />
 </android.support.design.widget.CoordinatorLayout>
