@@ -1,5 +1,6 @@
 package com.pagatodo.apolo.activity.smsverification._presenter._interfaces;
 
+import android.app.Activity;
 import com.pagatodo.apolo.ui.base.factoryinterfaces.IProcessData;
 
 /**
@@ -7,6 +8,6 @@ import com.pagatodo.apolo.ui.base.factoryinterfaces.IProcessData;
  */
 
 public interface SmsPresenter extends IProcessData {
-
-    void verify(String codigo);
+    void validation(String codigo);
+    void confirmation(String celular, Activity activity);
 }

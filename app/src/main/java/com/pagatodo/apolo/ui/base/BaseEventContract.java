@@ -16,6 +16,7 @@ public class BaseEventContract {
     public static final String EVENT_SHOW_ERROR             = "showError";
     public static final String EVENT_SHOW_MESSAGE           = "showMessage";
     public static final String EVENT_HIDE_KEYBOARD          = "hideKeyboard";
+    public static final String EVENT_SHOW_KEYBOARD          = "showKeyboard";
     public static final String EVENT_DISSMISS_DIALOG        = "dimissDialog";
     public static final String EVENT_OPEN_TERMS             = "openTerms";
     public static final String EVENT_ENABLE_BACK_BUTTON     = "enableBackButton";

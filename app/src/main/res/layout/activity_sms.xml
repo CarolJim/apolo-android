@@ -53,7 +53,7 @@
 
             <!-- Boton verificar SMS  -->
             <com.pagatodo.apolo.utils.customviews.MaterialButton
-                android:id="@+id/btnVerificar"
+                android:id="@+id/btnValidar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_button_height"
                 android:layout_marginBottom="@dimen/dimen_margin_xl"

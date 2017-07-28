@@ -9,10 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.activity.CaptureActivity;
+import com.pagatodo.apolo.activity.register.RegisterActivity;
 import com.pagatodo.apolo.data.model.Cards;
 import com.pagatodo.apolo.utils.Constants;
 
 import java.util.List;
+
+import static com.pagatodo.apolo.App.instance;
 
 /**
  * Created by rvargas on 19/07/2017.
@@ -73,6 +76,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.mViewHolde
                 mContext.startActivity(i);
             }
         });
+
 
     }
 

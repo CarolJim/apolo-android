@@ -83,6 +83,47 @@ public class CaptureActivity extends Activity implements PictureCallback, Surfac
         }
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (mCamera == null) {
+            try {
+                mCamera = Camera.open();
+                mCamera.setPreviewDisplay(mSurfaceView.getHolder());
+
+                Camera.Parameters param;
+                param = mCamera.getParameters();
+                Display display = ((WindowManager)getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
+                if(display.getRotation() == Surface.ROTATION_0) {
+                    mCamera.setDisplayOrientation(90);
+                    param.setRotation(90);
+                }
+                if(display.getRotation() == Surface.ROTATION_270) {
+                    mCamera.setDisplayOrientation(180);
+                    param.setRotation(180);
+                }
+                mCamera.setParameters(param);
+
+                if (mIsCapturing) {
+                    mCamera.startPreview();
+                }
+            } catch (Exception e) {
+                showToast(getString(R.string.unable_camera), getApplicationContext());
+            }
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mCamera != null) {
+            mCamera.release();
+            mCamera = null;
+        }
+    }
+
     @Override
     public void onPictureTaken(byte[] data, Camera camera) {
         mCameraData = data;
@@ -210,47 +251,6 @@ public class CaptureActivity extends Activity implements PictureCallback, Surfac
             }
         }
         return null;
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        if (mCamera == null) {
-            try {
-                mCamera = Camera.open();
-                mCamera.setPreviewDisplay(mSurfaceView.getHolder());
-
-                Camera.Parameters param;
-                param = mCamera.getParameters();
-                Display display = ((WindowManager)getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
-                if(display.getRotation() == Surface.ROTATION_0) {
-                    mCamera.setDisplayOrientation(90);
-                    param.setRotation(90);
-                }
-                if(display.getRotation() == Surface.ROTATION_270) {
-                    mCamera.setDisplayOrientation(180);
-                    param.setRotation(180);
-                }
-                mCamera.setParameters(param);
-
-                if (mIsCapturing) {
-                    mCamera.startPreview();
-                }
-            } catch (Exception e) {
-                showToast(getString(R.string.unable_camera), getApplicationContext());
-            }
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (mCamera != null) {
-            mCamera.release();
-            mCamera = null;
-        }
     }
 
 }

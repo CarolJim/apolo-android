@@ -1,6 +1,7 @@
 package com.pagatodo.apolo.ui.base.factoryactivities;
 
 import android.app.Activity;
+import android.app.Service;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -26,6 +27,7 @@ import static com.pagatodo.apolo.ui.UI.showToast;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_DISMISS_PROGRESS;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_HIDE_KEYBOARD;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_SHOW_ERROR;
+import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_SHOW_KEYBOARD;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_SHOW_MESSAGE;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_SHOW_PROGRESS;
 
@@ -204,6 +206,9 @@ public abstract class SupportUXActivity extends SupportFragmentActivity implemen
             case EVENT_HIDE_KEYBOARD:
                 hideSoftKeyboard();
                 break;
+            case EVENT_SHOW_KEYBOARD:
+                showSoftKeyboard();
+                break;
             default:
                 break;
         }
@@ -244,6 +249,13 @@ public abstract class SupportUXActivity extends SupportFragmentActivity implemen
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
+
+    protected void showSoftKeyboard(){
+        View view = this.getCurrentFocus();
+        InputMethodManager input = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        input.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+    }
+
 
     @Override
     public void onBackPressed() {

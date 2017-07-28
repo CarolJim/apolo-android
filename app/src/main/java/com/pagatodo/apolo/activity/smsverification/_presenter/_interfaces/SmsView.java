@@ -11,5 +11,8 @@ public interface SmsView extends IEventOnView {
     void hideProgress();
     void setCodigoError();
     void setNavigation();
+
+    void setConfirmationError();
+    void setAutoComplete();
     void showMessage(String message);
 }
