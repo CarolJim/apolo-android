@@ -9,6 +9,7 @@ import com.pagatodo.apolo.data.model.webservice.request.DocumentUploadRequest;
 import com.pagatodo.apolo.data.model.webservice.request.SMSCodeValidationRequest;
 import com.pagatodo.apolo.data.model.webservice.request.SMSValidationRequest;
 import com.pagatodo.apolo.data.model.webservice.response.CreditRequestRegisterResponse;
+import com.pagatodo.apolo.data.model.webservice.response.GeneralServiceResponse;
 import com.pagatodo.apolo.data.model.webservice.response.GetPromotersResponse;
 import com.pagatodo.apolo.data.remote.notifications.model.webservice.mega.GetPushStatus;
 import com.pagatodo.apolo.data.remote.notifications.model.webservice.mega.MegaBaseModel;
@@ -167,7 +168,7 @@ public class BuildRequest {
                 body,
                 result,
                 TIMEOUT,
-                Respuesta.class);
+                GeneralServiceResponse.class);
     }
 
 
@@ -182,7 +183,7 @@ public class BuildRequest {
                 body,
                 result,
                 TIMEOUT,
-                Respuesta.class);
+                GeneralServiceResponse.class);
     }
 
     public static void sendSMSCodeValidation(IRequestResult result, SMSCodeValidationRequest body, HashMap<String,String> headers)
@@ -196,6 +197,6 @@ public class BuildRequest {
                 body,
                 result,
                 TIMEOUT,
-                Respuesta.class);
+                GeneralServiceResponse.class);
     }
 }
