@@ -20,6 +20,14 @@ public class Cards {
         this.documento = documento;
     }
 
+    public Documento getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(Documento documento) {
+        this.documento = documento;
+    }
+
     public int getTypeCard() {
         return TypeCard;
     }
@@ -43,5 +51,4 @@ public class Cards {
     public void setIvCheck(int ivCheck) {
         this.ivCheck = ivCheck;
     }
-
 }

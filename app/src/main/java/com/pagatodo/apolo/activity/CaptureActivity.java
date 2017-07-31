@@ -3,10 +3,12 @@ package com.pagatodo.apolo.activity;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import android.app.Activity;
+
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.Camera;
@@ -23,16 +25,18 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import com.pagatodo.apolo.R;
+import com.pagatodo.apolo.data.model.Documento;
+import com.pagatodo.apolo.ui.base.factoryactivities.BaseActivity;
+import com.pagatodo.apolo.utils.Base64Utils;
 import com.pagatodo.apolo.utils.Constants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.pagatodo.apolo.App.instance;
 import static com.pagatodo.apolo.ui.UI.showToast;
 
-public class CaptureActivity extends Activity implements PictureCallback, SurfaceHolder.Callback {
+public class CaptureActivity extends BaseActivity implements PictureCallback, SurfaceHolder.Callback {
     private static final String TAG = "CaptureActivity";
     private Camera mCamera;
     private byte[] mCameraData;
@@ -45,15 +49,15 @@ public class CaptureActivity extends Activity implements PictureCallback, Surfac
     @BindView(R.id.action_capture) AppCompatImageView btnCapture;
     @BindView(R.id.camera_frame) RelativeLayout camera_frame;
     @BindView(R.id.progress_view_activity) LinearLayout progress;
-    int TYPE_CAPTURE;
+    private Documento documentSaver;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_capture);
         ButterKnife.bind(this);
         Bundle extras = getIntent().getExtras();
-        TYPE_CAPTURE = extras.getInt(Constants.TYPE_CAPTURE);
+        documentSaver = (Documento) extras.getSerializable(Constants.SELECTED_DOCUMENT_KEY);
 
         mCameraImage.setVisibility(View.INVISIBLE);
 
@@ -63,6 +67,16 @@ public class CaptureActivity extends Activity implements PictureCallback, Surfac
 
         mIsCapturing = true;
 
+    }
+
+    @Override
+    protected int setIdMainView() {
+        return 0;
+    }
+
+    @Override
+    protected int setIdContainerFragments() {
+        return 0;
     }
 
     @Override
@@ -80,47 +94,6 @@ public class CaptureActivity extends Activity implements PictureCallback, Surfac
             setupImageDisplay();
         } else {
             setupImageCapture();
-        }
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        if (mCamera == null) {
-            try {
-                mCamera = Camera.open();
-                mCamera.setPreviewDisplay(mSurfaceView.getHolder());
-
-                Camera.Parameters param;
-                param = mCamera.getParameters();
-                Display display = ((WindowManager)getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
-                if(display.getRotation() == Surface.ROTATION_0) {
-                    mCamera.setDisplayOrientation(90);
-                    param.setRotation(90);
-                }
-                if(display.getRotation() == Surface.ROTATION_270) {
-                    mCamera.setDisplayOrientation(180);
-                    param.setRotation(180);
-                }
-                mCamera.setParameters(param);
-
-                if (mIsCapturing) {
-                    mCamera.startPreview();
-                }
-            } catch (Exception e) {
-                showToast(getString(R.string.unable_camera), getApplicationContext());
-            }
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (mCamera != null) {
-            mCamera.release();
-            mCamera = null;
         }
     }
 
@@ -186,6 +159,11 @@ public class CaptureActivity extends Activity implements PictureCallback, Surfac
         onBackPressed();
     }
 
+    @Override
+    public void onBackPressed() {
+        onResultCallBack(null);
+    }
+
     @OnClick(R.id.action_capture)
     public void captureCard() {
         captureImage();
@@ -215,18 +193,10 @@ public class CaptureActivity extends Activity implements PictureCallback, Surfac
                 if (!mCameraBitmap.compress(Bitmap.CompressFormat.JPEG, 60, outStream)) {
                     showToast(getString(R.string.unable_to_save), getApplicationContext());
                 } else {
-                    switch (TYPE_CAPTURE) {
-                        case 0:
-                            instance.put(Constants.SOL_TARJETA, file.toString());
-                            break;
-                        case 1:
-                            instance.put(Constants.SOL_IFE_FRENTE, file.toString());
-                            break;
-                        case 2:
-                            instance.put(Constants.SOL_IFE_VUELTA, file.toString());
-                            break;
-                    }
-                    closeCapture();
+                    String encodedImage = Base64Utils.getEncodedString(file);
+                    documentSaver.setDocumentoBase64(encodedImage);
+                    documentSaver.setLongitud(encodedImage.length());
+                    onResultCallBack(documentSaver);
                 }
                 outStream.close();
             } catch (Exception e) {
@@ -253,4 +223,43 @@ public class CaptureActivity extends Activity implements PictureCallback, Surfac
         return null;
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (mCamera == null) {
+            try {
+                mCamera = Camera.open();
+                mCamera.setPreviewDisplay(mSurfaceView.getHolder());
+                setDisplayOrientation(mCamera, 90);
+
+                if (mIsCapturing) {
+                    mCamera.startPreview();
+                }
+            } catch (Exception e) {
+                showToast(getString(R.string.unable_camera), getApplicationContext());
+            }
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mCamera != null) {
+            mCamera.release();
+            mCamera = null;
+        }
+    }
+
+
+    protected void setDisplayOrientation(Camera camera, int angle) {
+        Method downPolymorphic;
+        try {
+            downPolymorphic = camera.getClass().getMethod("setDisplayOrientation", new Class[]{int.class});
+            if (downPolymorphic != null)
+                downPolymorphic.invoke(camera, new Object[]{angle});
+        } catch (Exception e1) {
+        }
+    }
 }

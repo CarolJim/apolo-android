@@ -9,16 +9,14 @@ public interface SmsInteractor {
 
     interface onValidationListener{
         void onSuccess();
-        void failure(String message);
-        void onCodigoError();
+        void onFailed(String message);
     }
-    void onValidation(String codigo, onValidationListener listener);
+    void onValidation(String celular, String codigo, onValidationListener listener);
 
 
     interface onConfirmationListener{
-        void onSuccessConfirmate();
-        void failure(String message);
-        void onCodigoErrorConfirmate();
+        void onSuccess();
+        void onFailed(String message);
     }
-    void onConfirmation(String celular, onConfirmationListener listener, Activity activity);
+    void onConfirmation(String celular, onConfirmationListener listener);
 }

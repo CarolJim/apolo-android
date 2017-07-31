@@ -11,7 +11,7 @@ public class GeneralServiceResponse extends ModelPattern {
 
     private Respuesta Respuesta;
 
-    public com.pagatodo.apolo.data.model.factory.Respuesta getRespuesta() {
+    public Respuesta getRespuesta() {
         return Respuesta;
     }
 }

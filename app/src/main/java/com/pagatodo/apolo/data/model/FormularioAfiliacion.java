@@ -12,8 +12,8 @@ public class FormularioAfiliacion {
     private String telefonoCasa= "";
     private List<Documento> documentos = new ArrayList<>();
 
-    public FormularioAfiliacion(){
-
+    public FormularioAfiliacion(List<Documento> documentos){
+        this.documentos.addAll(documentos);
     }
 
     public String getTelefonoMovil() {

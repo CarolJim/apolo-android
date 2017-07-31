@@ -17,6 +17,8 @@ import com.pagatodo.apolo.ui.dialogs.DialogFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.pagatodo.apolo.ui.base.BaseEventContract.SHOW_APP_SETTINGS;
+
 /**
  * @author Jose Alberto Vazquez
  * @version 1.0
@@ -45,6 +47,8 @@ public abstract class BasePresenterPermissionActivity<iProcessData extends IProc
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if(!arePermissionsGranted(permissions))
                 requestPermissions(permissions, PERMISSIONS_ID);
+            else
+                doPermissionsGrantedAction();
         }else
             doPermissionsGrantedAction();
     }
@@ -97,9 +101,7 @@ public abstract class BasePresenterPermissionActivity<iProcessData extends IProc
 
                         }
                     }else
-                    {
                         doPermissionsGrantedAction();
-                    }
                 }
                 break;
             default:
@@ -172,4 +174,14 @@ public abstract class BasePresenterPermissionActivity<iProcessData extends IProc
         return "";
     }
 
+    @Override
+    public void onEvent(String event, Object data) {
+        super.onEvent(event, data);
+        switch (event)
+        {
+            case SHOW_APP_SETTINGS:
+                showAppSettings();
+                break;
+        }
+    }
 }

@@ -24,7 +24,8 @@
     <string name="txt_button_continue">CONTINUAR</string>
     <string name="txt_button_login">INGRESAR</string>
     <string name="txt_button_end">FINALIZAR</string>
-    <string name="txt_button_reenviar">REENVIAR %d</string>
+    <string name="txt_button_reenviar">REENVIAR</string>
+    <string name="txt_button_reenviar_time">REENVIAR %d</string>
 
 
     <!-- @see progress_view.xml -->
@@ -129,6 +130,8 @@
     <string name="error_min_id_afiliador">Tú usuario es muy corto.</string>
     <string name="error_cellphone_empty">El telefono celular no puede estar vacio.</string>
     <string name="error_cellphone_invalid">El numero celular es invalido.</string>
+    <string name="error_codigo_empty">El código de verificación debe contener 6 dígitos.</string>
+    <string name="error_codigo_invalid">El código de verificación es invalido.</string>
 
 
     <!-- txt btns-->

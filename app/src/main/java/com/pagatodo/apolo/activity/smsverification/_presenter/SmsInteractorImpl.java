@@ -56,14 +56,13 @@ public class SmsInteractorImpl implements SmsInteractor {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        listener.onSuccessConfirmate();
+                        listener.onSuccess();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        listener.failure(String.valueOf(error));
-                        listener.onCodigoErrorConfirmate();
+                        listener.onFailed(String.valueOf(error));
                     }
                 }) {
 

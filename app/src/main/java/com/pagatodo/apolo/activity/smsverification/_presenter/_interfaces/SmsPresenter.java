@@ -8,6 +8,6 @@ import com.pagatodo.apolo.ui.base.factoryinterfaces.IProcessData;
  */
 
 public interface SmsPresenter extends IProcessData {
-    void validation(String codigo);
-    void confirmation(String celular, Activity activity);
+    void validation(String celular, String codigo);
+    void confirmation(String celular);
 }

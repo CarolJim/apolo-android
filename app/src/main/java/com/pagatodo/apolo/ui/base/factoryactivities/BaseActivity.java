@@ -1,20 +1,17 @@
 package com.pagatodo.apolo.ui.base.factoryactivities;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.activity.login.LoginActivity;
 import com.pagatodo.apolo.ui.dialogs.DialogFactory;
-import com.pagatodo.apolo.utils.customviews.MaterialTextView;
 import com.pagatodo.networkframework.UtilsNet;
 
 import java.io.Serializable;
@@ -29,6 +26,7 @@ import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_TOKEN_EXPIRED;
 
 public abstract class BaseActivity extends SupportNotificationsActivity implements View.OnClickListener {
 
+    protected final static String RESULT_KEY            = "result";
     private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
@@ -83,7 +81,7 @@ public abstract class BaseActivity extends SupportNotificationsActivity implemen
     protected void logout(boolean isFast){
         if(isFast){
             pref.destroySession();
-            showView(BaseActivity.this, LoginActivity.class);
+            showView(LoginActivity.class);
             finish();
         }else{
             showProgressActivity(getString(R.string.progress_logout));
@@ -91,7 +89,7 @@ public abstract class BaseActivity extends SupportNotificationsActivity implemen
                 @Override
                 public void run() {
                     pref.destroySession();
-                    showView(BaseActivity.this, LoginActivity.class);
+                    showView(LoginActivity.class);
                     finish();
                 }
             }, 3000L);
@@ -103,20 +101,45 @@ public abstract class BaseActivity extends SupportNotificationsActivity implemen
         super.onResume();
     }
 
-    protected void showView(Context currentView , Class comingView)
+    protected void showView(Class comingView)
     {
-        showView(currentView, comingView, null);
+        showView(comingView, null);
     }
 
-
-    protected void showView(Context currentView, Class comingView, HashMap<String, Serializable> extras)
+    protected void startActivityForResult(Class comingView, int requestCode, HashMap<String, Serializable> extras)
     {
-        showView(currentView, comingView, extras, null);
+        Intent intent = new Intent(this, comingView);
+        if(extras != null)
+        {
+            for (String key : extras.keySet())
+            {
+                intent.putExtra(key, extras.get(key));
+            }
+        }
+        startActivityForResult(intent, requestCode);
     }
 
-    protected  void showView(Context currentView, Class comingView, HashMap<String, Serializable> extras, Bundle options)
+    protected void onResultCallBack(Serializable result)
     {
-        Intent intent = new Intent(currentView, comingView);
+        Intent callBackIntent = new Intent();
+        if(result != null)
+        {
+            callBackIntent.putExtra(RESULT_KEY, result);
+            setResult(Activity.RESULT_OK, callBackIntent);
+        }
+        else
+            setResult(Activity.RESULT_CANCELED, callBackIntent);
+        finish();
+    }
+
+    protected void showView(Class comingView, HashMap<String, Serializable> extras)
+    {
+        showView(comingView, extras, null);
+    }
+
+    protected  void showView(Class comingView, HashMap<String, Serializable> extras, Bundle options)
+    {
+        Intent intent = new Intent(this, comingView);
         //Waiting for Flags Needs
         if(extras != null)
         {
@@ -125,17 +148,17 @@ public abstract class BaseActivity extends SupportNotificationsActivity implemen
                 intent.putExtra(key, extras.get(key));
             }
         }
-        currentView.startActivity(intent, options);
+        startActivity(intent, options);
     }
 
-    protected void showViewIntentBundle(Context currentView, Class comingView, Bundle options)
+    protected void showViewIntentBundle(Class comingView, Bundle options)
     {
-        Intent intent = new Intent(currentView, comingView);
+        Intent intent = new Intent(this, comingView);
         for(String key : options.keySet())
         {
             intent.putExtra(key,(Serializable) options.get(key));
         }
-        currentView.startActivity(intent, options);
+        startActivity(intent, options);
     }
     protected boolean isOnline(){
         return UtilsNet.isOnline(this);

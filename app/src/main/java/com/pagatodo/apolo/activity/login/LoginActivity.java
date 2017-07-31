@@ -1,22 +1,14 @@
 package com.pagatodo.apolo.activity.login;
 
 import android.Manifest;
-import android.app.Service;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.view.Gravity;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.LinearLayout;
-import android.widget.Toast;
+
 import com.pagatodo.apolo.activity.login._presenter._interfaces.LoginPresenter;
 import com.pagatodo.apolo.activity.login._presenter.LoginPresenterImpl;
 import com.pagatodo.apolo.activity.login._presenter._interfaces.LoginView;
 import com.pagatodo.apolo.activity.register.RegisterActivity;
 import com.pagatodo.apolo.R;
-import com.pagatodo.apolo.data.model.Promotor;
-import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterActivity;
 import com.pagatodo.apolo.ui.base.factoryinterfaces.IValidateForms;
 import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterPermissionActivity;
 import com.pagatodo.apolo.utils.ValidateForm;
@@ -26,7 +18,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.pagatodo.apolo.data.local.Preferences.createSession;
 import static com.pagatodo.apolo.ui.UI.showSnackBar;
 import static com.pagatodo.apolo.utils.Constants.MIN_SIZE_ID_AFILIADOR;
 
@@ -49,7 +40,8 @@ public class LoginActivity extends BasePresenterPermissionActivity<LoginPresente
 //        setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         validateEditText(btnLogin, edtNumber);
-        requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE});
+        requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                        Manifest.permission.RECEIVE_SMS, Manifest.permission.READ_SMS});
     }
 
     @Override
@@ -85,7 +77,7 @@ public class LoginActivity extends BasePresenterPermissionActivity<LoginPresente
     }
 
     @Override public void setNavigation() {
-        startActivity(new Intent(this,RegisterActivity.class));
+        showView(RegisterActivity.class);
     }
 
     @Override
@@ -140,5 +132,9 @@ public class LoginActivity extends BasePresenterPermissionActivity<LoginPresente
             return;
         }
         showMessage(getString(R.string.error_empty_id_afiliador));
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
     }
 }
