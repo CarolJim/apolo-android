@@ -129,6 +129,7 @@
     <string name="error_min_id_afiliador">Tú usuario es muy corto.</string>
     <string name="error_cellphone_empty">El telefono celular no puede estar vacio.</string>
     <string name="error_cellphone_invalid">El numero celular es invalido.</string>
+    <string name="error_listaDocumentoVacio">El documento %1$s no se ha capturado.</string>
 
 
     <!-- txt btns-->

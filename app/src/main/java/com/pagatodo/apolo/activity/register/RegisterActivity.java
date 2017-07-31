@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.design.widget.CoordinatorLayout;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -39,6 +41,8 @@ import static com.pagatodo.apolo.ui.UI.showSnackBar;
 import static com.pagatodo.apolo.ui.UI.showToast;
 
 public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPresenter> implements RegisterView, IValidateForms{
+    private static final String DIALOG_PROGRESS_REGISTER = "dialogProgressRegister";
+
     private final String TAG = "MainActivity";
     private CustomAdapter adapter;
     private List<Cards> cardsList = Constants.DOCUMENTS;
@@ -58,7 +62,6 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
         adapter = new CustomAdapter(this, cardsList);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getApplicationContext(), 1);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -69,6 +72,7 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         mPromotor = pref.getCurrentPromotor();
         setValuesDefaultForm();
         enableVerificateSMS(pref.isEnableVerificateSMS());
+//        buildProgresRegisterDialog();
     }
 
     @Override
@@ -195,6 +199,9 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         return  getString(R.string.name_agente_format, nombre, apellido, apellidoMaterno);
     }
     @OnClick(R.id.btnRegister)
+    public void goRegister(){
+        validateForm();
+    }
     @Override
     public void validateForm() {
         getDataForm();
@@ -204,6 +211,17 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         }
         if(!edtCellPhone.isValidField()){
             showMessage(getString(R.string.error_cellphone_invalid));
+            return;
+        }
+        String errorDocument = "";
+        for(Cards card: cardsList){
+            if(card.getDocumento().getDocumentoBase64().isEmpty() || card.getDocumento().getLongitud() == 0){
+                errorDocument = card.getDocumento().getNombre();
+                break;
+            }
+        }
+        if(!errorDocument.isEmpty()){
+            showMessage(getString(R.string.error_listaDocumentoVacio, errorDocument));
             return;
         }
         onValidationSuccess();
@@ -225,5 +243,15 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         if(findViewById(R.id.ivVerify) != null){
             findViewById(R.id.ivVerify).setVisibility(enable ? View.VISIBLE: View.GONE);
         }
+    }
+    public  void buildProgresRegisterDialog(){
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        Fragment prev = getSupportFragmentManager().findFragmentByTag(DIALOG_PROGRESS_REGISTER);
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        StatusProgresFragment dialog = StatusProgresFragment.newInstance();
+        dialog.setCancelable(false);
+        dialog.show(ft, DIALOG_PROGRESS_REGISTER);
     }
 }
