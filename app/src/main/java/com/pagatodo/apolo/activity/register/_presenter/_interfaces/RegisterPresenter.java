@@ -15,4 +15,5 @@ public interface RegisterPresenter extends IProcessData{
     void request(List<Cards> cardsList);
     void register(String numberCelPhone, String numberPhone, String rutaCard, String rutaINEFront, String rutaINEBack);
     void requestRegister(FormularioAfiliacion request);
+    String getFolio();
 }

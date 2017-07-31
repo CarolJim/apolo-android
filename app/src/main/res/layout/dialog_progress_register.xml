@@ -2,35 +2,98 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:minWidth="300dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center">
 
-    <com.pagatodo.apolo.utils.customviews.StatusViewCupo
-        android:id="@+id/status_view"
+    <com.pagatodo.apolo.utils.customviews.MaterialTextView
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="@dimen/dimen_textSize_large"
+        android:padding="@dimen/dimen_padding_xl"
+        android:layout_margin="@dimen/dimen_margin_medium"
+        android:text="@string/dialog_status_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        app:tipo="Titulo"/>
+    <FrameLayout
         android:layout_width="200dp"
-        android:layout_height="200dp"
-        app:bgColor="#e1e1e1"
-        app:firstColor="@android:color/holo_blue_bright"
-        app:secondColor="@android:color/holo_green_dark"
-        app:errorColor="@android:color/holo_red_dark"
-        app:percent="30"
-        app:startAngle="0"
-        app:strokeWidth="21dp"
-        />
+        android:layout_height="200dp">
+        <FrameLayout
+            android:visibility="visible"
+            android:id="@+id/fl_Progress"
+            android:layout_margin="@dimen/dimen_margin_large"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.pagatodo.apolo.utils.customviews.StatusViewCupo
+                android:id="@+id/status_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:bgColor="#e1e1e1"
+                app:firstColor="@color/colorPrimary"
+                app:secondColor="@android:color/holo_green_dark"
+                app:errorColor="@android:color/holo_red_dark"
+                app:percent="0"
+
+                app:startAngle="0"
+                app:strokeWidth="10dp"
+                />
+            <com.pagatodo.apolo.utils.customviews.MaterialTextView
+                android:id="@+id/progressDocuments"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="@string/dialog_status_upload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_Status"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_weight="1"
+                android:contentDescription="@null"
+                android:id="@+id/ivStatus"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+            <com.pagatodo.apolo.utils.customviews.MaterialTextView
+                android:layout_margin="@dimen/dimen_margin_medium"
+                android:id="@+id/tv_Status"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorPrimary"/>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/btn_reintentar"
-            android:layout_weight="1"
+        <!--<View-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"/>-->
+        <com.pagatodo.apolo.utils.customviews.MaterialButton
+            app:buttonNormalColor="@color/colorWhite"
+            android:textColor="@color/colorPrimary"
+            android:text="@string/txt_button_continue"
+            android:id="@+id/btn_action"
+            android:layout_weight="2"
             android:layout_width="0dp"
             android:layout_height="50dp" />
-        <Button
-            android:id="@+id/btn_next"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="50dp" />
+        <!--<View-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"/>-->
     </LinearLayout>
 </LinearLayout>

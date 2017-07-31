@@ -62,5 +62,6 @@
         <attr name="strokeWidth" format="dimension" />
         <attr name="startAngle" format="integer"/>
         <attr name="percent" format="integer"/>
+        <attr name="parts" format="integer"/>
     </declare-styleable>
 </resources>

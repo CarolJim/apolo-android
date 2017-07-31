@@ -20,9 +20,11 @@ import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterView;
 import com.pagatodo.apolo.activity.smsverification.SmsActivity;
 import com.pagatodo.apolo.data.adapters.CustomAdapter;
 import com.pagatodo.apolo.data.model.Cards;
+import com.pagatodo.apolo.data.model.Documento;
 import com.pagatodo.apolo.data.model.FormularioAfiliacion;
 import com.pagatodo.apolo.data.model.Promotor;
 import com.pagatodo.apolo.data.model.webservice.request.CreditRequestRegisterRequest;
+import com.pagatodo.apolo.ui.base.BaseEventContract;
 import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterPermissionActivity;
 import com.pagatodo.apolo.ui.base.factoryinterfaces.IValidateForms;
 import com.pagatodo.apolo.utils.Constants;
@@ -39,6 +41,9 @@ import butterknife.OnClick;
 import static com.pagatodo.apolo.App.instance;
 import static com.pagatodo.apolo.ui.UI.showSnackBar;
 import static com.pagatodo.apolo.ui.UI.showToast;
+import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_REGISTERED;
+import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_REGISTER_REINTENT;
+import static com.pagatodo.apolo.ui.base.BaseEventContract.KEY_FOLIO;
 
 public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPresenter> implements RegisterView, IValidateForms{
     private static final String DIALOG_PROGRESS_REGISTER = "dialogProgressRegister";
@@ -56,6 +61,8 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
     private int listenerPosition;
     private Promotor mPromotor = new Promotor();
     private FormularioAfiliacion mFormularioAfiliacion = new FormularioAfiliacion();
+    private StatusProgresFragment statusProgresFragment = null;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,12 +74,17 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
-        validateEditText(btnRegister, edtCellPhone);
+//        validateEditText(btnRegister, edtCellPhone);
         initData();
         mPromotor = pref.getCurrentPromotor();
         setValuesDefaultForm();
         enableVerificateSMS(pref.isEnableVerificateSMS());
 //        buildProgresRegisterDialog();
+        initFragments();
+    }
+
+    private void initFragments() {
+        statusProgresFragment = StatusProgresFragment.newInstance(mFormularioAfiliacion.getDocumentos().size() + 1);
     }
 
     @Override
@@ -140,6 +152,32 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
     }
 
     @Override
+    public void errorRegister(String message) {
+        if(statusProgresFragment != null){
+            statusProgresFragment.setErrorRegister(message);
+        }
+    }
+
+    @Override
+    public void successRegister() {
+        if(statusProgresFragment != null){
+            statusProgresFragment.isSuccessRegister();
+        }
+    }
+
+    @Override
+    public void errorUploadDocument(Documento documento, String message) {
+        if(statusProgresFragment != null){
+            statusProgresFragment.upladDocumentFailed();
+       }
+    }
+
+    @Override
+    public void successUploadDocument(Documento documento) {
+        statusProgresFragment.uploadDocumentSuccess();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         if (!isDeviceSupportCamera()) {
@@ -177,6 +215,17 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
     @Override
     public void onEvent(String event, Object data) {
         super.onEvent(event, data);
+        switch (event){
+            case EVENT_REGISTER_REINTENT:
+                presenter.requestRegister(mFormularioAfiliacion);
+                break;
+            case EVENT_REGISTERED:
+                Bundle bundle = new Bundle();
+                bundle.putString(KEY_FOLIO, presenter.getFolio());
+                startActivity(new Intent(RegisterActivity.this, ConfirmateActivity.class));
+                finish();
+                break;
+        }
     }
 
     @Override
@@ -205,6 +254,7 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
     @Override
     public void validateForm() {
         getDataForm();
+        onValidationSuccess();
         if(mFormularioAfiliacion.getTelefonoMovil().isEmpty()){
             showMessage(getString(R.string.error_cellphone_empty));
             return;
@@ -224,13 +274,15 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
             showMessage(getString(R.string.error_listaDocumentoVacio, errorDocument));
             return;
         }
-        onValidationSuccess();
+        //todo quitar este hardcode
+//        onValidationSuccess();
     }
 
     @Override
     public void onValidationSuccess() {
 //        presenter.register(edtCellPhone.getText(), edtPhone.getText(), instance.get(Constants.SOL_TARJETA), instance.get(Constants.SOL_IFE_FRENTE),instance.get(Constants.SOL_IFE_VUELTA));
-    presenter.requestRegister(mFormularioAfiliacion);
+        showProgressFragment();
+        presenter.requestRegister(mFormularioAfiliacion);
     }
 
     @Override
@@ -244,14 +296,15 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
             findViewById(R.id.ivVerify).setVisibility(enable ? View.VISIBLE: View.GONE);
         }
     }
-    public  void buildProgresRegisterDialog(){
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        Fragment prev = getSupportFragmentManager().findFragmentByTag(DIALOG_PROGRESS_REGISTER);
-        if (prev != null) {
-            ft.remove(prev);
+    public  void showProgressFragment(){
+        if(statusProgresFragment != null){
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            Fragment prev = getSupportFragmentManager().findFragmentByTag(DIALOG_PROGRESS_REGISTER);
+            if (prev != null) {
+                ft.remove(prev);
+            }
+            statusProgresFragment.setCancelable(false);
+            statusProgresFragment.show(ft, DIALOG_PROGRESS_REGISTER);
         }
-        StatusProgresFragment dialog = StatusProgresFragment.newInstance();
-        dialog.setCancelable(false);
-        dialog.show(ft, DIALOG_PROGRESS_REGISTER);
     }
 }

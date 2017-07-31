@@ -11,6 +11,7 @@ public class Documento {
     private int    IdTipoDocumento  = 0;
     private String Folio            = "";
     private String IdCliente        = "";
+    private boolean uploaded      = false;
 
     public Documento(){
 
@@ -23,6 +24,14 @@ public class Documento {
         IdTipoDocumento = idTipoDocumento;
         Folio = folio;
         IdCliente = idCliente;
+    }
+
+    public boolean isUploaded() {
+        return uploaded;
+    }
+
+    public void setUploaded(boolean uploaded) {
+        this.uploaded = uploaded;
     }
 
     public String getNombre() {

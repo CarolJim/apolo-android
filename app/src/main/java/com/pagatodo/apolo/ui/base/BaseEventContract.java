@@ -29,9 +29,16 @@ public class BaseEventContract {
     public static final String EVENT_RE_GET_PROMOTORS       = "reGetPromotors";
     public static final String EVENT_SALIR                  = "goExit";
 
+    //Eventos del formulario
+    public static final String EVENT_REGISTER_REINTENT      = "registerReintent";
+    public static final String EVENT_REGISTERED             = "creditSuccessRegister";
+
 
     //Run Time Permissions
     public static final String SHOW_APP_SETTINGS            = "appSettings";
     public static final String RT_OPTION_DECLINED           = "rtWereDeclined";
     public static final String HOME_RT_SHOW_DIALOG          = "HomeViewActivityShowRTFlag";
+
+    //keys
+    public static final String KEY_FOLIO                    = "keyFolio";
 }

@@ -11,9 +11,18 @@ public class FormularioAfiliacion {
     private String telefonoMovil = "";
     private String telefonoCasa= "";
     private List<Documento> documentos = new ArrayList<>();
+    private String folio = "";
 
     public FormularioAfiliacion(){
 
+    }
+
+    public String getFolio() {
+        return folio;
+    }
+
+    public void setFolio(String folio) {
+        this.folio = folio;
     }
 
     public String getTelefonoMovil() {

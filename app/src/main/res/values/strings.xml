@@ -25,6 +25,7 @@
     <string name="txt_button_login">INGRESAR</string>
     <string name="txt_button_end">FINALIZAR</string>
     <string name="txt_button_reenviar">REENVIAR %d</string>
+    <string name="txt_btn_reintent">REINTENTAR</string>
 
 
     <!-- @see progress_view.xml -->
@@ -103,6 +104,9 @@
     <string name="dialog_title_contact">Contacto</string>
     <string name="dialog_hint_title">Ingresa titulo</string>
     <string name="dialog_hint_message">Ingresa tu mensaje</string>
+    <string name="dialog_status_upload">Procesando\n%1$d de %2$d</string>
+    <string name="dialog_status_title">REALIZANDO REGISTRO</string>
+    <string name="dialog_status_success">Se ha registrado con exito.</string>
 
     <!-- IEventOnView -->
     <string name="progress_wait">Espera por favor.</string>
