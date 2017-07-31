@@ -1,10 +1,12 @@
 package com.pagatodo.apolo.data.model;
 
+import com.pagatodo.apolo.data.model.factory.ModelPattern;
+
 /**
  * Created by jvazquez on 28/07/2017.
  */
 
-public class Documento {
+public class Documento  extends ModelPattern{
     private String Nombre           = "";
     private String DocumentoBase64  = "";
     private int    Longitud         = 0;

@@ -1,9 +1,12 @@
 package com.pagatodo.apolo.activity.register;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.design.widget.CoordinatorLayout;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -14,15 +17,16 @@ import android.widget.Toast;
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.activity.CaptureActivity;
 import com.pagatodo.apolo.activity.ConfirmateActivity;
+import com.pagatodo.apolo.activity.PreviewImageActivity;
 import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterPresenter;
 import com.pagatodo.apolo.activity.register._presenter.RegisterPresenterImpl;
 import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterView;
 import com.pagatodo.apolo.activity.smsverification.SmsActivity;
 import com.pagatodo.apolo.data.adapters.CustomAdapter;
 import com.pagatodo.apolo.data.model.Cards;
+import com.pagatodo.apolo.data.model.Documento;
 import com.pagatodo.apolo.data.model.FormularioAfiliacion;
 import com.pagatodo.apolo.data.model.Promotor;
-import com.pagatodo.apolo.data.model.webservice.request.CreditRequestRegisterRequest;
 import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterPermissionActivity;
 import com.pagatodo.apolo.ui.base.factoryinterfaces.IValidateForms;
 import com.pagatodo.apolo.utils.Constants;
@@ -30,7 +34,10 @@ import com.pagatodo.apolo.utils.ValidateForm;
 import com.pagatodo.apolo.utils.customviews.MaterialButton;
 import com.pagatodo.apolo.utils.customviews.MaterialTextView;
 import com.pagatodo.apolo.utils.customviews.MaterialValidationEditText;
+
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,6 +46,7 @@ import butterknife.OnClick;
 import static com.pagatodo.apolo.App.instance;
 import static com.pagatodo.apolo.ui.UI.showSnackBar;
 import static com.pagatodo.apolo.ui.UI.showToast;
+import static com.pagatodo.apolo.ui.base.BaseEventContract.DOCUMENTS_RV_ITEM_SELECTED;
 
 public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPresenter> implements RegisterView, IValidateForms{
     private static final String DIALOG_PROGRESS_REGISTER = "dialogProgressRegister";
@@ -53,9 +61,12 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
     @BindView(R.id.edtPhone) MaterialValidationEditText edtPhone;
     @BindView(R.id.tv_name_afiliado) MaterialTextView tvAfiliado;
 
-    private int listenerPosition;
     private Promotor mPromotor = new Promotor();
-    private FormularioAfiliacion mFormularioAfiliacion = new FormularioAfiliacion();
+    private FormularioAfiliacion mFormularioAfiliacion = new FormularioAfiliacion(Constants.DOCUMENTS_LIST);
+    private Documento rvSelectedItem;
+
+    private final static int CAPTURE_REQUEST_CODE = 10;
+    private final static int PREVIEW_REQUEST_CODE = 20;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -116,7 +127,7 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
     @OnClick(R.id.ivVerify)
     public void sms(){
         assignData();
-        startActivity(new Intent(this,SmsActivity.class));
+        showView(SmsActivity.class);
     }
 
     @Override
@@ -126,7 +137,7 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
 
     @Override
     public void setNavigation() {
-        startActivity(new Intent(this,ConfirmateActivity.class));
+        showView(ConfirmateActivity.class);
     }
 
     @Override
@@ -173,18 +184,36 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         edtPhone.setText(instance.get(Constants.SOL_TELEFONO));
     }
 
+    @Override
+    protected void doPermissionsGrantedAction() {
+        assignData();
+        HashMap<String, Serializable> extras = new HashMap<>();
+
+        if(presenter.doesDocumentExist(rvSelectedItem, mFormularioAfiliacion))
+        {
+            extras.put(Constants.SELECTED_DOCUMENT_KEY, mFormularioAfiliacion.getDocumentos().get(presenter.getDocumentPosition(rvSelectedItem, mFormularioAfiliacion)));
+            startActivityForResult(PreviewImageActivity.class, PREVIEW_REQUEST_CODE, extras);
+        }
+        else
+        {
+            extras.put(Constants.SELECTED_DOCUMENT_KEY, rvSelectedItem);
+            startActivityForResult(CaptureActivity.class, CAPTURE_REQUEST_CODE, extras);
+        }
+
+
+    }
+
 
     @Override
     public void onEvent(String event, Object data) {
         super.onEvent(event, data);
-    }
-
-    @Override
-    protected void doPermissionsGrantedAction() {
-        assignData();
-        Intent i = new Intent(RegisterActivity.this, CaptureActivity.class);
-        i.putExtra(Constants.TYPE_CAPTURE, listenerPosition);
-        startActivity(i);
+        switch (event)
+        {
+            case DOCUMENTS_RV_ITEM_SELECTED:
+                rvSelectedItem = (Documento) data;
+                requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE});
+                break;
+        }
     }
 
     @Override
@@ -244,6 +273,43 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
             findViewById(R.id.ivVerify).setVisibility(enable ? View.VISIBLE: View.GONE);
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case CAPTURE_REQUEST_CODE:
+                if (resultCode == Activity.RESULT_OK)
+                    if (data.getExtras().containsKey(RESULT_KEY))
+                        updateList((Documento) data.getSerializableExtra(RESULT_KEY), true);
+                break;
+            case PREVIEW_REQUEST_CODE:
+                if (resultCode == Activity.RESULT_OK)
+                    updateList(rvSelectedItem, false);
+                break;
+        }
+    }
+
+
+    private void updateList(Documento currentDocument, boolean shouldAddDocument)
+    {
+        int currentIndex = presenter.getDocumentPosition(currentDocument,mFormularioAfiliacion);
+        View currentView = recyclerView.getLayoutManager().findViewByPosition(presenter.getListPosition(currentDocument));
+        AppCompatImageView ivCheck = currentView.findViewById(R.id.ivCheck);
+        ArrayList<Documento> documents = (ArrayList<Documento>) mFormularioAfiliacion.getDocumentos();
+
+        if(shouldAddDocument)
+        {
+            ivCheck.setImageResource(R.drawable.ic_check_ap);
+            documents.remove(currentIndex);
+            documents.add(currentIndex, currentDocument);
+        }else
+        {
+            ivCheck.setImageResource(R.drawable.ic_check2_ap);
+            documents.get(currentIndex).setLongitud(0);
+        }
+    }
+
+
     public  void buildProgresRegisterDialog(){
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         Fragment prev = getSupportFragmentManager().findFragmentByTag(DIALOG_PROGRESS_REGISTER);

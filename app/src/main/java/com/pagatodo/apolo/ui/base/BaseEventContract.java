@@ -34,4 +34,7 @@ public class BaseEventContract {
     public static final String SHOW_APP_SETTINGS            = "appSettings";
     public static final String RT_OPTION_DECLINED           = "rtWereDeclined";
     public static final String HOME_RT_SHOW_DIALOG          = "HomeViewActivityShowRTFlag";
+
+    //Documents RecyclerView Events
+    public static final String DOCUMENTS_RV_ITEM_SELECTED   = "documentsRVItemSelected";
 }

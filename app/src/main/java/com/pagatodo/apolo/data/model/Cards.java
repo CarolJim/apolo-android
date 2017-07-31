@@ -52,4 +52,7 @@ public class Cards {
         this.ivCheck = ivCheck;
     }
 
+    public Documento getDocumento() {
+        return documento;
+    }
 }

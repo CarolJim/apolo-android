@@ -1,14 +1,10 @@
 package com.pagatodo.apolo.utils;
 
-import android.util.SparseIntArray;
-import android.view.Surface;
-
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.data.model.Cards;
 import com.pagatodo.apolo.data.model.Documento;
 import com.pagatodo.apolo.data.model.Promotor;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +37,7 @@ public class Constants {
     public static final int REQUEST_CAMERA_PERMISSION = 200;
     public static final String KEY_IS_CAPTURING     = "is_capturing";
     public static final String IMAGE_DIRECTORY_NAME = "Apolo";
-    public static final String TYPE_CAPTURE = "TypeCapture";
+    public static final String SELECTED_DOCUMENT_KEY = "selectedDocument";
 
     //SOLICITUD
     public static final String SOL_CELULAR    = "Celular";
@@ -74,17 +70,28 @@ public class Constants {
         dummy_promotores.add(new Promotor(false, "Ruiz", "Lopez",           12345675,"Saul", "PROM27"));
         dummy_promotores.add(new Promotor(true, "Orozco", "Orozco",         12345676,"Omar", "PROM28"));
     }
-    private static final List<Documento> listDocument = new ArrayList<>();
+
+    public static final int SOLICITUD_IFE_INE_FRENTE    = 1;
+    public static final int SOLICITUD_IFE_INE_REVERSO   = 2;
+    public static final int SOLICITUD_ADULTO_MAYOR      = 3;
+
+
+    public static final List<Documento> DOCUMENTS_LIST = new ArrayList<>();
     static {
-        listDocument.add(new Documento(1, "IFE/INE FRENTE",         "", 0, "", ""));
-        listDocument.add(new Documento(2, "IFE/INE REVERSO",        "", 0, "", ""));
-        listDocument.add(new Documento(3, "TARJETA ADULTO MAYOR",   "", 0, "", ""));
+        DOCUMENTS_LIST.add(new Documento(SOLICITUD_IFE_INE_FRENTE, "IFE/INE FRENTE",         "", 0, "", ""));
+        DOCUMENTS_LIST.add(new Documento(SOLICITUD_IFE_INE_REVERSO, "IFE/INE REVERSO",        "", 0, "", ""));
+        DOCUMENTS_LIST.add(new Documento(SOLICITUD_ADULTO_MAYOR, "TARJETA ADULTO MAYOR",   "", 0, "", ""));
     }
 
     public static final List<Cards> DOCUMENTS = new ArrayList<>();
     static {
-        DOCUMENTS.add(new Cards(R.drawable.btn_tarjeta_ap,  R.drawable.ic_tarjeta_ap,   R.drawable.ic_check_ap, listDocument.get(0)));
-        DOCUMENTS.add(new Cards(R.drawable.btn_inefrente_ap,R.drawable.ic_inefront_ap,  R.drawable.ic_check_ap, listDocument.get(1)));
-        DOCUMENTS.add(new Cards(R.drawable.btn_inevuelta_ap,R.drawable.ic_ineback_ap,   R.drawable.ic_check_ap, listDocument.get(2)));
+        DOCUMENTS.add(new Cards(R.drawable.btn_tarjeta_ap,  R.drawable.ic_tarjeta_ap,   R.drawable.ic_check_ap, DOCUMENTS_LIST.get(2)));
+        DOCUMENTS.add(new Cards(R.drawable.btn_inefrente_ap,R.drawable.ic_inefront_ap,  R.drawable.ic_check_ap, DOCUMENTS_LIST.get(0)));
+        DOCUMENTS.add(new Cards(R.drawable.btn_inevuelta_ap,R.drawable.ic_ineback_ap,   R.drawable.ic_check_ap, DOCUMENTS_LIST.get(1)));
     }
+
+
+    public static final int SOLICITUD_ADULTO_MAYOR_INDEX             = 0;
+    public static final int SOLICITUD_IFE_INE_FRENTE_INDEX           = 1;
+    public static final int SOLICITUD_IFE_INE_REVERSO_INDEX          = 2;
 }
