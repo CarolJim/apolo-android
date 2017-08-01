@@ -1,6 +1,7 @@
 package com.pagatodo.apolo.ui.base.factoryactivities;
 
 import android.app.Activity;
+import android.app.Service;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -14,6 +15,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.ui.base.factoryinterfaces.IEventOnFragment;
@@ -26,6 +28,7 @@ import static com.pagatodo.apolo.ui.UI.showToast;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_DISMISS_PROGRESS;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_HIDE_KEYBOARD;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_SHOW_ERROR;
+import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_SHOW_KEYBOARD;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_SHOW_MESSAGE;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_SHOW_PROGRESS;
 
@@ -204,6 +207,9 @@ public abstract class SupportUXActivity extends SupportFragmentActivity implemen
             case EVENT_HIDE_KEYBOARD:
                 hideSoftKeyboard();
                 break;
+            case EVENT_SHOW_KEYBOARD:
+                showSoftKeyboard();
+                break;
             default:
                 break;
         }
@@ -244,6 +250,25 @@ public abstract class SupportUXActivity extends SupportFragmentActivity implemen
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
+
+    protected void showSoftKeyboard(){
+        View view = this.getCurrentFocus();
+        InputMethodManager input = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        input.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+    }
+
+    /*** Clear all editText */
+    protected void clearEditext(ViewGroup group) {
+        for (int i = 0, count = group.getChildCount(); i < count; ++i) {
+            View view = group.getChildAt(i);
+            if (view instanceof EditText) {
+                ((EditText) view).setText("");
+            }
+            if (view instanceof ViewGroup && (((ViewGroup) view).getChildCount() > 0))
+                clearEditext((ViewGroup) view);
+        }
+    }
+
 
     @Override
     public void onBackPressed() {

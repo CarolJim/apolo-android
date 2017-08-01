@@ -134,10 +134,11 @@
     <string name="error_cellphone_empty">El telefono celular no puede estar vacio.</string>
     <string name="error_cellphone_invalid">El numero celular es invalido.</string>
     <string name="error_listaDocumentoVacio">El documento %1$s no se ha capturado.</string>
+    <string name="error_codigo_empty">El código de verificación debe contener 6 dígitos.</string>
+    <string name="error_codigo_invalid">El código de verificación es invalido.</string>
 
 
     <!-- txt btns-->
     <string name="txt_reintent">Reintentar</string>
     <string name="txt_exit">Salir</string>
-
-</resources>
+    </resources>

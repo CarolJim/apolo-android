@@ -23,6 +23,7 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_DISMISS_PROGRESS;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_HIDE_KEYBOARD;
+import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_SHOW_KEYBOARD;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_SHOW_MESSAGE;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_SHOW_PROGRESS;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_TOKEN_EXPIRED;
@@ -130,7 +131,7 @@ public abstract class SupportUXFragment extends Fragment implements IEventOnView
                 if(getErrorViewStatusVisibility()){
                     hideErrorView();
                 }
-                MaterialTextView tvMessage = (MaterialTextView) getView().findViewById(R.id.progressTextFragment);
+                MaterialTextView tvMessage = getView().findViewById(R.id.progressTextFragment);
                 if (tvMessage != null && message != null && !message.isEmpty()) {
                     tvMessage.setText(message);
                 }
@@ -168,12 +169,12 @@ public abstract class SupportUXFragment extends Fragment implements IEventOnView
                 if(getProgressViewStatusVisibility()){
                     hideProgressView();
                 }
-                MaterialTextView tvMessage = (MaterialTextView) getView().findViewById(R.id.errorTextFragment);
+                MaterialTextView tvMessage =  getView().findViewById(R.id.errorTextFragment);
                 if (tvMessage != null && message != null && !message.isEmpty()) {
                     tvMessage.setText(message);
                 }
                 if(getView() != null){
-                    AppCompatImageView imageView = (AppCompatImageView) getView().findViewById(R.id.errorResourceFragment);
+                    AppCompatImageView imageView = getView().findViewById(R.id.errorResourceFragment);
                     if(imageView != null){
                         imageView.setImageResource(R.drawable.error_state);
                     }
@@ -225,6 +226,13 @@ public abstract class SupportUXFragment extends Fragment implements IEventOnView
             eventOnFragment.onEvent(EVENT_HIDE_KEYBOARD, null);
         }
     }
+
+    protected void showSoftKeyboard(){
+        if(eventOnFragment != null){
+            eventOnFragment.onEvent(EVENT_SHOW_KEYBOARD, null);
+        }
+    }
+
     protected void startAnimView(View view, int visibility){
         final Animation in = new AlphaAnimation(0.0f, 1.0f);
         final Animation out = new AlphaAnimation(1.0f, 0.0f);

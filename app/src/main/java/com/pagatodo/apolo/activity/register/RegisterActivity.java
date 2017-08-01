@@ -347,7 +347,7 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         int currentIndex = presenter.getDocumentPosition(currentDocument,mFormularioAfiliacion);
         View currentView = recyclerView.getLayoutManager().findViewByPosition(presenter.getListPosition(currentDocument));
         AppCompatImageView ivCheck = currentView.findViewById(R.id.ivCheck);
-        List<Documento> documents = mFormularioAfiliacion.getDocumentos();
+        ArrayList<Documento> documents = (ArrayList<Documento>) mFormularioAfiliacion.getDocumentos();
 
         if(shouldAddDocument)
         {
@@ -359,7 +359,5 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
             ivCheck.setImageResource(R.drawable.ic_check2_ap);
             documents.get(currentIndex).setLongitud(0);
         }
-        mFormularioAfiliacion.getDocumentos().clear();
-        mFormularioAfiliacion.getDocumentos().addAll(documents);
     }
 }
