@@ -1,6 +1,7 @@
 package com.pagatodo.apolo.activity.register._presenter._interfaces;
 
 import com.pagatodo.apolo.data.model.Cards;
+import com.pagatodo.apolo.data.model.Documento;
 import com.pagatodo.apolo.data.model.FormularioAfiliacion;
 import com.pagatodo.apolo.data.model.webservice.request.CreditRequestRegisterRequest;
 import com.pagatodo.apolo.ui.base.factoryinterfaces.IProcessData;
@@ -16,4 +17,7 @@ public interface RegisterPresenter extends IProcessData{
     void register(String numberCelPhone, String numberPhone, String rutaCard, String rutaINEFront, String rutaINEBack);
     void requestRegister(FormularioAfiliacion request);
     String getFolio();
+    boolean doesDocumentExist(Documento currentDocument, FormularioAfiliacion mFormularioAfiliacion);
+    int getDocumentPosition(Documento currentDocument, FormularioAfiliacion mFormularioAfiliacion);
+    int getListPosition(Documento currentDocument);
 }

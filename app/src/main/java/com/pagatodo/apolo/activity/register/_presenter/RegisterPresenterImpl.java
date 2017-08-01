@@ -17,6 +17,7 @@ import com.pagatodo.apolo.data.remote.RequestContract;
 import com.pagatodo.apolo.ui.base.factorypresenters.BasePresenter;
 import com.pagatodo.networkframework.DataManager;
 import com.pagatodo.networkframework.interfaces.IRequestResult;
+import com.pagatodo.apolo.utils.Constants;
 
 import java.util.HashMap;
 import java.util.List;
@@ -201,5 +202,44 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterView> implement
 
             }
         }, time);
+    }
+    public boolean doesDocumentExist(Documento currentDocument, FormularioAfiliacion mFormularioAfiliacion)
+    {
+        for (Documento document : mFormularioAfiliacion.getDocumentos()){
+            if(document.getIdTipoDocumento() == currentDocument.getIdTipoDocumento())
+            {
+                if(document.getLongitud() != 0)
+                    return true;
+                else
+                    return false;
+            }
+        }
+        return false;
+    }
+
+    public int getDocumentPosition(Documento currentDocument, FormularioAfiliacion mFormularioAfiliacion)
+    {
+        int index = 0;
+        for(Documento document : mFormularioAfiliacion.getDocumentos())
+        {
+            if(document.getIdTipoDocumento() == currentDocument.getIdTipoDocumento())
+                break;
+            index++;
+        }
+        return index;
+    }
+
+    public int getListPosition(Documento currentDocument)
+    {
+        switch (currentDocument.getIdTipoDocumento())
+        {
+            case Constants.SOLICITUD_ADULTO_MAYOR:
+                return Constants.SOLICITUD_ADULTO_MAYOR_INDEX;
+            case Constants.SOLICITUD_IFE_INE_FRENTE:
+                return  Constants.SOLICITUD_IFE_INE_FRENTE_INDEX;
+            case Constants.SOLICITUD_IFE_INE_REVERSO:
+                return Constants.SOLICITUD_IFE_INE_REVERSO_INDEX;
+        }
+        return 0;
     }
 }

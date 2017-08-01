@@ -41,4 +41,6 @@ public class BaseEventContract {
 
     //keys
     public static final String KEY_FOLIO                    = "keyFolio";
+    //Documents RecyclerView Events
+    public static final String DOCUMENTS_RV_ITEM_SELECTED   = "documentsRVItemSelected";
 }

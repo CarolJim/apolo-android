@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/activity_image_preview_iv_picture"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/transparent_navigation"
+            android:layout_alignParentTop="true"/>
+
+        <LinearLayout
+            android:background="@drawable/transparent_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_margin_xxl"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/activity_image_preview_iv_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|left"
+                android:layout_marginLeft="@dimen/dimen_margin_xl"
+                app:srcCompat="@drawable/ic_cerrar_ap"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/activity_image_preview_iv_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|right"
+                android:layout_marginRight="@dimen/dimen_margin_xl"
+                app:srcCompat="@drawable/ic_done_ap"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+</FrameLayout>

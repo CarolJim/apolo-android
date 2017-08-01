@@ -56,9 +56,7 @@
                 android:layout_gravity="center_vertical|end|right"
                 android:layout_marginRight="@dimen/dimen_margin_large"
                 android:layout_marginEnd="@dimen/dimen_margin_large"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/ic_check_ap"
-                android:visibility="gone"/>
+                android:scaleType="fitCenter"/>
 
         </FrameLayout>
 

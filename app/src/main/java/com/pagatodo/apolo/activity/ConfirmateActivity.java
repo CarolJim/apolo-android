@@ -1,7 +1,5 @@
 package com.pagatodo.apolo.activity;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.activity.login.LoginActivity;
@@ -32,7 +30,7 @@ public class ConfirmateActivity extends BaseActivity {
         if(getIntent() != null && getIntent().getExtras() != null && getIntent().getExtras().containsKey(KEY_FOLIO)){
             mFolio = getIntent().getExtras().getString(KEY_FOLIO);
         }
-        String generate = getString(R.string.folio_generado,  "000010000");
+        String generate = getString(R.string.folio_generado,  mFolio);
         numeroFolio.setText(generate);
     }
 
@@ -50,7 +48,7 @@ public class ConfirmateActivity extends BaseActivity {
     public void end() {
         pref.destroySession();
         instance.clearHashMap();
-        startActivity(new Intent(this,LoginActivity.class));
+        showView(LoginActivity.class);
         finish();
     }
 

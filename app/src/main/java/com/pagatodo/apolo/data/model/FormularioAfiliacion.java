@@ -13,8 +13,8 @@ public class FormularioAfiliacion {
     private List<Documento> documentos = new ArrayList<>();
     private String folio = "";
 
-    public FormularioAfiliacion(){
-
+    public FormularioAfiliacion(List<Documento> documentos){
+        this.documentos.addAll(documentos);
     }
 
     public String getFolio() {

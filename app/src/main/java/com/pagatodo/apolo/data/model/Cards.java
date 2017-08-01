@@ -51,5 +51,4 @@ public class Cards {
     public void setIvCheck(int ivCheck) {
         this.ivCheck = ivCheck;
     }
-
 }
