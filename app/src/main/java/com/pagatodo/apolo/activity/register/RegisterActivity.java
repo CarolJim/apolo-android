@@ -238,9 +238,9 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
                 showProgressFragment();
                 break;
             case EVENT_REGISTERED:
-                Bundle bundle = new Bundle();
-                bundle.putString(KEY_FOLIO, presenter.getFolio());
-                startActivity(new Intent(RegisterActivity.this, ConfirmateActivity.class));
+                Intent i = new Intent(RegisterActivity.this, ConfirmateActivity.class);
+                i.putExtra(KEY_FOLIO, presenter.getFolio());
+                startActivity(i);
                 finish();
                 break;
         }

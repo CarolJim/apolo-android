@@ -98,8 +98,10 @@ public class StatusProgresFragment extends DialogFragment {
     }
 
     private void enableBtn(boolean enable) {
-        mBtnAction.setAlpha(enable ? 1.0f: 0.6f);
-        mBtnAction.setTextColor(ContextCompat.getColor(getActivity(), enable ? R.color.colorPrimary : R.color.colorLowGray));
+        mBtnAction.setEnabled(enable);
+        mBtnAction.setAlpha(enable ? 1.0f: 0.7f);
+        mBtnAction.setTextColor(ContextCompat.getColor(getActivity(), enable ? R.color.colorPrimary : R.color.colorHint));
+
     }
 
     @OnClick(R.id.btn_action)
@@ -110,7 +112,8 @@ public class StatusProgresFragment extends DialogFragment {
     public void setErrorRegister(String message){
         if(mLlStatus != null){
             mFlProgress.setVisibility(View.GONE);
-            mIvStatus.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_error_vector));
+            mLlStatus.setVisibility(View.VISIBLE);
+            mIvStatus.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.ic_error_new));
             mTvStatus.setText(message);
             mCurrentAction = EVENT_REGISTER_REINTENT;
             mBtnAction.setText(getString(R.string.txt_btn_reintent));
@@ -150,7 +153,7 @@ public class StatusProgresFragment extends DialogFragment {
             if(mLlStatus != null){
                 mFlProgress.setVisibility(View.GONE);
                 mLlStatus.setVisibility(View.VISIBLE);
-                mIvStatus.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_error_vector));
+                mIvStatus.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.ic_error_new));
                 mTvStatus.setText(getString(R.string.dialog_status_failure));
                 mCurrentAction = EVENT_REGISTER_REINTENT;
                 mBtnAction.setText(getString(R.string.txt_reintent));
