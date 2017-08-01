@@ -2,6 +2,7 @@ package com.pagatodo.apolo.activity.register._presenter;
 
 import android.os.Handler;
 
+import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterInteractor;
 import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterPresenter;
 import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterView;
@@ -24,6 +25,9 @@ import java.util.List;
 
 import static com.pagatodo.apolo.data.remote.RequestContract.DOCUMENT_UPLOAD;
 import static com.pagatodo.apolo.data.remote.RequestContract.DO_CREDIT_REQUEST_REGISTER;
+import static com.pagatodo.apolo.utils.Constants.SOLICITUD_ADULTO_MAYOR;
+import static com.pagatodo.apolo.utils.Constants.SOLICITUD_IFE_INE_FRENTE;
+import static com.pagatodo.apolo.utils.Constants.SOLICITUD_IFE_INE_REVERSO;
 import static com.pagatodo.networkframework.model.ResponseConstants.RESPONSE_CODE_OK;
 
 /**
@@ -33,7 +37,7 @@ import static com.pagatodo.networkframework.model.ResponseConstants.RESPONSE_COD
 public class RegisterPresenterImpl extends BasePresenter<RegisterView> implements RegisterPresenter, RegisterInteractor.onRegisterListener, RegisterInteractor.onRequestListener  {
 
     private RegisterInteractor registerInteractor;
-    private FormularioAfiliacion mFormularioAfiliacion = null;
+    private FormularioAfiliacion mFormularioAfiliacion = new FormularioAfiliacion(Constants.DOCUMENTS_LIST);
 
     public RegisterPresenterImpl(RegisterView registerView) {
         super(registerView);
@@ -46,12 +50,9 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterView> implement
     }
 
     @Override
-    public void requestRegister(FormularioAfiliacion request) {
-        if(mFormularioAfiliacion == null){
-            this.mFormularioAfiliacion = request;
-        }
+    public void requestRegister() {
         if(mFormularioAfiliacion.getFolio().isEmpty()){
-            CreditRequestRegisterRequest requestRegisterRequest = new CreditRequestRegisterRequest(request.getTelefonoCasa(), request.getTelefonoMovil());
+            CreditRequestRegisterRequest requestRegisterRequest = new CreditRequestRegisterRequest(mFormularioAfiliacion.getTelefonoCasa(), mFormularioAfiliacion.getTelefonoMovil());
             BuildRequest.doCreditRequestRegister(this, requestRegisterRequest, pref.getHeaders());
         }else{
             uploadDocuments();
@@ -107,6 +108,11 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterView> implement
         switch (response.getRespuesta().getCodigo()){
             case RESPONSE_CODE_OK:
                 //Documento(int idTipoDocumento, String nombre, String documentoBase64, int longitud, String folio, String idCliente)
+                for(Documento mDocumento: mFormularioAfiliacion.getDocumentos()){
+                    if(mDocumento.getIdTipoDocumento() == request.getRequest().getIdTipoDocumento()){
+                        mDocumento.setUploaded(true);
+                    }
+                }
                 view.successUploadDocument(new Documento(
                         request.getRequest().getIdTipoDocumento(),
                         request.getRequest().getNombre(),
@@ -131,7 +137,6 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterView> implement
         switch (response.getRespuesta().getCodigo()){
             case RESPONSE_CODE_OK:
                 mFormularioAfiliacion.setFolio(response.getSolicitud().getSolicitud());
-                view.successRegister();
                 int mTimeRequest = 1000;
                 for(Documento documento: mFormularioAfiliacion.getDocumentos()){
                     documento.setFolio(response.getSolicitud().getSolicitud());
@@ -140,6 +145,7 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterView> implement
                     doDocumentUpload(this, generateRequestDocument(documento), pref.getHeaders(), mTimeRequest);
                     mTimeRequest = mTimeRequest + 1000;
                 }
+                view.successRegister();
                 break;
             default:
                 view.errorRegister(response.getRespuesta().getMensaje());
@@ -193,7 +199,7 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterView> implement
 
     private DocumentUploadRequest generateRequestDocument(Documento documento){
         return new DocumentUploadRequest(
-                documento.getNombre(),
+                generateName(documento.getFolio(), documento.getIdTipoDocumento()),
                 documento.getDocumentoBase64(),
                 documento.getLongitud(),
                 documento.getIdTipoDocumento(),
@@ -209,7 +215,19 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterView> implement
             }
         }, time);
     }
-    public boolean doesDocumentExist(Documento currentDocument, FormularioAfiliacion mFormularioAfiliacion)
+    private String generateName(String folio, int idTipoDocumento){
+        switch (idTipoDocumento){
+            case SOLICITUD_IFE_INE_FRENTE :
+                return getString(R.string.template_doc_ine_frente, folio);
+            case SOLICITUD_IFE_INE_REVERSO:
+                return getString(R.string.template_doc_ine_reverso, folio);
+            case SOLICITUD_ADULTO_MAYOR:
+                return getString(R.string.template_doc_adulto_mayor, folio);
+            default:
+                return "";
+        }
+    }
+    public boolean doesDocumentExist(Documento currentDocument)
     {
         for (Documento document : mFormularioAfiliacion.getDocumentos()){
             if(document.getIdTipoDocumento() == currentDocument.getIdTipoDocumento())
@@ -223,7 +241,7 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterView> implement
         return false;
     }
 
-    public int getDocumentPosition(Documento currentDocument, FormularioAfiliacion mFormularioAfiliacion)
+    public int getDocumentPosition(Documento currentDocument)
     {
         int index = 0;
         for(Documento document : mFormularioAfiliacion.getDocumentos())
@@ -239,11 +257,11 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterView> implement
     {
         switch (currentDocument.getIdTipoDocumento())
         {
-            case Constants.SOLICITUD_ADULTO_MAYOR:
+            case SOLICITUD_ADULTO_MAYOR:
                 return Constants.SOLICITUD_ADULTO_MAYOR_INDEX;
-            case Constants.SOLICITUD_IFE_INE_FRENTE:
+            case SOLICITUD_IFE_INE_FRENTE:
                 return  Constants.SOLICITUD_IFE_INE_FRENTE_INDEX;
-            case Constants.SOLICITUD_IFE_INE_REVERSO:
+            case SOLICITUD_IFE_INE_REVERSO:
                 return Constants.SOLICITUD_IFE_INE_REVERSO_INDEX;
         }
         return 0;
@@ -252,5 +270,9 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterView> implement
     @Override
     public void uploadPendingDocument() {
         uploadDocuments();
+    }
+    @Override
+    public FormularioAfiliacion getFormularioAfiliacion() {
+        return mFormularioAfiliacion;
     }
 }

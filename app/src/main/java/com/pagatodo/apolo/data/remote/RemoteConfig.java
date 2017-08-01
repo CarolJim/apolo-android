@@ -1,11 +1,14 @@
 package com.pagatodo.apolo.data.remote;
 
+import android.preference.Preference;
+
 import com.pagatodo.apolo.App;
 import com.pagatodo.apolo.data.local.Preferences;
 import com.pagatodo.apolo.data.model.webservice.remoteconfig.ResponseRemoteConfig;
 import com.pagatodo.apolo.utils.Utils;
 
 import static com.pagatodo.apolo.data.local.PreferencesContract.SDIGESTO;
+import static com.pagatodo.apolo.data.local.PreferencesContract.SENABLE_VERIFICATESMS;
 import static com.pagatodo.apolo.data.local.PreferencesContract.SFECHA_ACTUALIZACION;
 import static com.pagatodo.apolo.data.local.PreferencesContract.SURL_CONFIG;
 import static com.pagatodo.apolo.data.local.PreferencesContract.SURL_NOTIFICACIONES;
@@ -14,6 +17,7 @@ import static com.pagatodo.apolo.utils.Constants.DEBUG;
 import static com.pagatodo.apolo.utils.Constants.URL_REMOTE_CONFIG;
 import static com.pagatodo.apolo.utils.Constants.URL_SERVER;
 import static com.pagatodo.apolo.utils.Constants.URL_SERVER_MEGA;
+import static com.pagatodo.apolo.utils.Constants.isEnableVerificateSMS;
 
 /**
  * Created by jvazquez on 26/07/2017.
@@ -22,8 +26,6 @@ import static com.pagatodo.apolo.utils.Constants.URL_SERVER_MEGA;
 public class RemoteConfig {
 
     public static String getUrlServer() {
-        //TODO Remove HardCode
-        /*
         Preferences pref = App.getInstance().getPrefs();
         if (pref != null) {
             if (DEBUG) {
@@ -33,8 +35,7 @@ public class RemoteConfig {
                 return pref.loadString(SURL_SERVIDOR);
             }
         }
-        return URL_SERVER;*/
-        return "http://172.16.2.117:8025/WSSolicitudCreditoAdultoMayor.svc";
+        return URL_SERVER;
     }
 
     static String getUrlMega() {
@@ -61,6 +62,18 @@ public class RemoteConfig {
         }
         return URL_REMOTE_CONFIG;
     }
+    static boolean isEnableVerificateSMS(){
+        Preferences pref = App.getInstance().getPrefs();
+        if (pref != null) {
+            if (DEBUG) {
+                return isEnableVerificateSMS;
+            }
+            if (pref.containsData(SENABLE_VERIFICATESMS)) {
+                return pref.loadBoolean(SENABLE_VERIFICATESMS);
+            }
+        }
+        return isEnableVerificateSMS;
+    }
 
     public static boolean updateAppConfig(ResponseRemoteConfig responseRemoteConfig, Preferences pref) {
         boolean mDigestResult;
@@ -74,6 +87,7 @@ public class RemoteConfig {
             pref.saveData(SURL_SERVIDOR, responseRemoteConfig.getData().getUrlServidor());
             pref.saveData(SURL_NOTIFICACIONES, responseRemoteConfig.getData().getUrlNotificaciones());
             pref.saveData(SURL_CONFIG, responseRemoteConfig.getData().getUrlConfig());
+            pref.saveData(SENABLE_VERIFICATESMS, responseRemoteConfig.getData().isEnableVerificateSMS());
             pref.saveData(SDIGESTO, responseRemoteConfig.getData().getDigesto());
         }
         return mDigestResult;

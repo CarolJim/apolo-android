@@ -172,7 +172,11 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
 
     @OnClick(R.id.action_capture)
     public void captureCard() {
-        captureImage();
+        try{
+            captureImage();
+        }catch (Exception e){
+            showMessage("Ocurrió un error al tomar la foto");
+        }
     }
 
     @OnClick(R.id.action_save)

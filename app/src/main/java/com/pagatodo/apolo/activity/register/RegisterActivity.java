@@ -4,22 +4,23 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.support.design.widget.CoordinatorLayout;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatImageView;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
+
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.activity.CaptureActivity;
 import com.pagatodo.apolo.activity.ConfirmateActivity;
 import com.pagatodo.apolo.activity.PreviewImageActivity;
-import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterPresenter;
 import com.pagatodo.apolo.activity.register._presenter.RegisterPresenterImpl;
+import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterPresenter;
 import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterView;
 import com.pagatodo.apolo.activity.smsverification.SmsActivity;
 import com.pagatodo.apolo.data.adapters.CustomAdapter;
@@ -27,8 +28,6 @@ import com.pagatodo.apolo.data.model.Cards;
 import com.pagatodo.apolo.data.model.Documento;
 import com.pagatodo.apolo.data.model.FormularioAfiliacion;
 import com.pagatodo.apolo.data.model.Promotor;
-import com.pagatodo.apolo.data.model.webservice.request.CreditRequestRegisterRequest;
-import com.pagatodo.apolo.ui.base.BaseEventContract;
 import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterPermissionActivity;
 import com.pagatodo.apolo.ui.base.factoryinterfaces.IValidateForms;
 import com.pagatodo.apolo.utils.Constants;
@@ -41,6 +40,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -48,10 +48,10 @@ import butterknife.OnClick;
 import static com.pagatodo.apolo.App.instance;
 import static com.pagatodo.apolo.ui.UI.showSnackBar;
 import static com.pagatodo.apolo.ui.UI.showToast;
+import static com.pagatodo.apolo.ui.base.BaseEventContract.DOCUMENTS_RV_ITEM_SELECTED;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_REGISTERED;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_REGISTER_REINTENT;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.KEY_FOLIO;
-import static com.pagatodo.apolo.ui.base.BaseEventContract.DOCUMENTS_RV_ITEM_SELECTED;
 
 public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPresenter> implements RegisterView, IValidateForms{
     private static final String DIALOG_PROGRESS_REGISTER = "dialogProgressRegister";
@@ -68,7 +68,7 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
 
     private Promotor mPromotor = new Promotor();
     private StatusProgresFragment statusProgresFragment = null;
-    private FormularioAfiliacion mFormularioAfiliacion = new FormularioAfiliacion(Constants.DOCUMENTS_LIST);
+
     private Documento rvSelectedItem;
 
     private final static int CAPTURE_REQUEST_CODE = 10;
@@ -89,7 +89,6 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         mPromotor = pref.getCurrentPromotor();
         setValuesDefaultForm();
         enableVerificateSMS(pref.isEnableVerificateSMS());
-//        buildProgresRegisterDialog();
         initFragments();
     }
 
@@ -231,8 +230,8 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
                 break;
             case EVENT_REGISTER_REINTENT:
                 statusProgresFragment = StatusProgresFragment.newInstance(getTasks());
-                if(mFormularioAfiliacion.getFolio().isEmpty()){
-                    presenter.requestRegister(mFormularioAfiliacion);
+                if(getFormularioAfiliacion().getFolio().isEmpty()){
+                    presenter.requestRegister();
                 }else{
                     presenter.uploadPendingDocument();
                 }
@@ -248,25 +247,25 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
     }
 
     private int getTasks() {
-        if(!mFormularioAfiliacion.getFolio().isEmpty()){
+        if(!getFormularioAfiliacion().getFolio().isEmpty()){
             int pendingTasks = 0;
-            for(Documento documento: mFormularioAfiliacion.getDocumentos()){
+            for(Documento documento: getFormularioAfiliacion().getDocumentos()){
                 if(!documento.isUploaded()){
                     pendingTasks++;
                 }
             }
             return pendingTasks;
         }
-        return mFormularioAfiliacion.getDocumentos().size() + 1;
+        return getFormularioAfiliacion().getDocumentos().size() + 1;
     }
 
     protected void doPermissionsGrantedAction() {
         assignData();
         HashMap<String, Serializable> extras = new HashMap<>();
 
-        if(presenter.doesDocumentExist(rvSelectedItem, mFormularioAfiliacion))
+        if(presenter.doesDocumentExist(rvSelectedItem))
         {
-            extras.put(Constants.SELECTED_DOCUMENT_KEY, mFormularioAfiliacion.getDocumentos().get(presenter.getDocumentPosition(rvSelectedItem, mFormularioAfiliacion)));
+            extras.put(Constants.SELECTED_DOCUMENT_KEY, getFormularioAfiliacion().getDocumentos().get(presenter.getDocumentPosition(rvSelectedItem)));
             startActivityForResult(PreviewImageActivity.class, PREVIEW_REQUEST_CODE, extras);
         }
         else
@@ -294,7 +293,7 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
     @Override
     public void validateForm() {
         getDataForm();
-        if(mFormularioAfiliacion.getTelefonoMovil().isEmpty()){
+        if(getFormularioAfiliacion().getTelefonoMovil().isEmpty()){
             showMessage(getString(R.string.error_cellphone_empty));
             return;
         }
@@ -303,7 +302,7 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
             return;
         }
         String errorDocument = "";
-        for(Documento documento: mFormularioAfiliacion.getDocumentos()){
+        for(Documento documento: getFormularioAfiliacion().getDocumentos()){
             if(documento.getDocumentoBase64().isEmpty() || documento.getLongitud() == 0){
                 errorDocument = documento.getNombre();
                 break;
@@ -320,13 +319,13 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
     public void onValidationSuccess() {
 //        presenter.register(edtCellPhone.getText(), edtPhone.getText(), instance.get(Constants.SOL_TARJETA), instance.get(Constants.SOL_IFE_FRENTE),instance.get(Constants.SOL_IFE_VUELTA));
         showProgressFragment();
-        presenter.requestRegister(mFormularioAfiliacion);
+        presenter.requestRegister();
     }
 
     @Override
     public void getDataForm() {
-        mFormularioAfiliacion.setTelefonoCasa(edtPhone.getText());
-        mFormularioAfiliacion.setTelefonoMovil(edtPhone.getText());
+        getFormularioAfiliacion().setTelefonoCasa(edtPhone.getText());
+        getFormularioAfiliacion().setTelefonoMovil(edtPhone.getText());
 
     }
     private void enableVerificateSMS(boolean enable){
@@ -363,10 +362,10 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
 
     private void updateList(Documento currentDocument, boolean shouldAddDocument)
     {
-        int currentIndex = presenter.getDocumentPosition(currentDocument,mFormularioAfiliacion);
+        int currentIndex = presenter.getDocumentPosition(currentDocument);
         View currentView = recyclerView.getLayoutManager().findViewByPosition(presenter.getListPosition(currentDocument));
         AppCompatImageView ivCheck = currentView.findViewById(R.id.ivCheck);
-        ArrayList<Documento> documents = (ArrayList<Documento>) mFormularioAfiliacion.getDocumentos();
+        ArrayList<Documento> documents = (ArrayList<Documento>) getFormularioAfiliacion().getDocumentos();
 
         if(shouldAddDocument)
         {
@@ -378,5 +377,8 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
             ivCheck.setImageResource(R.drawable.ic_check2_ap);
             documents.get(currentIndex).setLongitud(0);
         }
+    }
+    private FormularioAfiliacion getFormularioAfiliacion(){
+        return presenter.getFormularioAfiliacion();
     }
 }

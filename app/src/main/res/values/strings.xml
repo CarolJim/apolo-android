@@ -79,7 +79,7 @@
 
     <!-- Activity Confirmate -->
     <string name="txt_folio">Anota el numero de folio</string>
-    <string name="folio_generado">Folio: %s</string>
+    <string name="folio_generado">Folio: %1$s</string>
     <string name="pin_label_text">Código</string>
 
     <!-- Activity SMS -->
@@ -139,6 +139,10 @@
     <string name="error_codigo_invalid">El código de verificación es invalido.</string>
 
 
+    <!--Template docs-->
+    <string name="template_doc_ine_frente">ine_frente_%1$s.jpg</string>
+    <string name="template_doc_ine_reverso">ine_reverso_%1$s.jpg</string>
+    <string name="template_doc_adulto_mayor">adulto_mayor_%1$s.jpg</string>
     <!-- txt btns-->
     <string name="txt_reintent">Reintentar</string>
     <string name="txt_exit">Salir</string>

@@ -7,11 +7,12 @@ import com.pagatodo.apolo.data.model.factory.ModelPattern;
  */
 
 public class Data  extends ModelPattern{
-    private String FechaUltimaActualizacion;
-    private String UrlServidor;
-    private String UrlNotificaciones;
-    private String UrlConfig;
-    private String Digesto;
+    private String  FechaUltimaActualizacion    = "";
+    private String  UrlServidor                 = "";
+    private String  UrlNotificaciones           = "";
+    private String  UrlConfig                   = "";
+    private boolean EnableVerificateSMS         = false;
+    private String  Digesto                     = "";
 
     public Data(){
 
@@ -39,6 +40,14 @@ public class Data  extends ModelPattern{
 
     public void setUrlNotificaciones(String urlNotificaciones) {
         UrlNotificaciones = urlNotificaciones;
+    }
+
+    public boolean isEnableVerificateSMS() {
+        return EnableVerificateSMS;
+    }
+
+    public void setEnableVerificateSMS(boolean enableVerificateSMS) {
+        EnableVerificateSMS = enableVerificateSMS;
     }
 
     public String getUrlConfig() {

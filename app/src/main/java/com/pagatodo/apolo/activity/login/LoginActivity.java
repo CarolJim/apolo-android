@@ -78,6 +78,7 @@ public class LoginActivity extends BasePresenterPermissionActivity<LoginPresente
 
     @Override public void setNavigation() {
         showView(RegisterActivity.class);
+        finish();
     }
 
     @Override

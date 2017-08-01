@@ -15,11 +15,12 @@ import java.util.List;
 public interface RegisterPresenter extends IProcessData{
     void request(List<Cards> cardsList);
     void register(String numberCelPhone, String numberPhone, String rutaCard, String rutaINEFront, String rutaINEBack);
-    void requestRegister(FormularioAfiliacion request);
+    void requestRegister();
     String getFolio();
-    boolean doesDocumentExist(Documento currentDocument, FormularioAfiliacion mFormularioAfiliacion);
-    int getDocumentPosition(Documento currentDocument, FormularioAfiliacion mFormularioAfiliacion);
+    boolean doesDocumentExist(Documento currentDocument);
+    int getDocumentPosition(Documento currentDocument);
     int getListPosition(Documento currentDocument);
 
     void uploadPendingDocument();
+    FormularioAfiliacion getFormularioAfiliacion();
 }

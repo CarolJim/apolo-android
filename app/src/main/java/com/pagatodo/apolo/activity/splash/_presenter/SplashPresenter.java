@@ -7,8 +7,10 @@ import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.activity.splash._presenter._interfaces.ISplashPresenter;
 import com.pagatodo.apolo.activity.splash._presenter._interfaces.ISplashView;
 import com.pagatodo.apolo.data.model.Promotor;
+import com.pagatodo.apolo.data.model.webservice.remoteconfig.ResponseRemoteConfig;
 import com.pagatodo.apolo.data.model.webservice.response.GetPromotersResponse;
 import com.pagatodo.apolo.data.remote.BuildRequest;
+import com.pagatodo.apolo.data.remote.RemoteConfig;
 import com.pagatodo.apolo.data.remote.RequestContract;
 import com.pagatodo.apolo.ui.base.factoryinterfaces.IEventOnView;
 import com.pagatodo.apolo.ui.base.factorypresenters.BasePresenter;
@@ -19,6 +21,7 @@ import java.util.List;
 
 import static com.pagatodo.apolo.data.local.PreferencesContract.LIST_PROMOTORS;
 import static com.pagatodo.apolo.data.remote.RequestContract.GET_PROMOTERS;
+import static com.pagatodo.apolo.data.remote.RequestContract.GET_REMOTE_CONFIG;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_RE_GET_PROMOTORS;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_SALIR;
 import static com.pagatodo.networkframework.model.ResponseConstants.RESPONSE_CODE_OK;
@@ -37,7 +40,7 @@ public class SplashPresenter extends BasePresenter<ISplashView> implements ISpla
     {
         if(isOnline()){
             view.showProgress("Actualizando promotores.");
-            BuildRequest.getPromotersRequest(this);
+            BuildRequest.updateRemoteConfig(this);
         }else{
             if(pref.getListOfPromotors().isEmpty()){
                 view.updatePromotorsFailed("Sin Internet", getString(R.string.network_error));
@@ -50,11 +53,20 @@ public class SplashPresenter extends BasePresenter<ISplashView> implements ISpla
 
     @Override
     public void onSuccess(DataManager dataManager) {
-        super.onSuccess(dataManager);
+        //super.onSuccess(dataManager);
         if(dataManager.getData() != null){
             switch (dataManager.getMethod()){
                 case GET_PROMOTERS:
                     processPromotersResponse((GetPromotersResponse) dataManager.getData());
+                    view.hideProgress();
+                    break;
+                case GET_REMOTE_CONFIG:
+                    try{
+                        RemoteConfig.updateAppConfig((ResponseRemoteConfig) dataManager.getData(), pref);
+                    }catch (Exception e){
+
+                    }
+                    BuildRequest.getPromotersRequest(this);
                     break;
             }
         }
@@ -71,6 +83,9 @@ public class SplashPresenter extends BasePresenter<ISplashView> implements ISpla
                         return;
                     }
                     view.updatePromotorsSuccess();
+                    break;
+                case GET_REMOTE_CONFIG:
+                    BuildRequest.getPromotersRequest(this);
                     break;
                 default:
                     view.showMessage((String) dataManager.getData());

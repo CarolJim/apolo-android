@@ -179,7 +179,8 @@ public class Utils {
                 + data.getFechaUltimaActualizacion()
                 + data.getUrlServidor() // servidor
                 + data.getUrlNotificaciones() //notificacion
-                + data.getUrlConfig(); //config
+                + data.getUrlConfig() //config
+                + data.isEnableVerificateSMS(); //bandera que activa el flujo de validar sms
 
 
         String sha256 = getSHA256(concat);
