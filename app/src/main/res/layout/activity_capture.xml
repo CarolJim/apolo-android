@@ -7,14 +7,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-<RelativeLayout
+    <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/camera_frame">
 
                 <android.support.v7.widget.AppCompatImageView
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
                     android:id="@+id/camera_image_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -104,7 +104,15 @@
 
                 </RelativeLayout>
 
-</RelativeLayout>
+    </RelativeLayout>
 
-<include layout="@layout/progress_view_activity" />
+    <View
+        android:id="@+id/activity_capture_capture_area"
+        android:layout_margin="@dimen/dimen_margin_medium"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/capture_area_height"
+        android:background="@drawable/shape_capture_area"/>
+
+    <include layout="@layout/progress_view_activity" />
 </FrameLayout>

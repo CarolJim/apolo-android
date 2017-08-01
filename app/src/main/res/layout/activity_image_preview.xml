@@ -5,9 +5,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
+        android:layout_gravity="center"
         android:id="@+id/activity_image_preview_iv_picture"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="@dimen/capture_area_height"
         android:scaleType="fitXY"/>
 
     <RelativeLayout

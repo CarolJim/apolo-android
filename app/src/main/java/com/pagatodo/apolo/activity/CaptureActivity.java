@@ -1,13 +1,18 @@
 package com.pagatodo.apolo.activity;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.Rect;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
+import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -38,6 +43,7 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
     @BindView(R.id.action_capture) AppCompatImageView btnCapture;
     @BindView(R.id.camera_frame) RelativeLayout camera_frame;
     @BindView(R.id.progress_view_activity) LinearLayout progress;
+    @BindView(R.id.activity_capture_capture_area) View captureArea;
     private Documento documentSaver;
     private Bitmap mBitmapTaken;
 
@@ -184,6 +190,14 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
         camera_frame.setVisibility(View.INVISIBLE);
         progress.setVisibility(View.VISIBLE);
 
+        mBitmapTaken = Bitmap.createBitmap(
+                mBitmapTaken,
+                130,
+                (int) (mBitmapTaken.getHeight() * .32),
+                (int) (mBitmapTaken.getWidth() * .85),
+                (int) (mBitmapTaken.getHeight() * .35)
+        );
+
         String encodedImage = Base64Utils.getEncodedString(mBitmapTaken);
         documentSaver.setDocumentoBase64(encodedImage);
         documentSaver.setLongitud(encodedImage.length());
@@ -216,6 +230,7 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
             int result = getProperCameraDegrees();
             mCamera.setDisplayOrientation(result);
             parameters.setRotation(result);
+            parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
             mCamera.setParameters(parameters);
 
             if (mIsCapturing) {
@@ -224,6 +239,35 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
         } catch (Exception e) {
             showToast(getString(R.string.unable_camera), getApplicationContext());
         }
+
+
+        mSurfaceView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                    float x = motionEvent.getX();
+                    float y = motionEvent.getY();
+
+                    Rect touchRect = new Rect(
+                            (int)(x - 100),
+                            (int)(y - 100),
+                            (int)(x + 100),
+                            (int)(y + 100));
+
+                    final Rect targetFocusRect = new Rect(
+                            touchRect.left * 2000/mSurfaceView.getWidth() - 1000,
+                            touchRect.top * 2000/mSurfaceView.getHeight() - 1000,
+                            touchRect.right * 2000/mSurfaceView.getWidth() - 1000,
+                            touchRect.bottom * 2000/mSurfaceView.getHeight() - 1000);
+
+                    doTouchFocus(targetFocusRect);
+                }
+                return false;
+            }
+        });
+
+
     }
 
     private int getProperCameraDegrees()
@@ -258,4 +302,34 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
 
         return result;
     }
+
+
+
+    public void doTouchFocus(final Rect tfocusRect) {
+        try {
+            final List<Camera.Area> focusList = new ArrayList<Camera.Area>();
+            Camera.Area focusArea = new Camera.Area(tfocusRect, 1000);
+            focusList.add(focusArea);
+
+            Camera.Parameters para = mCamera.getParameters();
+            para.setFocusAreas(focusList);
+            para.setMeteringAreas(focusList);
+            mCamera.setParameters(para);
+
+            mCamera.autoFocus(myAutoFocusCallback);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    Camera.AutoFocusCallback myAutoFocusCallback = new Camera.AutoFocusCallback(){
+
+        @Override
+        public void onAutoFocus(boolean arg0, Camera arg1) {
+            if (arg0){
+                mCamera.cancelAutoFocus();
+            }
+        }
+    };
 }

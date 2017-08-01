@@ -71,5 +71,6 @@
     <dimen name="pin_label_margin">10dp</dimen>
     <dimen name="pin_min_width">32dp</dimen>
 
+    <dimen name="capture_area_height">200dp</dimen>
 
 </resources>
