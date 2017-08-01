@@ -1,86 +1,56 @@
 package com.pagatodo.apolo.activity.smsverification._presenter;
 
-import android.app.Activity;
-import android.content.Context;
-import android.text.TextUtils;
-import android.util.Log;
-
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
+import com.pagatodo.apolo.App;
 import com.pagatodo.apolo.activity.smsverification._presenter._interfaces.SmsInteractor;
-import com.pagatodo.apolo.ui.base.factoryactivities.BaseActivity;
-import com.pagatodo.apolo.ui.base.factoryactivities.SupportFragmentActivity;
+import com.pagatodo.apolo.data.local.Preferences;
+import com.pagatodo.apolo.data.model.webservice.request.SMSCodeValidationRequest;
+import com.pagatodo.apolo.data.model.webservice.request.SMSValidationRequest;
+import com.pagatodo.apolo.data.remote.BuildRequest;
+import com.pagatodo.networkframework.DataManager;
+import com.pagatodo.networkframework.interfaces.IRequestResult;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by rvargas on 21-07-17.
  */
 
-public class SmsInteractorImpl implements SmsInteractor {
+public class SmsInteractorImpl implements SmsInteractor, IRequestResult {
+    Preferences pref = App.getInstance().getPrefs();
+    private onConfirmationListener listener;
+    private onValidationListener listen;
+    private int action = 0;
 
     @Override
-    public void onValidation(String codigo, onValidationListener listener) {
-        if (TextUtils.isEmpty(codigo)){
-            listener.onCodigoError();
-        } else if(codigo.equals("123456")){
-            listener.onSuccess();
-        }else {
-            listener.failure("El código de verificacón no es valida");
-        }
-
+    public void onValidation(String celular, String codigo, onValidationListener listener) {
+        this.listen = listener;
+        action = 1;
+        BuildRequest.sendSMSCodeValidation(this, new SMSCodeValidationRequest(celular, codigo), pref.getHeaders());
     }
 
     @Override
-    public void onConfirmation(String celular, final onConfirmationListener listener, Activity activity){
+    public void onConfirmation(String celular, final onConfirmationListener listener){
+        this.listener = listener;
+        action = 2;
+        BuildRequest.sendSMSConfirmation(this, new SMSValidationRequest(celular), pref.getHeaders());
+    }
 
-        RequestQueue queue = Volley.newRequestQueue(activity);
-        final JSONObject jsonObj = new JSONObject();
-        JSONObject jsonAdd = new JSONObject();
-        try {
-            jsonAdd.put("TelefonoCelular", celular);
-            jsonObj.put("request", jsonAdd);
-        } catch (JSONException e) {
-            e.printStackTrace();
+    @Override
+    public void onSuccess(DataManager dataManager) {
+        if(dataManager.getData() != null){
+            if(action==1)
+                listen.onSuccess(dataManager);
+            else if(action==2)
+                listener.onSuccess(dataManager);
         }
-        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, "http://172.16.2.117:8025/WSSolicitudCreditoAdultoMayor.svc/SendSMSConfirmation",jsonObj,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        listener.onSuccess();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        listener.onFailed(String.valueOf(error));
-                    }
-                }) {
+    }
 
-            @Override
-            public String getBodyContentType() {
-                return "application/json";
-            }
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String>  params = new HashMap<>();
-                params.put("Content-Type","application/json");
-                params.put("Promotor","PROM23");
-                return params;
-            }
-
-        };
-        queue.add(stringRequest);
-
+    @Override
+    public void onFailed(DataManager dataManager) {
+        if(dataManager.getData() != null){
+            if(action==1)
+                listen.onFailed(dataManager);
+            else if(action==2)
+                listener.onFailed(dataManager);
+        }
     }
 }

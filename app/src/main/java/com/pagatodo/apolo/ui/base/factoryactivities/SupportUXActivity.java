@@ -15,6 +15,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.ui.base.factoryinterfaces.IEventOnFragment;
@@ -254,6 +255,18 @@ public abstract class SupportUXActivity extends SupportFragmentActivity implemen
         View view = this.getCurrentFocus();
         InputMethodManager input = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         input.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+    }
+
+    /*** Clear all editText */
+    protected void clearEditext(ViewGroup group) {
+        for (int i = 0, count = group.getChildCount(); i < count; ++i) {
+            View view = group.getChildAt(i);
+            if (view instanceof EditText) {
+                ((EditText) view).setText("");
+            }
+            if (view instanceof ViewGroup && (((ViewGroup) view).getChildCount() > 0))
+                clearEditext((ViewGroup) view);
+        }
     }
 
 

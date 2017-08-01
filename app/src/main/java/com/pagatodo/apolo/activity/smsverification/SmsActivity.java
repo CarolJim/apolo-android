@@ -100,7 +100,7 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
     */
     public void initPresentConfirmation(){
         ViewGroup group = (ViewGroup) findViewById(R.id.allClear);
-        //clearEditext(group);
+        clearEditext(group);
         startTimer();
         btnValidar.setEnabled(false);
         presenter.confirmation(instance.get(Constants.SOL_CELULAR));
@@ -172,8 +172,6 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
 
     public void validateForm() {
         getDataForm();
-
-        Log.e("-------------------","------------------------->"+codeGenerate);
         if(codeGenerate.isEmpty()){
             showMessage(getString(R.string.error_codigo_empty));
             return;
@@ -403,7 +401,6 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
     }
 
     public void getDataForm() {
-        Log.e("---","*************"+editTextOtp.getText());
         if(codeGenerate != null){
             codeGenerate = String.valueOf(editTextOtp.getText());
             return;

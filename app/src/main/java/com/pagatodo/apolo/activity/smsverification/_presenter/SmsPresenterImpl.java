@@ -53,7 +53,9 @@ public class SmsPresenterImpl extends BasePresenter<SmsView> implements SmsPrese
             else if(action==2)
                 if(response.getRespuesta().getCodigo() != 0) {
                     view.onFailed(response.getRespuesta().getMensaje());
-                }  else view.setNavigation();
+                }  else {
+                    view.setNavigation();
+                }
 
         }
 

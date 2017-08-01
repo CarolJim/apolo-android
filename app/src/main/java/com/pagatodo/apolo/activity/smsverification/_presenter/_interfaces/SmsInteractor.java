@@ -1,22 +1,25 @@
 package com.pagatodo.apolo.activity.smsverification._presenter._interfaces;
 
-import android.app.Activity;
 /**
  * Created by rvargas on 21-07-17.
  */
 
 public interface SmsInteractor {
 
+    // Interface para confirmar numero celular y retornar codigo de verificacion
+    interface onConfirmationListener{
+        void onSuccess(Object ... params);
+        void onFailed(Object ... params);
+    }
+    void onConfirmation(String celular, onConfirmationListener listener);
+
+    // Interface para validar codigo generado
     interface onValidationListener{
-        void onSuccess();
-        void onFailed(String message);
+        void onSuccess(Object ... params);
+        void onFailed(Object ... params);
     }
     void onValidation(String celular, String codigo, onValidationListener listener);
 
 
-    interface onConfirmationListener{
-        void onSuccess();
-        void onFailed(String message);
-    }
-    void onConfirmation(String celular, onConfirmationListener listener);
+
 }

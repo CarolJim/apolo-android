@@ -64,5 +64,5 @@
         android:cursorVisible="false"
         android:inputType="number"
         android:textColor="@color/bg_app"
-        android:maxLength=""/>
+        android:maxLength="7"/>
 </RelativeLayout>
