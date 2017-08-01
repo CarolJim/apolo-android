@@ -243,9 +243,9 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
             return;
         }
         String errorDocument = "";
-        for(Cards card: cardsList){
-            if(card.getDocumento().getDocumentoBase64().isEmpty() || card.getDocumento().getLongitud() == 0){
-                errorDocument = card.getDocumento().getNombre();
+        for(Documento documento: mFormularioAfiliacion.getDocumentos()){
+            if(documento.getDocumentoBase64().isEmpty() || documento.getLongitud() == 0){
+                errorDocument = documento.getNombre();
                 break;
             }
         }
@@ -259,7 +259,7 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
     @Override
     public void onValidationSuccess() {
 //        presenter.register(edtCellPhone.getText(), edtPhone.getText(), instance.get(Constants.SOL_TARJETA), instance.get(Constants.SOL_IFE_FRENTE),instance.get(Constants.SOL_IFE_VUELTA));
-    presenter.requestRegister(mFormularioAfiliacion);
+        presenter.requestRegister(mFormularioAfiliacion);
     }
 
     @Override

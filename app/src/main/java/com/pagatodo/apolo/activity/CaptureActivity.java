@@ -1,5 +1,6 @@
 package com.pagatodo.apolo.activity;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import android.hardware.Camera.PictureCallback;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.widget.AppCompatImageView;
+import android.util.Base64;
 import android.view.Display;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -175,14 +177,15 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
         progress.setVisibility(View.VISIBLE);
         mCameraBitmap = BitmapFactory.decodeByteArray(mCameraData, 0, mCameraData.length);
         mCameraImage.setImageBitmap(mCameraBitmap);
+        ByteArrayOutputStream mOutputStream = new ByteArrayOutputStream();
+        mCameraBitmap.compress(Bitmap.CompressFormat.JPEG, 35, mOutputStream);
+        byte [] mByteArray = mOutputStream.toByteArray();
+        mCameraBitmap.recycle();
 
-        File saveFile = openFileForImage();
-        if (saveFile != null) {
-            saveImageToFile(saveFile);
-        } else {
-            showToast(getString(R.string.unable_to_save), getApplicationContext());
-        }
-
+        String encodedImage = Base64.encodeToString(mByteArray, Base64.DEFAULT);
+        documentSaver.setDocumentoBase64(encodedImage);
+        documentSaver.setLongitud(encodedImage.length());
+        onResultCallBack(documentSaver);
     }
 
     private void saveImageToFile(File file) {
