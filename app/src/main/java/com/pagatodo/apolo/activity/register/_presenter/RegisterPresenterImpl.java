@@ -116,7 +116,13 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterView> implement
                         request.getRequest().getIdCliente()));
                 break;
             default:
-
+                view.errorUploadDocument(new Documento(
+                        request.getRequest().getIdTipoDocumento(),
+                        request.getRequest().getNombre(),
+                        request.getRequest().getDocumentoBase64(),
+                        request.getRequest().getLongitud(),
+                        request.getRequest().getFolio(),
+                        request.getRequest().getIdCliente()), response.getRespuesta().getMensaje());
                 break;
         }
     }
@@ -241,5 +247,10 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterView> implement
                 return Constants.SOLICITUD_IFE_INE_REVERSO_INDEX;
         }
         return 0;
+    }
+
+    @Override
+    public void uploadPendingDocument() {
+        uploadDocuments();
     }
 }

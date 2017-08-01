@@ -107,6 +107,7 @@
     <string name="dialog_status_upload">Procesando\n%1$d de %2$d</string>
     <string name="dialog_status_title">REALIZANDO REGISTRO</string>
     <string name="dialog_status_success">Se ha registrado con exito.</string>
+    <string name="dialog_status_failure">Ocurrió un error al subir documentos.</string>
 
     <!-- IEventOnView -->
     <string name="progress_wait">Espera por favor.</string>

@@ -94,7 +94,7 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
     }
 
     private void initFragments() {
-        statusProgresFragment = StatusProgresFragment.newInstance(mFormularioAfiliacion.getDocumentos().size() + 1);
+        statusProgresFragment = StatusProgresFragment.newInstance(getTasks());
     }
 
     @Override
@@ -230,7 +230,13 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
                 requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE});
                 break;
             case EVENT_REGISTER_REINTENT:
-                presenter.requestRegister(mFormularioAfiliacion);
+                statusProgresFragment = StatusProgresFragment.newInstance(getTasks());
+                if(mFormularioAfiliacion.getFolio().isEmpty()){
+                    presenter.requestRegister(mFormularioAfiliacion);
+                }else{
+                    presenter.uploadPendingDocument();
+                }
+                showProgressFragment();
                 break;
             case EVENT_REGISTERED:
                 Bundle bundle = new Bundle();
@@ -239,6 +245,19 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
                 finish();
                 break;
         }
+    }
+
+    private int getTasks() {
+        if(!mFormularioAfiliacion.getFolio().isEmpty()){
+            int pendingTasks = 0;
+            for(Documento documento: mFormularioAfiliacion.getDocumentos()){
+                if(!documento.isUploaded()){
+                    pendingTasks++;
+                }
+            }
+            return pendingTasks;
+        }
+        return mFormularioAfiliacion.getDocumentos().size() + 1;
     }
 
     protected void doPermissionsGrantedAction() {

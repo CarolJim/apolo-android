@@ -20,4 +20,6 @@ public interface RegisterPresenter extends IProcessData{
     boolean doesDocumentExist(Documento currentDocument, FormularioAfiliacion mFormularioAfiliacion);
     int getDocumentPosition(Documento currentDocument, FormularioAfiliacion mFormularioAfiliacion);
     int getListPosition(Documento currentDocument);
+
+    void uploadPendingDocument();
 }

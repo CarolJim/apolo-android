@@ -50,7 +50,8 @@ public class StatusProgresFragment extends DialogFragment {
     private String mCurrentAction = "";
     private IEventOnFragment eventOnFragment = null;
 
-    private int taskFinisheds = 0;
+    private int taskFinishedsSuccess = 0;
+    private int taskFinishedsFailure = 0;
     private int sizeofTasks = 0;
 
 
@@ -104,9 +105,7 @@ public class StatusProgresFragment extends DialogFragment {
     @OnClick(R.id.btn_action)
     public void nextStatusView(){
         sendEvent(mCurrentAction, null);
-        if(mCurrentAction.equalsIgnoreCase(EVENT_REGISTERED)){
-            dismiss();
-        }
+        dismiss();
     }
     public void setErrorRegister(String message){
         if(mLlStatus != null){
@@ -116,12 +115,11 @@ public class StatusProgresFragment extends DialogFragment {
             mCurrentAction = EVENT_REGISTER_REINTENT;
             mBtnAction.setText(getString(R.string.txt_btn_reintent));
             enableBtn(true);
-            dismiss();
         }
     }
     public void isSuccessRegister(){
-        taskFinisheds = taskFinisheds + 1;
-        mProgressDocuments.setText(getString(R.string.dialog_status_upload, taskFinisheds, sizeofTasks));
+        taskFinishedsSuccess = taskFinishedsSuccess + 1;
+        mProgressDocuments.setText(getString(R.string.dialog_status_upload, getFullTasks(), sizeofTasks));
         updatestatus();
     }
     private void sendEvent(String event, Object object){
@@ -130,24 +128,37 @@ public class StatusProgresFragment extends DialogFragment {
         }
     }
     private void updatestatus(){
-        statusViewCupo.updateStatus(taskFinisheds*getPercent(), (taskFinisheds-1)*getPercent());
+        statusViewCupo.updateStatus((getFullTasks())*getPercent(), ((getFullTasks())-1)*getPercent());
         validateSuccessTasks();
     }
     private int getPercent(){
         return 100/sizeofTasks;
     }
+
     public void uploadDocumentSuccess(){
-        taskFinisheds = taskFinisheds + 1;
-        mProgressDocuments.setText(getString(R.string.dialog_status_upload, taskFinisheds, sizeofTasks));
+        taskFinishedsSuccess = taskFinishedsSuccess + 1;
+        mProgressDocuments.setText(getString(R.string.dialog_status_upload, getFullTasks(), sizeofTasks));
         updatestatus();
     }
     public void upladDocumentFailed(){
-        taskFinisheds = taskFinisheds + 1;
-        mProgressDocuments.setText(getString(R.string.dialog_status_upload, taskFinisheds, sizeofTasks));
+        taskFinishedsFailure = taskFinishedsFailure + 1;
+        mProgressDocuments.setText(getString(R.string.dialog_status_upload, getFullTasks(), sizeofTasks));
         updatestatus();
     }
     private void validateSuccessTasks(){
-        if(taskFinisheds == sizeofTasks){
+        if(taskFinishedsFailure > 0 && getFullTasks() == sizeofTasks){
+            if(mLlStatus != null){
+                mFlProgress.setVisibility(View.GONE);
+                mLlStatus.setVisibility(View.VISIBLE);
+                mIvStatus.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_error_vector));
+                mTvStatus.setText(getString(R.string.dialog_status_failure));
+                mCurrentAction = EVENT_REGISTER_REINTENT;
+                mBtnAction.setText(getString(R.string.txt_reintent));
+                enableBtn(true);
+                return;
+            }
+        }
+        if((taskFinishedsSuccess) == sizeofTasks){
             if(mLlStatus != null){
                 mFlProgress.setVisibility(View.GONE);
                 mLlStatus.setVisibility(View.VISIBLE);
@@ -158,5 +169,8 @@ public class StatusProgresFragment extends DialogFragment {
                 enableBtn(true);
             }
         }
+    }
+    private int getFullTasks(){
+        return taskFinishedsSuccess + taskFinishedsFailure;
     }
 }

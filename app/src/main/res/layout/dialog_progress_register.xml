@@ -85,6 +85,7 @@
             <!--android:layout_height="match_parent"/>-->
         <com.pagatodo.apolo.utils.customviews.MaterialButton
             app:buttonNormalColor="@color/colorWhite"
+            app:intercepterOnclick="true"
             android:textColor="@color/colorPrimary"
             android:text="@string/txt_button_continue"
             android:id="@+id/btn_action"
