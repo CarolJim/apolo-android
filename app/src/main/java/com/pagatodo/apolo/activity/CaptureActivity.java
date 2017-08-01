@@ -1,29 +1,17 @@
 package com.pagatodo.apolo.activity;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Method;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.widget.AppCompatImageView;
-import android.util.Base64;
-import android.view.Display;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import com.pagatodo.apolo.R;
@@ -43,7 +31,6 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
     private Camera mCamera;
     private byte[] mCameraData;
     private boolean mIsCapturing;
-    private Bitmap mCameraBitmap;
     @BindView(R.id.camera_image_view) AppCompatImageView mCameraImage;
     @BindView(R.id.preview_view) SurfaceView mSurfaceView;
     @BindView(R.id.action_reintent) AppCompatImageView btnReintent;
@@ -52,6 +39,7 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
     @BindView(R.id.camera_frame) RelativeLayout camera_frame;
     @BindView(R.id.progress_view_activity) LinearLayout progress;
     private Documento documentSaver;
+    private Bitmap mBitmapTaken;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -138,8 +126,23 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
     }
 
     private void setupImageDisplay() {
-        Bitmap bitmap = BitmapFactory.decodeByteArray(mCameraData, 0, mCameraData.length);
-        mCameraImage.setImageBitmap(bitmap);
+        BitmapFactory.Options opts = new BitmapFactory.Options();
+        opts.inJustDecodeBounds = false;
+        opts.inPreferredConfig = Bitmap.Config.RGB_565;
+        opts.inDither = true;
+
+        mBitmapTaken = BitmapFactory.decodeByteArray(mCameraData, 0, mCameraData.length, opts);
+
+        if(mBitmapTaken.getWidth() > mBitmapTaken.getHeight())
+        {
+            Matrix matrix = new Matrix();
+            matrix.postRotate(90);
+            mBitmapTaken = Bitmap.createBitmap(mBitmapTaken , 0, 0,
+                    mBitmapTaken .getWidth(), mBitmapTaken .getHeight(),
+                    matrix, true);
+        }
+
+        mCameraImage.setImageBitmap(mBitmapTaken);
         mCamera.stopPreview();
         mSurfaceView.setVisibility(View.GONE);
         mCameraImage.setVisibility(View.VISIBLE);
@@ -154,6 +157,7 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
         btnSave.setVisibility(View.GONE);
         btnCapture.setVisibility(View.VISIBLE);
         setupImageCapture();
+        mBitmapTaken.recycle();
     }
 
     @OnClick(R.id.action_close)
@@ -175,75 +179,18 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
     public void saveCapture() {
         camera_frame.setVisibility(View.INVISIBLE);
         progress.setVisibility(View.VISIBLE);
-        mCameraBitmap = BitmapFactory.decodeByteArray(mCameraData, 0, mCameraData.length);
-        mCameraImage.setImageBitmap(mCameraBitmap);
-        ByteArrayOutputStream mOutputStream = new ByteArrayOutputStream();
-        mCameraBitmap.compress(Bitmap.CompressFormat.JPEG, 35, mOutputStream);
-        byte [] mByteArray = mOutputStream.toByteArray();
-        mCameraBitmap.recycle();
 
-        String encodedImage = Base64.encodeToString(mByteArray, Base64.DEFAULT);
+        String encodedImage = Base64Utils.getEncodedString(mBitmapTaken);
         documentSaver.setDocumentoBase64(encodedImage);
         documentSaver.setLongitud(encodedImage.length());
         onResultCallBack(documentSaver);
     }
 
-    private void saveImageToFile(File file) {
-        if (mCameraBitmap != null) {
-            FileOutputStream outStream;
-            try {
-                outStream = new FileOutputStream(file);
-                if (!mCameraBitmap.compress(Bitmap.CompressFormat.JPEG, 60, outStream)) {
-                    showToast(getString(R.string.unable_to_save), getApplicationContext());
-                } else {
-                    String encodedImage = Base64Utils.getEncodedString(file);
-                    documentSaver.setDocumentoBase64(encodedImage);
-                    documentSaver.setLongitud(encodedImage.length());
-                    onResultCallBack(documentSaver);
-                }
-                outStream.close();
-            } catch (Exception e) {
-                showToast(getString(R.string.unable_to_save), getApplicationContext());
-            }
-        }
-    }
-
-    private File openFileForImage() {
-        File imageDirectory;
-        String storageState = Environment.getExternalStorageState();
-        if (storageState.equals(Environment.MEDIA_MOUNTED)) {
-            imageDirectory = new File(
-                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-                    Constants.IMAGE_DIRECTORY_NAME );
-            if (!imageDirectory.exists() && !imageDirectory.mkdirs()) {
-            } else {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_mm_dd_hh_mm_ss", Locale.getDefault());
-                return new File(imageDirectory.getPath() +
-                        File.separator + "image_" +
-                        dateFormat.format(new Date()) + ".jpg");
-            }
-        }
-        return null;
-    }
-
-
     @Override
     protected void onResume() {
         super.onResume();
-
-        if (mCamera == null) {
-            try {
-                mCamera = Camera.open();
-                mCamera.setPreviewDisplay(mSurfaceView.getHolder());
-                setDisplayOrientation(mCamera, 90);
-
-                if (mIsCapturing) {
-                    mCamera.startPreview();
-                }
-            } catch (Exception e) {
-                showToast(getString(R.string.unable_camera), getApplicationContext());
-            }
-        }
+        if (mCamera == null)
+            initCamera();
     }
 
     @Override
@@ -255,14 +202,56 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
         }
     }
 
-
-    protected void setDisplayOrientation(Camera camera, int angle) {
-        Method downPolymorphic;
+    private void initCamera()
+    {
         try {
-            downPolymorphic = camera.getClass().getMethod("setDisplayOrientation", new Class[]{int.class});
-            if (downPolymorphic != null)
-                downPolymorphic.invoke(camera, new Object[]{angle});
-        } catch (Exception e1) {
+            mCamera = Camera.open();
+            mCamera.setPreviewDisplay(mSurfaceView.getHolder());
+            Camera.Parameters parameters  = mCamera.getParameters();
+
+            int result = getProperCameraDegrees();
+            mCamera.setDisplayOrientation(result);
+            parameters.setRotation(result);
+            mCamera.setParameters(parameters);
+
+            if (mIsCapturing) {
+                mCamera.startPreview();
+            }
+        } catch (Exception e) {
+            showToast(getString(R.string.unable_camera), getApplicationContext());
         }
+    }
+
+    private int getProperCameraDegrees()
+    {
+        android.hardware.Camera.CameraInfo info = new android.hardware.Camera.CameraInfo();
+        android.hardware.Camera.getCameraInfo(0, info);
+        int rotation = getWindowManager().getDefaultDisplay().getRotation();
+        int degrees = 0;
+        switch (rotation) {
+            case Surface.ROTATION_0:
+                degrees = 0;
+                break;
+            case Surface.ROTATION_90:
+                degrees = 90;
+                break;
+            case Surface.ROTATION_180:
+                degrees = 180;
+                break;
+            case Surface.ROTATION_270:
+                degrees = 270;
+                break;
+        }
+
+        int result;
+
+        if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+            result = (info.orientation + degrees) % 360;
+            result = (360 - result) % 360;
+        } else {
+            result = (info.orientation - degrees + 360) % 360;
+        }
+
+        return result;
     }
 }

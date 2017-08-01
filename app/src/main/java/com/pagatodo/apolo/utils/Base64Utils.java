@@ -18,9 +18,8 @@ import java.io.IOException;
 public class Base64Utils {
 
 
-    public static String getEncodedString(File file)
+    public static String getEncodedString(Bitmap mBitmap)
     {
-        Bitmap mBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
         ByteArrayOutputStream mOutputStream = new ByteArrayOutputStream();
         mBitmap.compress(Bitmap.CompressFormat.JPEG, 60, mOutputStream);
         byte [] mByteArray = mOutputStream.toByteArray();
