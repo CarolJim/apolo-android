@@ -176,7 +176,7 @@ public abstract class SupportUXFragment extends Fragment implements IEventOnView
                 if(getView() != null){
                     AppCompatImageView imageView = getView().findViewById(R.id.errorResourceFragment);
                     if(imageView != null){
-                        imageView.setImageResource(R.drawable.error_state);
+                        imageView.setImageResource(R.drawable.ic_error_vector);
                     }
                 }
                 startAnimView(mainView, VISIBLE);

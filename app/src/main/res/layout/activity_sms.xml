@@ -32,7 +32,7 @@
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:text="@string/codigo_sms"
-             android:textColor="@color/colorWhite"
+             android:textColor="@color/colorText"
              app:tipo="Titulo"
              android:gravity="center"
              android:lineSpacingExtra="0sp"

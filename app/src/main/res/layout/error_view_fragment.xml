@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <android.support.v7.widget.AppCompatImageView
-                app:srcCompat="@drawable/error_state"
+                app:srcCompat="@drawable/ic_error_vector"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:id="@+id/errorResourceFragment"

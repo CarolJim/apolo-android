@@ -3,7 +3,6 @@ package com.pagatodo.apolo.activity.register;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
@@ -13,6 +12,8 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
 import com.pagatodo.apolo.R;
@@ -50,8 +51,12 @@ import static com.pagatodo.apolo.App.instance;
 import static com.pagatodo.apolo.ui.UI.showSnackBar;
 import static com.pagatodo.apolo.ui.UI.showToast;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.DOCUMENTS_RV_ITEM_SELECTED;
+import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_CANCELED;
+import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_CONFIRMATE;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_REGISTERED;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_REGISTER_REINTENT;
+import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_RE_GET_PROMOTORS;
+import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_SALIR;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.KEY_FOLIO;
 
 public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPresenter> implements RegisterView, IValidateForms{
@@ -133,8 +138,6 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
             ValidateForm.enableBtn(false, btnRegister);
             ValidateForm.validateEditText(btnRegister, edtCellPhone);
         }
-        edtCellPhone.setMaxLength(10);
-        edtPhone.setMaxLength(8);
     }
     @OnClick(R.id.ivVerify)
     public void sms(){
@@ -208,17 +211,6 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         moveTaskToBack(true);
     }
 
-    /*** Checking device has camera hardware or not* */
-    private boolean isDeviceSupportCamera() {
-        if (getApplicationContext().getPackageManager().hasSystemFeature(
-                PackageManager.FEATURE_CAMERA)) {
-            // this device has a camera
-            return true;
-        } else {
-            // no camera on this device
-            return false;
-        }
-    }
     public void assignData(){
         instance.put(Constants.SOL_CELULAR, edtCellPhone.getText());
         instance.put(Constants.SOL_TELEFONO, edtPhone.getText());
@@ -226,6 +218,17 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
     public void initData(){
         edtCellPhone.setText(instance.get(Constants.SOL_CELULAR));
         edtPhone.setText(instance.get(Constants.SOL_TELEFONO));
+        edtPhone.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    hideSoftKeyboard();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -253,6 +256,7 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
                 break;
         }
     }
+
 
     private int getTasks() {
         if(!getFormularioAfiliacion().getFolio().isEmpty()){
@@ -339,14 +343,17 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
             pref.saveDataBool(String.valueOf(Constants.CODIGO_VERIFICADO),false);
             ivVerify.setVisibility(enable ? View.VISIBLE : View.GONE);
             ivVerify.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_verificar_ap));
-        } else if(pref.loadBoolean(String.valueOf(Constants.CODIGO_VERIFICADO))){
-            ivVerify.setEnabled(false);
-            ivVerify.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_verificado_ap));
-        } else {
-            ivVerify.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_noverificado_ap));
+        }
+        else {
+            Boolean verificadoState = pref.loadBoolean(String.valueOf(Constants.CODIGO_VERIFICADO));
+            ivVerify.setEnabled(verificadoState ? false : true);
+            ivVerify.setImageDrawable(
+                    verificadoState ?
+                    ContextCompat.getDrawable(this, R.drawable.ic_verificado_ap) :
+                    ContextCompat.getDrawable(this, R.drawable.ic_noverificado_ap) );
         }
     }
-    public  void showProgressFragment() {
+    public void showProgressFragment() {
         if (statusProgresFragment != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             Fragment prev = getSupportFragmentManager().findFragmentByTag(DIALOG_PROGRESS_REGISTER);
@@ -391,5 +398,10 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
     }
     private FormularioAfiliacion getFormularioAfiliacion(){
         return presenter.getFormularioAfiliacion();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

@@ -3,14 +3,11 @@ package com.pagatodo.apolo.utils;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.widget.EditText;
-
 import com.pagatodo.apolo.App;
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.utils.customviews.MaterialButton;
 import com.pagatodo.apolo.utils.customviews.MaterialValidationEditText;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;

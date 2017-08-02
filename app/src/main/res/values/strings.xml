@@ -73,6 +73,7 @@
     <string name="unable_camera">No se puede abrir la cámara.</string>
     <string name="unable_to_save">No se puede guardar la imagen en el archivo.</string>
     <string name="save_to">Guardado en:</string>
+    <string name="confirmate_delete">¿Seguro que deseas borrar esta imagen?</string>
 
     <!-- WS errors -->
     <string name="network_error">Verifica tu conexión a internet.</string>
@@ -139,7 +140,6 @@
     <string name="error_codigo_empty">El código de verificación debe contener 6 dígitos.</string>
     <string name="error_codigo_invalid">El código de verificación es invalido.</string>
 
-
     <!--Template docs-->
     <string name="template_doc_ine_frente">ine_frente_%1$s.jpg</string>
     <string name="template_doc_ine_reverso">ine_reverso_%1$s.jpg</string>
@@ -147,4 +147,6 @@
     <!-- txt btns-->
     <string name="txt_reintent">Reintentar</string>
     <string name="txt_exit">Salir</string>
+    <string name="txt_confirmate">Confirmar</string>
+    <string name="txt_cancel">Cancelar</string>
     </resources>

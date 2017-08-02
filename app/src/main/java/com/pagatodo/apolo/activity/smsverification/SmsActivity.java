@@ -74,7 +74,7 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
 
         //Changing Tool Bar Back Arrow Color
         Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.ic_back_material);
-        upArrow.setColorFilter(getResources().getColor(R.color.colorWhite), PorterDuff.Mode.DST); // Reference -> https://developer.android.com/reference/android/graphics/PorterDuff.Mode.html
+        upArrow.setColorFilter(getResources().getColor(R.color.colorText), PorterDuff.Mode.DST); // Reference -> https://developer.android.com/reference/android/graphics/PorterDuff.Mode.html
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
         initPresentConfirmation();
@@ -188,9 +188,9 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
         presenter.validation(instance.get(Constants.SOL_CELULAR), codeGenerate);
     }
 
-    @Override
-    public void setNavigation() {
-        startActivity(new Intent(this,RegisterActivity.class));
+    @Override public void setNavigation() {
+        //startActivity(new Intent(this,RegisterActivity.class));
+        onBackPressed();
     }
 
     @Override
@@ -401,7 +401,7 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        setNavigation();
+        //setNavigation();
         finish();
     }
 

@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content" />
             <com.pagatodo.apolo.utils.customviews.MaterialTextView
                 android:layout_margin="@dimen/dimen_margin_small"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorText"
                 android:id="@+id/progressTextActivity"
                 android:text="@string/txt_progressText"
                 android:gravity="center"

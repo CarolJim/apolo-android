@@ -33,6 +33,8 @@ public class BaseEventContract {
     //Eventos del formulario
     public static final String EVENT_REGISTER_REINTENT      = "registerReintent";
     public static final String EVENT_REGISTERED             = "creditSuccessRegister";
+    public static final String EVENT_CANCELED               = "cancel";
+    public static final String EVENT_CONFIRMATE             = "confirmate";
 
 
     //Run Time Permissions

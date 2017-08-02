@@ -122,14 +122,15 @@ public abstract class BaseActivity extends SupportNotificationsActivity implemen
     protected void onResultCallBack(Serializable result)
     {
         Intent callBackIntent = new Intent();
-        if(result != null)
-        {
+        if(result != null) {
             callBackIntent.putExtra(RESULT_KEY, result);
             setResult(Activity.RESULT_OK, callBackIntent);
         }
-        else
+        else{
             setResult(Activity.RESULT_CANCELED, callBackIntent);
+        }
         finish();
+
     }
 
     protected void showView(Class comingView, HashMap<String, Serializable> extras)

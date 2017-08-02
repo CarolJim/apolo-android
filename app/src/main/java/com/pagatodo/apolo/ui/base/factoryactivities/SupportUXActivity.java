@@ -3,6 +3,7 @@ package com.pagatodo.apolo.ui.base.factoryactivities;
 import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
@@ -269,6 +270,17 @@ public abstract class SupportUXActivity extends SupportFragmentActivity implemen
         }
     }
 
+    /*** Checking device has camera hardware or not* */
+    protected boolean isDeviceSupportCamera() {
+        if (getApplicationContext().getPackageManager().hasSystemFeature(
+                PackageManager.FEATURE_CAMERA)) {
+            // this device has a camera
+            return true;
+        } else {
+            // no camera on this device
+            return false;
+        }
+    }
 
     @Override
     public void onBackPressed() {

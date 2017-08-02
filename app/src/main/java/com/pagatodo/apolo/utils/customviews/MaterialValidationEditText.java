@@ -1,6 +1,5 @@
 package com.pagatodo.apolo.utils.customviews;
 
-import android.app.Service;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
@@ -17,12 +16,10 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,7 +27,6 @@ import android.widget.LinearLayout;
 import com.pagatodo.apolo.App;
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.utils.ValidateForm;
-
 
 /**
  * Created by jvazquez on 22/05/2017.
@@ -95,7 +91,7 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
                 isTextEnabled = typedArray.getBoolean(R.styleable.MaterialValidationEditText_isTextEnabled, true);
 
                 edtMain.setHintTextColor(typedArray.getColor(R.styleable.MaterialValidationEditText_hintColor,
-                        ContextCompat.getColor(App.getInstance().getApplicationContext(), R.color.colorWhite)));
+                        ContextCompat.getColor(App.getInstance().getApplicationContext(), R.color.colorText)));
 
                 pinnedIcon = typedArray.getResourceId(R.styleable.MaterialValidationEditText_defaultIcon, -1);
                 inputType = typedArray.getInt(R.styleable.MaterialValidationEditText_android_inputType, EditorInfo.TYPE_NULL);
@@ -214,7 +210,6 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
                     break;
             }
 
-
         }
     }
     private void setValidationListener(final String type) {
@@ -237,7 +232,7 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
                     }
                     isValidField = false;
                 } else {
-                    String message = "";
+                    String message;
                     switch (type) {
                         case "0"://email
                             result = ValidateForm.isValidEmailAddress(txt);
@@ -247,7 +242,6 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
                                     result =  edtCompare.getText().equals(txt);
                                     message = getMessageCompare(type, result);
                                 }
-
                             }
                             break;
                         case "1"://password
@@ -264,6 +258,7 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
                             if(edtCompare != null && result && edtCompare.isValidField()){
                                 result = edtCompare.getText().equals(txt);
                                 message = result ? getString(R.string.msg_valid_repass): getString(R.string.msg_invalid_repass);
+
                             }
                             break;
                         case "3"://zipcode
@@ -322,6 +317,7 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
     public void setAddTextChangedListener(TextWatcher watcher){
         edtMain.addTextChangedListener(watcher);
     }
+
     private void setValidView(String message) {
         setMessageText(message);
         ivStatus.setVisibility(VISIBLE);
@@ -333,6 +329,7 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
         ivStatus.setVisibility(VISIBLE);
         setIconResource(R.drawable.warning);
     }
+
     public void setColorMessageText(@ColorInt int color){
         tvMessage.setTextColor(color);
     }
@@ -550,7 +547,7 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
         if(edtMain != null){
             edtMain.setEnabled(enabled);
             edtMain.setAlpha(enabled ? 1f : 0.6f);
-            edtMain.setTextColor(enabled ? ContextCompat.getColor(getContext(), R.color.colorWhite) : ContextCompat.getColor(getContext(), R.color.colorHint));
+            edtMain.setTextColor(enabled ? ContextCompat.getColor(getContext(), R.color.colorText) : ContextCompat.getColor(getContext(), R.color.colorHint));
         }
     }
 

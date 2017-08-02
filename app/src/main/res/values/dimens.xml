@@ -58,8 +58,8 @@
     <dimen name="ic_apolo_brand_height_view_pager">37.5dp</dimen>
 
     <!-- icons ic_check_ap dimen -->
-    <dimen name="ic_check_ap_width">24dp</dimen>
-    <dimen name="ic_check_ap_height">24dp</dimen>
+    <dimen name="ic_check_ap_width">30dp</dimen>
+    <dimen name="ic_check_ap_height">30dp</dimen>
 
     <!-- icons camera dimen -->
     <dimen name="ic_capture_width">50dp</dimen>

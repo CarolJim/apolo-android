@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/black">
+    android:background="@color/black_preview">
 
     <ImageView
         android:layout_gravity="center"
@@ -32,8 +32,8 @@
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/activity_image_preview_iv_close"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/ic_cameras_width"
+                android:layout_height="@dimen/ic_cameras_height"
                 android:layout_gravity="center|left"
                 android:layout_marginLeft="@dimen/dimen_margin_xl"
                 app:srcCompat="@drawable/ic_cerrar_ap"/>
@@ -45,16 +45,14 @@
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/activity_image_preview_iv_delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/ic_cameras_width"
+                android:layout_height="@dimen/ic_cameras_height"
                 android:layout_gravity="center|right"
                 android:layout_marginRight="@dimen/dimen_margin_xl"
-                app:srcCompat="@drawable/ic_done_ap"/>
+                app:srcCompat="@drawable/ic_delete"/>
 
         </LinearLayout>
 
     </RelativeLayout>
-
-
 
 </FrameLayout>

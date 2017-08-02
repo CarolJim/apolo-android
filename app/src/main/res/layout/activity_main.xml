@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/name_agente"
-        android:textColor="@color/colorWhite"
+        android:textColor="@color/colorText"
         app:tipo="Titulo"
         android:lineSpacingExtra="0sp"
         android:textSize="@dimen/dimen_margin_xl"
@@ -55,14 +55,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:formato="celphone"
-                app:hintColor="@color/colorWhite"
+                app:hintColor="@color/colorText"
                 app:hintText="@string/editText_celular"
                 android:padding="@dimen/dimen_margin_small"
-                android:maxLength="10"
+                app:maxLength="10"
                 android:gravity="left"
                 android:layout_marginLeft="@dimen/dimen_margin_xl"
                 android:layout_marginTop="@dimen/dimen_margin_medium"
-                android:nextFocusDown="@+id/edtPhone"/>
+                android:nextFocusDown="@+id/edtPhone"
+                app:maxLines="1"/>
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/ivVerify"
                 android:layout_width="wrap_content"
@@ -99,12 +100,12 @@
             android:layout_height="wrap_content"
             app:formato="phone"
             android:gravity="left"
-            app:hintColor="@color/colorWhite"
+            app:hintColor="@color/colorText"
             app:hintText="@string/editText_telefono"
             android:padding="@dimen/dimen_margin_small"
-            android:maxLength="6"
+            app:maxLength="6"
             android:layout_marginLeft="@dimen/dimen_margin_xl"
-            android:maxLines="1"
+            app:maxLines="1"
             android:imeActionId="@+id/actionDone"/>
         </FrameLayout>
     </RelativeLayout>
