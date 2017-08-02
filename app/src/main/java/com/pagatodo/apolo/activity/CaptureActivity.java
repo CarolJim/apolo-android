@@ -192,7 +192,7 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
 
         mBitmapTaken = Bitmap.createBitmap(
                 mBitmapTaken,
-                130,
+                (int) (mBitmapTaken.getWidth() * .0725),
                 (int) (mBitmapTaken.getHeight() * .32),
                 (int) (mBitmapTaken.getWidth() * .85),
                 (int) (mBitmapTaken.getHeight() * .35)
