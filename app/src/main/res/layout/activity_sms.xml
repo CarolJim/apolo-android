@@ -58,12 +58,11 @@
                 android:layout_height="@dimen/dimen_button_height"
                 android:layout_marginBottom="@dimen/dimen_margin_xl"
                 android:text="@string/txt_button_reenviar"
-                android:textColor="@color/colorWhite"
-                app:buttonNormalColor="@color/teal"
-                app:buttonStrokeColor="@color/teal"
+                android:textColor="@color/colorBtn"
+                app:buttonNormalColor="@color/colorPrimary"
+                app:buttonStrokeColor="@color/colorPrimary"
                 app:cornerRadius="@dimen/dimen_button_radius"
-                android:layout_alignParentBottom="true"
-                app:intercepterOnclick="true"/>
+                android:layout_alignParentBottom="true"/>
 
         </RelativeLayout>
 

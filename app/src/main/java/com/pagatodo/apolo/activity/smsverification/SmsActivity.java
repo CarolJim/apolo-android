@@ -132,6 +132,7 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
                 }
             }
             public void onFinish(){
+                btnValidar.setEnabled(true);
                 btnValidar.setText(getString(R.string.txt_button_reenviar));
             }
         }.start();
@@ -153,6 +154,7 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
                 }
             }
             public void onFinish(){
+                btnValidar.setEnabled(true);
                 btnValidar.setText(getString(R.string.txt_button_reenviar));
             }
         }.start();
@@ -164,10 +166,12 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
     */
     @OnClick(R.id.btnValidar)
     public void validar() {
-        if(btnValidar.getText()==getString(R.string.txt_button_reenviar))
+        if(btnValidar.getText()==getString(R.string.txt_button_reenviar)) {
             initPresentConfirmation();
-        else
+        }
+        else{
             validateForm();
+        }
     }
 
     public void validateForm() {
@@ -398,6 +402,7 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
     public void onBackPressed() {
         super.onBackPressed();
         setNavigation();
+        finish();
     }
 
     public void getDataForm() {

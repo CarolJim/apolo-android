@@ -8,13 +8,13 @@ import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
-
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.activity.CaptureActivity;
 import com.pagatodo.apolo.activity.ConfirmateActivity;
@@ -28,6 +28,7 @@ import com.pagatodo.apolo.data.model.Cards;
 import com.pagatodo.apolo.data.model.Documento;
 import com.pagatodo.apolo.data.model.FormularioAfiliacion;
 import com.pagatodo.apolo.data.model.Promotor;
+import com.pagatodo.apolo.data.remote.RemoteConfig;
 import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterPermissionActivity;
 import com.pagatodo.apolo.ui.base.factoryinterfaces.IValidateForms;
 import com.pagatodo.apolo.utils.Constants;
@@ -65,6 +66,7 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
     @BindView(R.id.edtCellPhone) MaterialValidationEditText edtCellPhone;
     @BindView(R.id.edtPhone) MaterialValidationEditText edtPhone;
     @BindView(R.id.tv_name_afiliado) MaterialTextView tvAfiliado;
+    @BindView(R.id.ivVerify) AppCompatImageView ivVerify;
 
     private Promotor mPromotor = new Promotor();
     private StatusProgresFragment statusProgresFragment = null;
@@ -88,8 +90,8 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         initData();
         mPromotor = pref.getCurrentPromotor();
         setValuesDefaultForm();
-        enableVerificateSMS(pref.isEnableVerificateSMS());
         initFragments();
+
     }
 
     private void initFragments() {
@@ -137,6 +139,11 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
     @OnClick(R.id.ivVerify)
     public void sms(){
         assignData();
+        getDataForm();
+        if(!edtCellPhone.isValidField()){
+            showMessage(getString(R.string.error_cellphone_invalid));
+            return;
+        }
         showView(SmsActivity.class);
     }
 
@@ -193,6 +200,7 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
             showToast(getString((R.string.not_compatible_camera)), getApplicationContext());
             finish();
         }
+        enableVerificateSMS(RemoteConfig.isEnableVerificateSMS());
     }
 
     @Override
@@ -298,7 +306,7 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
             return;
         }
         if(!edtCellPhone.isValidField()){
-            showMessage(getString(R.string.error_cellphone_invalid));
+            showMessage(getString(R.string.error_phone_empty));
             return;
         }
         String errorDocument = "";
@@ -317,7 +325,6 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
 
     @Override
     public void onValidationSuccess() {
-//        presenter.register(edtCellPhone.getText(), edtPhone.getText(), instance.get(Constants.SOL_TARJETA), instance.get(Constants.SOL_IFE_FRENTE),instance.get(Constants.SOL_IFE_VUELTA));
         showProgressFragment();
         presenter.requestRegister();
     }
@@ -326,11 +333,17 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
     public void getDataForm() {
         getFormularioAfiliacion().setTelefonoCasa(edtPhone.getText());
         getFormularioAfiliacion().setTelefonoMovil(edtPhone.getText());
-
     }
     private void enableVerificateSMS(boolean enable){
-        if(findViewById(R.id.ivVerify) != null){
-            findViewById(R.id.ivVerify).setVisibility(enable ? View.VISIBLE: View.GONE);
+        if(ivVerify != null && !edtCellPhone.isValidField()){
+            pref.saveDataBool(String.valueOf(Constants.CODIGO_VERIFICADO),false);
+            ivVerify.setVisibility(enable ? View.VISIBLE : View.GONE);
+            ivVerify.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_verificar_ap));
+        } else if(pref.loadBoolean(String.valueOf(Constants.CODIGO_VERIFICADO))){
+            ivVerify.setEnabled(false);
+            ivVerify.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_verificado_ap));
+        } else {
+            ivVerify.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_noverificado_ap));
         }
     }
     public  void showProgressFragment() {
@@ -367,14 +380,12 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         AppCompatImageView ivCheck = currentView.findViewById(R.id.ivCheck);
         ArrayList<Documento> documents = (ArrayList<Documento>) getFormularioAfiliacion().getDocumentos();
 
-        if(shouldAddDocument)
-        {
+        if(shouldAddDocument) {
             ivCheck.setImageResource(R.drawable.ic_check_ap);
             documents.remove(currentIndex);
             documents.add(currentIndex, currentDocument);
-        }else
-        {
-            ivCheck.setImageResource(R.drawable.ic_check2_ap);
+        }else {
+            ivCheck.setImageResource(R.drawable.ic_nocheck_ap);
             documents.get(currentIndex).setLongitud(0);
         }
     }

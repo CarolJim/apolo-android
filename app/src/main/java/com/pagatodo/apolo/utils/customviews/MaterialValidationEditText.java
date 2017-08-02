@@ -376,6 +376,7 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
             edtMain.setId(getId());
             edtMain.setOnKeyListener(l);
         }
+
     }
 
     public EditText getEdtMain(){
@@ -580,5 +581,5 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
     public void setPinnedIcon(int pinnedIcon) {
         this.pinnedIcon = pinnedIcon;
     }
-    
+
 }

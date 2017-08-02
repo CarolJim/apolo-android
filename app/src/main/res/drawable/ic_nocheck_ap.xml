@@ -31,6 +31,8 @@
         <!-- Rectangle 2 -->
         <path
             android:name="rectangle2"
-            android:pathData="M -301,313 L 59,313 L 59,-327 L -301,-327 L -301,313 Z" />
+            android:pathData="M -301,313 L 59,313 L 59,-327 L -301,-327 L -301,313 Z"
+            android:fillColor="#D2D2D2"
+            android:fillAlpha="0.26" />
     </group>
 </vector>

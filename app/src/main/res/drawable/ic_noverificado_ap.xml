@@ -8,17 +8,45 @@
     android:height="30dp"
     android:viewportWidth="122"
     android:viewportHeight="30">
-    <!-- Rectangle -->
-    <path
-        android:name="rectangle"
-        android:pathData="M -299.27,13 C -299.27,19.08 -294.35,24 -288.27,24 L -197.03,24 C -190.95,24 -186.03,19.08 -186.03,13 L -186.03,13 C -186.03,6.92 -190.95,2 -197.03,2 L -288.27,2 C -294.35,2 -299.27,6.92 -299.27,13 Z"
-        android:fillColor="#FFFFFF" />
-    
     <!-- Rectangle 2 -->
     <path
         android:name="rectangle2"
         android:pathData="M 4.72,13 C 4.72,19.08 9.65,24 15.73,24 L 106.98,24 C 113.05,24 117.98,19.08 117.98,13 L 117.98,13 C 117.98,6.92 113.05,2 106.98,2 L 15.73,2 C 9.65,2 4.72,6.92 4.72,13 Z"
         android:fillColor="#FE3824" />
+    
+    <!-- Group -->
+    <group
+        android:name="group">
+        <!-- Clip Clip -->
+        <clip-path
+            android:name="clip"
+            android:pathData="M 4.72,13 C 4.72,19.08 9.65,24 15.73,24 L 106.98,24 C 113.05,24 117.98,19.08 117.98,13 L 117.98,13 C 117.98,6.92 113.05,2 106.98,2 L 15.73,2 C 9.65,2 4.72,6.92 4.72,13 Z" />
+        
+        <!-- Rectangle 3 -->
+        <path
+            android:name="rectangle3"
+            android:pathData="M -228,558 L 132,558 L 132,-82 L -228,-82 L -228,558 Z" />
+        
+        <!-- Group 2 -->
+        <group
+            android:name="group2">
+            <!-- Clip 2 Clip -->
+            <clip-path
+                android:name="clip2"
+                android:pathData="M 5.02,13 C 5.02,19.08 9.95,24 16.02,24 L 107.27,24 C 113.35,24 118.27,19.08 118.27,13 L 118.27,13 C 118.27,6.92 113.35,2 107.27,2 L 16.02,2 C 9.95,2 5.02,6.92 5.02,13 Z" />
+            
+            <!-- Rectangle 5 -->
+            <path
+                android:name="rectangle5"
+                android:pathData="M -227.75,558 L 132.25,558 L 132.25,-82 L -227.75,-82 L -227.75,558 Z" />
+            
+            <!-- Rectangle 6 -->
+            <path
+                android:name="rectangle6"
+                android:pathData="M -227.75,558 L 132.25,558 L 132.25,-82 L -227.75,-82 L -227.75,558 Z"
+                android:fillColor="#D0021B" />
+        </group>
+    </group>
     
     <!-- Label -->
     <path

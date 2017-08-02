@@ -1,12 +1,16 @@
 package com.pagatodo.apolo.activity.smsverification._presenter;
 
 import android.os.Handler;
+import android.util.Log;
+
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.activity.smsverification._presenter._interfaces.SmsInteractor;
 import com.pagatodo.apolo.activity.smsverification._presenter._interfaces.SmsPresenter;
 import com.pagatodo.apolo.activity.smsverification._presenter._interfaces.SmsView;
+import com.pagatodo.apolo.data.model.FormularioAfiliacion;
 import com.pagatodo.apolo.data.model.webservice.response.GeneralServiceResponse;
 import com.pagatodo.apolo.ui.base.factorypresenters.BasePresenter;
+import com.pagatodo.apolo.utils.Constants;
 import com.pagatodo.networkframework.DataManager;
 
 /**
@@ -48,17 +52,16 @@ public class SmsPresenterImpl extends BasePresenter<SmsView> implements SmsPrese
             view.hideProgress();
             DataManager manager = (DataManager) params[0];
             GeneralServiceResponse response = (GeneralServiceResponse) manager.getData();
-            if(action==1)
+            if(action==1) {
                 view.onSuccess(response.getRespuesta().getMensaje());
+            }
             else if(action==2)
                 if(response.getRespuesta().getCodigo() != 0) {
                     view.onFailed(response.getRespuesta().getMensaje());
                 }  else {
                     view.setNavigation();
                 }
-
         }
-
     }
     @Override
     public void onFailed(Object... params) {

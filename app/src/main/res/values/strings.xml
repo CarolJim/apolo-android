@@ -24,7 +24,7 @@
     <string name="txt_button_continue">CONTINUAR</string>
     <string name="txt_button_login">INGRESAR</string>
     <string name="txt_button_end">FINALIZAR</string>
-    <string name="txt_button_reenviar">REENVIAR %d</string>
+    <string name="txt_button_reenviar">REENVIAR</string>
     <string name="txt_btn_reintent">REINTENTAR</string>
 
 
@@ -132,6 +132,7 @@
     <string name="error_invalid_id">Usuario invalido.</string>
     <string name="error_empty_id_afiliador">Ingresa tu usuario.</string>
     <string name="error_min_id_afiliador">Tú usuario es muy corto.</string>
+    <string name="error_phone_empty">El telefono no puede estar vacio.</string>
     <string name="error_cellphone_empty">El telefono celular no puede estar vacio.</string>
     <string name="error_cellphone_invalid">El numero celular es invalido.</string>
     <string name="error_listaDocumentoVacio">El documento %1$s no se ha capturado.</string>

@@ -1,7 +1,5 @@
 package com.pagatodo.apolo.data.remote;
 
-import android.preference.Preference;
-
 import com.pagatodo.apolo.App;
 import com.pagatodo.apolo.data.local.Preferences;
 import com.pagatodo.apolo.data.model.webservice.remoteconfig.ResponseRemoteConfig;
@@ -62,7 +60,7 @@ public class RemoteConfig {
         }
         return URL_REMOTE_CONFIG;
     }
-    static boolean isEnableVerificateSMS(){
+    public static boolean isEnableVerificateSMS(){
         Preferences pref = App.getInstance().getPrefs();
         if (pref != null) {
             if (DEBUG) {

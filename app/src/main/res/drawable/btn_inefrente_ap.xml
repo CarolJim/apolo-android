@@ -12,7 +12,7 @@
     <path
         android:name="rectangle3"
         android:pathData="M 0,84 C 0,87.31 2.69,90 6,90 L 322,90 C 325.31,90 328,87.31 328,84 L 328,6 C 328,2.69 325.31,0 322,0 L 6,0 C 2.69,0 0,2.69 0,6 L 0,84 Z"
-        android:fillColor="#4F4F4F"
+        android:fillColor="#D2D2D2"
         android:fillAlpha="0.26" />
     
     <!-- Label -->
@@ -22,5 +22,38 @@
         android:fillColor="#000000"
         android:fillAlpha="0.26" />
     
-
+    <!-- Rectangle 5 -->
+    <path
+        android:name="rectangle5"
+        android:pathData="M 14.98,60.9 C 14.98,63 16.68,64.7 18.77,64.7 L 73.93,64.7 C 76.02,64.7 77.72,63 77.72,60.9 L 77.72,23.8 C 77.72,21.7 76.02,20 73.93,20 L 18.77,20 C 16.68,20 14.98,21.7 14.98,23.8 L 14.98,60.9 Z"
+        android:fillColor="#EFEFEF" />
+    
+    <!-- Bezier 2 -->
+    <path
+        android:name="bezier2"
+        android:pathData="M 48.32,54.55 L 67.93,54.55 L 67.93,50.49 L 48.32,50.49 L 48.32,54.55 ZM 48.32,46.42 L 67.93,46.42 L 67.93,42.36 L 48.32,42.36 L 48.32,46.42 ZM 48.32,38.29 L 67.93,38.29 L 67.93,34.23 L 48.32,34.23 L 48.32,38.29 Z"
+        android:fillColor="#CCD1D3"
+        android:fillType="evenOdd" />
+    
+    <!-- Bezier 3 -->
+    <path
+        android:name="bezier3"
+        android:pathData="M 34.6,34.23 C 36.76,34.23 38.52,36.06 38.52,38.29 L 38.52,43.37 C 38.52,44.39 36.56,46.42 36.56,46.42 L 36.56,48.45 L 42.44,50.89 L 42.44,54.55 L 24.8,54.55 L 24.8,50.69 L 30.68,48.25 L 30.68,46.22 C 30.68,46.22 28.72,44.39 28.72,43.17 L 28.72,38.29 C 28.72,36.06 30.49,34.23 32.64,34.23 L 34.6,34.23 Z"
+        android:fillColor="#CCD1D3"
+        android:fillType="evenOdd" />
+    
+    <!-- Group 4 -->
+    <group
+        android:name="group4">
+        <!-- Clip 3 Clip -->
+        <clip-path
+            android:name="clip3"
+            android:pathData="M 73.81,20 L 18.92,20 C 16.76,20 15,21.83 15,24.06 L 15,26.1 L 77.73,26.1 L 77.73,24.06 C 77.73,21.83 75.96,20 73.81,20 Z" />
+        
+        <!-- Rectangle 6 -->
+        <path
+            android:name="rectangle6"
+            android:pathData="M 15,31.1 L 78,31.1 L 78,19 L 15,19 L 15,31.1 Z"
+            android:fillColor="#CCD1D3" />
+    </group>
 </vector>

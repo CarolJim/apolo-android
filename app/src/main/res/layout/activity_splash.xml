@@ -5,6 +5,7 @@
     android:layout_gravity="center"
     android:id="@+id/layout_splash"
     android:gravity="center"
+    android:background="@color/bg_app"
     android:orientation="vertical">
     <LinearLayout
         android:id="@+id/progressSplash"
@@ -40,5 +41,5 @@
         android:layout_width="wrap_content"
         android:scaleType="fitXY"
         android:layout_gravity="center"
-        app:srcCompat="@drawable/logo_splash_screen"/>
+        app:srcCompat="@drawable/cdmx"/>
 </FrameLayout>

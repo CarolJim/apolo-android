@@ -14,39 +14,22 @@
         <!-- Clip Clip -->
         <clip-path
             android:name="clip"
-            android:pathData="M -6,-8 L 97,-8 L 97,34 L -6,34 L -6,-8 ZM 15,2 L 76,2 L 76,2 C 82.08,2 87,6.92 87,13 L 87,13 L 87,13 C 87,19.08 82.08,24 76,24 L 15,24 L 15,24 C 8.92,24 4,19.08 4,13 L 4,13 L 4,13 C 4,6.92 8.92,2 15,2 Z" />
+            android:pathData="M -6,-8 L 97,-8 L 97,34 L -6,34 L -6,-8 ZM 15,2 L 76,2 L 76,2 C 82.08,2 87,6.92 87,13 L 87,13 L 87,13 C 87,19.08 82.08,24 76,24 L 15,24 L 15,24 C 8.92,24 4,19.08 4,13 L 4,13 L 4,13 C 4,6.92 8.92,2 15,2 Z"
+            />
 
-        <!-- Rectangle 2 -->
-        <path
-            android:name="rectangle2"
-            android:pathData="M 4,14 C 4,20.08 8.92,25 15,25 L 76,25 C 82.08,25 87,20.08 87,14 L 87,14 C 87,7.92 82.08,3 76,3 L 15,3 C 8.92,3 4,7.92 4,14 Z"
-            android:fillColor="@color/colorBlack" />
         <!-- Rectangle -->
         <path
             android:name="rectangle"
             android:pathData="M -238,13 C -238,19.08 -233.08,24 -227,24 L -166,24 C -159.92,24 -155,19.08 -155,13 L -155,13 C -155,6.92 -159.92,2 -166,2 L -227,2 C -233.08,2 -238,6.92 -238,13 Z"
             android:fillColor="#FFFFFF" />
     </group>
-    
-    <!-- Group 2 -->
-    <group
-        android:name="group2">
-        <!-- Clip 2 Clip -->
-        <clip-path
-            android:name="clip2"
-            android:pathData="M 4,13 C 4,19.08 8.92,24 15,24 L 76,24 C 82.08,24 87,19.08 87,13 L 87,13 C 87,6.92 82.08,2 76,2 L 15,2 C 8.92,2 4,6.92 4,13 Z" />
-        
-        <!-- Rectangle 2 -->
-        <path
-            android:name="rectangle2"
-            android:pathData="M -259,558 L 101,558 L 101,-82 L -259,-82 L -259,558 Z" />
-        
-        <!-- Rectangle 3 -->
-        <path
-            android:name="rectangle3"
-            android:pathData="M -259,558 L 101,558 L 101,-82 L -259,-82 L -259,558 Z" />
-    </group>
-    
+
+    <!-- Rectangle 2 -->
+    <path
+        android:name="rectangle2"
+        android:pathData="M 4,14 C 4,20.08 8.92,25 15,25 L 76,25 C 82.08,25 87,20.08 87,14 L 87,14 C 87,7.92 82.08,3 76,3 L 15,3 C 8.92,3 4,7.92 4,14 Z"
+        android:fillColor="#000000" />
+
     <!-- Label -->
     <path
         android:name="label"

@@ -35,8 +35,8 @@ public class MaterialButton extends AppCompatButton implements View.OnClickListe
     private final int version = Build.VERSION.SDK_INT;
     private OnClickListener mClickListener;
     private boolean interceptor;
-    private GradientDrawable pressedDrawable = new GradientDrawable();;
-    private GradientDrawable normalBackground = new GradientDrawable();;
+    private GradientDrawable pressedDrawable = new GradientDrawable();
+    private GradientDrawable normalBackground = new GradientDrawable();
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public MaterialButton(Context context, AttributeSet attrs, int defStyle) {

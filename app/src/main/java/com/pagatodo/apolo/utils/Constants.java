@@ -45,6 +45,7 @@ public class Constants {
     public static final String SOL_TARJETA    = "Tarjeta";
     public static final String SOL_IFE_FRENTE = "IfeFrente";
     public static final String SOL_IFE_VUELTA = "IfeVuelta";
+    public static final Boolean CODIGO_VERIFICADO = false;
     public static String UrlTarjeta;
     public static String UrlIfeFrente;
     public static String UrlIfeVuelta;

@@ -6,6 +6,7 @@ import com.pagatodo.apolo.data.local.Preferences;
 import com.pagatodo.apolo.data.model.webservice.request.SMSCodeValidationRequest;
 import com.pagatodo.apolo.data.model.webservice.request.SMSValidationRequest;
 import com.pagatodo.apolo.data.remote.BuildRequest;
+import com.pagatodo.apolo.utils.Constants;
 import com.pagatodo.networkframework.DataManager;
 import com.pagatodo.networkframework.interfaces.IRequestResult;
 
@@ -37,8 +38,10 @@ public class SmsInteractorImpl implements SmsInteractor, IRequestResult {
     @Override
     public void onSuccess(DataManager dataManager) {
         if(dataManager.getData() != null){
-            if(action==1)
+            if(action==1) {
+                pref.saveDataBool(String.valueOf(Constants.CODIGO_VERIFICADO),true);
                 listen.onSuccess(dataManager);
+            }
             else if(action==2)
                 listener.onSuccess(dataManager);
         }
@@ -47,10 +50,13 @@ public class SmsInteractorImpl implements SmsInteractor, IRequestResult {
     @Override
     public void onFailed(DataManager dataManager) {
         if(dataManager.getData() != null){
-            if(action==1)
+            if(action==1) {
+                pref.saveDataBool(String.valueOf(Constants.CODIGO_VERIFICADO),false);
                 listen.onFailed(dataManager);
+            }
             else if(action==2)
                 listener.onFailed(dataManager);
         }
     }
+
 }

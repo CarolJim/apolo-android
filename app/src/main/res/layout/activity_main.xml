@@ -48,6 +48,7 @@
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 tools:ignore="VectorDrawableCompat"
+                android:layout_marginTop="@dimen/marginTop"
                 app:srcCompat="@drawable/ic_mobile_ap"/>
             <com.pagatodo.apolo.utils.customviews.MaterialValidationEditText
                 android:id="@+id/edtCellPhone"
@@ -60,14 +61,15 @@
                 android:maxLength="10"
                 android:gravity="left"
                 android:layout_marginLeft="@dimen/dimen_margin_xl"
-                android:layout_marginTop="@dimen/dimen_margin_medium"/>
+                android:layout_marginTop="@dimen/dimen_margin_medium"
+                android:nextFocusDown="@+id/edtPhone"/>
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/ivVerify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|end|right"
-                app:srcCompat="@drawable/ic_verificar_ap"
                 tools:ignore="VectorDrawableCompat"
+                android:layout_marginTop="-3dp"
                 android:visibility="visible"/>
         </FrameLayout>
     </RelativeLayout>
@@ -89,6 +91,7 @@
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             tools:ignore="VectorDrawableCompat"
+            android:layout_marginTop="@dimen/marginTop"
             app:srcCompat="@drawable/ic_phone_ap"/>
         <com.pagatodo.apolo.utils.customviews.MaterialValidationEditText
             android:id="@+id/edtPhone"
@@ -100,7 +103,9 @@
             app:hintText="@string/editText_telefono"
             android:padding="@dimen/dimen_margin_small"
             android:maxLength="6"
-            android:layout_marginLeft="@dimen/dimen_margin_xl"/>
+            android:layout_marginLeft="@dimen/dimen_margin_xl"
+            android:maxLines="1"
+            android:imeActionId="@+id/actionDone"/>
         </FrameLayout>
     </RelativeLayout>
 
@@ -132,7 +137,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_button_height"
         android:text="@string/txt_button_continue"
-        android:textColor="@color/colorWhite"
+        android:textColor="@color/colorBtn"
         app:buttonNormalColor="@color/teal"
         app:buttonStrokeColor="@color/teal"
         app:cornerRadius="@dimen/dimen_button_radius"

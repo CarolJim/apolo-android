@@ -1,6 +1,5 @@
 package com.pagatodo.apolo.activity.smsverification._presenter._interfaces;
 
-import android.app.Activity;
 import com.pagatodo.apolo.ui.base.factoryinterfaces.IProcessData;
 
 /**
