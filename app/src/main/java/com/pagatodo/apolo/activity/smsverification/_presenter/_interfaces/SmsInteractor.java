@@ -8,20 +8,18 @@ import com.pagatodo.networkframework.DataManager;
 
 public interface SmsInteractor {
 
-    // Interface para confirmar numero celular y retornar codigo de verificacion
+    /** Interface para confirmar numero celular y retornar codigo de verificacion */
     interface onConfirmationListener{
         void onSuccess(DataManager dataManager);
         void onFailed(DataManager dataManager);
     }
     void onConfirmation(String celular, onConfirmationListener listener);
 
-    // Interface para validar codigo generado
+    /** Interface para validar codigo generado */
     interface onValidationListener{
         void onSuccess(DataManager dataManager);
         void onFailed(DataManager dataManager);
     }
     void onValidation(String celular, String codigo, onValidationListener listener);
-
-
 
 }

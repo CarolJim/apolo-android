@@ -24,16 +24,19 @@ import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.activity.smsverification._presenter._interfaces.SmsPresenter;
 import com.pagatodo.apolo.activity.smsverification._presenter.SmsPresenterImpl;
 import com.pagatodo.apolo.activity.smsverification._presenter._interfaces.SmsView;
+import com.pagatodo.apolo.data.model.webservice.response.GeneralServiceResponse;
 import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterActivity;
 import com.pagatodo.apolo.utils.Constants;
 import com.pagatodo.apolo.utils.customviews.MaterialTextView;
+import com.pagatodo.networkframework.DataManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.pagatodo.apolo.App.instance;
-import static com.pagatodo.apolo.utils.Constants.SMS_FAILED_CONFIRMATE;
+import static com.pagatodo.apolo.ui.UI.showSnackBar;
+import static com.pagatodo.networkframework.model.ResponseConstants.RESPONSE_CODE_OK;
 
 /**
  * Created by rvargas on 21-07-17.
@@ -106,17 +109,30 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
         presenter.confirmation(instance.get(Constants.SOL_CELULAR));
     }
     @Override
-    public void onSuccess(String message) {
-        tvTitle.setText(getString(R.string.codigo_sms));
-        showMessage(message);
+    public void onSuccess(DataManager dataManager) {
+        GeneralServiceResponse response = (GeneralServiceResponse) dataManager.getData();
+        switch (response.getRespuesta().getCodigo()) {
+            case RESPONSE_CODE_OK:
+                tvTitle.setText(getString(R.string.codigo_sms));
+                showSnackBar(layoutSms, response.getRespuesta().getMensaje());
+                break;
+            default:
+                showSnackBar(layoutSms, response.getRespuesta().getMensaje());
+                break;
+        }
     }
     @Override
-    public void onFailed(String message, int result) {
+    public void onFailed(DataManager dataManager) {
         // resumeTimer();
         hideProgress();
-        showMessage(message);
-        if(result==SMS_FAILED_CONFIRMATE){
-            onBackPressed();
+        GeneralServiceResponse response = (GeneralServiceResponse) dataManager.getData();
+        switch (response.getRespuesta().getCodigo()) {
+            case RESPONSE_CODE_OK:
+                showSnackBar(layoutSms, response.getRespuesta().getMensaje());
+                break;
+            default:
+                onBackPressed();
+                break;
         }
     }
 
@@ -175,7 +191,7 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
             if(isOnline()) {
                 initPresentConfirmation();
             } else {
-                showMessage(getString(R.string.network_error));
+                showSnackBar(layoutSms,getString(R.string.network_error));
             }
         } else {
             validateForm();
@@ -185,7 +201,7 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
     public void validateForm() {
         getDataForm();
         if(codeGenerate.isEmpty()){
-            showMessage(getString(R.string.error_codigo_empty));
+            showSnackBar(layoutSms,getString(R.string.error_codigo_empty));
             return;
         }
         onValidationSuccess();
@@ -196,7 +212,7 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
         if(isOnline())
             presenter.validation(instance.get(Constants.SOL_CELULAR), codeGenerate);
         else
-            showMessage(getString(R.string.network_error));
+            showSnackBar(layoutSms,getString(R.string.network_error));
     }
 
     @Override public void setNavigation() {

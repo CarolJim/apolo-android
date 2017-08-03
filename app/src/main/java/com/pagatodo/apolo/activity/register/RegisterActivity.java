@@ -48,7 +48,6 @@ import butterknife.OnClick;
 
 import static com.pagatodo.apolo.App.instance;
 import static com.pagatodo.apolo.ui.UI.showSnackBar;
-import static com.pagatodo.apolo.ui.UI.showToast;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.DOCUMENTS_RV_ITEM_SELECTED;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_REGISTERED;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_REGISTER_REINTENT;
@@ -199,7 +198,7 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
     protected void onResume() {
         super.onResume();
         if (!isDeviceSupportCamera()) {
-            showToast(getString((R.string.not_compatible_camera)), getApplicationContext());
+            showSnackBar(layoutRegister, getString((R.string.not_compatible_camera)));
             finish();
         }
         enableVerificateSMS(RemoteConfig.isEnableVerificateSMS());

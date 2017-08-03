@@ -63,10 +63,6 @@ public class Constants {
     public static final int SOLICITUD_IFE_INE_FRENTE    = 1;
     public static final int SOLICITUD_IFE_INE_REVERSO   = 2;
     public static final int SOLICITUD_ADULTO_MAYOR      = 3;
-    public static final int SMS_FAILED_CONFIRMATE  = 1;  // Error para confirmar numero celular y envia codigo por SMS
-    public static final int SMS_FAILED_VALIDATE    = 2;  // Error para validar y verificar codigo recibido
-    public static final int SMS_FAILED_ONLINE      = 3;  // Hay conexion sin embargo se produjo un error
-    public static int SMS_ACTION_RESULT            = 0;
 
 
     public static final List<Documento> DOCUMENTS_LIST = new ArrayList<>();

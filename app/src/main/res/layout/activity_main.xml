@@ -103,7 +103,7 @@
             app:hintColor="@color/colorText"
             app:hintText="@string/editText_telefono"
             android:padding="@dimen/dimen_margin_small"
-            app:maxLength="8"
+            app:maxLength="10"
             android:layout_marginLeft="@dimen/dimen_margin_xl"
             app:maxLines="1"
             android:imeActionId="@+id/actionDone"/>

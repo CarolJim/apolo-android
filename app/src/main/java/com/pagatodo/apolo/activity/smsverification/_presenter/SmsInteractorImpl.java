@@ -8,7 +8,9 @@ import com.pagatodo.apolo.data.model.webservice.request.SMSValidationRequest;
 import com.pagatodo.apolo.data.remote.BuildRequest;
 import com.pagatodo.networkframework.DataManager;
 import com.pagatodo.networkframework.interfaces.IRequestResult;
-import static com.pagatodo.apolo.utils.Constants.SMS_ACTION_RESULT;
+
+import static com.pagatodo.apolo.data.remote.RequestContract.SEND_SMS_CONFIRMATION;
+import static com.pagatodo.apolo.data.remote.RequestContract.SMS_CODE_VALIDATION;
 
 /**
  * Created by rvargas on 21-07-17.
@@ -22,36 +24,36 @@ public class SmsInteractorImpl implements SmsInteractor, IRequestResult {
     @Override
     public void onValidation(String celular, String codigo, onValidationListener listener) {
         this.listen = listener;
-        SMS_ACTION_RESULT = 2;
         BuildRequest.sendSMSCodeValidation(this, new SMSCodeValidationRequest(celular, codigo), pref.getHeaders());
     }
 
     @Override
     public void onConfirmation(String celular, final onConfirmationListener listener){
         this.listener = listener;
-        SMS_ACTION_RESULT = 1;
         BuildRequest.sendSMSConfirmation(this, new SMSValidationRequest(celular), pref.getHeaders());
     }
 
     @Override
     public void onSuccess(DataManager dataManager) {
-        if(dataManager.getData() != null){
-            if(SMS_ACTION_RESULT==2) {
-                listen.onSuccess(dataManager);
-            } else if(SMS_ACTION_RESULT==1) {
+        switch (dataManager.getMethod()){
+            case SEND_SMS_CONFIRMATION:
                 listener.onSuccess(dataManager);
-            }
+                break;
+            case SMS_CODE_VALIDATION:
+                listen.onSuccess(dataManager);
+                break;
         }
     }
 
     @Override
     public void onFailed(DataManager dataManager) {
-        if(dataManager.getData() != null){
-            if(SMS_ACTION_RESULT==2) {
-                listen.onFailed(dataManager);
-            } else if(SMS_ACTION_RESULT==1) {
+        switch (dataManager.getMethod()){
+            case SEND_SMS_CONFIRMATION:
                 listener.onFailed(dataManager);
-            }
+                break;
+            case SMS_CODE_VALIDATION:
+                listen.onFailed(dataManager);
+                break;
         }
     }
 
