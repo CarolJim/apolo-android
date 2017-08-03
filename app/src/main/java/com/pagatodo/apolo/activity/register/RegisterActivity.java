@@ -12,7 +12,6 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -51,12 +50,8 @@ import static com.pagatodo.apolo.App.instance;
 import static com.pagatodo.apolo.ui.UI.showSnackBar;
 import static com.pagatodo.apolo.ui.UI.showToast;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.DOCUMENTS_RV_ITEM_SELECTED;
-import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_CANCELED;
-import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_CONFIRMATE;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_REGISTERED;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_REGISTER_REINTENT;
-import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_RE_GET_PROMOTORS;
-import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_SALIR;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.KEY_FOLIO;
 
 public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPresenter> implements RegisterView, IValidateForms{
@@ -143,11 +138,15 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
     public void sms(){
         assignData();
         getDataForm();
-        if(!edtCellPhone.isValidField()){
+        if(!edtCellPhone.isValidField()) {
             showMessage(getString(R.string.error_cellphone_invalid));
             return;
+        } else if(isOnline()) {
+            showView(SmsActivity.class);
+        } else {
+            hideSoftKeyboard();
+            showMessage(getString(R.string.network_error));
         }
-        showView(SmsActivity.class);
     }
 
     @Override

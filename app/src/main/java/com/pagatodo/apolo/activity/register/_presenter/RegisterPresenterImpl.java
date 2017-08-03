@@ -1,7 +1,6 @@
 package com.pagatodo.apolo.activity.register._presenter;
 
 import android.os.Handler;
-
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterInteractor;
 import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterPresenter;
@@ -14,7 +13,6 @@ import com.pagatodo.apolo.data.model.webservice.request.DocumentUploadRequest;
 import com.pagatodo.apolo.data.model.webservice.response.CreditRequestRegisterResponse;
 import com.pagatodo.apolo.data.model.webservice.response.GeneralServiceResponse;
 import com.pagatodo.apolo.data.remote.BuildRequest;
-import com.pagatodo.apolo.data.remote.RequestContract;
 import com.pagatodo.apolo.ui.base.factorypresenters.BasePresenter;
 import com.pagatodo.networkframework.DataManager;
 import com.pagatodo.networkframework.interfaces.IRequestResult;
