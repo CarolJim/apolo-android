@@ -9,8 +9,8 @@
     <string name="name_agente">Afiliador</string>
     <string name="name_agente_format">%1$s %2$s %3$s</string>
 
-    <string name="editText_celular">ingresa el numero de móvil</string>
-    <string name="editText_telefono">ingresa el numero de casa</string>
+    <string name="editText_celular">ingresa el número de móvil</string>
+    <string name="editText_telefono">ingresa el número de casa</string>
     <string name="txt_card">TARJETA</string>
     <string name="txt_ine_front">INE FRENTE</string>
     <string name="txt_ine_back">INE VUELTA</string>
@@ -84,6 +84,7 @@
     <string name="pin_label_text">Código</string>
 
     <!-- Activity SMS -->
+    <string name="verificando_celular">Verifando número celular</string>
     <string name="codigo_sms">Te enviamos un SMS con el código de verificación</string>
     <string name="ingresa_codigo">Ingresa el código de verificación</string>
 

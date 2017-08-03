@@ -14,27 +14,26 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 import com.pagatodo.apolo.R;
-import com.pagatodo.apolo.activity.register.RegisterActivity;
 import com.pagatodo.apolo.activity.smsverification._presenter._interfaces.SmsPresenter;
 import com.pagatodo.apolo.activity.smsverification._presenter.SmsPresenterImpl;
 import com.pagatodo.apolo.activity.smsverification._presenter._interfaces.SmsView;
 import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterActivity;
 import com.pagatodo.apolo.utils.Constants;
+import com.pagatodo.apolo.utils.customviews.MaterialTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.pagatodo.apolo.App.instance;
+import static com.pagatodo.apolo.utils.Constants.SMS_FAILED_CONFIRMATE;
 
 /**
  * Created by rvargas on 21-07-17.
@@ -51,6 +50,7 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
     @BindView(R.id.pin_five) EditText mPinFive;
     @BindView(R.id.pin_six)  EditText mPinSix;
     @BindView(R.id.editText_otp) EditText editTextOtp;
+    @BindView(R.id.tvTitle) MaterialTextView tvTitle;
     @BindView(R.id.progress_view_activity) LinearLayout progressBar;
     private String codeGenerate = "";
     private boolean isPaused = false;
@@ -107,12 +107,17 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
     }
     @Override
     public void onSuccess(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        tvTitle.setText(getString(R.string.codigo_sms));
+        showMessage(message);
     }
     @Override
-    public void onFailed(String message) {
-        resumeTimer();
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    public void onFailed(String message, int result) {
+        // resumeTimer();
+        hideProgress();
+        showMessage(message);
+        if(result==SMS_FAILED_CONFIRMATE){
+            onBackPressed();
+        }
     }
 
     private void startTimer(){
@@ -167,9 +172,12 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
     @OnClick(R.id.btnValidar)
     public void validar() {
         if(btnValidar.getText()==getString(R.string.txt_button_reenviar)) {
-            initPresentConfirmation();
-        }
-        else{
+            if(isOnline()) {
+                initPresentConfirmation();
+            } else {
+                showMessage(getString(R.string.network_error));
+            }
+        } else {
             validateForm();
         }
     }
@@ -185,7 +193,10 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
 
     public void onValidationSuccess() {
         codeGenerate = codeGenerate.replace(" ", "");
-        presenter.validation(instance.get(Constants.SOL_CELULAR), codeGenerate);
+        if(isOnline())
+            presenter.validation(instance.get(Constants.SOL_CELULAR), codeGenerate);
+        else
+            showMessage(getString(R.string.network_error));
     }
 
     @Override public void setNavigation() {

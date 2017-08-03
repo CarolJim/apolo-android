@@ -12,7 +12,7 @@ public interface SmsView extends IEventOnView {
     void hideProgress();
     void setNavigation();
     void onSuccess(String message);
-    void onFailed(String message);
+    void onFailed(String message,  int result);
     void showMessage(String message);
 
 }

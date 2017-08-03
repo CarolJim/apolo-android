@@ -29,9 +29,10 @@
             android:gravity="center">
 
          <com.pagatodo.apolo.utils.customviews.MaterialTextView
+             android:id="@+id/tvTitle"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:text="@string/codigo_sms"
+             android:text="@string/verificando_celular"
              android:textColor="@color/colorText"
              app:tipo="Titulo"
              android:gravity="center"

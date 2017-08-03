@@ -1,15 +1,10 @@
 package com.pagatodo.apolo.activity;
 
-import android.Manifest;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.pagatodo.apolo.R;
-import com.pagatodo.apolo.activity.register.RegisterActivity;
-import com.pagatodo.apolo.activity.register.StatusProgresFragment;
 import com.pagatodo.apolo.data.model.Documento;
 import com.pagatodo.apolo.ui.base.factoryactivities.BaseActivity;
 import com.pagatodo.apolo.utils.Base64Utils;
@@ -19,12 +14,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.pagatodo.apolo.ui.base.BaseEventContract.DOCUMENTS_RV_ITEM_SELECTED;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_CANCELED;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_CONFIRMATE;
-import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_REGISTERED;
-import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_REGISTER_REINTENT;
-import static com.pagatodo.apolo.ui.base.BaseEventContract.KEY_FOLIO;
 
 /**
  * Created by Omar on 31/07/2017.
@@ -56,8 +47,7 @@ public class PreviewImageActivity extends BaseActivity {
     }
 
     @OnClick(R.id.activity_image_preview_iv_delete)
-    protected void deletePhoto()
-    {
+    protected void deletePhoto() {
         showDialog("Eliminar", getString(R.string.confirmate_delete), android.R.drawable.ic_dialog_alert, getString(R.string.txt_confirmate), EVENT_CONFIRMATE, getString(R.string.txt_cancel), EVENT_CANCELED);
     }
 

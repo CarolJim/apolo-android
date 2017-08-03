@@ -46,21 +46,9 @@ public class Constants {
     public static final String SOL_IFE_FRENTE = "IfeFrente";
     public static final String SOL_IFE_VUELTA = "IfeVuelta";
     public static final Boolean CODIGO_VERIFICADO = false;
-    public static String UrlTarjeta;
-    public static String UrlIfeFrente;
-    public static String UrlIfeVuelta;
 
     //App Version
     public static final String APP_VERSION = "1";
-
-    //KEY HASHMAP
-    public static final String KEY_NUMERO_AFILIADO = "KEY_NUMERO_AFILIADO";
-    public static final String KEY_NOMBRE_AFILIADO = "KEY_NOMBRE_AFILIADO";
-    public static final String KEY_CELULAR    = "KEY_CELULAR";
-    public static final String KEY_TELEFONO   = "KEY_TELEFONO";
-    public static final String KEY_IFE_FRENTE = "KEY_IFE_FRENTE";
-    public static final String KEY_IFE_VUELTA = "KEY_IFE_VUELTA";
-    public static final String KEY_TARJETA    = "KEY_TARJETA";
 
     public static final List<Promotor> dummy_promotores = new ArrayList<>();
     static {
@@ -75,6 +63,10 @@ public class Constants {
     public static final int SOLICITUD_IFE_INE_FRENTE    = 1;
     public static final int SOLICITUD_IFE_INE_REVERSO   = 2;
     public static final int SOLICITUD_ADULTO_MAYOR      = 3;
+    public static final int SMS_FAILED_CONFIRMATE  = 1;  // Error para confirmar numero celular y envia codigo por SMS
+    public static final int SMS_FAILED_VALIDATE    = 2;  // Error para validar y verificar codigo recibido
+    public static final int SMS_FAILED_ONLINE      = 3;  // Hay conexion sin embargo se produjo un error
+    public static int SMS_ACTION_RESULT            = 0;
 
 
     public static final List<Documento> DOCUMENTS_LIST = new ArrayList<>();
