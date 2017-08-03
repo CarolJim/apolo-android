@@ -3,6 +3,8 @@ package com.pagatodo.apolo;
 import android.app.Application;
 import android.content.Context;
 import android.support.v7.app.AppCompatDelegate;
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 import java.util.HashMap;
 
 import com.pagatodo.apolo.data.local.Preferences;
@@ -21,6 +23,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
         m_singleton = this;
         solicitud = new HashMap<>();
         prefs = new Preferences(this);

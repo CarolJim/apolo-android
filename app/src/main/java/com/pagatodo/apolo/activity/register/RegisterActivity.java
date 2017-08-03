@@ -139,6 +139,12 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
             ValidateForm.validateEditText(btnRegister, edtCellPhone);
         }
     }
+
+    @Override
+    protected int setIdCoordinatorLayout() {
+        return R.id.layoutRegister;//super.setIdCoordinatorLayout();
+    }
+
     @OnClick(R.id.ivVerify)
     public void sms(){
         assignData();
@@ -152,7 +158,7 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
 
     @Override
     public void setMessageError(String message) {
-        showSnackBar(layoutRegister, message);
+        showMessage(message);
     }
 
     @Override
@@ -167,7 +173,8 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
 
     @Override
     public void showMessage(String message) {
-        Toast.makeText(this, ""+message, Toast.LENGTH_SHORT).show();
+        super.showMessage(message);
+        //Toast.makeText(this, ""+message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

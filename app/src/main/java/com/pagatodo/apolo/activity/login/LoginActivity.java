@@ -72,8 +72,13 @@ public class LoginActivity extends BasePresenterPermissionActivity<LoginPresente
     }
 
     @Override
+    protected int setIdCoordinatorLayout() {
+        return R.id.layoutLogin;//super.setIdCoordinatorLayout();
+    }
+
+    @Override
     public void setUserNumberError() {
-        showSnackBar(layoutLogin,getString((R.string.hint_numero_usuario)));
+        showMessage(getString((R.string.hint_numero_usuario))); //showSnackBar(layoutLogin,getString((R.string.hint_numero_usuario)));
     }
 
     @Override public void setNavigation() {
