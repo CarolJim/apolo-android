@@ -3,7 +3,6 @@ package com.pagatodo.apolo.activity;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -11,7 +10,9 @@ import android.graphics.Rect;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.AppCompatImageView;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -24,18 +25,17 @@ import com.pagatodo.apolo.data.model.Documento;
 import com.pagatodo.apolo.ui.base.factoryactivities.BaseActivity;
 import com.pagatodo.apolo.utils.Base64Utils;
 import com.pagatodo.apolo.utils.Constants;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.pagatodo.apolo.ui.UI.showToast;
+import static com.pagatodo.apolo.ui.UI.showSnackBar;
 
 public class CaptureActivity extends BaseActivity implements PictureCallback, SurfaceHolder.Callback {
     private static final String TAG = "CaptureActivity";
     private Camera mCamera;
     private byte[] mCameraData;
     private boolean mIsCapturing;
+    @BindView(R.id.layoutCapture) CoordinatorLayout layoutCapture;
     @BindView(R.id.camera_image_view) AppCompatImageView mCameraImage;
     @BindView(R.id.preview_view) SurfaceView mSurfaceView;
     @BindView(R.id.action_reintent) AppCompatImageView btnReintent;
@@ -108,7 +108,7 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
                     mCamera.startPreview();
                 }
             } catch (IOException e) {
-                showToast(getString(R.string.unable_camera), getApplicationContext());
+                showSnackBar(layoutCapture, getString(R.string.unable_camera));
             }
         }
     }
@@ -159,6 +159,7 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
 
     @OnClick(R.id.action_reintent)
     public void reintentar() {
+        btnCapture.setEnabled(true);
         btnReintent.setVisibility(View.GONE);
         btnSave.setVisibility(View.GONE);
         btnCapture.setVisibility(View.VISIBLE);
@@ -179,9 +180,11 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
     @OnClick(R.id.action_capture)
     public void captureCard() {
         try{
+            Log.e("--"," captura ");
+            btnCapture.setEnabled(false);
             captureImage();
         }catch (Exception e){
-            showMessage("Ocurrió un error al tomar la foto");
+            showSnackBar(layoutCapture, getString(R.string.error_capture));
         }
     }
 
@@ -237,7 +240,7 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
                 mCamera.startPreview();
             }
         } catch (Exception e) {
-            showToast(getString(R.string.unable_camera), getApplicationContext());
+            showSnackBar(layoutCapture, getString(R.string.unable_camera));
         }
 
 

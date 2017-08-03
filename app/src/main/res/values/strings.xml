@@ -74,6 +74,7 @@
     <string name="unable_to_save">No se puede guardar la imagen en el archivo.</string>
     <string name="save_to">Guardado en:</string>
     <string name="confirmate_delete">¿Seguro que deseas borrar esta imagen?</string>
+    <string name="error_capture">"Ocurrió un error al tomar la foto"</string>
 
     <!-- WS errors -->
     <string name="network_error">Verifica tu conexión a internet.</string>
