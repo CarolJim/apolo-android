@@ -35,6 +35,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.pagatodo.apolo.App.instance;
+import static com.pagatodo.apolo.data.remote.RequestContract.SEND_SMS_CONFIRMATION;
+import static com.pagatodo.apolo.data.remote.RequestContract.SMS_CODE_VALIDATION;
 import static com.pagatodo.apolo.ui.UI.showSnackBar;
 import static com.pagatodo.networkframework.model.ResponseConstants.RESPONSE_CODE_OK;
 
@@ -113,8 +115,16 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
         GeneralServiceResponse response = (GeneralServiceResponse) dataManager.getData();
         switch (response.getRespuesta().getCodigo()) {
             case RESPONSE_CODE_OK:
-                tvTitle.setText(getString(R.string.codigo_sms));
-                showSnackBar(layoutSms, response.getRespuesta().getMensaje());
+                switch (dataManager.getMethod()){
+                    case SEND_SMS_CONFIRMATION:
+                        tvTitle.setText(getString(R.string.codigo_sms));
+                        showSnackBar(layoutSms, response.getRespuesta().getMensaje());
+                        break;
+                    case SMS_CODE_VALIDATION:
+                        pref.saveDataBool(String.valueOf(Constants.CODIGO_VERIFICADO),true);
+                        setNavigation();
+                        break;
+                }
                 break;
             default:
                 showSnackBar(layoutSms, response.getRespuesta().getMensaje());
@@ -125,14 +135,19 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
     public void onFailed(DataManager dataManager) {
         // resumeTimer();
         hideProgress();
-        GeneralServiceResponse response = (GeneralServiceResponse) dataManager.getData();
-        switch (response.getRespuesta().getCodigo()) {
-            case RESPONSE_CODE_OK:
-                showSnackBar(layoutSms, response.getRespuesta().getMensaje());
-                break;
-            default:
-                onBackPressed();
-                break;
+        if(isOnline()) {
+            GeneralServiceResponse response = (GeneralServiceResponse) dataManager.getData();
+            switch (response.getRespuesta().getCodigo()) {
+                case RESPONSE_CODE_OK:
+                    showSnackBar(layoutSms, response.getRespuesta().getMensaje());
+                    break;
+                default:
+                    onBackPressed();
+                    break;
+            }
+        }else{
+            showSnackBar(layoutSms, getString(R.string.network_error));
+            onBackPressed();
         }
     }
 

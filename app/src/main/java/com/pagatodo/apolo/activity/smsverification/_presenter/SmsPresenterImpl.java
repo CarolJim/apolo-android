@@ -54,8 +54,7 @@ public class SmsPresenterImpl extends BasePresenter<SmsView> implements SmsPrese
                     view.onSuccess(dataManager);
                     break;
                 case SMS_CODE_VALIDATION:
-                    pref.saveDataBool(String.valueOf(Constants.CODIGO_VERIFICADO),true);
-                    view.setNavigation();
+                    view.onSuccess(dataManager);
                     break;
             }
         }
