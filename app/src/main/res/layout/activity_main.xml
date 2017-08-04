@@ -18,134 +18,145 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-    <com.pagatodo.apolo.utils.customviews.MaterialTextView
-        android:id="@+id/tv_name_afiliado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/name_agente"
-        android:textColor="@color/colorText"
-        app:tipo="Titulo"
-        android:lineSpacingExtra="0sp"
-        android:textSize="@dimen/dimen_margin_xl"
-        android:layout_marginTop="@dimen/dimen_margin_large"
-        android:layout_marginLeft="@dimen/dimen_margin_large"
-        android:layout_marginRight="@dimen/dimen_margin_large" />
-
-    <!-- Celular -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dimen_margin_large"
-        android:layout_marginRight="@dimen/dimen_margin_large">
-        <FrameLayout
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <android.support.v7.widget.AppCompatImageView
+            android:layout_height="0dp">
+            <com.pagatodo.apolo.utils.customviews.MaterialTextView
+                android:layout_margin="@dimen/dimen_margin_small"
+                android:id="@+id/tv_name_afiliado"
+                android:layout_gravity="start|center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center|start|left"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                tools:ignore="VectorDrawableCompat"
-                android:layout_marginTop="@dimen/marginTop"
-                app:srcCompat="@drawable/ic_mobile_ap"/>
-            <com.pagatodo.apolo.utils.customviews.MaterialValidationEditText
-                android:id="@+id/edtCellPhone"
+                android:textSize="@dimen/dimen_textSize_large"
+                android:text="@string/name_agente"
+                android:textColor="@color/colorText"
+                app:tipo="Titulo"
+                android:lineSpacingExtra="0sp" />
+            <!-- Celular -->
+            <LinearLayout
+                android:layout_margin="@dimen/dimen_margin_small"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:formato="celphone"
-                app:hintColor="@color/colorText"
-                app:hintText="@string/editText_celular"
-                android:padding="@dimen/dimen_margin_small"
-                app:maxLength="10"
-                android:gravity="left"
-                android:layout_marginLeft="@dimen/dimen_margin_xl"
-                android:layout_marginTop="@dimen/dimen_margin_medium"
-                android:nextFocusDown="@+id/edtPhone"
-                app:maxLines="1"/>
-            <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/ivVerify"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|end|right"
-                tools:ignore="VectorDrawableCompat"
-                android:layout_marginTop="-3dp"
-                android:visibility="visible"/>
-        </FrameLayout>
-    </RelativeLayout>
+                android:layout_height="wrap_content">
+                <FrameLayout
+                    android:layout_weight="0.4"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        tools:ignore="VectorDrawableCompat"
+                        app:srcCompat="@drawable/ic_mobile_ap"/>
+                </FrameLayout>
+                <FrameLayout
+                    android:layout_weight="3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                    <com.pagatodo.apolo.utils.customviews.MaterialValidationEditText
+                        android:id="@+id/edtCellPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:formato="celphone"
+                        app:hintColor="@color/colorText"
+                        app:hintText="@string/editText_celular"
+                        app:maxLength="10"
+                        android:nextFocusDown="@+id/edtPhone"
+                        app:maxLines="1"/>
+                </FrameLayout>
+                <FrameLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/ivVerify"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|end|right"
+                        tools:ignore="VectorDrawableCompat"
+                        android:layout_marginTop="-3dp"
+                        android:visibility="visible"/>
+                </FrameLayout>
+            </LinearLayout>
 
-    <!-- Telefono casa -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dimen_margin_large"
-        android:layout_marginRight="@dimen/dimen_margin_large"
-        android:orientation="vertical">
-        <FrameLayout
+            <LinearLayout
+                android:layout_margin="@dimen/dimen_margin_small"
+                android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <android.support.v7.widget.AppCompatImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|start|left"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            tools:ignore="VectorDrawableCompat"
-            android:layout_marginTop="@dimen/marginTop"
-            app:srcCompat="@drawable/ic_phone_ap"/>
-        <com.pagatodo.apolo.utils.customviews.MaterialValidationEditText
-            android:id="@+id/edtPhone"
+                <FrameLayout
+                    android:layout_weight="0.4"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        tools:ignore="VectorDrawableCompat"
+                        app:srcCompat="@drawable/ic_phone_ap"/>
+                </FrameLayout>
+                <FrameLayout
+                    android:layout_weight="3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                    <com.pagatodo.apolo.utils.customviews.MaterialValidationEditText
+                        android:id="@+id/edtPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:formato="phone"
+                        app:hintColor="@color/colorText"
+                        app:hintText="@string/editText_telefono"
+                        app:maxLength="10"
+                        app:maxLines="1"
+                        android:imeActionId="@+id/actionDone"/>
+                </FrameLayout>
+                <android.support.v4.widget.Space
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"/>
+        </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:formato="phone"
-            android:gravity="left"
-            app:hintColor="@color/colorText"
-            app:hintText="@string/editText_telefono"
-            android:padding="@dimen/dimen_margin_small"
-            app:maxLength="10"
-            android:layout_marginLeft="@dimen/dimen_margin_xl"
-            app:maxLines="1"
-            android:imeActionId="@+id/actionDone"/>
-        </FrameLayout>
-    </RelativeLayout>
-
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view_card"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:scrollbars="vertical"
-        android:layout_marginTop="@dimen/dimen_margin_small"
-        android:layout_marginLeft="@dimen/dimen_margin_large"
-        android:layout_marginRight="@dimen/dimen_margin_large"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
-    <RelativeLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="@dimen/dimen_margin_medium"
-        android:layout_marginBottom="@dimen/dimen_margin_xl"
-        android:layout_marginLeft="@dimen/dimen_margin_large"
-        android:layout_marginRight="@dimen/dimen_margin_large">
-
-    <!-- Boton continuar  -->
-    <com.pagatodo.apolo.utils.customviews.MaterialButton
-        android:id="@+id/btnRegister"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_button_height"
-        android:text="@string/txt_button_continue"
-        android:textColor="@color/colorBtn"
-        app:buttonNormalColor="@color/teal"
-        app:buttonStrokeColor="@color/teal"
-        app:cornerRadius="@dimen/dimen_button_radius"
-        android:layout_alignParentBottom="true"/>
-
-    </RelativeLayout>
-
+            android:layout_height="0dp">
+            <android.support.v7.widget.RecyclerView
+                android:layout_weight="1"
+                android:id="@+id/recycler_view_card"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:clipToPadding="false"
+                android:scrollbars="vertical"
+                android:layout_marginTop="@dimen/dimen_margin_small"
+                android:layout_marginLeft="@dimen/dimen_margin_large"
+                android:layout_marginRight="@dimen/dimen_margin_large"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!-- Boton continuar  -->
+            <com.pagatodo.apolo.utils.customviews.MaterialButton
+                android:id="@+id/btnRegister"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_button_height"
+                android:text="@string/txt_button_continue"
+                android:textColor="@color/colorBtn"
+                app:buttonNormalColor="@color/teal"
+                app:buttonStrokeColor="@color/teal"
+                app:cornerRadius="@dimen/dimen_button_radius"
+                android:layout_margin="@dimen/dimen_margin_medium"/>
+        </LinearLayout>
 </LinearLayout>
 </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

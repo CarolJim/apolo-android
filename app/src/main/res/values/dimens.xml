@@ -42,7 +42,7 @@
     <!-- CardView -->
     <dimen name="card_corner_radius">4dp</dimen>
     <dimen name="card_corner_radius_xl">12dp</dimen>
-    <dimen name="card_height">90dp</dimen>
+    <dimen name="card_height">80dp</dimen>
     <dimen name="dimen_cardView_size">60dp</dimen>
     <dimen name="dimen_cardView_elevation">10dp</dimen>
 
