@@ -18,6 +18,7 @@ import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import com.pagatodo.apolo.R;
@@ -41,9 +42,8 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
     @BindView(R.id.action_reintent) AppCompatImageView btnReintent;
     @BindView(R.id.action_save) AppCompatImageView btnSave;
     @BindView(R.id.action_capture) AppCompatImageView btnCapture;
-    @BindView(R.id.camera_frame) RelativeLayout camera_frame;
+    @BindView(R.id.camera_frame) FrameLayout camera_frame;
     @BindView(R.id.progress_view_activity) LinearLayout progress;
-    @BindView(R.id.activity_capture_capture_area) View captureArea;
     private Documento documentSaver;
     private Bitmap mBitmapTaken;
 
@@ -108,7 +108,6 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
                     mCamera.startPreview();
                 }
             } catch (IOException e) {
-                showSnackBar(layoutCapture, getString(R.string.unable_camera));
             }
         }
     }
@@ -195,10 +194,10 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
 
         mBitmapTaken = Bitmap.createBitmap(
                 mBitmapTaken,
-                (int) (mBitmapTaken.getWidth() * .0725),
-                (int) (mBitmapTaken.getHeight() * .32),
-                (int) (mBitmapTaken.getWidth() * .85),
-                (int) (mBitmapTaken.getHeight() * .35)
+                (int) (mBitmapTaken.getWidth() * .15),
+                (int) (mBitmapTaken.getHeight() * .14),
+                (int) (mBitmapTaken.getWidth() * .69),
+                (int) (mBitmapTaken.getHeight() * .68)
         );
 
         String encodedImage = Base64Utils.getEncodedString(mBitmapTaken);
