@@ -8,6 +8,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
@@ -19,7 +20,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.activity.smsverification._presenter._interfaces.SmsPresenter;
 import com.pagatodo.apolo.activity.smsverification._presenter.SmsPresenterImpl;
@@ -27,6 +27,8 @@ import com.pagatodo.apolo.activity.smsverification._presenter._interfaces.SmsVie
 import com.pagatodo.apolo.data.model.webservice.response.GeneralServiceResponse;
 import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterActivity;
 import com.pagatodo.apolo.utils.Constants;
+import com.pagatodo.apolo.utils.ValidateForm;
+import com.pagatodo.apolo.utils.customviews.MaterialButton;
 import com.pagatodo.apolo.utils.customviews.MaterialTextView;
 import com.pagatodo.networkframework.DataManager;
 
@@ -38,6 +40,7 @@ import static com.pagatodo.apolo.App.instance;
 import static com.pagatodo.apolo.data.remote.RequestContract.SEND_SMS_CONFIRMATION;
 import static com.pagatodo.apolo.data.remote.RequestContract.SMS_CODE_VALIDATION;
 import static com.pagatodo.apolo.ui.UI.showSnackBar;
+import static com.pagatodo.apolo.utils.Constants.TIME_TO_RETURN;
 import static com.pagatodo.networkframework.model.ResponseConstants.RESPONSE_CODE_OK;
 
 /**
@@ -56,7 +59,6 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
     @BindView(R.id.pin_six)  EditText mPinSix;
     @BindView(R.id.editText_otp) EditText editTextOtp;
     @BindView(R.id.tvTitle) MaterialTextView tvTitle;
-    @BindView(R.id.progress_view_activity) LinearLayout progressBar;
     private String codeGenerate = "";
     private boolean isPaused = false;
     private boolean isCanceled = false;
@@ -66,7 +68,8 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sms);
+        // setContentView(R.layout.activity_sms);
+        inflateView(this, R.layout.activity_sms);
         ButterKnife.bind(this);
         setPINListeners();
 
@@ -100,6 +103,11 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
         presenter = new SmsPresenterImpl(this);
     }
 
+    @Override
+    protected int setIdCoordinatorLayout() {
+        return R.id.layoutSms;//super.setIdCoordinatorLayout();
+    }
+
     /* Presenter confirmation celular and after receive sms code
     *********************************
     */
@@ -107,6 +115,7 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
         ViewGroup group = (ViewGroup) findViewById(R.id.allClear);
         clearEditext(group);
         startTimer();
+        ValidateForm.enableBtn(true, (MaterialButton) btnValidar);
         btnValidar.setEnabled(false);
         presenter.confirmation(instance.get(Constants.SOL_CELULAR));
     }
@@ -117,10 +126,13 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
             case RESPONSE_CODE_OK:
                 switch (dataManager.getMethod()){
                     case SEND_SMS_CONFIRMATION:
+                        hideProgress();
                         tvTitle.setText(getString(R.string.codigo_sms));
+                        pref.saveDataBool(String.valueOf(Constants.ENABLE_VERIFY), false);
                         showSnackBar(layoutSms, response.getRespuesta().getMensaje());
                         break;
                     case SMS_CODE_VALIDATION:
+                        pref.saveDataBool(String.valueOf(Constants.ENABLE_VERIFY), false);
                         pref.saveDataBool(String.valueOf(Constants.CODIGO_VERIFICADO),true);
                         setNavigation();
                         break;
@@ -134,20 +146,19 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
     @Override
     public void onFailed(DataManager dataManager) {
         // resumeTimer();
-        hideProgress();
-        if(isOnline()) {
-            GeneralServiceResponse response = (GeneralServiceResponse) dataManager.getData();
-            switch (response.getRespuesta().getCodigo()) {
-                case RESPONSE_CODE_OK:
-                    showSnackBar(layoutSms, response.getRespuesta().getMensaje());
-                    break;
-                default:
-                    onBackPressed();
-                    break;
-            }
-        }else{
-            showSnackBar(layoutSms, getString(R.string.network_error));
-            onBackPressed();
+        if(dataManager.getData() instanceof String){
+            hideProgress();
+            showSnackBar(layoutSms, (String)dataManager.getData());
+        }
+        switch (dataManager.getMethod()){
+            case SEND_SMS_CONFIRMATION:
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        onBackPressed();
+                    }
+                },TIME_TO_RETURN);
+                break;
         }
     }
 
@@ -236,14 +247,10 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
     }
 
     @Override
-    public void showProgress() {
-        progressBar.setVisibility(View.VISIBLE);
+    public void showProgress(String message) {
+        super.showProgress(message);
+        hideSoftKeyboard();
     }
-    @Override
-    public void hideProgress() {
-        progressBar.setVisibility(View.GONE);
-    }
-
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {

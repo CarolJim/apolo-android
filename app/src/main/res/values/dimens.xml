@@ -41,7 +41,7 @@
     <dimen name="dimen_textSize_xll">24sp</dimen>
 
     <!-- CardView -->
-    <dimen name="card_corner_radius">4dp</dimen>
+    <dimen name="card_corner_radius">8dp</dimen>
     <dimen name="card_corner_radius_xl">12dp</dimen>
     <dimen name="card_height">90dp</dimen>
     <dimen name="dimen_cardView_size">60dp</dimen>

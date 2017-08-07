@@ -18,7 +18,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.pagatodo.apolo.ui.UI.showSnackBar;
 import static com.pagatodo.apolo.utils.Constants.MIN_SIZE_ID_AFILIADOR;
 
 /**
@@ -30,7 +29,6 @@ public class LoginActivity extends BasePresenterPermissionActivity<LoginPresente
     @BindView(R.id.edtUserNumber) MaterialValidationEditText edtNumber;
     @BindView(R.id.btnLogin) MaterialButton btnLogin;
     @BindView(R.id.layoutLogin) CoordinatorLayout layoutLogin;
-
     private String ID_Promotor = "";
 
     @Override

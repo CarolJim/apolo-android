@@ -12,7 +12,6 @@ import android.hardware.Camera.PictureCallback;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.AppCompatImageView;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -62,7 +61,6 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
         mIsCapturing = true;
-
     }
 
     @Override
@@ -84,7 +82,6 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-
         mIsCapturing = savedInstanceState.getBoolean(Constants.KEY_IS_CAPTURING, mCameraData == null);
         if (mCameraData != null) {
             setupImageDisplay();
@@ -108,6 +105,7 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
                     mCamera.startPreview();
                 }
             } catch (IOException e) {
+                //showSnackBar(layoutCapture, getString(R.string.unable_camera));
             }
         }
     }
@@ -179,7 +177,6 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
     @OnClick(R.id.action_capture)
     public void captureCard() {
         try{
-            Log.e("--"," captura ");
             btnCapture.setEnabled(false);
             captureImage();
         }catch (Exception e){
@@ -239,7 +236,7 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
                 mCamera.startPreview();
             }
         } catch (Exception e) {
-            showSnackBar(layoutCapture, getString(R.string.unable_camera));
+            //showSnackBar(layoutCapture, getString(R.string.unable_camera));
         }
 
 

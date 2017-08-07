@@ -1,22 +1,22 @@
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/card_height"
     android:elevation="@dimen/dimen_cardView_elevation"
     card_view:cardCornerRadius="@dimen/card_corner_radius"
     card_view:cardPreventCornerOverlap="false"
     android:layout_marginBottom="@dimen/dimen_margin_medium"
-    android:background="?android:attr/selectableItemBackground">
+    card_view:cardUseCompatPadding="true"
+    app:cardBackgroundColor="@color/layer_cardview">
 
-    <!-- The line card_view:cardPreventCornerOverlap="false" prevents white border line over the cardview-->
-
-<RelativeLayout
+<LinearLayout
     android:id="@+id/cards"
+    android:padding="@dimen/dimen_margin_small"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -29,13 +29,12 @@
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/typeCard"
-                android:layout_height="@dimen/card_height"
+                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:layout_gravity="center_vertical"
                 tools:ignore="VectorDrawableCompat"
                 app:srcCompat="@drawable/btn_tarjeta_ap"
                 android:scaleType="fitXY"/>
-
             </RelativeLayout>
 
             <android.support.v7.widget.AppCompatImageView
@@ -60,5 +59,5 @@
 
         </FrameLayout>
 
-</RelativeLayout>
+</LinearLayout>
 </android.support.v7.widget.CardView>

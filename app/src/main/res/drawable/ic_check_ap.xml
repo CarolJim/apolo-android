@@ -25,6 +25,6 @@
         <path
             android:name="rectangle2"
             android:pathData="M -4,36 L 36,36 L 36,-4 L -4,-4 L -4,36 Z"
-            android:fillColor="#44DB5E" />
+            android:fillColor="@color/colorPrimary" />
     </group>
 </vector>

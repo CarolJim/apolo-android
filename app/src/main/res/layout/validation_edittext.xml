@@ -11,7 +11,7 @@
                 <EditText
                     android:id="@+id/edtMain"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_edittext_height"
+                    android:layout_height="35dp"
                     android:cursorVisible="true"
                     android:textCursorDrawable="@drawable/cursor_color"
                     android:background="@null"
@@ -19,7 +19,7 @@
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:textStyle="bold"
-                    android:gravity="left"
+                    android:gravity="left|start|center_vertical"
                     android:textColor="@color/colorText"
                     android:textColorLink="@color/colorText"
                     android:textColorHint="@color/colorText"/>
@@ -48,7 +48,7 @@
             android:gravity="top"
             android:textStyle="italic"
             android:textColor="@color/colorPrimary"
-            android:text="el texto es correcto"
+            android:text="@string/valid_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 </LinearLayout>

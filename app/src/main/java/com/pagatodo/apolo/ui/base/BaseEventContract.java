@@ -35,6 +35,7 @@ public class BaseEventContract {
     public static final String EVENT_REGISTERED             = "creditSuccessRegister";
     public static final String EVENT_CANCELED               = "cancel";
     public static final String EVENT_CONFIRMATE             = "confirmate";
+    public static final String EVENT_END                    = "end";
 
 
     //Run Time Permissions

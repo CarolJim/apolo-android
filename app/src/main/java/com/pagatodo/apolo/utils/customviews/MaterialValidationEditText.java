@@ -41,6 +41,7 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
     private OnClickIcon iconListener = null;
     private int mGravity = Gravity.START;
     private int minSizeRequired = -23;
+    private int minSize = 6;
 
     private MaterialValidationEditText edtCompare = null;
     @DrawableRes
@@ -69,7 +70,7 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
         tvMessage = findViewById(R.id.tvMessage);
         ivStatus  = findViewById(R.id.ivStatus);
         int inputType = EditorInfo.TYPE_NULL;
-        int textSize = 20;
+        int textSize = 16;
         String hint = null;
         int maxLength = 0;
         int maxLines = 1;
@@ -208,6 +209,10 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
                     edtMain.setKeyListener(DigitsKeyListener.getInstance(getContext().getString(R.string.input_int_unsigned)));
                     setValidationListener(txt);
                     break;
+                case "7"://pwtext
+                    edtMain.setInputType(InputType.TYPE_CLASS_TEXT);
+                    setValidationListener(txt);
+                    break;
             }
 
         }
@@ -288,6 +293,14 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
                         case "6"://cellPhone
                             result = ValidateForm.isValidCellPhone(txt.trim());
                             message = result ? getString(R.string.valid_phonenumber): getString(R.string.invalid_phonenumber);
+                            if(edtCompare != null && result && edtCompare.isValidField()){
+                                result = edtCompare.getText().equals(txt);
+                                message = result ? getString(R.string.msg_valid_refield): getString(R.string.msg_invalid_refield);
+                            }
+                            break;
+                        case "7"://pwtext
+                            result = !txt.isEmpty() && txt.length() == minSize;
+                            message = result ? getString(R.string.valid_field) : getString(R.string.error_min_id_afiliador);
                             if(edtCompare != null && result && edtCompare.isValidField()){
                                 result = edtCompare.getText().equals(txt);
                                 message = result ? getString(R.string.msg_valid_refield): getString(R.string.msg_invalid_refield);
@@ -396,6 +409,8 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
                 return result ? getString(R.string.msg_valid_refield): getString(R.string.msg_invalid_refield);
             case "6"://cellPhone
                 return result ? getString(R.string.msg_valid_refield): getString(R.string.msg_invalid_refield);
+            case "7"://pwtext
+                return result ? getString(R.string.msg_valid_refield): getString(R.string.msg_invalid_refield);
             default:
                 return getString(R.string.invalid_field);
         }
@@ -416,6 +431,8 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
                 return result ? getString(R.string.valid_field) : getString(R.string.invalid_field);
             case "6"://cellPhone
                 return result ? getString(R.string.valid_phonenumber): getString(R.string.invalid_phonenumber);
+            case "7"://pwtext
+                return result ? getString(R.string.valid_field) : getString(R.string.invalid_field);
             default:
                 return getString(R.string.invalid_field);
         }
@@ -472,6 +489,12 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
                 break;
             case "6"://cellPhone
                 result = ValidateForm.isValidCellPhone(txt.trim());
+                if(edtCompare != null && result && edtCompare.isValidField()){
+                    result = edtCompare.getText().equals(txt);
+                }
+                break;
+            case "7"://pwtext
+                result = !txt.isEmpty();
                 if(edtCompare != null && result && edtCompare.isValidField()){
                     result = edtCompare.getText().equals(txt);
                 }

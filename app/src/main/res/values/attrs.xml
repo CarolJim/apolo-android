@@ -36,9 +36,11 @@
             <enum name="text" value="4"/>
             <enum name="number" value="5"/>
             <enum name="celphone" value="6"/>
+            <enum name="pwtext" value="7"/>
         </attr>
         <attr name="hintText" format="string"/>
         <attr name="hintColor" format="color"/>
+        <attr name="textColor" format="color"/>
         <attr name="defaultIcon" format="reference"/>
         <attr name="maxLength" format="integer"/>
         <attr name="minSizeRequired" format="integer"/>

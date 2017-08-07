@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ff149b</color>
-    <color name="colorPrimaryDark">#ff149b</color>
-    <color name="colorAccent">#FFFFFF</color>
+    <color name="colorPrimary">#FF149B</color>
+    <color name="colorPrimaryDark">#FF149B</color>
+    <color name="colorAccent">#FF149B</color>
     <color name="icons">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
     <color name="colorHint">#ababab</color>
     <color name="colorBlack">#000000</color>
     <color name="colorText">#1d1d1b</color>
-    <color name="teal">#424f4f4f</color>
-    <color name="colorBtn">#42000000</color>
+    <color name="teal">#d2d2d2</color>
+    <color name="colorBtn">#9b9b9b</color>
     <color name="colorCursor">#50000000</color>
-    <color name="layer_cardview">#424f4f4f</color>
+    <color name="layer_cardview">#c6c6c6</color>
 
     <color name="orange_red">#fe3824</color>
     <color name="black_preview">#303030</color>

@@ -12,7 +12,7 @@ import java.util.List;
  * Created by rvargas on 14/07/2017.
  */
 
-public class Constants {
+public final class Constants {
 
     //Enable debug logs
     public static final boolean DEBUG = true;
@@ -25,6 +25,7 @@ public class Constants {
     public static final String URL_SERVER_MEGA 	        = "http://10.10.45.16:62703/ServiceMega.svc/http";
     public static final String URL_REMOTE_CONFIG        = "https://apolo-8e38a.firebaseapp.com/config.json";
     public static final int TIMEOUT = 40000;
+    public static final int TIME_TO_RETURN= 2000;
 
     //BASE DE DATOS
     public static final int DATABASE_VERSION = 1;
@@ -38,6 +39,8 @@ public class Constants {
     public static final String KEY_IS_CAPTURING     = "is_capturing";
     public static final String IMAGE_DIRECTORY_NAME = "Apolo";
     public static final String SELECTED_DOCUMENT_KEY = "selectedDocument";
+    public static final int CAPTURE_REQUEST_CODE = 10;
+    public static final int PREVIEW_REQUEST_CODE = 20;
 
     //SOLICITUD
     public static final String SOL_CELULAR    = "Celular";
@@ -46,6 +49,7 @@ public class Constants {
     public static final String SOL_IFE_FRENTE = "IfeFrente";
     public static final String SOL_IFE_VUELTA = "IfeVuelta";
     public static final Boolean CODIGO_VERIFICADO = false;
+    public static final Boolean ENABLE_VERIFY = true;
 
     //App Version
     public static final String APP_VERSION = "1";
@@ -63,7 +67,6 @@ public class Constants {
     public static final int SOLICITUD_IFE_INE_FRENTE    = 1;
     public static final int SOLICITUD_IFE_INE_REVERSO   = 2;
     public static final int SOLICITUD_ADULTO_MAYOR      = 3;
-
 
     public static final List<Documento> DOCUMENTS_LIST = new ArrayList<>();
     static {

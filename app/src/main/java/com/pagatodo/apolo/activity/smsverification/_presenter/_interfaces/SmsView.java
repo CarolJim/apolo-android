@@ -9,8 +9,6 @@ import com.pagatodo.networkframework.DataManager;
  */
 
 public interface SmsView extends IEventOnView {
-    void showProgress();
-    void hideProgress();
     void setNavigation();
     void onSuccess(DataManager dataManager);
     void onFailed(DataManager dataManager);

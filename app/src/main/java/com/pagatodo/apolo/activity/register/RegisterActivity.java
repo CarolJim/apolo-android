@@ -2,6 +2,7 @@ package com.pagatodo.apolo.activity.register;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -11,14 +12,16 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.activity.CaptureActivity;
 import com.pagatodo.apolo.activity.ConfirmateActivity;
 import com.pagatodo.apolo.activity.PreviewImageActivity;
+import com.pagatodo.apolo.activity.login.LoginActivity;
 import com.pagatodo.apolo.activity.register._presenter.RegisterPresenterImpl;
 import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterPresenter;
 import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterView;
@@ -52,8 +55,10 @@ import static com.pagatodo.apolo.ui.base.BaseEventContract.DOCUMENTS_RV_ITEM_SEL
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_REGISTERED;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_REGISTER_REINTENT;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.KEY_FOLIO;
+import static com.pagatodo.apolo.utils.Constants.CAPTURE_REQUEST_CODE;
+import static com.pagatodo.apolo.utils.Constants.PREVIEW_REQUEST_CODE;
 
-public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPresenter> implements RegisterView, IValidateForms{
+public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPresenter> implements RegisterView, IValidateForms  {
     private static final String DIALOG_PROGRESS_REGISTER = "dialogProgressRegister";
 
     private final String TAG = "MainActivity";
@@ -66,19 +71,15 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
     @BindView(R.id.edtPhone) MaterialValidationEditText edtPhone;
     @BindView(R.id.tv_name_afiliado) MaterialTextView tvAfiliado;
     @BindView(R.id.ivVerify) AppCompatImageView ivVerify;
-
     private Promotor mPromotor = new Promotor();
     private StatusProgresFragment statusProgresFragment = null;
-
     private Documento rvSelectedItem;
-
-    private final static int CAPTURE_REQUEST_CODE = 10;
-    private final static int PREVIEW_REQUEST_CODE = 20;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        // setContentView(R.layout.activity_main);
+        inflateView(this, R.layout.activity_main);
         ButterKnife.bind(this);
         adapter = new CustomAdapter(this, cardsList);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getApplicationContext(), 1);
@@ -92,7 +93,6 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         initFragments();
 
     }
-
     private void initFragments() {
         statusProgresFragment = StatusProgresFragment.newInstance(getTasks());
     }
@@ -139,6 +139,12 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         return R.id.layoutRegister;//super.setIdCoordinatorLayout();
     }
 
+    @Override
+    public void showProgress(String message) {
+        super.showProgress(message);
+        hideSoftKeyboard();
+    }
+
     @OnClick(R.id.ivVerify)
     public void sms(){
         assignData();
@@ -154,9 +160,33 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         }
     }
 
+    @OnClick(R.id.logout)
+    public void endLogout(final View view) {
+        PopupMenu popup = new PopupMenu(this, view);
+        popup.getMenuInflater().inflate(R.menu.option_menu, popup.getMenu());
+        popup.show();
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem items) {
+                switch (items.getItemId()) {
+                    case R.id.logoutPromotor:
+                        presenter.logout();
+                        break;
+                    default:
+                       break;
+                }
+                return true;
+            }
+        });
+    }
+
+
     @Override
-    public void setMessageError(String message) {
-        showMessage(message);
+    public void logoutActivity() {
+        pref.destroySession();
+        instance.clearHashMap();
+        showView(LoginActivity.class);
+        finish();
     }
 
     @Override
@@ -172,7 +202,6 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
     @Override
     public void showMessage(String message) {
         super.showMessage(message);
-        //Toast.makeText(this, ""+message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -221,6 +250,8 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         instance.put(Constants.SOL_TELEFONO, edtPhone.getText());
     }
     public void initData(){
+        pref.saveDataBool(String.valueOf(Constants.CODIGO_VERIFICADO),false);
+        pref.saveDataBool(String.valueOf(Constants.ENABLE_VERIFY), true);
         edtCellPhone.setText(instance.get(Constants.SOL_CELULAR));
         edtPhone.setText(instance.get(Constants.SOL_TELEFONO));
         edtPhone.setOnKeyListener(new View.OnKeyListener() {
@@ -234,6 +265,24 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
                 return false;
             }
         });
+
+        edtCellPhone.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (edtCellPhone.getText().length() == 10 && keyCode != KeyEvent.KEYCODE_DEL) {
+                    enableVerificateSMS(true);
+                    return true;
+                } else if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    edtPhone.requestFocus();
+                    return true;
+                } else {
+                    enableVerificateSMS(false);
+                    return false;
+                }
+            }
+        });
+
     }
 
     @Override
@@ -280,13 +329,11 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         assignData();
         HashMap<String, Serializable> extras = new HashMap<>();
 
-        if(presenter.doesDocumentExist(rvSelectedItem))
-        {
+        if(presenter.doesDocumentExist(rvSelectedItem)) {
             extras.put(Constants.SELECTED_DOCUMENT_KEY, getFormularioAfiliacion().getDocumentos().get(presenter.getDocumentPosition(rvSelectedItem)));
             startActivityForResult(PreviewImageActivity.class, PREVIEW_REQUEST_CODE, extras);
         }
-        else
-        {
+        else {
             extras.put(Constants.SELECTED_DOCUMENT_KEY, rvSelectedItem);
             startActivityForResult(CaptureActivity.class, CAPTURE_REQUEST_CODE, extras);
         }
@@ -310,12 +357,12 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
     @Override
     public void validateForm() {
         getDataForm();
-        if(getFormularioAfiliacion().getTelefonoMovil().isEmpty()){
-            showMessage(getString(R.string.error_cellphone_empty));
-            return;
-        }
-        if(!edtCellPhone.isValidField()){
+        /*if(getFormularioAfiliacion().getTelefonoMovil().isEmpty()){
             showMessage(getString(R.string.error_phone_empty));
+            return;
+        }*/
+        if(!edtCellPhone.isValidField()){
+            showMessage(getString(R.string.error_cellphone_empty));
             return;
         }
         String errorDocument = "";
@@ -334,23 +381,31 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
 
     @Override
     public void onValidationSuccess() {
-        showProgressFragment();
-        presenter.requestRegister();
+        if(isOnline()) {
+            showProgressFragment();
+            presenter.requestRegister();
+        } else {
+            hideSoftKeyboard();
+            showMessage(getString(R.string.network_error));
+        }
     }
 
     @Override
     public void getDataForm() {
         getFormularioAfiliacion().setTelefonoCasa(edtPhone.getText());
-        getFormularioAfiliacion().setTelefonoMovil(edtPhone.getText());
+        getFormularioAfiliacion().setTelefonoMovil(edtCellPhone.getText());
     }
     private void enableVerificateSMS(boolean enable){
-        if(ivVerify != null && !edtCellPhone.isValidField()){
-            pref.saveDataBool(String.valueOf(Constants.CODIGO_VERIFICADO),false);
-            ivVerify.setVisibility(enable ? View.VISIBLE : View.GONE);
+
+        Boolean verificadoState = pref.loadBoolean(String.valueOf(Constants.CODIGO_VERIFICADO));
+        Boolean enableVerify    = pref.loadBoolean(String.valueOf(Constants.ENABLE_VERIFY));
+
+        if(enableVerify){
+            ivVerify.setVisibility(enable && edtCellPhone.isValidField() ? View.VISIBLE : View.GONE);
             ivVerify.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_verificar_ap));
-        }
-        else {
-            Boolean verificadoState = pref.loadBoolean(String.valueOf(Constants.CODIGO_VERIFICADO));
+        } else if(!enable){
+            ivVerify.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_verificar_ap));
+        } else {
             ivVerify.setEnabled(verificadoState ? false : true);
             ivVerify.setImageDrawable(
                     verificadoState ?
@@ -405,8 +460,10 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         return presenter.getFormularioAfiliacion();
     }
 
+
     @Override
     public void onDestroy() {
         super.onDestroy();
     }
+
 }

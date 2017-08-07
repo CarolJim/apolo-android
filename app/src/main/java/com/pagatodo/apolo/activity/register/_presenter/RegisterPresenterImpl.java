@@ -32,8 +32,8 @@ import static com.pagatodo.networkframework.model.ResponseConstants.RESPONSE_COD
  * Created by rvargas on 21-07-17.
  */
 
-public class RegisterPresenterImpl extends BasePresenter<RegisterView> implements RegisterPresenter, RegisterInteractor.onRegisterListener, RegisterInteractor.onRequestListener  {
-
+public class RegisterPresenterImpl extends BasePresenter<RegisterView> implements RegisterPresenter, RegisterInteractor.onRegisterListener, RegisterInteractor.onRequestListener, RegisterInteractor.logoutListener  {
+    private static final int TIME_TO_LOGOUT = 2000;
     private RegisterInteractor registerInteractor;
     private FormularioAfiliacion mFormularioAfiliacion = new FormularioAfiliacion(Constants.DOCUMENTS_LIST);
 
@@ -45,6 +45,17 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterView> implement
     @Override
     public void register(String numberCelPhone, String numberPhone, String rutaCard, String rutaINEFront, String rutaINEBack) {
         registerInteractor.onRegisterAfiliado(numberCelPhone, numberPhone, rutaCard, rutaINEFront, rutaINEBack, this);
+    }
+
+    @Override
+    public void logout() {
+        view.showProgress(getString(R.string.progress_logout));
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                registerInteractor.onLogout(RegisterPresenterImpl.this);
+            }
+        },TIME_TO_LOGOUT);
     }
 
     @Override
@@ -184,16 +195,11 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterView> implement
     }
 
     @Override
-    public void failureRequest(String message) {
+    public void onSuccessLogout() {
         if (view!=null)
-            view.showMessage(message);
+            view.logoutActivity();
     }
 
-    @Override
-    public void messagesError(String message) {
-        if (view!=null)
-            view.setMessageError(message);
-    }
 
     private DocumentUploadRequest generateRequestDocument(Documento documento){
         return new DocumentUploadRequest(
