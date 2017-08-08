@@ -39,11 +39,11 @@ public class SplashPresenter extends BasePresenter<ISplashView> implements ISpla
     public void getPromotersList()
     {
         if(isOnline()){
-            view.showProgress("Actualizando promotores.");
+            view.showProgress(getString(R.string.msg_update_afiliados));
             BuildRequest.updateRemoteConfig(this);
         }else{
             if(pref.getListOfPromotors().isEmpty()){
-                view.updatePromotorsFailed("Sin Internet", getString(R.string.network_error));
+                view.updatePromotorsFailed(getString(R.string.not_internet), getString(R.string.network_error));
                 return;
             }
             view.updatePromotorsSuccess();
@@ -79,7 +79,7 @@ public class SplashPresenter extends BasePresenter<ISplashView> implements ISpla
             switch (dataManager.getMethod()){
                 case GET_PROMOTERS:
                     if(pref.getListOfPromotors().isEmpty()){
-                        view.updatePromotorsFailed("Error", (String) dataManager.getData());
+                        view.updatePromotorsFailed(getString(R.string.error), (String) dataManager.getData());
                         return;
                     }
                     view.updatePromotorsSuccess();
@@ -107,7 +107,7 @@ public class SplashPresenter extends BasePresenter<ISplashView> implements ISpla
 
     private void updatePromotores(List<Promotor> promotorList) {
         if(promotorList.isEmpty()){
-            view.updatePromotorsFailed("No hay promotores", "no se han encontrado promotores en la base de datos");
+            view.updatePromotorsFailed( getString(R.string.not_have_promotores), getString(R.string.not_search_promotores));
             return;
         }
         pref.saveData(LIST_PROMOTORS, new Gson().toJson(promotorList));

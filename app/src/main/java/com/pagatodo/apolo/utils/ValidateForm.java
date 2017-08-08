@@ -139,8 +139,10 @@ public class ValidateForm {
     public static void enableBtn(boolean enable, MaterialButton button){
             if(button != null){
                 button.setAlpha(enable ? 1.0f : 0.9f);
-                button.setNormalBackgroundColor(enable ? ContextCompat.getColor(App.getInstance(), R.color.colorPrimary) : ContextCompat.getColor(App.getInstance(), R.color.colorHint));
-                button.setStrokeNormal(enable ? ContextCompat.getColor(App.getInstance(), R.color.colorPrimary) : ContextCompat.getColor(App.getInstance(), R.color.colorHint));
+                button.setTextColor(enable ? ContextCompat.getColor(App.getInstance(), R.color.white) : ContextCompat.getColor(App.getInstance(), R.color.colorBtn));
+                button.setHintTextColor(enable ? ContextCompat.getColor(App.getInstance(), R.color.white) : ContextCompat.getColor(App.getInstance(), R.color.colorBtn));
+                button.setNormalBackgroundColor(enable ? ContextCompat.getColor(App.getInstance(), R.color.colorPrimary) : ContextCompat.getColor(App.getInstance(), R.color.teal));
+                button.setStrokeNormal(enable ? ContextCompat.getColor(App.getInstance(), R.color.colorPrimary) : ContextCompat.getColor(App.getInstance(), R.color.teal));
                 button.setEnabled(enable);
             }
     }

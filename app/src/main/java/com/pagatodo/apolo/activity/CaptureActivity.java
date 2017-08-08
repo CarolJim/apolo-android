@@ -12,12 +12,12 @@ import android.hardware.Camera.PictureCallback;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.AppCompatImageView;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import com.pagatodo.apolo.R;
@@ -41,9 +41,8 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
     @BindView(R.id.action_reintent) AppCompatImageView btnReintent;
     @BindView(R.id.action_save) AppCompatImageView btnSave;
     @BindView(R.id.action_capture) AppCompatImageView btnCapture;
-    @BindView(R.id.camera_frame) RelativeLayout camera_frame;
+    @BindView(R.id.camera_frame) FrameLayout camera_frame;
     @BindView(R.id.progress_view_activity) LinearLayout progress;
-    @BindView(R.id.activity_capture_capture_area) View captureArea;
     private Documento documentSaver;
     private Bitmap mBitmapTaken;
 
@@ -62,7 +61,6 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
         mIsCapturing = true;
-
     }
 
     @Override
@@ -84,7 +82,6 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-
         mIsCapturing = savedInstanceState.getBoolean(Constants.KEY_IS_CAPTURING, mCameraData == null);
         if (mCameraData != null) {
             setupImageDisplay();
@@ -108,7 +105,7 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
                     mCamera.startPreview();
                 }
             } catch (IOException e) {
-                showSnackBar(layoutCapture, getString(R.string.unable_camera));
+                //showSnackBar(layoutCapture, getString(R.string.unable_camera));
             }
         }
     }
@@ -180,7 +177,6 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
     @OnClick(R.id.action_capture)
     public void captureCard() {
         try{
-            Log.e("--"," captura ");
             btnCapture.setEnabled(false);
             captureImage();
         }catch (Exception e){
@@ -195,10 +191,10 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
 
         mBitmapTaken = Bitmap.createBitmap(
                 mBitmapTaken,
-                (int) (mBitmapTaken.getWidth() * .0725),
-                (int) (mBitmapTaken.getHeight() * .32),
-                (int) (mBitmapTaken.getWidth() * .85),
-                (int) (mBitmapTaken.getHeight() * .35)
+                (int) (mBitmapTaken.getWidth() * .15),
+                (int) (mBitmapTaken.getHeight() * .14),
+                (int) (mBitmapTaken.getWidth() * .69),
+                (int) (mBitmapTaken.getHeight() * .68)
         );
 
         String encodedImage = Base64Utils.getEncodedString(mBitmapTaken);
@@ -240,7 +236,7 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
                 mCamera.startPreview();
             }
         } catch (Exception e) {
-            showSnackBar(layoutCapture, getString(R.string.unable_camera));
+            //showSnackBar(layoutCapture, getString(R.string.unable_camera));
         }
 
 

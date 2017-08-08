@@ -15,19 +15,23 @@
         android:layout_height="?attr/actionBarSize"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-<RelativeLayout
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:layout_marginLeft="@dimen/dimen_margin_large"
-    android:layout_marginRight="@dimen/dimen_margin_large">
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/dimen_margin_medium"
+        android:layout_marginRight="@dimen/dimen_margin_medium">
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
          <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center">
-
          <com.pagatodo.apolo.utils.customviews.MaterialTextView
              android:id="@+id/tvTitle"
              android:layout_width="wrap_content"
@@ -36,22 +40,16 @@
              android:textColor="@color/colorText"
              app:tipo="Titulo"
              android:gravity="center"
-             android:lineSpacingExtra="0sp"
-             android:textSize="@dimen/dimen_margin_xl"
-             android:layout_marginTop="@dimen/dimen_margin_large"
-             android:layout_marginLeft="@dimen/dimen_margin_large"
-             android:layout_marginRight="@dimen/dimen_margin_large" />
-
+             android:textSize="@dimen/dimen_textSize_xl" />
              <!-- Código SMS -->
             <include layout="@layout/pin_edittext" />
-
+        </LinearLayout>
         </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
+            android:layout_height="wrap_content">
             <!-- Boton verificar SMS  -->
             <com.pagatodo.apolo.utils.customviews.MaterialButton
                 android:id="@+id/btnValidar"
@@ -59,14 +57,12 @@
                 android:layout_height="@dimen/dimen_button_height"
                 android:layout_marginBottom="@dimen/dimen_margin_xl"
                 android:text="@string/txt_button_reenviar"
-                android:textColor="@color/colorBtn"
+                app:textColor="@color/white"
+                app:hintColor="@color/white"
                 app:buttonNormalColor="@color/colorPrimary"
                 app:buttonStrokeColor="@color/colorPrimary"
-                app:cornerRadius="@dimen/dimen_button_radius"
-                android:layout_alignParentBottom="true"/>
+                app:cornerRadius="@dimen/dimen_button_radius"/>
+        </LinearLayout>
 
-        </RelativeLayout>
-
-</RelativeLayout>
-<include layout="@layout/progress_view_activity" />
+    </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

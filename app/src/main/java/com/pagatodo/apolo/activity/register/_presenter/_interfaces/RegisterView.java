@@ -10,7 +10,7 @@ import com.pagatodo.apolo.ui.base.factoryinterfaces.IEventOnView;
  */
 
 public interface RegisterView extends IEventOnView{
-    void setMessageError(String message);
+    void logoutActivity();
     void setNavigation();
     void returnData();
     void showMessage(String message);

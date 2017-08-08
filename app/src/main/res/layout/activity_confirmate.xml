@@ -8,71 +8,80 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/bg_app">
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:layout_marginLeft="@dimen/dimen_margin_large"
-        android:layout_marginRight="@dimen/dimen_margin_large"
-        tools:context=".activity.LoginActivity">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        tools:context=".activity.LoginActivity"
         android:orientation="vertical"
-        android:gravity="center">
-
+        android:layout_weight="2"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/dimen_margin_medium"
+        android:layout_marginRight="@dimen/dimen_margin_medium"
+        android:layout_height="0dp">
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:scaleType="fitXY"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/ic_upload_ap"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/border_radius"/>
+    <com.pagatodo.apolo.utils.customviews.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_status_success"
+        android:textColor="@color/colorText"
+        app:tipo="Descripcion"
+        android:textSize="@dimen/dimen_textSize_large"
+        android:layout_marginTop="25dp" />
     <com.pagatodo.apolo.utils.customviews.MaterialTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/txt_folio"
         android:textColor="@color/colorText"
         app:tipo="Titulo"
-        android:lineSpacingExtra="0sp"
-        android:textSize="@dimen/dimen_margin_xl"
+        android:textSize="@dimen/dimen_textSize_xl"
         android:layout_marginTop="@dimen/dimen_margin_large" />
-
     <com.pagatodo.apolo.utils.customviews.MaterialTextView
         android:id="@+id/numeroFolio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/folio_generado"
         android:textColor="@color/colorText"
-        app:tipo="Subtitulo"
-        android:lineSpacingExtra="0sp"
-        android:textSize="@dimen/dimen_margin_xl"
+        app:tipo="Titulo"
+        android:textSize="@dimen/dimen_textSize_xl"
         android:layout_marginTop="@dimen/dimen_margin_large" />
-
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
+        tools:context=".activity.LoginActivity"
         android:orientation="vertical"
+        android:layout_marginLeft="@dimen/dimen_margin_medium"
+        android:layout_marginRight="@dimen/dimen_margin_medium"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="wrap_content">
     <!-- Boton finalizar  -->
     <com.pagatodo.apolo.utils.customviews.MaterialButton
         android:id="@+id/btnFinalizar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_button_height"
         android:text="@string/txt_button_end"
-        android:textColor="@color/colorBtn"
+        app:textColor="@color/white"
+        app:hintColor="@color/white"
         app:buttonNormalColor="@color/colorPrimary"
         app:buttonStrokeColor="@color/colorPrimary"
         app:cornerRadius="@dimen/dimen_button_radius"
-        android:layout_marginBottom="@dimen/dimen_margin_xl"
-        android:layout_alignParentBottom="true"/>
+        android:layout_marginBottom="@dimen/dimen_margin_xl"/>
+     </LinearLayout>
 
-     </RelativeLayout>
-
-</RelativeLayout>
-<ProgressBar
-    android:visibility="gone"
-    style="?android:attr/progressBarStyle"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:layout_marginTop="@dimen/dimen_margin_large"
-    android:layout_centerHorizontal="true"
-    android:id="@+id/progress" />
+</LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

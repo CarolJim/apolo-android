@@ -8,7 +8,6 @@ import com.pagatodo.apolo.activity.smsverification._presenter._interfaces.SmsInt
 import com.pagatodo.apolo.activity.smsverification._presenter._interfaces.SmsPresenter;
 import com.pagatodo.apolo.activity.smsverification._presenter._interfaces.SmsView;
 import com.pagatodo.apolo.ui.base.factorypresenters.BasePresenter;
-import com.pagatodo.apolo.utils.Constants;
 import com.pagatodo.networkframework.DataManager;
 import static com.pagatodo.apolo.data.remote.RequestContract.SEND_SMS_CONFIRMATION;
 import static com.pagatodo.apolo.data.remote.RequestContract.SMS_CODE_VALIDATION;
@@ -31,7 +30,7 @@ public class SmsPresenterImpl extends BasePresenter<SmsView> implements SmsPrese
      * PARA RECIBIR UN CODIGO GENERADO POR EL WS */
     @Override
     public void confirmation(final String celular) {
-        view.showProgress();
+        view.showProgress(getString(R.string.progress_send_code));
         if(isOnline()){
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -75,11 +74,10 @@ public class SmsPresenterImpl extends BasePresenter<SmsView> implements SmsPrese
         }
     }
 
-    /** VALIDAMOS CODIGO RECIBIDO (ENVIANDO COMO
-     * PARAMETRO CELULAR Y CODIGO GENERADO) */
+    /** VALIDAMOS CODIGO RECIBIDO, ENVIANDO COMO PARAMETRO CELULAR Y CODIGO GENERADO */
     @Override
     public void validation(final String celular, final String codigo) {
-        view.showProgress();
+        view.showProgress(getString(R.string.progress_verify));
         if(isOnline()){
             new Handler().postDelayed(new Runnable() {
                 @Override

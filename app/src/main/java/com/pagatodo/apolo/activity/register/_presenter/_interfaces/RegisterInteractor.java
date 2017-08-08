@@ -13,13 +13,15 @@ public interface RegisterInteractor {
     interface onRegisterListener{
         void onSuccess();
         void failure(String message);
-        void messagesError(String message);
     }
-
     interface onRequestListener{
         void  onSuccessRequest();
-        void failureRequest(String message);
     }
+    interface logoutListener{
+        void  onSuccessLogout();
+    }
+
     void onRegisterAfiliado(String numberCelPhone, String numberPhone, String rutaCard, String rutaINEFront, String rutaINEBack, onRegisterListener listener);
     void onRequestData(List<Cards> cardsList, onRequestListener listener);
+    void onLogout(logoutListener listener);
 }

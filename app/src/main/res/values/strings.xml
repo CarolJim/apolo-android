@@ -9,8 +9,8 @@
     <string name="name_agente">Afiliador</string>
     <string name="name_agente_format">%1$s %2$s %3$s</string>
 
-    <string name="editText_celular">ingresa el número de móvil</string>
-    <string name="editText_telefono">ingresa el número de casa</string>
+    <string name="editText_celular">Ingresa el número de móvil</string>
+    <string name="editText_telefono">Ingresa el número de casa</string>
     <string name="txt_card">TARJETA</string>
     <string name="txt_ine_front">INE FRENTE</string>
     <string name="txt_ine_back">INE VUELTA</string>
@@ -27,10 +27,6 @@
     <string name="txt_button_reenviar">REENVIAR</string>
     <string name="txt_btn_reintent">REINTENTAR</string>
 
-
-    <!-- @see progress_view.xml -->
-    <string name="txt_progressText">Espera por favor</string>
-
     <!-- MaterialValidationEditText -->
     <!-- EditTexts -->
     <string name="hint_name">Nombre</string>
@@ -40,34 +36,41 @@
     <string name="input_int_unsigned">0123456789</string>
     <string name="input_int">-0123456789</string>
     <string name="input_decimal">-.0123456789</string>
-    <string name="valid_phonenumber">Telefono válido</string>
+    <string name="valid_phonenumber">Teléfono válido</string>
     <string name="valid_field">El campo es válido</string>
-    <string name="invalid_phonenumber">Telefono inválido</string>
+    <string name="invalid_phonenumber">Teléfono inválido</string>
     <string name="invalid_field">El campo es inválido</string>
     <string name="invalid_field_numero_usuario">El número de usuario es inválido</string>
     <string name="valid_mail">Correo válido</string>
     <string name="valid_pass">Contraseña válida</string>
-    <string name="empty_mail">El campo email no debe estar vacio</string>
+    <string name="empty_mail">El campo email no debe estar vacío</string>
     <string name="invalid_mail">Correo inválido</string>
     <string name="invalid_pass">La contraseña debe contener al menos una mayuscula, un número y un mínimo de 6 caracteres.</string>
 
     <!--Validaciones-->
+    <string name="msg_field_empty">Todos los campos son obligatorios</string>
     <string name="msg_nombre_valido">Por favor ingresa un nombre válido.</string>
     <string name="msg_primer_apellido_valido">Por favor ingresa tu primer apellido.</string>
     <string name="msg_segundo_apellido_valido">Por favor ingresa tu segundo apellido.</string>
-    <string name="msg_telefono_valido_format">El telefono es invalido.</string>
+    <string name="msg_telefono_valido_format">El teléfono es invalido.</string>
     <string name="msg_session">Has iniciado sesión en otro dispositivo.</string>
     <string name="msg_valid_remail">Los correos coinciden.</string>
     <string name="msg_invalid_remail">Los correos no coinciden.</string>
-    <string name="msg_valid_rephone">Los telefonos coinciden.</string>
-    <string name="msg_invalid_rephone">Los telefonos no coinciden.</string>
+    <string name="msg_valid_rephone">Los teléfonos coinciden.</string>
+    <string name="msg_invalid_rephone">Los teléfonos no coinciden.</string>
     <string name="msg_valid_repass">Las contraseñas coinciden.</string>
     <string name="msg_invalid_repass">Las contraseñas no coinciden.</string>
     <string name="msg_valid_refield">Los campos coinciden.</string>
     <string name="msg_invalid_refield">Los campos no coinciden.</string>
-    <string name="not_compatible_camera">¡Lo siento! Su dispositivo no es compatible con la cámara</string>
+    <string name="not_compatible_camera">¡Lo siento! Tu dispositivo no es compatible con la cámara</string>
     <string name="changed_configuration">Cambio de configuración</string>
     <string name="saved">Guardado</string>
+    <string name="msg_update_afiliados">Actualizando Promotores.</string>
+    <string name="not_internet">Sin Internet</string>
+    <string name="error">Error</string>
+    <string name="delete">Eliminar</string>
+    <string name="not_have_promotores">No hay Promotores</string>
+    <string name="not_search_promotores">No se han encontrado Promotores en la base de datos</string>
 
     <!-- Camara -->
     <string name="unable_camera">No se puede abrir la cámara.</string>
@@ -80,12 +83,12 @@
     <string name="network_error">Verifica tu conexión a internet.</string>
 
     <!-- Activity Confirmate -->
-    <string name="txt_folio">Anota el numero de folio</string>
+    <string name="txt_folio">Anota el número de folio</string>
     <string name="folio_generado">Folio: %1$s</string>
     <string name="pin_label_text">Código</string>
 
     <!-- Activity SMS -->
-    <string name="verificando_celular">Verifando número celular</string>
+    <string name="verificando_celular">Verificando número celular</string>
     <string name="codigo_sms">Te enviamos un SMS con el código de verificación</string>
     <string name="ingresa_codigo">Ingresa el código de verificación</string>
 
@@ -109,8 +112,9 @@
     <string name="dialog_hint_message">Ingresa tu mensaje</string>
     <string name="dialog_status_upload">Procesando\n%1$d de %2$d</string>
     <string name="dialog_status_title">REALIZANDO REGISTRO</string>
-    <string name="dialog_status_success">Se ha registrado con exito.</string>
+    <string name="dialog_status_success">Se han guardado sus documentos.</string>
     <string name="dialog_status_failure">Ocurrió un error al subir documentos.</string>
+    <string name="menu_end_session">Cerrar sesión</string>
 
     <!-- IEventOnView -->
     <string name="progress_wait">Espera por favor.</string>
@@ -118,17 +122,19 @@
     <string name="progress_registrando_usuario">Registrando usuario…</string>
     <string name="progress_login">Iniciando sesión…</string>
     <string name="progress_logout">Saliendo…</string>
+    <string name="txt_progressText">Espera por favor</string>
+    <string name="progress_send_code">Enviando código de verificación</string>
+    <string name="progress_verify">Verificando</string>
+
 
     <!-- Sharing Options-->
     <string name="whatsapp_sharing_not_found_msg">Para continuar, necesitas instalar la aplicación WhatsApp.</string>
 
     <!-- Run Time Permissions Msgs -->
-
     <string name="general_run_time_message">Para que tu experiencia dentro de la aplicación sea completa, activa los siguientes permisos:</string>
     <string name="runtime_camera">Hacer uso de la cámara (Necesario para la captura de documentos).</string>
     <string name="runtime_sms">Leer tu bandeja SMS (Requerido para obtener el código de confirmación).</string>
     <string name="runtime_storage">Guardar información en el dispositivo (Esencial para el registro de documentos).</string>
-
     <string name="run_time_enable_permissions_btn_lbl">Habilitar Permisos</string>
     <string name="run_time_continue_anyway_btn_lbl">Continuar</string>
 

@@ -1,5 +1,8 @@
 package com.pagatodo.apolo.activity.register._presenter;
 
+import android.content.Context;
+
+import com.pagatodo.apolo.App;
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterInteractor;
 import com.pagatodo.apolo.data.model.Cards;
@@ -11,21 +14,14 @@ import static android.text.TextUtils.isEmpty;
  */
 
 public class RegisterInteractorImpl implements RegisterInteractor {
+    Context context = App.getInstance();
 
     @Override
     public void onRegisterAfiliado(String numberCelPhone, String numberPhone, String rutaCard, String rutaINEFront, String rutaINEBack, onRegisterListener listener) {
-        if (isEmpty(numberCelPhone)){
-            listener.messagesError("Número celular obligatorio");
-        } else if (rutaCard == null){
-            listener.messagesError("La fotografía de la tarjeta es obligatoria");
-        } else if (rutaINEFront == null){
-            listener.messagesError("La fotografía del INE frente es obligatoria");
-        } else if (rutaINEBack == null){
-            listener.messagesError("La fotografía del INE vuelta es obligatoria");
-        } else if(!isEmpty(numberCelPhone) && rutaCard != null && rutaINEFront != null && rutaINEBack != null){
+        if(!isEmpty(numberCelPhone) && rutaCard != null && rutaINEFront != null && rutaINEBack != null){
             listener.onSuccess();
         }else {
-            listener.failure("Todos los campos son obligatorios");
+            listener.failure(context.getString(R.string.msg_field_empty));
         }
     }
 
@@ -44,6 +40,11 @@ public class RegisterInteractorImpl implements RegisterInteractor {
             cardsList.add(items);
         }
         listener.onSuccessRequest();
-
     }
+
+    @Override
+    public void onLogout(logoutListener listen){
+        listen.onSuccessLogout();
+    }
+
 }
