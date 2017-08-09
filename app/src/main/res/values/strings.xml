@@ -78,6 +78,7 @@
     <string name="save_to">Guardado en:</string>
     <string name="confirmate_delete">¿Seguro que deseas borrar esta imagen?</string>
     <string name="error_capture">"Ocurrió un error al tomar la foto"</string>
+    <string name="turn_camera">Por favor gira tu teléfono para capturar la foto</string>
 
     <!-- WS errors -->
     <string name="network_error">Verifica tu conexión a internet.</string>
@@ -113,7 +114,7 @@
     <string name="dialog_status_upload">Procesando\n%1$d de %2$d</string>
     <string name="dialog_status_title">REALIZANDO REGISTRO</string>
     <string name="dialog_status_success">Se han guardado sus documentos.</string>
-    <string name="dialog_status_failure">Ocurrió un error al subir documentos.</string>
+    <string name="dialog_status_failure">Ocurrió un error al cargar los archivos.</string>
     <string name="menu_end_session">Cerrar sesión</string>
 
     <!-- IEventOnView -->

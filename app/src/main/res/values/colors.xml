@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#FF149B</color>
-    <color name="colorPrimaryDark">#FF149B</color>
+    <color name="colorPrimaryDark">#C6006D</color>
     <color name="colorAccent">#FF149B</color>
     <color name="icons">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
@@ -16,6 +16,7 @@
     <color name="orange_red">#fe3824</color>
     <color name="black_preview">#303030</color>
     <color name="white">#ffffff</color>
+    <color name="gray_inactive">#EBEBEB</color>
 
     <color name="transparentGrayBG">#CC000000</color>
     <color name="bg_app">#fafafa</color>

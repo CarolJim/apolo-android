@@ -33,13 +33,11 @@
                 android:layout_height="match_parent"
                 app:bgColor="#e1e1e1"
                 app:firstColor="@color/colorPrimary"
-                app:secondColor="@android:color/holo_green_dark"
+                app:secondColor="@color/colorPrimaryDark"
                 app:errorColor="@android:color/holo_red_dark"
                 app:percent="0"
-
                 app:startAngle="0"
-                app:strokeWidth="10dp"
-                />
+                app:strokeWidth="10dp" />
             <com.pagatodo.apolo.utils.customviews.MaterialTextView
                 android:id="@+id/progressDocuments"
                 android:gravity="center"

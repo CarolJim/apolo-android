@@ -19,7 +19,6 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.data.model.Documento;
 import com.pagatodo.apolo.ui.base.factoryactivities.BaseActivity;
@@ -73,6 +72,10 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
         return 0;
     }
 
+    @Override
+    protected int setIdCoordinatorLayout() {
+        return R.id.layoutCapture;//super.setIdCoordinatorLayout();
+    }
     @Override
     protected void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
@@ -219,9 +222,10 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
         }
     }
 
-    private void initCamera()
-    {
+    private void initCamera() {
         try {
+            showSnackBar(layoutCapture, getString(R.string.turn_camera));
+
             mCamera = Camera.open();
             mCamera.setPreviewDisplay(mSurfaceView.getHolder());
             Camera.Parameters parameters  = mCamera.getParameters();

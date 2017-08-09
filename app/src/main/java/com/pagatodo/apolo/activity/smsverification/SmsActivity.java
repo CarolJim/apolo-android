@@ -7,7 +7,6 @@ import android.content.IntentFilter;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
@@ -60,10 +59,13 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
     @BindView(R.id.editText_otp) EditText editTextOtp;
     @BindView(R.id.tvTitle) MaterialTextView tvTitle;
     private String codeGenerate = "";
-    private boolean isPaused = false;
-    private boolean isCanceled = false;
-    private long timeRemaining = 0;
-
+    private int seconds = 30;
+    private boolean stopTimer = false;
+    private boolean flag = true;
+    private boolean isFinish = false;
+    private int timeRemaining = 0;
+    private int minLenghtPin  = 0;
+    private int maxLenghtPin  = 6;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -114,9 +116,6 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
     public void initPresentConfirmation(){
         ViewGroup group = (ViewGroup) findViewById(R.id.allClear);
         clearEditext(group);
-        startTimer();
-        ValidateForm.enableBtn(true, (MaterialButton) btnValidar);
-        btnValidar.setEnabled(false);
         presenter.confirmation(instance.get(Constants.SOL_CELULAR));
     }
     @Override
@@ -127,6 +126,8 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
                 switch (dataManager.getMethod()){
                     case SEND_SMS_CONFIRMATION:
                         hideProgress();
+                        timer();
+                        ValidateForm.enableBtn(false, (MaterialButton) btnValidar);
                         tvTitle.setText(getString(R.string.codigo_sms));
                         pref.saveDataBool(String.valueOf(Constants.ENABLE_VERIFY), false);
                         showSnackBar(layoutSms, response.getRespuesta().getMensaje());
@@ -139,13 +140,18 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
                 }
                 break;
             default:
+                hideSoftKeyboard();
                 showSnackBar(layoutSms, response.getRespuesta().getMensaje());
+                if(dataManager.getMethod()== SMS_CODE_VALIDATION) {
+                    ValidateForm.enableBtn(false, (MaterialButton) btnValidar);
+                    stopTimer = false;
+                    timer();
+                }
                 break;
         }
     }
     @Override
     public void onFailed(DataManager dataManager) {
-        // resumeTimer();
         if(dataManager.getData() instanceof String){
             hideProgress();
             showSnackBar(layoutSms, (String)dataManager.getData());
@@ -162,49 +168,28 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
         }
     }
 
-    private void startTimer(){
-        isPaused = false;
-        isCanceled = false;
-        long millisInFuture    = 30000; //30 seconds
-        long countDownInterval = 1000; //1 second
+    private void timer() {
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                timeRemaining = seconds;
+                if (timeRemaining < 0) {
+                    isFinish = true;
+                    hideSoftKeyboard();
+                    ValidateForm.enableBtn(true, (MaterialButton) btnValidar);
+                    btnValidar.setText(getString(R.string.txt_button_reenviar));
+                } else if (stopTimer) {
+                    seconds = timeRemaining;
+                    btnValidar.setText(getString(R.string.txt_button_continue));
+                } else if(!stopTimer) {
+                    seconds--;
+                    btnValidar.setText(getString(R.string.txt_button_reenviar) + " " + timeRemaining);
+                    handler.postDelayed(this, 1000);
+                }
+            }
 
-        new CountDownTimer(millisInFuture,countDownInterval){
-            public void onTick(long millisUntilFinished){
-                if(isPaused || isCanceled) {
-                    cancel();
-                }
-                else {
-                    btnValidar.setText(getString(R.string.txt_button_reenviar) + " " + millisUntilFinished / 1000);
-                    timeRemaining = millisUntilFinished;
-                }
-            }
-            public void onFinish(){
-                btnValidar.setEnabled(true);
-                btnValidar.setText(getString(R.string.txt_button_reenviar));
-            }
-        }.start();
-    }
-
-    private void resumeTimer(){
-        isPaused = false;
-        isCanceled = false;
-        long millisInFuture = timeRemaining;
-        long countDownInterval = 1000;
-        new CountDownTimer(millisInFuture, countDownInterval){
-            public void onTick(long millisUntilFinished){
-                if(isPaused || isCanceled) {
-                    cancel();
-                }
-                else {
-                    btnValidar.setText(getString(R.string.txt_button_reenviar) + " " + millisUntilFinished / 1000);
-                    timeRemaining = millisUntilFinished;
-                }
-            }
-            public void onFinish(){
-                btnValidar.setEnabled(true);
-                btnValidar.setText(getString(R.string.txt_button_reenviar));
-            }
-        }.start();
+        });
     }
 
 
@@ -215,7 +200,11 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
     public void validar() {
         if(btnValidar.getText()==getString(R.string.txt_button_reenviar)) {
             if(isOnline()) {
+                ValidateForm.enableBtn(false, (MaterialButton) btnValidar);
                 initPresentConfirmation();
+                seconds = 30;
+                stopTimer = false;
+                isFinish  = false;
             } else {
                 showSnackBar(layoutSms,getString(R.string.network_error));
             }
@@ -317,8 +306,10 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
                             mPinTwo.setText("");
                         else if (editTextOtp.getText().length() == 1)
                             mPinOne.setText("");
-                        if (editTextOtp.length() > 0)
+                        if (editTextOtp.length() > 0){
+                            ValidateForm.enableBtn(false, (MaterialButton) btnValidar);
                             editTextOtp.setText(editTextOtp.getText().subSequence(0, editTextOtp.length() - 1));
+                        }
                         return true;
                     }
                     break;
@@ -332,11 +323,13 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if(s.length() < 6){
-            resumeTimer();
-            btnValidar.setText(getString(R.string.txt_button_reenviar));
-        }
-        if (s.length() == 0) {
+        if(s.length() == 0){
+            flag = false;
+            if(stopTimer){
+                stopTimer = false;
+                timer();
+            }
+            hideSoftKeyboard();
             mPinOne.setText("");
         } else if (s.length() == 1) {
             mPinOne.setText(s.charAt(0) + "");
@@ -366,9 +359,21 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
         } else if (s.length() == 6) {
             mPinSix.setText(s.charAt(5) + "");
             hideSoftKeyboard();
-            btnValidar.setEnabled(true);
-            btnValidar.setText(getString(R.string.txt_button_continue));
-            isPaused = true;
+            if(!isFinish) {
+                ValidateForm.enableBtn(true, (MaterialButton) btnValidar);
+                btnValidar.setText(getString(R.string.txt_button_continue));
+                stopTimer = true;
+                flag = true;
+            }
+        }
+
+        if(s.length() < maxLenghtPin || s.length() > minLenghtPin){
+            if(!stopTimer && flag) {
+                ValidateForm.enableBtn(false, (MaterialButton) btnValidar);
+                btnValidar.setText(getString(R.string.txt_button_continue));
+                stopTimer = true;
+                flag = true;
+            }
         }
     }
 
@@ -435,9 +440,9 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
                 mPinFour.setText(codigo.charAt(4)+"");
                 mPinFive.setText(codigo.charAt(5)+"");
                 mPinSix.setText(codigo.charAt(6)+"");
-                btnValidar.setEnabled(true);
+                ValidateForm.enableBtn(true, (MaterialButton) btnValidar);
                 btnValidar.setText(getString(R.string.txt_button_continue));
-                isPaused = true;
+                stopTimer = true;
             }
         }
     };
@@ -460,5 +465,4 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
             return;
         }
     }
-
 }

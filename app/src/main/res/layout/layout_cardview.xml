@@ -11,24 +11,27 @@
     card_view:cardUseCompatPadding="true"
     app:cardBackgroundColor="@color/layer_cardview">
 
+    <LinearLayout
+        android:id="@+id/cards"
+        android:padding="@dimen/dimen_margin_small"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/layer_cardview">
-
-            <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/typeCard"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:layout_gravity="center_vertical"
-                tools:ignore="VectorDrawableCompat"
-                app:srcCompat="@drawable/btn_tarjeta_ap"
-                android:scaleType="fitCenter"/>
-            </LinearLayout>
-
+                android:layout_height="match_parent">
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/typeCard"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="center_vertical"
+                    tools:ignore="VectorDrawableCompat"
+                    app:srcCompat="@drawable/btn_tarjeta_ap"
+                    android:scaleType="fitCenter"/>
+            </RelativeLayout>
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/thumbCard"
                 android:layout_width="62dp"
@@ -39,7 +42,6 @@
                 tools:ignore="VectorDrawableCompat"
                 app:srcCompat="@drawable/ic_tarjeta_ap"
                 android:scaleType="fitXY"/>
-
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/ivCheck"
                 android:layout_width="@dimen/ic_check_ap_width"
@@ -48,6 +50,6 @@
                 android:layout_marginRight="@dimen/dimen_margin_large"
                 android:layout_marginEnd="@dimen/dimen_margin_large"
                 android:scaleType="fitCenter"/>
-
         </FrameLayout>
+    </LinearLayout>
 </android.support.v7.widget.CardView>

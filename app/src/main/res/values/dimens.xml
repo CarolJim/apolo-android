@@ -42,10 +42,9 @@
 
     <!-- CardView -->
     <dimen name="card_corner_radius">8dp</dimen>
-    <dimen name="card_corner_radius_xl">12dp</dimen>
     <dimen name="card_height">90dp</dimen>
     <dimen name="dimen_cardView_size">60dp</dimen>
-    <dimen name="dimen_cardView_elevation">10dp</dimen>
+    <dimen name="dimen_cardView_elevation">6dp</dimen>
 
     <dimen name="ic_apolo_logo_size_splash_view">96dp</dimen>
     <dimen name="ic_apolo_brand_top_margin_splash_view">15dp</dimen>
