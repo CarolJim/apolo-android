@@ -48,7 +48,7 @@ public class PreviewImageActivity extends BaseActivity {
 
     @OnClick(R.id.activity_image_preview_iv_delete)
     protected void deletePhoto() {
-        showDialog(getString(R.string.delete), getString(R.string.confirmate_delete), android.R.drawable.ic_dialog_alert, getString(R.string.txt_confirmate), EVENT_CONFIRMATE, getString(R.string.txt_cancel), EVENT_CANCELED);
+        showDialog(getString(R.string.delete), getString(R.string.confirmate_delete), android.R.drawable.ic_dialog_alert, getString(R.string.txt_cancel), EVENT_CANCELED, getString(R.string.txt_confirmate), EVENT_CONFIRMATE);
     }
 
     @OnClick(R.id.activity_image_preview_iv_close)

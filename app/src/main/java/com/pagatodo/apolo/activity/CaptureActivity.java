@@ -3,6 +3,8 @@ package com.pagatodo.apolo.activity;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -10,6 +12,7 @@ import android.graphics.Rect;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.MotionEvent;
@@ -17,9 +20,14 @@ import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import com.pagatodo.apolo.R;
+import com.pagatodo.apolo.activity.login.LoginActivity;
+import com.pagatodo.apolo.activity.register.RegisterActivity;
+import com.pagatodo.apolo.activity.splash.SplashActivity;
 import com.pagatodo.apolo.data.model.Documento;
 import com.pagatodo.apolo.ui.base.factoryactivities.BaseActivity;
 import com.pagatodo.apolo.utils.Base64Utils;
@@ -27,6 +35,8 @@ import com.pagatodo.apolo.utils.Constants;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.pagatodo.apolo.data.local.PreferencesContract.SESSION_ACTIVE;
 import static com.pagatodo.apolo.ui.UI.showSnackBar;
 
 public class CaptureActivity extends BaseActivity implements PictureCallback, SurfaceHolder.Callback {
@@ -40,10 +50,14 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
     @BindView(R.id.action_reintent) AppCompatImageView btnReintent;
     @BindView(R.id.action_save) AppCompatImageView btnSave;
     @BindView(R.id.action_capture) AppCompatImageView btnCapture;
+    @BindView(R.id.turn_camera) AppCompatImageView turnCamera;
     @BindView(R.id.camera_frame) FrameLayout camera_frame;
+    @BindView(R.id.girarCamara) FrameLayout frameCamera;
     @BindView(R.id.progress_view_activity) LinearLayout progress;
     private Documento documentSaver;
     private Bitmap mBitmapTaken;
+    private Handler cameraHandler = new Handler();
+    private final static int HANDLER_DELAY = 4000;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,13 +66,11 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
         ButterKnife.bind(this);
         Bundle extras = getIntent().getExtras();
         documentSaver = (Documento) extras.getSerializable(Constants.SELECTED_DOCUMENT_KEY);
-
         mCameraImage.setVisibility(View.INVISIBLE);
-
         SurfaceHolder surfaceHolder = mSurfaceView.getHolder();
         surfaceHolder.addCallback(this);
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-
+        onAnimation();
         mIsCapturing = true;
     }
 
@@ -222,9 +234,25 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
         }
     }
 
+    private void onAnimation(){
+        Animation anim = AnimationUtils.loadAnimation(CaptureActivity.this, R.anim.rotate);
+        anim.reset();
+        frameCamera.clearAnimation();
+        frameCamera.startAnimation(anim);
+        anim = AnimationUtils.loadAnimation(CaptureActivity.this, R.anim.rotate);
+        anim.reset();
+        turnCamera.clearAnimation();
+        turnCamera.startAnimation(anim);
+    }
+
     private void initCamera() {
         try {
-            showSnackBar(layoutCapture, getString(R.string.turn_camera));
+            cameraHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    turnCamera.setVisibility(View.GONE);
+                }
+            },HANDLER_DELAY);
 
             mCamera = Camera.open();
             mCamera.setPreviewDisplay(mSurfaceView.getHolder());

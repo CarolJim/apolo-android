@@ -1,7 +1,5 @@
 package com.pagatodo.apolo.activity.splash._presenter;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.activity.splash._presenter._interfaces.ISplashPresenter;
