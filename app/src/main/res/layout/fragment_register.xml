@@ -43,17 +43,14 @@
                 android:layout_margin="@dimen/dimen_margin_large"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <com.pagatodo.apolo.utils.customviews.StatusViewCupo
+                <com.mikhaellopez.circularprogressbar.CircularProgressBar
                     android:id="@+id/status_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:bgColor="#e1e1e1"
-                    app:firstColor="@color/colorPrimary"
-                    app:secondColor="@android:color/holo_green_dark"
-                    app:errorColor="@android:color/holo_red_dark"
-                    app:percent="0"
-                    app:startAngle="0"
-                    app:strokeWidth="10dp" />
+                    app:cpb_background_progressbar_color="#FFCDD2"
+                    app:cpb_background_progressbar_width="5dp"
+                    app:cpb_progressbar_color="@color/colorPrimary"
+                    app:cpb_progressbar_width="10dp" />
                 <com.pagatodo.apolo.utils.customviews.MaterialTextView
                     android:id="@+id/progressDocuments"
                     android:gravity="center"

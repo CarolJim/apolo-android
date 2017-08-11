@@ -113,6 +113,7 @@
     <string name="dialog_status_upload">Procesando\n%1$d de %2$d</string>
     <string name="dialog_status_title">REALIZANDO REGISTRO</string>
     <string name="dialog_status_success">Se han guardado sus documentos.</string>
+    <string name="dialog_status_success_count">Completados %1$d de %2$d</string>
     <string name="dialog_status_failure">Ocurrió un error al subir documentos.</string>
     <string name="menu_end_session">Cerrar sesión</string>
 

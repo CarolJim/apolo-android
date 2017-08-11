@@ -2,15 +2,20 @@ package com.pagatodo.apolo.activity.register;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.ui.base.factoryinterfaces.IEventOnFragment;
 import com.pagatodo.apolo.utils.customviews.MaterialButton;
@@ -21,6 +26,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_REGISTERED;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_REGISTER_REINTENT;
 
@@ -31,7 +38,8 @@ import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_REGISTER_REINTE
 public class StatusProgresFragment extends DialogFragment  {
     private static final String KEY_SIZE_TASKS  = "StatusProgresFragment#sizeTasks";
 
-    @BindView(R.id.status_view) StatusViewCupo statusViewCupo;
+    @BindView(R.id.status_view)
+    CircularProgressBar statusViewCupo;
     @BindView(R.id.progressDocuments) MaterialTextView mProgressDocuments;
     @BindView(R.id.ivStatus) ImageView mIvStatus;
     @BindView(R.id.fl_Progress) FrameLayout mFlProgress;
@@ -104,8 +112,8 @@ public class StatusProgresFragment extends DialogFragment  {
     }
     public void setErrorRegister(String message){
         if(mLlStatus != null){
-            mFlProgress.setVisibility(View.GONE);
-            mLlStatus.setVisibility(View.VISIBLE);
+            startAnimView(mFlProgress, GONE);
+            startAnimView(mLlStatus, VISIBLE);
             mIvStatus.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.ic_error_new));
             mTvStatus.setText(message);
             mCurrentAction = EVENT_REGISTER_REINTENT;
@@ -124,7 +132,7 @@ public class StatusProgresFragment extends DialogFragment  {
         }
     }
     private void updatestatus(){
-        statusViewCupo.updateStatus((getFullTasks())*getPercent(), ((getFullTasks())-1)*getPercent());
+        statusViewCupo.setProgressWithAnimation(getPercent()*(getFullTasks()), 500);
         validateSuccessTasks();
     }
     private int getPercent(){
@@ -144,8 +152,8 @@ public class StatusProgresFragment extends DialogFragment  {
     private void validateSuccessTasks(){
         if(taskFinishedsFailure > 0 && getFullTasks() == sizeofTasks){
             if(mLlStatus != null){
-                mFlProgress.setVisibility(View.GONE);
-                mLlStatus.setVisibility(View.VISIBLE);
+                startAnimView(mFlProgress, GONE);
+                startAnimView(mLlStatus, VISIBLE);
                 mIvStatus.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.ic_error_new));
                 mTvStatus.setText(getString(R.string.dialog_status_failure));
                 mCurrentAction = EVENT_REGISTER_REINTENT;
@@ -156,19 +164,47 @@ public class StatusProgresFragment extends DialogFragment  {
         }
         if((taskFinishedsSuccess) == sizeofTasks){
             if(mLlStatus != null){
-                mFlProgress.setVisibility(View.GONE);
-                //mLlStatus.setVisibility(View.VISIBLE);
-                //mIvStatus.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.ic_success));
-                //mTvStatus.setText(getString(R.string.dialog_status_success));
+                startAnimView(mFlProgress, GONE);
+                mIvStatus.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.ic_success));
+                mTvStatus.setText(getString(R.string.dialog_status_success_count, taskFinishedsSuccess, sizeofTasks));
+                startAnimView(mLlStatus, VISIBLE);
                 mCurrentAction = EVENT_REGISTERED;
-                mBtnAction.setVisibility(View.GONE);
+                startAnimView(mBtnAction, GONE);
                 //mBtnAction.setText(getString(R.string.txt_button_continue));
                 //enableBtn(true);
-                nextStatusView();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        nextStatusView();
+                    }
+                }, 1500);
             }
         }
     }
     private int getFullTasks(){
         return taskFinishedsSuccess + taskFinishedsFailure;
+    }
+
+    protected void startAnimView(View view, int visibility){
+        final Animation in = new AlphaAnimation(0.0f, 1.0f);
+        final Animation out = new AlphaAnimation(1.0f, 0.0f);
+        in.setDuration(800);
+        out.setDuration(800);
+        if(view != null){
+            switch (visibility){
+                case GONE:
+//                    view.setAlpha(1f);
+                    view.startAnimation(out);
+                    view.setVisibility(GONE);
+
+                    break;
+                case VISIBLE:
+//                    view.setAlpha(0f);
+                    view.startAnimation(in);
+                    view.setVisibility(VISIBLE);
+                    break;
+            }
+
+        }
     }
 }
