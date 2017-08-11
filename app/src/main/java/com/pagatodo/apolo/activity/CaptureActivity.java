@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
@@ -15,6 +16,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.AppCompatImageView;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -205,10 +207,10 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
 
         mBitmapTaken = Bitmap.createBitmap(
                 mBitmapTaken,
-                (int) (mBitmapTaken.getWidth() * .15),
-                (int) (mBitmapTaken.getHeight() * .14),
-                (int) (mBitmapTaken.getWidth() * .69),
-                (int) (mBitmapTaken.getHeight() * .68)
+                (int) (mBitmapTaken.getWidth() * .19),
+                (int) (mBitmapTaken.getHeight() * .11),
+                (int) (mBitmapTaken.getWidth() * .6),
+                (int) (mBitmapTaken.getHeight() * .7)
         );
 
         String encodedImage = Base64Utils.getEncodedString(mBitmapTaken);
@@ -258,11 +260,18 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
             mCamera.setDisplayOrientation(result);
             parameters.setRotation(result);
             parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+            Camera.Size previewSize = determineBestPreviewSize(parameters);
+            Camera.Size pictureSize = determineBestPictureSize(parameters);
+            parameters.setPreviewSize(previewSize.width, previewSize.height);
+            parameters.setPictureSize(pictureSize.width, pictureSize.height);
             mCamera.setParameters(parameters);
 
             if (mIsCapturing) {
                 mCamera.startPreview();
             }
+
+            setSurfaceSize(mSurfaceView.getHolder());
+            mSurfaceView.requestLayout();
         } catch (Exception e) {
             //showSnackBar(layoutCapture, getString(R.string.unable_camera));
         }
@@ -359,4 +368,41 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
             }
         }
     };
+
+    public static Camera.Size determineBestPreviewSize(Camera.Parameters parameters) {
+        List<Camera.Size> sizes = parameters.getSupportedPreviewSizes();
+        return determineBestSize(sizes);
+    }
+
+    public static Camera.Size determineBestPictureSize(Camera.Parameters parameters) {
+        List<Camera.Size> sizes = parameters.getSupportedPictureSizes();
+        return determineBestSize(sizes);
+    }
+
+    protected static Camera.Size determineBestSize(List<Camera.Size> sizes) {
+        Camera.Size bestSize = null;
+        long used = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+        long availableMemory = Runtime.getRuntime().maxMemory() - used;
+        for (Camera.Size currentSize : sizes) {
+            int newArea = currentSize.width * currentSize.height;
+            long neededMemory = newArea * 4 * 4; // newArea * 4 Bytes/pixel * 4 needed copies of the bitmap (for safety :) )
+            boolean isDesiredRatio = (currentSize.width / 4) == (currentSize.height / 3);
+            boolean isBetterSize = (bestSize == null || currentSize.width > bestSize.width);
+            boolean isSafe = neededMemory < availableMemory;
+            if (isDesiredRatio && isBetterSize && isSafe) {
+                bestSize = currentSize;
+            }
+        }
+        if (bestSize == null) {
+            return sizes.get(0);
+        }
+        return bestSize;
+    }
+
+
+    private void setSurfaceSize(SurfaceHolder surfaceHolder)
+    {
+        Camera.Size bestSize = mCamera.getParameters().getPreviewSize();
+        surfaceHolder.setFixedSize(bestSize.width, bestSize.height);
+    }
 }
