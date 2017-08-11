@@ -29,7 +29,7 @@
              android:gravity="center"
              android:background="@drawable/input_border_login"
              app:hintColor="@color/colorText"
-             app:hintText="@string/hint_numero_usuario"/>
+             app:hintText="@string/error_empty_id_afiliador"/>
         </LinearLayout>
 
         <LinearLayout

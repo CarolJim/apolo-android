@@ -117,21 +117,15 @@
 
         </LinearLayout>
 
-        <FrameLayout
-            android:id="@+id/girarCamara"
+        <android.support.v7.widget.AppCompatImageView
+            android:scaleType="fitXY"
+            android:id="@+id/turn_camera"
+            android:background="@drawable/turn_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <android.support.v7.widget.AppCompatImageView
-                android:scaleType="fitXY"
-                android:id="@+id/turn_camera"
-                android:background="@drawable/turn_camera"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="visible" />
-        </FrameLayout>
+            android:visibility="visible" />
+
 
     </FrameLayout>
 

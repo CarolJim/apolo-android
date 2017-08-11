@@ -52,7 +52,6 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
     @BindView(R.id.action_capture) AppCompatImageView btnCapture;
     @BindView(R.id.turn_camera) AppCompatImageView turnCamera;
     @BindView(R.id.camera_frame) FrameLayout camera_frame;
-    @BindView(R.id.girarCamara) FrameLayout frameCamera;
     @BindView(R.id.progress_view_activity) LinearLayout progress;
     private Documento documentSaver;
     private Bitmap mBitmapTaken;
@@ -235,10 +234,7 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
     }
 
     private void onAnimation(){
-        Animation anim = AnimationUtils.loadAnimation(CaptureActivity.this, R.anim.rotate);
-        anim.reset();
-        frameCamera.clearAnimation();
-        frameCamera.startAnimation(anim);
+        Animation
         anim = AnimationUtils.loadAnimation(CaptureActivity.this, R.anim.rotate);
         anim.reset();
         turnCamera.clearAnimation();

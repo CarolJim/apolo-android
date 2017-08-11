@@ -76,7 +76,7 @@ public class LoginActivity extends BasePresenterPermissionActivity<LoginPresente
 
     @Override
     public void setUserNumberError() {
-        showMessage(getString((R.string.hint_numero_usuario))); //showSnackBar(layoutLogin,getString((R.string.hint_numero_usuario)));
+        showMessage(getString((R.string.error_empty_id_afiliador))); //showSnackBar(layoutLogin,getString((R.string.hint_numero_usuario)));
     }
 
     @Override public void setNavigation() {
