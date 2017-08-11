@@ -6,13 +6,13 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatImageView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
@@ -41,7 +41,7 @@ public class StatusProgresFragment extends DialogFragment  {
     @BindView(R.id.status_view)
     CircularProgressBar statusViewCupo;
     @BindView(R.id.progressDocuments) MaterialTextView mProgressDocuments;
-    @BindView(R.id.ivStatus) ImageView mIvStatus;
+    @BindView(R.id.ivStatus) AppCompatImageView mIvStatus;
     @BindView(R.id.fl_Progress) FrameLayout mFlProgress;
     @BindView(R.id.ll_Status) LinearLayout mLlStatus;
     @BindView(R.id.tv_Status) MaterialTextView mTvStatus;
@@ -157,7 +157,7 @@ public class StatusProgresFragment extends DialogFragment  {
                 mIvStatus.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.ic_error_new));
                 mTvStatus.setText(getString(R.string.dialog_status_failure));
                 mCurrentAction = EVENT_REGISTER_REINTENT;
-                mBtnAction.setText(getString(R.string.txt_reintent));
+                mBtnAction.setText(getString(R.string.txt_btn_reintent));
                 enableBtn(true);
                 return;
             }

@@ -12,7 +12,7 @@
     <path
         android:name="rectangle3"
         android:pathData="M 0,83.1 C 0,86.41 2.69,89.1 6,89.1 L 322,89.1 C 325.31,89.1 328,86.41 328,83.1 L 328,6 C 328,2.69 325.31,0 322,0 L 6,0 C 2.69,0 0,2.69 0,6 L 0,83.1 Z"
-        android:fillColor="#D2D2D2"
+        android:fillColor="@color/layer_cardview"
         android:fillAlpha="0.26" />
     
     <!-- Label -->

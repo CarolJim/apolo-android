@@ -14,6 +14,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -86,7 +87,7 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
-        validateEditText(btnRegister, edtCellPhone);
+        validateEditText(btnRegister);
         initData();
         mPromotor = pref.getCurrentPromotor();
         setValuesDefaultForm();
@@ -127,10 +128,10 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         presenter = new RegisterPresenterImpl(this);
     }
 
-    private void validateEditText(MaterialButton btnRegister, MaterialValidationEditText edtCellPhone){
+    private void validateEditText(MaterialButton btnRegister){
         if(edtCellPhone != null && btnRegister != null){
             ValidateForm.enableBtn(false, btnRegister);
-            ValidateForm.validateEditText(btnRegister, edtCellPhone);
+            ValidateForm.validateEditText(btnRegister);
         }
     }
 
@@ -360,11 +361,11 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         /*if(getFormularioAfiliacion().getTelefonoMovil().isEmpty()){
             showMessage(getString(R.string.error_phone_empty));
             return;
-        }*/
+        }
         if(!edtCellPhone.isValidField()){
             showMessage(getString(R.string.error_cellphone_empty));
             return;
-        }
+        }*/
         String errorDocument = "";
         for(Documento documento: getFormularioAfiliacion().getDocumentos()){
             if(documento.getDocumentoBase64().isEmpty() || documento.getLongitud() == 0){
@@ -448,6 +449,7 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         ArrayList<Documento> documents = (ArrayList<Documento>) getFormularioAfiliacion().getDocumentos();
 
         if(shouldAddDocument) {
+            ValidateForm.enableBtn(true, btnRegister);
             ivCheck.setImageResource(R.drawable.ic_check_ap);
             documents.remove(currentIndex);
             documents.add(currentIndex, currentDocument);

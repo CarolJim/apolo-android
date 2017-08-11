@@ -35,11 +35,11 @@
             android:textColor="@color/colorPrimary"
             app:tipo="Titulo"/>
         <FrameLayout
+            android:visibility="visible"
+            android:id="@+id/fl_Progress"
             android:layout_width="200dp"
             android:layout_height="200dp">
             <FrameLayout
-                android:visibility="visible"
-                android:id="@+id/fl_Progress"
                 android:layout_margin="@dimen/dimen_margin_large"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -59,18 +59,30 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </FrameLayout>
-            <LinearLayout
-                android:visibility="gone"
-                android:id="@+id/ll_Status"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:layout_weight="1"
+        </FrameLayout>
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_Status"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/dimen_margin_medium"
+            android:layout_marginRight="@dimen/dimen_margin_medium">
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:scaleType="fitXY"
+                    android:layout_gravity="center"
                     android:contentDescription="@null"
-                    android:id="@+id/ivStatus"
+                    android:layout_marginTop="@dimen/dimen_margin_large"
+                    android:id="@+id/ivStatus"/>
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="0dp" />
+                    android:layout_height="6dp"
+                    android:layout_marginTop="@dimen/dimen_margin_xl"
+                    android:background="@drawable/border_radius_inactive"/>
                 <com.pagatodo.apolo.utils.customviews.MaterialTextView
                     android:layout_margin="@dimen/dimen_margin_medium"
                     android:id="@+id/tv_Status"
@@ -79,9 +91,8 @@
                     app:tipo="Descripcion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
-            </LinearLayout>
+        </LinearLayout>
 
-        </FrameLayout>
         </LinearLayout>
         </LinearLayout>
 

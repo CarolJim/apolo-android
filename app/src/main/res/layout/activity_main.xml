@@ -79,6 +79,7 @@
                             android:layout_gravity="center"
                             android:adjustViewBounds="true"
                             android:scaleType="fitCenter"
+                            android:layout_marginTop="@dimen/marginTop"
                             tools:ignore="VectorDrawableCompat"
                             app:srcCompat="@drawable/ic_mobile_ap"/>
                     </FrameLayout>
@@ -110,6 +111,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center|end|right"
                             tools:ignore="VectorDrawableCompat"
+                            android:layout_marginTop="-2dp"
                             android:visibility="visible"/>
                     </FrameLayout>
                 </LinearLayout>
@@ -117,7 +119,6 @@
                 <LinearLayout
                     android:layout_marginLeft="@dimen/dimen_margin_medium"
                     android:layout_marginRight="@dimen/dimen_margin_medium"
-                    android:layout_marginBottom="@dimen/dimen_margin_small"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -131,6 +132,7 @@
                             android:layout_gravity="center"
                             android:adjustViewBounds="true"
                             android:scaleType="fitCenter"
+                            android:layout_marginTop="@dimen/marginTop"
                             tools:ignore="VectorDrawableCompat"
                             app:srcCompat="@drawable/ic_phone_ap"/>
                     </FrameLayout>
