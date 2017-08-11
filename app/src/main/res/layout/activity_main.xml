@@ -18,15 +18,13 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <LinearLayout
-                android:gravity="center"
                 android:orientation="vertical"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp">
                 <LinearLayout
-                    android:layout_marginLeft="@dimen/dimen_margin_medium"
-                    android:layout_marginRight="@dimen/dimen_margin_medium"
-                    android:layout_marginBottom="@dimen/dimen_margin_small"
+                    android:layout_gravity="top"
+                    android:layout_margin="@dimen/dimen_margin_medium"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -42,8 +40,7 @@
                             android:textSize="@dimen/dimen_textSize_xl"
                             android:text="@string/name_agente"
                             android:textColor="@color/colorText"
-                            app:tipo="Titulo"
-                            android:lineSpacingExtra="0sp" />
+                            app:tipo="Titulo" />
                     </FrameLayout>
                     <FrameLayout
                         android:layout_weight="0.5"

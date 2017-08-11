@@ -114,7 +114,7 @@ public class StatusProgresFragment extends DialogFragment  {
         if(mLlStatus != null){
             startAnimView(mFlProgress, GONE);
             startAnimView(mLlStatus, VISIBLE);
-            mIvStatus.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.ic_error_new));
+            mIvStatus.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_upload_error_ap));
             mTvStatus.setText(message);
             mCurrentAction = EVENT_REGISTER_REINTENT;
             mBtnAction.setText(getString(R.string.txt_btn_reintent));
@@ -154,7 +154,7 @@ public class StatusProgresFragment extends DialogFragment  {
             if(mLlStatus != null){
                 startAnimView(mFlProgress, GONE);
                 startAnimView(mLlStatus, VISIBLE);
-                mIvStatus.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.ic_error_new));
+                mIvStatus.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_upload_error_ap));
                 mTvStatus.setText(getString(R.string.dialog_status_failure));
                 mCurrentAction = EVENT_REGISTER_REINTENT;
                 mBtnAction.setText(getString(R.string.txt_btn_reintent));
