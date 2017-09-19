@@ -14,6 +14,8 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -59,7 +61,7 @@ import static com.pagatodo.apolo.ui.base.BaseEventContract.KEY_FOLIO;
 import static com.pagatodo.apolo.utils.Constants.CAPTURE_REQUEST_CODE;
 import static com.pagatodo.apolo.utils.Constants.PREVIEW_REQUEST_CODE;
 
-public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPresenter> implements RegisterView, IValidateForms  {
+public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPresenter> implements RegisterView, IValidateForms {
     private static final String DIALOG_PROGRESS_REGISTER = "dialogProgressRegister";
 
     private final String TAG = "MainActivity";
@@ -75,6 +77,7 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
     private Promotor mPromotor = new Promotor();
     private StatusProgresFragment statusProgresFragment = null;
     private Documento rvSelectedItem;
+    int maxLengthPhone = 10;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -92,7 +95,6 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         mPromotor = pref.getCurrentPromotor();
         setValuesDefaultForm();
         initFragments();
-
     }
     private void initFragments() {
         statusProgresFragment = StatusProgresFragment.newInstance(getTasks());
@@ -255,36 +257,41 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         pref.saveDataBool(String.valueOf(Constants.ENABLE_VERIFY), true);
         edtCellPhone.setText(instance.get(Constants.SOL_CELULAR));
         edtPhone.setText(instance.get(Constants.SOL_TELEFONO));
-        edtPhone.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
-                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    hideSoftKeyboard();
-                    return true;
-                }
-                return false;
-            }
-        });
 
-        edtCellPhone.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (edtCellPhone.getText().length() == 10 && keyCode != KeyEvent.KEYCODE_DEL) {
-                    enableVerificateSMS(true);
-                    return true;
-                } else if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
-                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    edtPhone.requestFocus();
-                    return true;
-                } else {
-                    enableVerificateSMS(false);
-                    return false;
-                }
-            }
-        });
-
+        edtCellPhone.setAddTextChangedListener(cellPhoneTextWatcher);
+        edtPhone.setAddTextChangedListener(phoneTextWatcher);
     }
+
+    private TextWatcher cellPhoneTextWatcher = new TextWatcher() {
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            String cellphoneLength = edtCellPhone.getText().toString().trim();
+            if(cellphoneLength.length() == maxLengthPhone){
+                enableVerificateSMS(true);
+                edtPhone.requestFocus();
+            } else {
+                enableVerificateSMS(false);
+            }
+        }
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+        @Override
+        public void afterTextChanged(Editable s) {}
+    };
+
+    private TextWatcher phoneTextWatcher = new TextWatcher() {
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            String phoneLength = edtPhone.getText().toString().trim();
+            if(phoneLength.length() == maxLengthPhone){
+                hideSoftKeyboard();
+            }
+        }
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+        @Override
+        public void afterTextChanged(Editable s) {}
+    };
 
     @Override
     public void onEvent(String event, Object data) {
@@ -397,7 +404,6 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         getFormularioAfiliacion().setTelefonoMovil(edtCellPhone.getText());
     }
     private void enableVerificateSMS(boolean enable){
-
         Boolean verificadoState = pref.loadBoolean(String.valueOf(Constants.CODIGO_VERIFICADO));
         Boolean enableVerify    = pref.loadBoolean(String.valueOf(Constants.ENABLE_VERIFY));
 

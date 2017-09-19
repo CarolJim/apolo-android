@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.util.Base64;
+import android.util.Log;
 import android.view.Display;
 
 import java.io.ByteArrayOutputStream;
@@ -30,9 +31,9 @@ public class Base64Utils {
             mOutputStream.flush();
             mOutputStream.close();
         } catch (IOException e) {
+
             e.printStackTrace();
         }
-
         return Base64.encodeToString(mByteArray, Base64.DEFAULT);
     }
 

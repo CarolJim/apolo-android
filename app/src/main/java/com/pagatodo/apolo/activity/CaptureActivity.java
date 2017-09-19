@@ -148,6 +148,7 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
         BitmapFactory.Options opts = new BitmapFactory.Options();
         opts.inJustDecodeBounds = false;
         opts.inPreferredConfig = Bitmap.Config.RGB_565;
+        opts.inSampleSize = 2;
         opts.inDither = true;
 
         mBitmapTaken = BitmapFactory.decodeByteArray(mCameraData, 0, mCameraData.length, opts);
