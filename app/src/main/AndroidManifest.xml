@@ -59,6 +59,14 @@
         <activity
             android:name=".activity.ConfirmateActivity"
             android:screenOrientation="portrait"/>
+        <!-- Activity Menu -->
+        <activity
+            android:name=".activity.MenuActivity"
+            android:screenOrientation="portrait"/>
+        <!-- Activity WebView -->
+        <activity
+            android:name=".activity.WebViewActivity"
+            android:screenOrientation="portrait"/>
 
         <receiver android:name=".receiver.ReceiverSms">
             <intent-filter>

@@ -25,6 +25,8 @@ public final class Constants {
     public static final String URL_SERVER               = "http://10.10.45.17:8027/WSSolicitudCreditoAdultoMayor.svc"; // QA
     public static final String URL_SERVER_MEGA 	        = "http://10.10.45.16:62703/ServiceMega.svc/http";
     public static final String URL_REMOTE_CONFIG        = "https://apolo-8e38a.firebaseapp.com/config.json";
+    //public static final String URL_REGISTER_WEB       = "http://www.capitalsocial.com/";
+    public static final String URL_REGISTER_WEB         = "http://10.10.45.17:8027/Web_CreditosAdultoMayor";
     public static final int TIMEOUT = 40000;
     public static final int TIME_TO_RETURN= 2000;
 

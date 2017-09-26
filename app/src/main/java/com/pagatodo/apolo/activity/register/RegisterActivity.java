@@ -23,6 +23,7 @@ import android.view.View;
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.activity.CaptureActivity;
 import com.pagatodo.apolo.activity.ConfirmateActivity;
+import com.pagatodo.apolo.activity.MenuActivity;
 import com.pagatodo.apolo.activity.PreviewImageActivity;
 import com.pagatodo.apolo.activity.login.LoginActivity;
 import com.pagatodo.apolo.activity.register._presenter.RegisterPresenterImpl;
@@ -245,7 +246,9 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
 
     @Override
     public void onBackPressed() {
-        moveTaskToBack(true);
+        //moveTaskToBack(true);
+        showView(MenuActivity.class);
+        finish();
     }
 
     public void assignData(){

@@ -9,14 +9,12 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import com.pagatodo.apolo.R;
+import com.pagatodo.apolo.activity.MenuActivity;
 import com.pagatodo.apolo.activity.login.LoginActivity;
-import com.pagatodo.apolo.activity.register.RegisterActivity;
 import com.pagatodo.apolo.activity.splash._presenter.SplashPresenter;
 import com.pagatodo.apolo.activity.splash._presenter._interfaces.ISplashPresenter;
 import com.pagatodo.apolo.activity.splash._presenter._interfaces.ISplashView;
-import com.pagatodo.apolo.ui.base.factoryactivities.BaseActivity;
 import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterActivity;
 
 import butterknife.BindView;
@@ -88,7 +86,7 @@ public class SplashActivity extends BasePresenterActivity<ISplashPresenter> impl
         splashHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(SplashActivity.this, pref.containsData(SESSION_ACTIVE) ? RegisterActivity.class : LoginActivity.class);
+                Intent i = new Intent(SplashActivity.this, pref.containsData(SESSION_ACTIVE) ? MenuActivity.class : LoginActivity.class);
                 startActivity(i);
             }
         },HANDLER_DELAY);

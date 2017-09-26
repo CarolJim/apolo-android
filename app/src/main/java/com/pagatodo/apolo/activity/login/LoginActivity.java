@@ -4,6 +4,7 @@ import android.Manifest;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 
+import com.pagatodo.apolo.activity.MenuActivity;
 import com.pagatodo.apolo.activity.login._presenter._interfaces.LoginPresenter;
 import com.pagatodo.apolo.activity.login._presenter.LoginPresenterImpl;
 import com.pagatodo.apolo.activity.login._presenter._interfaces.LoginView;
@@ -80,7 +81,7 @@ public class LoginActivity extends BasePresenterPermissionActivity<LoginPresente
     }
 
     @Override public void setNavigation() {
-        showView(RegisterActivity.class);
+        showView(MenuActivity.class);
         finish();
     }
 

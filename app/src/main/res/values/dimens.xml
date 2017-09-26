@@ -27,6 +27,7 @@
 
     <!-- Buttons -->
     <dimen name="dimen_button_height">45dp</dimen>
+    <dimen name="dimen_button_height_xl">80dp</dimen>
     <dimen name="dimen_button_radius">6dp</dimen>
 
     <!-- Edittext -->
@@ -74,5 +75,7 @@
     <dimen name="pin_min_width">32dp</dimen>
 
     <dimen name="capture_area_height">250dp</dimen>
+    
+    <dimen name="toolbar_size">40dp</dimen>
 
 </resources>
