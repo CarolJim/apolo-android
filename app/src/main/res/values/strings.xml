@@ -6,7 +6,7 @@
     <string name="name_agente">Afiliador</string>
     <string name="name_agente_format">%1$s %2$s %3$s</string>
 
-    <string name="editText_celular">Ingresa el Número de Móvil</string>
+    <string name="editText_celular">Ingresa el Número de Celular</string>
     <string name="editText_telefono">Ingresa el Número de Casa</string>
     <string name="txt_card">TARJETA</string>
     <string name="txt_ine_front">INE FRENTE</string>
