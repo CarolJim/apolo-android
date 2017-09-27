@@ -2,7 +2,6 @@ package com.pagatodo.apolo.activity;
 
 import android.os.Bundle;
 import com.pagatodo.apolo.R;
-import com.pagatodo.apolo.activity.login.LoginActivity;
 import com.pagatodo.apolo.ui.base.factoryactivities.BaseActivity;
 import com.pagatodo.apolo.utils.ValidateForm;
 import com.pagatodo.apolo.utils.customviews.MaterialButton;
@@ -49,9 +48,9 @@ public class ConfirmateActivity extends BaseActivity {
 
     @OnClick(R.id.btnFinalizar)
     public void end() {
-        pref.destroySession();
+        //pref.destroySession();
         instance.clearHashMap();
-        showView(LoginActivity.class);
+        showView(MenuActivity.class);
         finish();
     }
 
