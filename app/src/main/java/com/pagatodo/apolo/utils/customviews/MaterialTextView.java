@@ -20,7 +20,7 @@ public class MaterialTextView extends AppCompatTextView {
 
     public MaterialTextView(Context context) {
         super(context);
-        //applyFont(context);
+        applyFont(context);
     }
 
     public MaterialTextView(Context context, AttributeSet attrs) {
@@ -32,7 +32,7 @@ public class MaterialTextView extends AppCompatTextView {
     public MaterialTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         handlAttrs(context, attrs);
-//        applyFont(context);
+        applyFont(context);
 
     }
 

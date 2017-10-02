@@ -6,9 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.data.model.Cards;
 import com.pagatodo.apolo.ui.base.factoryinterfaces.IEventOnFragment;
+import com.pagatodo.apolo.utils.customviews.MaterialTextView;
 
 import java.util.List;
 
@@ -22,6 +25,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.mViewHolde
 
     private List<Cards> cardsList;
     private Context mContext;
+    private final static int FADE_DURATION = 1000; // in milliseconds
 
     public CustomAdapter(Context mContext, List<Cards> cardList) {
         this.mContext = mContext;
@@ -48,7 +52,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.mViewHolde
     @Override
     public void onBindViewHolder(final mViewHolder holder, final int position) {
         final Cards items = cardsList.get(position);
-        holder.typeCards.setImageResource(items.getTypeCard());
+        holder.typeCards.setText(items.getTypeCard());
         holder.thumbCards.setImageResource(items.getThumbCard());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -59,6 +63,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.mViewHolde
             }
         });
 
+        setFadeAnimation(holder.itemView);
+    }
+
+    private void setFadeAnimation(View view) {
+        AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(FADE_DURATION);
+        view.startAnimation(anim);
     }
 
     @Override
@@ -66,9 +77,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.mViewHolde
         return cardsList.size();
     }
 
-
     protected class mViewHolder extends RecyclerView.ViewHolder {
-        AppCompatImageView typeCards;
+        MaterialTextView typeCards;
         AppCompatImageView thumbCards;
         AppCompatImageView checkCards;
 

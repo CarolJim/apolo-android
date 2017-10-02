@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.pagatodo.apolo.R;
+import com.pagatodo.apolo.activity.login.LoginActivity;
 import com.pagatodo.apolo.activity.register.RegisterActivity;
 import com.pagatodo.apolo.activity.splash.SplashActivity;
 import com.pagatodo.apolo.ui.base.factoryactivities.BaseActivity;
@@ -16,6 +17,8 @@ import com.pagatodo.apolo.utils.customviews.MaterialTextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.pagatodo.apolo.App.instance;
 
 /**
  * Created by rvargas on 22/09/2017.
@@ -75,10 +78,7 @@ public class MenuActivity extends BaseActivity {
             public boolean onMenuItemClick(MenuItem items) {
                 switch (items.getItemId()) {
                     case R.id.logoutPromotor:
-                        //presenter.logout();
-                        //onDestroy();
                         starActivity();
-                        finish();
                         break;
                     default:
                         break;
@@ -90,7 +90,8 @@ public class MenuActivity extends BaseActivity {
 
     public void starActivity(){
         pref.destroySession();
-        Intent myIntent = new Intent(this, SplashActivity.class);
-        this.startActivity(myIntent);
+        instance.clearHashMap();
+        showView(LoginActivity.class);
+        finish();
     }
 }

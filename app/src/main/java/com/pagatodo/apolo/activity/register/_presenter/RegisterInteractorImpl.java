@@ -27,8 +27,7 @@ public class RegisterInteractorImpl implements RegisterInteractor {
 
     @Override
     public void onRequestData(final List<Cards> cardsList, final onRequestListener listener) {
-
-        int[] cards = new int[]{R.drawable.btn_tarjeta_ap, R.drawable.btn_inefrente_ap, R.drawable.btn_inevuelta_ap};
+        /*int[] cards = new int[]{R.drawable.btn_tarjeta_ap, R.drawable.btn_inefrente_ap, R.drawable.btn_inevuelta_ap};
         int[] brands = new int[]{R.drawable.ic_tarjeta_ap, R.drawable.ic_inefront_ap, R.drawable.ic_ineback_ap};
         int[] icon = new int[]{R.drawable.ic_check_ap, R.drawable.ic_check_ap, R.drawable.ic_check_ap};
 
@@ -38,7 +37,7 @@ public class RegisterInteractorImpl implements RegisterInteractor {
             items.setThumbCard(brands[i]);
             items.setIvCheck(icon[i]);
             cardsList.add(items);
-        }
+        }*/
         listener.onSuccessRequest();
     }
 

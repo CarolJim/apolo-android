@@ -109,6 +109,7 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         outState.putString(Constants.SOL_TARJETA, instance.get(Constants.SOL_TARJETA));
         outState.putString(Constants.SOL_IFE_FRENTE, instance.get(Constants.SOL_IFE_FRENTE));
         outState.putString(Constants.SOL_IFE_VUELTA, instance.get(Constants.SOL_IFE_VUELTA));
+        outState.putString(Constants.SOL_CREDITO_SIMPLE, instance.get(Constants.SOL_CREDITO_SIMPLE));
     }
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState){

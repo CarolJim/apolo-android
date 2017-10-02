@@ -50,7 +50,7 @@ public class WebViewActivity extends BaseActivity {
 
         initWebView();
 
-        webView.loadUrl(Constants.URL_REGISTER_WEB);
+
     }
 
     @Override
@@ -71,11 +71,14 @@ public class WebViewActivity extends BaseActivity {
 
     private void initWebView() {
 
+        webView.loadUrl(Constants.URL_REGISTER_WEB);
+
         if(error_network != null){
             error_network.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    webView.loadUrl(Constants.URL_REGISTER_WEB);
+                    isPageError = false;
+                    initWebView();
                 }
             });
         }
@@ -90,7 +93,7 @@ public class WebViewActivity extends BaseActivity {
                 isPageError = false;
                 invalidateOptionsMenu();
             }
-            // evita que los enlaces se abran fuera nuestra app en el navegador de android
+            // evita que los enlaces se abran fuera nuestra aplicacion en el navegador de android
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 webView.loadUrl(url);

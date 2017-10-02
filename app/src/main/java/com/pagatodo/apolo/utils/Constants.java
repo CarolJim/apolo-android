@@ -51,7 +51,8 @@ public final class Constants {
     public static final String SOL_TARJETA    = "Tarjeta";
     public static final String SOL_IFE_FRENTE = "IfeFrente";
     public static final String SOL_IFE_VUELTA = "IfeVuelta";
-    public static final Boolean CODIGO_VERIFICADO = false;
+    public static final String  SOL_CREDITO_SIMPLE = "CreditoSimple";
+    public static final Boolean CODIGO_VERIFICADO  = false;
     public static final Boolean ENABLE_VERIFY = true;
 
     //App Version
@@ -70,23 +71,27 @@ public final class Constants {
     public static final int SOLICITUD_IFE_INE_FRENTE    = 1;
     public static final int SOLICITUD_IFE_INE_REVERSO   = 2;
     public static final int SOLICITUD_ADULTO_MAYOR      = 3;
+    public static final int SOLICITUD_CREDITO_SIMPLE    = 4;
 
     public static final List<Documento> DOCUMENTS_LIST = new ArrayList<>();
     static {
-        DOCUMENTS_LIST.add(new Documento(SOLICITUD_IFE_INE_FRENTE, "IFE/INE FRENTE",         "", 0, "", ""));
-        DOCUMENTS_LIST.add(new Documento(SOLICITUD_IFE_INE_REVERSO, "IFE/INE REVERSO",        "", 0, "", ""));
-        DOCUMENTS_LIST.add(new Documento(SOLICITUD_ADULTO_MAYOR, "TARJETA ADULTO MAYOR",   "", 0, "", ""));
+        DOCUMENTS_LIST.add(new Documento(SOLICITUD_IFE_INE_FRENTE,  "IFE/INE FRENTE",        "", 0, "", ""));
+        DOCUMENTS_LIST.add(new Documento(SOLICITUD_IFE_INE_REVERSO, "IFE/INE REVERSO",       "", 0, "", ""));
+        DOCUMENTS_LIST.add(new Documento(SOLICITUD_ADULTO_MAYOR,    "TARJETA ADULTO MAYOR",  "", 0, "", ""));
+        DOCUMENTS_LIST.add(new Documento(SOLICITUD_CREDITO_SIMPLE,  "SOLICITUD DE CRÉDITO SIMPLE",        "", 0, "", ""));
     }
+
 
     public static final List<Cards> DOCUMENTS = new ArrayList<>();
     static {
-        DOCUMENTS.add(new Cards(R.drawable.btn_tarjeta_ap,  R.drawable.ic_tarjeta_ap,   R.drawable.ic_check_ap, DOCUMENTS_LIST.get(2)));
-        DOCUMENTS.add(new Cards(R.drawable.btn_inefrente_ap,R.drawable.ic_inefront_ap,  R.drawable.ic_check_ap, DOCUMENTS_LIST.get(0)));
-        DOCUMENTS.add(new Cards(R.drawable.btn_inevuelta_ap,R.drawable.ic_ineback_ap,   R.drawable.ic_check_ap, DOCUMENTS_LIST.get(1)));
+        DOCUMENTS.add(new Cards("TARJETA",  R.drawable.ic_tarjeta_ap,   R.drawable.ic_check_ap, DOCUMENTS_LIST.get(2)));
+        DOCUMENTS.add(new Cards("INE FRENTE",R.drawable.ic_inefront_ap,  R.drawable.ic_check_ap, DOCUMENTS_LIST.get(0)));
+        DOCUMENTS.add(new Cards("INE VUELTA",R.drawable.ic_ineback_ap,   R.drawable.ic_check_ap, DOCUMENTS_LIST.get(1)));
+        DOCUMENTS.add(new Cards("SOLICITUD DE CRÉDITO",  R.drawable.ic_credito,   R.drawable.ic_check_ap, DOCUMENTS_LIST.get(3)));
     }
-
 
     public static final int SOLICITUD_ADULTO_MAYOR_INDEX             = 0;
     public static final int SOLICITUD_IFE_INE_FRENTE_INDEX           = 1;
     public static final int SOLICITUD_IFE_INE_REVERSO_INDEX          = 2;
+    public static final int SOLICITUD_CREDITO_SIMPLE_INDEX           = 3;
 }

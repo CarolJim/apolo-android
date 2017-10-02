@@ -6,14 +6,14 @@ package com.pagatodo.apolo.data.model;
  */
 
 public class Cards {
-    private int TypeCard    = 0;
+    private String TypeCard;
     private int ThumbCard   = 0;
     private int ivCheck     = 0;
     private Documento documento = new Documento();
 
     public Cards() {}
 
-    public Cards(int typeCard, int thumbCard, int ivCheck, Documento documento) {
+    public Cards(String typeCard, int thumbCard, int ivCheck, Documento documento) {
         TypeCard = typeCard;
         ThumbCard = thumbCard;
         this.ivCheck = ivCheck;
@@ -28,11 +28,11 @@ public class Cards {
         this.documento = documento;
     }
 
-    public int getTypeCard() {
+    public String getTypeCard() {
         return TypeCard;
     }
 
-    public void setTypeCard(int typeCard) {
+    public void setTypeCard(String typeCard) {
         TypeCard = typeCard;
     }
 

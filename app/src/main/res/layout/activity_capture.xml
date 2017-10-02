@@ -48,6 +48,7 @@
                 android:gravity="center">
 
                 <View
+                    android:id="@+id/shape_capture_area"
                     android:layout_margin="@dimen/dimen_margin_large"
                     android:layout_gravity="center"
                     android:background="@drawable/shape_capture_area"

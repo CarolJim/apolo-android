@@ -70,7 +70,7 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
         tvMessage = findViewById(R.id.tvMessage);
         ivStatus  = findViewById(R.id.ivStatus);
         int inputType = EditorInfo.TYPE_NULL;
-        int textSize = 16;
+        int textSize = 15;
         String hint = null;
         int maxLength = 0;
         int maxLines = 1;

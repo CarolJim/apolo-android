@@ -24,6 +24,7 @@ import java.util.List;
 import static com.pagatodo.apolo.data.remote.RequestContract.DOCUMENT_UPLOAD;
 import static com.pagatodo.apolo.data.remote.RequestContract.DO_CREDIT_REQUEST_REGISTER;
 import static com.pagatodo.apolo.utils.Constants.SOLICITUD_ADULTO_MAYOR;
+import static com.pagatodo.apolo.utils.Constants.SOLICITUD_CREDITO_SIMPLE;
 import static com.pagatodo.apolo.utils.Constants.SOLICITUD_IFE_INE_FRENTE;
 import static com.pagatodo.apolo.utils.Constants.SOLICITUD_IFE_INE_REVERSO;
 import static com.pagatodo.networkframework.model.ResponseConstants.RESPONSE_CODE_OK;
@@ -227,6 +228,8 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterView> implement
                 return getString(R.string.template_doc_ine_reverso, folio);
             case SOLICITUD_ADULTO_MAYOR:
                 return getString(R.string.template_doc_adulto_mayor, folio);
+            case SOLICITUD_CREDITO_SIMPLE:
+                return getString(R.string.template_doc_credito_simple, folio);
             default:
                 return "";
         }
@@ -267,6 +270,8 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterView> implement
                 return  Constants.SOLICITUD_IFE_INE_FRENTE_INDEX;
             case SOLICITUD_IFE_INE_REVERSO:
                 return Constants.SOLICITUD_IFE_INE_REVERSO_INDEX;
+            case SOLICITUD_CREDITO_SIMPLE:
+                return Constants.SOLICITUD_CREDITO_SIMPLE_INDEX;
         }
         return 0;
     }

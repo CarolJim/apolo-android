@@ -12,36 +12,51 @@
     app:cardBackgroundColor="@color/layer_cardview">
 
     <LinearLayout
-        android:id="@+id/cards"
-        android:padding="@dimen/dimen_margin_small"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/typeCard"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:layout_gravity="center_vertical"
-                    tools:ignore="VectorDrawableCompat"
-                    app:srcCompat="@drawable/btn_tarjeta_ap"
-                    android:scaleType="fitCenter"/>
-            </RelativeLayout>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:orientation="vertical">
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/thumbCard"
-                android:layout_width="62dp"
-                android:layout_height="43dp"
-                android:layout_gravity="center_vertical|start|left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/dimen_margin_large"
                 android:layout_marginLeft="@dimen/dimen_margin_large"
                 tools:ignore="VectorDrawableCompat"
                 app:srcCompat="@drawable/ic_tarjeta_ap"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitCenter"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:orientation="vertical">
+            <com.pagatodo.apolo.utils.customviews.MaterialTextView
+                android:id="@+id/typeCard"
+                android:layout_gravity="start|center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dimen_textSize_large"
+                android:text="@string/txt_card"
+                android:textStyle="bold"
+                android:textColor="@color/txtRecyclerView"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                app:tipo="Titulo" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/ivCheck"
                 android:layout_width="@dimen/ic_check_ap_width"
@@ -50,6 +65,8 @@
                 android:layout_marginRight="@dimen/dimen_margin_large"
                 android:layout_marginEnd="@dimen/dimen_margin_large"
                 android:scaleType="fitCenter"/>
-        </FrameLayout>
+        </LinearLayout>
+
     </LinearLayout>
+
 </android.support.v7.widget.CardView>

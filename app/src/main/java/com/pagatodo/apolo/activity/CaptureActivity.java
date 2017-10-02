@@ -3,12 +3,9 @@ package com.pagatodo.apolo.activity;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.graphics.Point;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
@@ -16,7 +13,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.AppCompatImageView;
-import android.view.Display;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -27,9 +23,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import com.pagatodo.apolo.R;
-import com.pagatodo.apolo.activity.login.LoginActivity;
-import com.pagatodo.apolo.activity.register.RegisterActivity;
-import com.pagatodo.apolo.activity.splash.SplashActivity;
 import com.pagatodo.apolo.data.model.Documento;
 import com.pagatodo.apolo.ui.base.factoryactivities.BaseActivity;
 import com.pagatodo.apolo.utils.Base64Utils;
@@ -38,8 +31,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.pagatodo.apolo.data.local.PreferencesContract.SESSION_ACTIVE;
 import static com.pagatodo.apolo.ui.UI.showSnackBar;
+import static com.pagatodo.apolo.utils.Constants.SOLICITUD_CREDITO_SIMPLE;
 
 public class CaptureActivity extends BaseActivity implements PictureCallback, SurfaceHolder.Callback {
     private static final String TAG = "CaptureActivity";
@@ -49,6 +42,7 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
     @BindView(R.id.layoutCapture) CoordinatorLayout layoutCapture;
     @BindView(R.id.camera_image_view) AppCompatImageView mCameraImage;
     @BindView(R.id.preview_view) SurfaceView mSurfaceView;
+    @BindView(R.id.shape_capture_area) View shape_capture_area;
     @BindView(R.id.action_reintent) AppCompatImageView btnReintent;
     @BindView(R.id.action_save) AppCompatImageView btnSave;
     @BindView(R.id.action_capture) AppCompatImageView btnCapture;
@@ -73,6 +67,11 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         onAnimation();
         mIsCapturing = true;
+
+        if(documentSaver.getIdTipoDocumento()==SOLICITUD_CREDITO_SIMPLE) {
+            shape_capture_area.setVisibility(View.INVISIBLE);
+        }
+
     }
 
     @Override
@@ -206,13 +205,15 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
         camera_frame.setVisibility(View.INVISIBLE);
         progress.setVisibility(View.VISIBLE);
 
-        mBitmapTaken = Bitmap.createBitmap(
-                mBitmapTaken,
-                (int) (mBitmapTaken.getWidth() * .19),
-                (int) (mBitmapTaken.getHeight() * .11),
-                (int) (mBitmapTaken.getWidth() * .6),
-                (int) (mBitmapTaken.getHeight() * .7)
-        );
+        if(documentSaver.getIdTipoDocumento() != SOLICITUD_CREDITO_SIMPLE){
+            mBitmapTaken = Bitmap.createBitmap(
+                    mBitmapTaken,
+                    (int) (mBitmapTaken.getWidth() * .19),
+                    (int) (mBitmapTaken.getHeight() * .11),
+                    (int) (mBitmapTaken.getWidth() * .6),
+                    (int) (mBitmapTaken.getHeight() * .7)
+            );
+        }
 
         String encodedImage = Base64Utils.getEncodedString(mBitmapTaken);
         documentSaver.setDocumentoBase64(encodedImage);
