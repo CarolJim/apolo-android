@@ -83,6 +83,7 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
                 ValidateForm.enableBtn(true, (MaterialButton) btnValidar);
                 btnValidar.setText(getString(R.string.txt_button_continue));
                 stopTimer = true;
+                hideSoftKeyboard();
             }
         });
     }
@@ -139,6 +140,7 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
                 showSnackBar(layoutSms, response.getRespuesta().getMensaje());
                 if(dataManager.getMethod()== SMS_CODE_VALIDATION) {
                     ValidateForm.enableBtn(false, (MaterialButton) btnValidar);
+                    pinView.clearText();
                     stopTimer = false;
                     timer();
                 }
@@ -149,6 +151,7 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
     public void onFailed(DataManager dataManager) {
         if(dataManager.getData() instanceof String){
             hideProgress();
+            pinView.clearText();
             showSnackBar(layoutSms, (String)dataManager.getData());
         }
         switch (dataManager.getMethod()){
@@ -173,6 +176,7 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
                     isFinish = true;
                     hideSoftKeyboard();
                     ValidateForm.enableBtn(true, (MaterialButton) btnValidar);
+                    pinView.clearText();
                     btnValidar.setText(getString(R.string.txt_button_reenviar));
                 } else if (stopTimer) {
                     seconds = timeRemaining;
