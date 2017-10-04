@@ -12,13 +12,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.activity.smsverification._presenter._interfaces.SmsPresenter;
 import com.pagatodo.apolo.activity.smsverification._presenter.SmsPresenterImpl;
@@ -29,6 +23,7 @@ import com.pagatodo.apolo.utils.Constants;
 import com.pagatodo.apolo.utils.ValidateForm;
 import com.pagatodo.apolo.utils.customviews.MaterialButton;
 import com.pagatodo.apolo.utils.customviews.MaterialTextView;
+import com.pagatodo.apolo.utils.customviews.pin_keyboard.PinKeyboardView;
 import com.pagatodo.networkframework.DataManager;
 
 import butterknife.BindView;
@@ -46,26 +41,19 @@ import static com.pagatodo.networkframework.model.ResponseConstants.RESPONSE_COD
  * Created by rvargas on 21-07-17.
  */
 
-public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements SmsView, View.OnFocusChangeListener, View.OnKeyListener, TextWatcher {
+public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements SmsView {
+
     private final String TAG = "SmsActivity";
     @BindView(R.id.layoutSms) CoordinatorLayout layoutSms;
     @BindView(R.id.btnValidar) Button btnValidar;
-    @BindView(R.id.pin_one) EditText mPinOne;
-    @BindView(R.id.pin_two) EditText mPinTwo;
-    @BindView(R.id.pin_three) EditText mPinThree;
-    @BindView(R.id.pin_four) EditText mPinFour;
-    @BindView(R.id.pin_five) EditText mPinFive;
-    @BindView(R.id.pin_six)  EditText mPinSix;
-    @BindView(R.id.editText_otp) EditText editTextOtp;
     @BindView(R.id.tvTitle) MaterialTextView tvTitle;
-    private String codeGenerate = "";
     private int seconds = 30;
     private boolean stopTimer = false;
-    private boolean flag = true;
     private boolean isFinish = false;
     private int timeRemaining = 0;
-    private int minLenghtPin  = 0;
-    private int maxLenghtPin  = 6;
+    private String codigoSMS = null;
+    private PinKeyboardView pinView;
+    private int pinLength = 6;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,7 +61,6 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
         // setContentView(R.layout.activity_sms);
         inflateView(this, R.layout.activity_sms);
         ButterKnife.bind(this);
-        setPINListeners();
 
         //Setting Activity ToolBar reference
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
@@ -88,6 +75,16 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
         initPresentConfirmation();
+
+        pinView = (PinKeyboardView) findViewById(R.id.pin_entry);
+        pinView.setOnPinEnteredListener(new PinKeyboardView.OnPinEnteredListener() {
+            @Override
+            public void onPinEntered(String pin) {
+                ValidateForm.enableBtn(true, (MaterialButton) btnValidar);
+                btnValidar.setText(getString(R.string.txt_button_continue));
+                stopTimer = true;
+            }
+        });
     }
 
     @Override
@@ -114,8 +111,6 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
     *********************************
     */
     public void initPresentConfirmation(){
-        ViewGroup group = (ViewGroup) findViewById(R.id.allClear);
-        clearEditext(group);
         presenter.confirmation(instance.get(Constants.SOL_CELULAR));
     }
     @Override
@@ -215,7 +210,7 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
 
     public void validateForm() {
         getDataForm();
-        if(codeGenerate.isEmpty()){
+        if(codigoSMS.isEmpty() || codigoSMS.length() < pinLength){
             showSnackBar(layoutSms,getString(R.string.error_codigo_empty));
             return;
         }
@@ -223,9 +218,8 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
     }
 
     public void onValidationSuccess() {
-        codeGenerate = codeGenerate.replace(" ", "");
         if(isOnline())
-            presenter.validation(instance.get(Constants.SOL_CELULAR), codeGenerate);
+            presenter.validation(instance.get(Constants.SOL_CELULAR), codigoSMS);
         else
             showSnackBar(layoutSms,getString(R.string.network_error));
     }
@@ -241,180 +235,6 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
         hideSoftKeyboard();
     }
 
-    @Override
-    public void onFocusChange(View v, boolean hasFocus) {
-        final int id = v.getId();
-        switch (id) {
-            case R.id.pin_one:
-                if (hasFocus) {
-                    setFocus(editTextOtp);
-                    showSoftKeyboard();
-                }
-                break;
-            case R.id.pin_two:
-                if (hasFocus) {
-                    setFocus(editTextOtp);
-                    showSoftKeyboard();
-                }
-                break;
-            case R.id.pin_three:
-                if (hasFocus) {
-                    setFocus(editTextOtp);
-                    showSoftKeyboard();
-                }
-                break;
-            case R.id.pin_four:
-                if (hasFocus) {
-                    setFocus(editTextOtp);
-                    showSoftKeyboard();
-                }
-                break;
-            case R.id.pin_five:
-                if (hasFocus) {
-                    setFocus(editTextOtp);
-                    showSoftKeyboard();
-                }
-                break;
-            case R.id.pin_six:
-                if (hasFocus) {
-                    setFocus(editTextOtp);
-                    showSoftKeyboard();
-                }
-                break;
-            default:
-                break;
-        }
-    }
-
-    @Override
-    public boolean onKey(View v, int keyCode, KeyEvent event) {
-        if (event.getAction() == KeyEvent.ACTION_DOWN) {
-            final int id = v.getId();
-
-            switch (id) {
-                case R.id.editText_otp:
-                    if (keyCode == KeyEvent.KEYCODE_DEL) {
-                        if (editTextOtp.getText().length() == 6)
-                            mPinSix.setText("");
-                        else if (editTextOtp.getText().length() == 5)
-                            mPinFive.setText("");
-                        else if (editTextOtp.getText().length() == 4)
-                            mPinFour.setText("");
-                        else if (editTextOtp.getText().length() == 3)
-                            mPinThree.setText("");
-                        else if (editTextOtp.getText().length() == 2)
-                            mPinTwo.setText("");
-                        else if (editTextOtp.getText().length() == 1)
-                            mPinOne.setText("");
-                        if (editTextOtp.length() > 0){
-                            ValidateForm.enableBtn(false, (MaterialButton) btnValidar);
-                            editTextOtp.setText(editTextOtp.getText().subSequence(0, editTextOtp.length() - 1));
-                        }
-                        return true;
-                    }
-                    break;
-
-                default:
-                    return false;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if(s.length() == 0){
-            flag = false;
-            if(stopTimer){
-                stopTimer = false;
-                timer();
-            }
-            hideSoftKeyboard();
-            mPinOne.setText("");
-        } else if (s.length() == 1) {
-            mPinOne.setText(s.charAt(0) + "");
-            mPinTwo.setText("");
-            mPinThree.setText("");
-            mPinFour.setText("");
-            mPinFive.setText("");
-            mPinSix.setText("");
-        } else if (s.length() == 2) {
-            mPinTwo.setText(s.charAt(1) + "");
-            mPinThree.setText("");
-            mPinFour.setText("");
-            mPinFive.setText("");
-            mPinSix.setText("");
-        } else if (s.length() == 3) {
-            mPinThree.setText(s.charAt(2) + "");
-            mPinFour.setText("");
-            mPinFive.setText("");
-            mPinSix.setText("");
-        } else if (s.length() == 4) {
-            mPinFour.setText(s.charAt(3) + "");
-            mPinFive.setText("");
-            mPinSix.setText("");
-        } else if (s.length() == 5) {
-            mPinFive.setText(s.charAt(4) + "");
-            mPinSix.setText("");
-        } else if (s.length() == 6) {
-            mPinSix.setText(s.charAt(5) + "");
-            hideSoftKeyboard();
-            if(!isFinish) {
-                ValidateForm.enableBtn(true, (MaterialButton) btnValidar);
-                btnValidar.setText(getString(R.string.txt_button_continue));
-                stopTimer = true;
-                flag = true;
-            }
-        }
-
-        if(s.length() < maxLenghtPin || s.length() > minLenghtPin){
-            if(!stopTimer && flag) {
-                ValidateForm.enableBtn(false, (MaterialButton) btnValidar);
-                btnValidar.setText(getString(R.string.txt_button_continue));
-                stopTimer = true;
-                flag = true;
-            }
-        }
-    }
-
-    /*** Sets focus on a specific EditText field.*
-     * * @param editText EditText to set focus on*/
-    public static void setFocus(EditText editText) {
-        if (editText == null)
-            return;
-        editText.setFocusable(true);
-        editText.setFocusableInTouchMode(true);
-        editText.requestFocus();
-    }
-
-    /*** Sets listeners for EditText fields.*/
-    private void setPINListeners() {
-        editTextOtp.addTextChangedListener(this);
-        editTextOtp.setOnKeyListener(this);
-
-        mPinOne.setOnFocusChangeListener(this);
-        mPinTwo.setOnFocusChangeListener(this);
-        mPinThree.setOnFocusChangeListener(this);
-        mPinFour.setOnFocusChangeListener(this);
-        mPinFive.setOnFocusChangeListener(this);
-        mPinSix.setOnFocusChangeListener(this);
-
-        mPinOne.setOnKeyListener(this);
-        mPinTwo.setOnKeyListener(this);
-        mPinThree.setOnKeyListener(this);
-        mPinFour.setOnKeyListener(this);
-        mPinFive.setOnKeyListener(this);
-        mPinSix.setOnKeyListener(this);
-    }
-
-
-    @Override
-    public void afterTextChanged(Editable s) {
-    }
-
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-    }
 
     @Override
     public void onResume() {
@@ -432,14 +252,7 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equalsIgnoreCase("otp")) {
-                String codigo =  intent.getStringExtra("message");
-                editTextOtp.setText(codigo);
-                mPinOne.setText(codigo.charAt(1)+"");
-                mPinTwo.setText(codigo.charAt(2)+"");
-                mPinThree.setText(codigo.charAt(3)+"");
-                mPinFour.setText(codigo.charAt(4)+"");
-                mPinFive.setText(codigo.charAt(5)+"");
-                mPinSix.setText(codigo.charAt(6)+"");
+                presenter.updatePin(intent.getStringExtra("message"));
                 ValidateForm.enableBtn(true, (MaterialButton) btnValidar);
                 btnValidar.setText(getString(R.string.txt_button_continue));
                 stopTimer = true;
@@ -459,10 +272,17 @@ public class SmsActivity extends BasePresenterActivity<SmsPresenter> implements 
         finish();
     }
 
-    public void getDataForm() {
-        if(codeGenerate != null){
-            codeGenerate = String.valueOf(editTextOtp.getText());
-            return;
+    public boolean  getDataForm() {
+        if(pinView.getText().toString() != null){
+            codigoSMS = pinView.getText().toString();
+            return true;
         }
+        return false;
     }
+
+    @Override
+    public void updateSMS(String codigo) {
+        pinView.setText(codigo);
+    }
+
 }

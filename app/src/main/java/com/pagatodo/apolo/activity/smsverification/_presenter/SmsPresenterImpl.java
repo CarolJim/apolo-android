@@ -26,6 +26,13 @@ public class SmsPresenterImpl extends BasePresenter<SmsView> implements SmsPrese
         smsInteractor = new SmsInteractorImpl();
     }
 
+    /** RECIBIMOS CODIGO SMS Y SE LO ASIGNAMOS AL EDITTEXT
+    * params: pin SMS */
+    @Override
+    public void updatePin(String code) {
+        view.updateSMS(code);
+    }
+
     /** CONFIRMAMOS NUMERO CELULAR, ENVIANDO COMO PARAMETRO EL NUMERO CELULAR
      * PARA RECIBIR UN CODIGO GENERADO POR EL WS */
     @Override

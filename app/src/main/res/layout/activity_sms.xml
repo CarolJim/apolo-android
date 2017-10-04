@@ -41,8 +41,21 @@
              app:tipo="Titulo"
              android:gravity="center"
              android:textSize="@dimen/dimen_textSize_xl" />
-             <!-- Código SMS -->
-            <include layout="@layout/pin_edittext" />
+
+             <!-- Custome Pin EditText's -->
+             <com.pagatodo.apolo.utils.customviews.pin_keyboard.PinKeyboardView
+                 android:id="@+id/pin_entry"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="20dp"
+                 app:accentType="all"
+                 app:numDigits="6"
+                 app:mask=""
+                 app:digitTextSize="@dimen/dimen_textSize_large"
+                 app:digitBackground="@drawable/pin_bottom_border"
+                 app:pinInputType="number"
+                 app:digitElevation="0dp" />
+
         </LinearLayout>
         </LinearLayout>
 
