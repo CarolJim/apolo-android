@@ -46,11 +46,12 @@ import static com.pagatodo.apolo.utils.Constants.TIMEOUT;
  */
 
 public class BuildRequest {
+    private static final boolean LOG_DEBUG = DEBUG;
 
     //  REMOTE CONFIG
     public static void updateRemoteConfig(IRequestResult result) {
         new RequestBuilder().request(App.getInstance(),
-                DEBUG,
+                LOG_DEBUG,
                 GET_REMOTE_CONFIG,
                 GET,
                 null,
@@ -63,7 +64,7 @@ public class BuildRequest {
     //    REQUEST MEGA
     public static void registerDeviceMega(HashMap<String, String> headers, RequestRegistroDispositivo request, IRequestResult result){
         new RequestBuilder().request(App.getInstance(),
-                DEBUG,
+                LOG_DEBUG,
                 MEGA_REGISTER_DEVICE,
                 POST,
                 headers,
@@ -75,7 +76,7 @@ public class BuildRequest {
     }
     public static void registerUserMega(HashMap<String, String> headers, RequestRegistroUsuario request, IRequestResult result){
         new RequestBuilder().request(App.getInstance(),
-                DEBUG,
+                LOG_DEBUG,
                 MEGA_REGISTER_USER,
                 POST,
                 headers,
@@ -87,7 +88,7 @@ public class BuildRequest {
     }
     public static void requestGetInboxs(HashMap<String, String> headers, RequestGetInbox request, IRequestResult result){
         new RequestBuilder().request(App.getInstance(),
-                DEBUG,
+                LOG_DEBUG,
                 MEGA_OBTENER_MSJ_INBOX,
                 POST,
                 headers,
@@ -100,7 +101,7 @@ public class BuildRequest {
 
     public static void getPushNotificationStatus(HashMap<String, String> headers,IRequestResult result) {
         new RequestBuilder().request(App.getInstance(),
-                DEBUG,
+                LOG_DEBUG,
                 MEGA_GET_PUSH_STATUS,
                 POST,
                 headers,
@@ -113,7 +114,7 @@ public class BuildRequest {
 
     public static void requestUpdatePushIndicator(HashMap<String, String> headers, RequestUpdateStatus request, IRequestResult result){
         new RequestBuilder().request(App.getInstance(),
-                DEBUG,
+                LOG_DEBUG,
                 MEGA_ACTIVATE_PUSH,
                 POST,
                 headers,
@@ -127,7 +128,7 @@ public class BuildRequest {
     public static void getPromotersRequest(IRequestResult result)
     {
         new RequestBuilder().request(App.getInstance(),
-                DEBUG,
+                LOG_DEBUG,
                 GET_PROMOTERS,
                 POST,
                 null,
@@ -146,7 +147,7 @@ public class BuildRequest {
     public static void doCreditRequestRegister(IRequestResult result, CreditRequestRegisterRequest body, HashMap<String,String> headers)
     {
         new RequestBuilder().request(App.getInstance(),
-                DEBUG,
+                LOG_DEBUG,
                 DO_CREDIT_REQUEST_REGISTER,
                 POST,
                 headers,
@@ -160,7 +161,7 @@ public class BuildRequest {
     public static void doDocumentUpload(IRequestResult result, DocumentUploadRequest body, HashMap<String,String> headers)
     {
         new RequestBuilder().request(App.getInstance(),
-                DEBUG,
+                LOG_DEBUG,
                 DOCUMENT_UPLOAD,
                 POST,
                 headers,
@@ -175,7 +176,7 @@ public class BuildRequest {
     public static void sendSMSConfirmation(IRequestResult result, SMSValidationRequest body, HashMap<String,String> headers)
     {
         new RequestBuilder().request(App.getInstance(),
-                DEBUG,
+                LOG_DEBUG,
                 SEND_SMS_CONFIRMATION,
                 POST,
                 headers,
@@ -189,7 +190,7 @@ public class BuildRequest {
     public static void sendSMSCodeValidation(IRequestResult result, SMSCodeValidationRequest body, HashMap<String,String> headers)
     {
         new RequestBuilder().request(App.getInstance(),
-                DEBUG,
+                LOG_DEBUG,
                 SMS_CODE_VALIDATION,
                 POST,
                 headers,
