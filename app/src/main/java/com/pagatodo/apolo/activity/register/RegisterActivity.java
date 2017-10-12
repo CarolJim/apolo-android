@@ -369,7 +369,7 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
     @Override
     public void validateForm() {
         getDataForm();
-        /*if(getFormularioAfiliacion().getTelefonoMovil().isEmpty()){
+       /* if(getFormularioAfiliacion().getTelefonoMovil().isEmpty()){
             showMessage(getString(R.string.error_phone_empty));
             return;
         }
@@ -377,6 +377,24 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
             showMessage(getString(R.string.error_cellphone_empty));
             return;
         }*/
+
+        /**
+         * Mostrara un mensaje de error si ambas cadenas de telefono vienen vacias.
+         */
+        if(getFormularioAfiliacion().getTelefonoMovil().isEmpty() && getFormularioAfiliacion().getTelefonoCasa().isEmpty()){
+            showMessage(getString(R.string.error_number_validate));
+            return;
+        }
+
+      /*  *//**
+         * Validacion por si el telefono no tiene la logitud correcta
+         *//*
+        if(!edtCellPhone.isValidField()) {
+            showMessage(getString(R.string.error_cellphone_invalid));
+            return;
+        }*/
+
+
         String errorDocument = "";
         for(Documento documento: getFormularioAfiliacion().getDocumentos()){
             if(documento.getDocumentoBase64().isEmpty() || documento.getLongitud() == 0){

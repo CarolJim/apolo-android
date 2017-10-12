@@ -143,6 +143,7 @@
     <string name="error_min_id_afiliador">Tú Usuario es muy Corto.</string>
     <string name="error_phone_empty">El Teléfono no Puede Estar Vacio.</string>
     <string name="error_cellphone_empty">El Teléfono Celular no Puede Estar Vacio.</string>
+    <string name="error_number_validate">Por Favor Ingrese un Número Teléfonico.</string>
     <string name="error_cellphone_invalid">El Numero Celular es Invalido.</string>
     <string name="error_listaDocumentoVacio">El Documento %1$s no se ha Capturado.</string>
     <string name="error_codigo_empty">El Código de Verificación Debe Contener 6 Dígitos.</string>
