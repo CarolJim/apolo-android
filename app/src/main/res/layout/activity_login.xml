@@ -52,6 +52,16 @@
                 app:cornerRadius="@dimen/dimen_button_radius"
                 android:layout_alignParentBottom="true"
                 app:intercepterOnclick="true"/>
+
+            <com.pagatodo.apolo.utils.customviews.MaterialTextView
+                android:id="@+id/tv_version"
+                android:layout_gravity="right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dimen_textSize_small_ll"
+                android:text="1.0.0"
+                android:textColor="@color/colorText"
+                app:tipo="Titulo" />
         </LinearLayout>
     </LinearLayout>
 

@@ -1,8 +1,11 @@
 package com.pagatodo.apolo.activity.login;
 
 import android.Manifest;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.widget.TextView;
 
 import com.pagatodo.apolo.activity.MenuActivity;
 import com.pagatodo.apolo.activity.login._presenter._interfaces.LoginPresenter;
@@ -14,6 +17,7 @@ import com.pagatodo.apolo.ui.base.factoryinterfaces.IValidateForms;
 import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterPermissionActivity;
 import com.pagatodo.apolo.utils.ValidateForm;
 import com.pagatodo.apolo.utils.customviews.MaterialButton;
+import com.pagatodo.apolo.utils.customviews.MaterialTextView;
 import com.pagatodo.apolo.utils.customviews.MaterialValidationEditText;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +35,7 @@ public class LoginActivity extends BasePresenterPermissionActivity<LoginPresente
     @BindView(R.id.btnLogin) MaterialButton btnLogin;
     @BindView(R.id.layoutLogin) CoordinatorLayout layoutLogin;
     private String ID_Promotor = "";
+    private MaterialTextView tvVersion;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,9 @@ public class LoginActivity extends BasePresenterPermissionActivity<LoginPresente
         validateEditText(btnLogin, edtNumber);
         requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
                                         Manifest.permission.RECEIVE_SMS, Manifest.permission.READ_SMS});
+
+        tvVersion = (MaterialTextView) findViewById(R.id.tv_version);
+
     }
 
     @Override
@@ -98,6 +106,17 @@ public class LoginActivity extends BasePresenterPermissionActivity<LoginPresente
 
     @Override
     protected void onResume() {
+
+        PackageInfo pInfo = null;
+        try{
+            pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+        }
+        catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        String version = pInfo.versionName;
+        tvVersion.setText(version);
+
         super.onResume();
     }
 

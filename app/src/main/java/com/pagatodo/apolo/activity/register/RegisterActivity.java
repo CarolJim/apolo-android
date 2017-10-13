@@ -242,7 +242,7 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
             showSnackBar(layoutRegister, getString((R.string.not_compatible_camera)));
             finish();
         }
-        enableVerificateSMS(RemoteConfig.isEnableVerificateSMS());
+        //enableVerificateSMS(RemoteConfig.isEnableVerificateSMS());
     }
 
     @Override
