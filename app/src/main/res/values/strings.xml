@@ -83,8 +83,8 @@
     <string name="network_error">Verifica tu Conexión a Internet.</string>
 
     <!-- Activity Confirmate -->
-    <string name="txt_folio">Anota el Número de Folio</string>
-    <string name="folio_generado">Folio: %1$s</string>
+    <string name="txt_folio">Anota el Número de Solicitud de Crédito</string>
+    <string name="folio_generado">%1$s</string>
     <string name="pin_label_text">Código</string>
 
     <!-- Activity SMS -->

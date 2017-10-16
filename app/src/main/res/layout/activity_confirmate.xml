@@ -49,6 +49,8 @@
         android:text="@string/txt_folio"
         android:textColor="@color/colorText"
         app:tipo="Titulo"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:textSize="@dimen/dimen_textSize_xl"
         android:layout_marginTop="@dimen/dimen_margin_large" />
     <com.pagatodo.apolo.utils.customviews.MaterialTextView
@@ -58,7 +60,7 @@
         android:text="@string/folio_generado"
         android:textColor="@color/colorText"
         app:tipo="Titulo"
-        android:textSize="@dimen/dimen_textSize_xl"
+        android:textSize="@dimen/dimen_textSize_folio"
         android:layout_marginTop="@dimen/dimen_margin_large" />
     </LinearLayout>
 

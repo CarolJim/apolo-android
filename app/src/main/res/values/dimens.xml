@@ -40,6 +40,7 @@
     <dimen name="dimen_textSize_large">16sp</dimen>
     <dimen name="dimen_textSize_xl">20sp</dimen>
     <dimen name="dimen_textSize_xll">24sp</dimen>
+    <dimen name="dimen_textSize_folio">26sp</dimen>
 
     <!-- CardView -->
     <dimen name="card_corner_radius">8dp</dimen>
