@@ -11,7 +11,6 @@ import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.MotionEvent;
 import android.view.Surface;
@@ -39,10 +38,9 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
     private Camera mCamera;
     private byte[] mCameraData;
     private boolean mIsCapturing;
-    @BindView(R.id.layoutCapture) CoordinatorLayout layoutCapture;
+    @BindView(R.id.layoutCapture) FrameLayout layoutCapture;
     @BindView(R.id.camera_image_view) AppCompatImageView mCameraImage;
     @BindView(R.id.preview_view) SurfaceView mSurfaceView;
-    @BindView(R.id.shape_capture_area) View shape_capture_area;
     @BindView(R.id.action_reintent) AppCompatImageView btnReintent;
     @BindView(R.id.action_save) AppCompatImageView btnSave;
     @BindView(R.id.action_capture) AppCompatImageView btnCapture;
@@ -67,10 +65,6 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         onAnimation();
         mIsCapturing = true;
-
-        if(documentSaver.getIdTipoDocumento()==SOLICITUD_CREDITO_SIMPLE) {
-            shape_capture_area.setVisibility(View.INVISIBLE);
-        }
 
     }
 
@@ -205,7 +199,7 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
         camera_frame.setVisibility(View.INVISIBLE);
         progress.setVisibility(View.VISIBLE);
 
-        if(documentSaver.getIdTipoDocumento() != SOLICITUD_CREDITO_SIMPLE){
+        /*if(documentSaver.getIdTipoDocumento() != SOLICITUD_CREDITO_SIMPLE){
             mBitmapTaken = Bitmap.createBitmap(
                     mBitmapTaken,
                     (int) (mBitmapTaken.getWidth() * .19),
@@ -213,7 +207,7 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
                     (int) (mBitmapTaken.getWidth() * .6),
                     (int) (mBitmapTaken.getHeight() * .7)
             );
-        }
+        }*/
 
         String encodedImage = Base64Utils.getEncodedString(mBitmapTaken);
         documentSaver.setDocumentoBase64(encodedImage);
@@ -402,9 +396,8 @@ public class CaptureActivity extends BaseActivity implements PictureCallback, Su
     }
 
 
-    private void setSurfaceSize(SurfaceHolder surfaceHolder)
-    {
+    private void setSurfaceSize(SurfaceHolder surfaceHolder) {
         Camera.Size bestSize = mCamera.getParameters().getPreviewSize();
-        surfaceHolder.setFixedSize(bestSize.width, bestSize.height);
+        //surfaceHolder.setFixedSize(bestSize.width, bestSize.height);
     }
 }
