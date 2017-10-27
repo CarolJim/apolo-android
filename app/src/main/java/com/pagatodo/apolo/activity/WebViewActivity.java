@@ -15,8 +15,10 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import com.pagatodo.apolo.R;
+import com.pagatodo.apolo.data.model.Promotor;
 import com.pagatodo.apolo.ui.base.factoryactivities.BaseActivity;
 import com.pagatodo.apolo.utils.Constants;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -28,6 +30,7 @@ public class WebViewActivity extends BaseActivity {
     @BindView(R.id.progressBar) ProgressBar progressBar;
     @BindView(R.id.main_content_browser) CoordinatorLayout coordinatorLayout;
     @BindView(R.id.ll_error_network) View error_network;
+    private Promotor mPromotor = new Promotor();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,8 +46,9 @@ public class WebViewActivity extends BaseActivity {
         getSupportActionBar().setTitle("");
 
         ButterKnife.bind(this);
+        mPromotor = pref.getCurrentPromotor();
 
-        if (TextUtils.isEmpty(Constants.URL_REGISTER_WEB)) {
+        if (TextUtils.isEmpty(Constants.URL_REGISTER_WEB + mPromotor.getID_Promotor())) {
             finish();
         }
 
@@ -71,7 +75,7 @@ public class WebViewActivity extends BaseActivity {
 
     private void initWebView() {
 
-        webView.loadUrl(Constants.URL_REGISTER_WEB);
+        webView.loadUrl(Constants.URL_REGISTER_WEB + mPromotor.getID_Promotor());
 
         if(error_network != null){
             error_network.setOnClickListener(new View.OnClickListener() {

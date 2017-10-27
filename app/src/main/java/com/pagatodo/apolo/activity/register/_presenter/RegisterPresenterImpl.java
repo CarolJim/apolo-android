@@ -1,6 +1,8 @@
 package com.pagatodo.apolo.activity.register._presenter;
 
 import android.os.Handler;
+import android.util.Log;
+
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterInteractor;
 import com.pagatodo.apolo.activity.register._presenter._interfaces.RegisterPresenter;
@@ -24,6 +26,7 @@ import java.util.List;
 import static com.pagatodo.apolo.data.remote.RequestContract.DOCUMENT_UPLOAD;
 import static com.pagatodo.apolo.data.remote.RequestContract.DO_CREDIT_REQUEST_REGISTER;
 import static com.pagatodo.apolo.utils.Constants.SOLICITUD_ADULTO_MAYOR;
+import static com.pagatodo.apolo.utils.Constants.SOLICITUD_COMPROBANTE_DOMICILIO;
 import static com.pagatodo.apolo.utils.Constants.SOLICITUD_CREDITO_SIMPLE;
 import static com.pagatodo.apolo.utils.Constants.SOLICITUD_IFE_INE_FRENTE;
 import static com.pagatodo.apolo.utils.Constants.SOLICITUD_IFE_INE_REVERSO;
@@ -151,9 +154,10 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterView> implement
                 for(Documento documento: mFormularioAfiliacion.getDocumentos()){
                     documento.setFolio(response.getSolicitud().getSolicitud());
                     documento.setIdCliente(String.valueOf(response.getSolicitud().getID_Cliente()));
-
-                    doDocumentUpload(this, generateRequestDocument(documento), pref.getHeaders(), mTimeRequest);
-                    mTimeRequest = mTimeRequest + 1000;
+                    if (!documento.getDocumentoBase64().isEmpty() ) {
+                        doDocumentUpload(this, generateRequestDocument(documento), pref.getHeaders(), mTimeRequest);
+                        mTimeRequest = mTimeRequest + 1000;
+                    }
                 }
                 view.successRegister();
                 break;
@@ -230,6 +234,8 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterView> implement
                 return getString(R.string.template_doc_adulto_mayor, folio);
             case SOLICITUD_CREDITO_SIMPLE:
                 return getString(R.string.template_doc_credito_simple, folio);
+            case SOLICITUD_COMPROBANTE_DOMICILIO:
+                return getString(R.string.template_doc_comprobante_domicilio, folio);
             default:
                 return "";
         }
@@ -272,6 +278,8 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterView> implement
                 return Constants.SOLICITUD_IFE_INE_REVERSO_INDEX;
             case SOLICITUD_CREDITO_SIMPLE:
                 return Constants.SOLICITUD_CREDITO_SIMPLE_INDEX;
+            case SOLICITUD_COMPROBANTE_DOMICILIO:
+                return Constants.SOLICITUD_COMPROBANTE_SIMPLE_INDEX;
         }
         return 0;
     }

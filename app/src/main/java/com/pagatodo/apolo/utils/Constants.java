@@ -20,7 +20,6 @@ public final class Constants {
     //RemoteConfig
     public static final boolean isEnableVerificateSMS = true;
 
-
     //SERVER
     public static final String URL_SERVER;
     public static final String URL_SERVER_MEGA 	        = "http://10.10.45.16:62703/ServiceMega.svc/http";
@@ -32,10 +31,12 @@ public final class Constants {
     static {
         if(DEBUG){
             URL_SERVER               = "http://10.10.45.17:8030/WSSolicitudCreditosAM.svc"; // QA
-            URL_REGISTER_WEB         = "http://10.10.45.17:8030/Web_CreditosAdultoMayor";  //QA
+            URL_REGISTER_WEB         = "http://10.10.45.17:8030/Web_CreditosAdultoMayor";  // QA
         }else{
-            URL_SERVER               = "http://200.53.139.19:8027/WSSolicitudCreditosAM.svc";
-            URL_REGISTER_WEB         = "http://200.53.139.19:8027/BPT_Web_CreditosAdultoMayor";
+            //URL_SERVER               = "http://200.53.139.19:8027/WSSolicitudCreditosAM.svc";
+            //URL_REGISTER_WEB         = "http://200.53.139.19:8027/BPT_Web_CreditosAdultoMayor";
+            URL_SERVER               = "https://wssolicitudcreditosam.pagatodo.com:8028/WSSolicitudCreditosAM.svc";
+            URL_REGISTER_WEB         = "https://wssolicitudcreditosam.pagatodo.com:8028/BPT_Web_CreditosAdultoMayor/home/index?IdPromotor=";
         }
     }
 
@@ -55,14 +56,15 @@ public final class Constants {
     public static final int PREVIEW_REQUEST_CODE = 20;
 
     //SOLICITUD
-    public static final String SOL_CELULAR    = "Celular";
-    public static final String SOL_TELEFONO   = "Telefono";
-    public static final String SOL_TARJETA    = "Tarjeta";
-    public static final String SOL_IFE_FRENTE = "IfeFrente";
-    public static final String SOL_IFE_VUELTA = "IfeVuelta";
-    public static final String  SOL_CREDITO_SIMPLE = "CreditoSimple";
-    public static final Boolean CODIGO_VERIFICADO  = false;
-    public static final Boolean ENABLE_VERIFY = true;
+    public static final String  SOL_CELULAR    = "Celular";
+    public static final String  SOL_TELEFONO   = "Telefono";
+    public static final String  SOL_TARJETA    = "Tarjeta";
+    public static final String  SOL_IFE_FRENTE = "IfeFrente";
+    public static final String  SOL_IFE_VUELTA = "IfeVuelta";
+    public static final String  SOL_CREDITO_SIMPLE  = "CreditoSimple";
+    public static final String  SOL_COMPROBANTE_DOM = "ComprobanteDomicilio";
+    public static final Boolean CODIGO_VERIFICADO   = false;
+    public static final Boolean ENABLE_VERIFY       = true;
 
     //App Version
     public static final String APP_VERSION = "1";
@@ -77,19 +79,20 @@ public final class Constants {
         dummy_promotores.add(new Promotor(true, "Orozco", "Orozco",         12345676,"Omar", "PROM28"));
     }
 
-    public static final int SOLICITUD_IFE_INE_FRENTE    = 1;
-    public static final int SOLICITUD_IFE_INE_REVERSO   = 2;
-    public static final int SOLICITUD_ADULTO_MAYOR      = 3;
-    public static final int SOLICITUD_CREDITO_SIMPLE    = 4;
+    public static final int SOLICITUD_IFE_INE_FRENTE  = 1;
+    public static final int SOLICITUD_IFE_INE_REVERSO = 2;
+    public static final int SOLICITUD_ADULTO_MAYOR    = 3;
+    public static final int SOLICITUD_CREDITO_SIMPLE  = 4;
+    public static final int SOLICITUD_COMPROBANTE_DOMICILIO = 5;
 
     public static final List<Documento> DOCUMENTS_LIST = new ArrayList<>();
     static {
         DOCUMENTS_LIST.add(new Documento(SOLICITUD_IFE_INE_FRENTE,  "IFE/INE FRENTE",        "", 0, "", ""));
         DOCUMENTS_LIST.add(new Documento(SOLICITUD_IFE_INE_REVERSO, "IFE/INE REVERSO",       "", 0, "", ""));
         DOCUMENTS_LIST.add(new Documento(SOLICITUD_ADULTO_MAYOR,    "TARJETA ADULTO MAYOR",  "", 0, "", ""));
-        DOCUMENTS_LIST.add(new Documento(SOLICITUD_CREDITO_SIMPLE,  "SOLICITUD DE CRÉDITO SIMPLE",        "", 0, "", ""));
+        DOCUMENTS_LIST.add(new Documento(SOLICITUD_CREDITO_SIMPLE,  "SOLICITUD DE CRÉDITO SIMPLE",    "", 0, "", ""));
+        DOCUMENTS_LIST.add(new Documento(SOLICITUD_COMPROBANTE_DOMICILIO,  "COMPROBANTE DOMICILIO",   "", 0, "", ""));
     }
-
 
     public static final List<Cards> DOCUMENTS = new ArrayList<>();
     static {
@@ -97,10 +100,12 @@ public final class Constants {
         DOCUMENTS.add(new Cards("INE FRENTE",R.drawable.ic_inefront_ap,  R.drawable.ic_check_ap, DOCUMENTS_LIST.get(0)));
         DOCUMENTS.add(new Cards("INE VUELTA",R.drawable.ic_ineback_ap,   R.drawable.ic_check_ap, DOCUMENTS_LIST.get(1)));
         DOCUMENTS.add(new Cards("SOLICITUD DE CRÉDITO",  R.drawable.ic_credito,   R.drawable.ic_check_ap, DOCUMENTS_LIST.get(3)));
+        DOCUMENTS.add(new Cards("COMPROBANTE DOMICILIO",  R.drawable.ic_comprobante,   R.drawable.ic_check_ap, DOCUMENTS_LIST.get(4)));
     }
 
-    public static final int SOLICITUD_ADULTO_MAYOR_INDEX             = 0;
-    public static final int SOLICITUD_IFE_INE_FRENTE_INDEX           = 1;
-    public static final int SOLICITUD_IFE_INE_REVERSO_INDEX          = 2;
-    public static final int SOLICITUD_CREDITO_SIMPLE_INDEX           = 3;
+    public static final int SOLICITUD_ADULTO_MAYOR_INDEX        = 0;
+    public static final int SOLICITUD_IFE_INE_FRENTE_INDEX      = 1;
+    public static final int SOLICITUD_IFE_INE_REVERSO_INDEX     = 2;
+    public static final int SOLICITUD_CREDITO_SIMPLE_INDEX      = 3;
+    public static final int SOLICITUD_COMPROBANTE_SIMPLE_INDEX  = 4;
 }

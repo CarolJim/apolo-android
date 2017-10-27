@@ -79,6 +79,7 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
     private StatusProgresFragment statusProgresFragment = null;
     private Documento rvSelectedItem;
     int maxLengthPhone = 10;
+    int comprobanteOptional = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -98,6 +99,7 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         initFragments();
     }
     private void initFragments() {
+        Log.e("....", " tasks " + getTasks());
         statusProgresFragment = StatusProgresFragment.newInstance(getTasks());
     }
 
@@ -110,6 +112,7 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         outState.putString(Constants.SOL_IFE_FRENTE, instance.get(Constants.SOL_IFE_FRENTE));
         outState.putString(Constants.SOL_IFE_VUELTA, instance.get(Constants.SOL_IFE_VUELTA));
         outState.putString(Constants.SOL_CREDITO_SIMPLE, instance.get(Constants.SOL_CREDITO_SIMPLE));
+        outState.putString(Constants.SOL_COMPROBANTE_DOM, instance.get(Constants.SOL_COMPROBANTE_DOM));
     }
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState){
@@ -369,14 +372,6 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
     @Override
     public void validateForm() {
         getDataForm();
-       /* if(getFormularioAfiliacion().getTelefonoMovil().isEmpty()){
-            showMessage(getString(R.string.error_phone_empty));
-            return;
-        }
-        if(!edtCellPhone.isValidField()){
-            showMessage(getString(R.string.error_cellphone_empty));
-            return;
-        }*/
 
         /**
          * Mostrara un mensaje de error si ambas cadenas de telefono vienen vacias.
@@ -386,18 +381,13 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
             return;
         }
 
-      /*  *//**
-         * Validacion por si el telefono no tiene la logitud correcta
-         *//*
-        if(!edtCellPhone.isValidField()) {
-            showMessage(getString(R.string.error_cellphone_invalid));
-            return;
-        }*/
-
-
         String errorDocument = "";
         for(Documento documento: getFormularioAfiliacion().getDocumentos()){
-            if(documento.getDocumentoBase64().isEmpty() || documento.getLongitud() == 0){
+            if( (documento.getNombre().equals(getString(R.string.comprobante_domicilio)) && documento.getDocumentoBase64().isEmpty()) ) {
+                errorDocument =  "";
+                statusProgresFragment = StatusProgresFragment.newInstance(getTasks()-1);
+                break;
+            } else if (documento.getDocumentoBase64().isEmpty() || documento.getLongitud() == 0) {
                 errorDocument = documento.getNombre();
                 break;
             }

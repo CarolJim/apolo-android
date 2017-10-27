@@ -31,7 +31,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.pagatodo.apolo.ui.UI.showSnackBar;
-import static com.pagatodo.apolo.utils.Constants.SOLICITUD_CREDITO_SIMPLE;
 
 public class CaptureActivity extends BaseActivity implements PictureCallback, SurfaceHolder.Callback {
     private static final String TAG = "CaptureActivity";

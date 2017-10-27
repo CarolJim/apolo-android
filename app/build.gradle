@@ -17,8 +17,8 @@ android {
         applicationId "com.pagatodo.apolo"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 3
-        versionName "1.0.3"
+        versionCode 4
+        versionName "1.0.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }

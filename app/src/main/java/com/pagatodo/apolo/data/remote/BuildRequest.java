@@ -1,6 +1,9 @@
 package com.pagatodo.apolo.data.remote;
 
+import android.util.Log;
+
 import com.pagatodo.apolo.App;
+import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.data.model.factory.Respuesta;
 import com.pagatodo.apolo.data.model.webservice.remoteconfig.ResponseRemoteConfig;
 import com.pagatodo.apolo.data.model.factory.ModelPattern;
@@ -127,7 +130,8 @@ public class BuildRequest {
 
     public static void getPromotersRequest(IRequestResult result)
     {
-        new RequestBuilder().request(App.getInstance(),
+        new RequestBuilder().requestPinning(App.getInstance(),
+                R.raw.pagatodo,
                 LOG_DEBUG,
                 GET_PROMOTERS,
                 POST,
@@ -146,7 +150,8 @@ public class BuildRequest {
 
     public static void doCreditRequestRegister(IRequestResult result, CreditRequestRegisterRequest body, HashMap<String,String> headers)
     {
-        new RequestBuilder().request(App.getInstance(),
+        new RequestBuilder().requestPinning(App.getInstance(),
+                R.raw.pagatodo,
                 LOG_DEBUG,
                 DO_CREDIT_REQUEST_REGISTER,
                 POST,
@@ -160,7 +165,8 @@ public class BuildRequest {
 
     public static void doDocumentUpload(IRequestResult result, DocumentUploadRequest body, HashMap<String,String> headers)
     {
-        new RequestBuilder().request(App.getInstance(),
+        new RequestBuilder().requestPinning(App.getInstance(),
+                R.raw.pagatodo,
                 LOG_DEBUG,
                 DOCUMENT_UPLOAD,
                 POST,
@@ -175,7 +181,8 @@ public class BuildRequest {
 
     public static void sendSMSConfirmation(IRequestResult result, SMSValidationRequest body, HashMap<String,String> headers)
     {
-        new RequestBuilder().request(App.getInstance(),
+        new RequestBuilder().requestPinning(App.getInstance(),
+                R.raw.pagatodo,
                 LOG_DEBUG,
                 SEND_SMS_CONFIRMATION,
                 POST,
@@ -189,7 +196,8 @@ public class BuildRequest {
 
     public static void sendSMSCodeValidation(IRequestResult result, SMSCodeValidationRequest body, HashMap<String,String> headers)
     {
-        new RequestBuilder().request(App.getInstance(),
+        new RequestBuilder().requestPinning(App.getInstance(),
+                R.raw.pagatodo,
                 LOG_DEBUG,
                 SMS_CODE_VALIDATION,
                 POST,
