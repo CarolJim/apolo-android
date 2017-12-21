@@ -463,7 +463,7 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
     {
         int currentIndex = presenter.getDocumentPosition(currentDocument);
         View currentView = recyclerView.getLayoutManager().findViewByPosition(presenter.getListPosition(currentDocument));
-        AppCompatImageView ivCheck = currentView.findViewById(R.id.ivCheck);
+        AppCompatImageView ivCheck = (AppCompatImageView) currentView.findViewById(R.id.ivCheck);
         ArrayList<Documento> documents = (ArrayList<Documento>) getFormularioAfiliacion().getDocumentos();
 
         if(shouldAddDocument) {

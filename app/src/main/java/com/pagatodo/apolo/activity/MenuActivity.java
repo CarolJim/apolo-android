@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.pagatodo.apolo.R;
+import com.pagatodo.apolo.activity.CheckIDP.CheckIDPActivity;
 import com.pagatodo.apolo.activity.login.LoginActivity;
 import com.pagatodo.apolo.activity.register.RegisterActivity;
 import com.pagatodo.apolo.activity.splash.SplashActivity;
@@ -57,7 +58,8 @@ public class MenuActivity extends BaseActivity {
 
     @OnClick(R.id.btnRegister)
     public void register() {
-        showView(RegisterActivity.class);
+        //showView(RegisterActivity.class);
+        showView(CheckIDPActivity.class);
         finish();
     }
     @OnClick(R.id.btnQuery)

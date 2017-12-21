@@ -165,4 +165,7 @@
 
     <!--WebView-->
     <string name="action_back">Regresar</string>
-    </resources>
+
+    <!-- CheckIDP -->
+    <string name="hint_verify_idp">Ingresa tu IDP a Verificar.</string>
+</resources>

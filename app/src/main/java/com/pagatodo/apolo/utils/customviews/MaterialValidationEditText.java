@@ -65,10 +65,10 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
 
     private void init(Context context, AttributeSet attrs) {
         View.inflate(context, R.layout.validation_edittext, this);
-        edtMain = findViewById(R.id.edtMain);
+        edtMain = (EditText) findViewById(R.id.edtMain);
         edtMain.setId(getId());
-        tvMessage = findViewById(R.id.tvMessage);
-        ivStatus  = findViewById(R.id.ivStatus);
+        tvMessage = (MaterialTextView) findViewById(R.id.tvMessage);
+        ivStatus  = (AppCompatImageView) findViewById(R.id.ivStatus);
         int inputType = EditorInfo.TYPE_NULL;
         int textSize = 15;
         String hint = null;

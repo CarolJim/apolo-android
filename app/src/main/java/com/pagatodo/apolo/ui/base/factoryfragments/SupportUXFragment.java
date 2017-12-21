@@ -131,7 +131,7 @@ public abstract class SupportUXFragment extends Fragment implements IEventOnView
                 if(getErrorViewStatusVisibility()){
                     hideErrorView();
                 }
-                MaterialTextView tvMessage = getView().findViewById(R.id.progressTextFragment);
+                MaterialTextView tvMessage = (MaterialTextView) getView().findViewById(R.id.progressTextFragment);
                 if (tvMessage != null && message != null && !message.isEmpty()) {
                     tvMessage.setText(message);
                 }
@@ -169,12 +169,12 @@ public abstract class SupportUXFragment extends Fragment implements IEventOnView
                 if(getProgressViewStatusVisibility()){
                     hideProgressView();
                 }
-                MaterialTextView tvMessage =  getView().findViewById(R.id.errorTextFragment);
+                MaterialTextView tvMessage = (MaterialTextView) getView().findViewById(R.id.errorTextFragment);
                 if (tvMessage != null && message != null && !message.isEmpty()) {
                     tvMessage.setText(message);
                 }
                 if(getView() != null){
-                    AppCompatImageView imageView = getView().findViewById(R.id.errorResourceFragment);
+                    AppCompatImageView imageView = (AppCompatImageView) getView().findViewById(R.id.errorResourceFragment);
                     if(imageView != null){
                         imageView.setImageResource(R.drawable.ic_error_vector);
                     }

@@ -84,9 +84,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.mViewHolde
 
         public mViewHolder(View view) {
             super(view);
-            typeCards  =  view.findViewById(R.id.typeCard);
-            thumbCards =  view.findViewById(R.id.thumbCard);
-            checkCards =  view.findViewById(R.id.ivCheck);
+            typeCards  = (MaterialTextView) view.findViewById(R.id.typeCard);
+            thumbCards = (AppCompatImageView) view.findViewById(R.id.thumbCard);
+            checkCards = (AppCompatImageView) view.findViewById(R.id.ivCheck);
         }
     }
 

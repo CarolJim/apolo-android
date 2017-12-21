@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutLogin"
+    tools:context="com.pagatodo.apolo.activity.CheckIDP.CheckIDPActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_app">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="@dimen/dimen_margin_medium"
+            android:layout_marginRight="@dimen/dimen_margin_medium"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="vertical">
+            <!-- Numero de usuario -->
+            <com.pagatodo.apolo.utils.customviews.MaterialValidationEditText
+                android:id="@+id/edtIDPNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_border_login"
+                android:gravity="center"
+                android:padding="@dimen/dimen_padding_medium"
+                app:formato="pwtext"
+                app:hintColor="@color/colorText"
+                app:hintText="@string/hint_verify_idp"
+                app:maxLength="7" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_margin_medium"
+            android:layout_marginRight="@dimen/dimen_margin_medium"
+            android:orientation="vertical">
+            <!-- Boton Login  -->
+            <com.pagatodo.apolo.utils.customviews.MaterialButton
+                android:id="@+id/btnCheck"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_button_height"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/dimen_margin_xl"
+                android:text="@string/txt_button_continue"
+                app:buttonNormalColor="@color/teal"
+                app:buttonStrokeColor="@color/teal"
+                app:cornerRadius="@dimen/dimen_button_radius"
+                app:hintColor="@color/white"
+                app:intercepterOnclick="true"
+                app:textColor="@color/white" />
+
+           <!-- <com.pagatodo.apolo.utils.customviews.MaterialTextView
+                android:id="@+id/tv_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="1.0.0"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/dimen_textSize_small_ll"
+                app:tipo="Titulo" />-->
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>
