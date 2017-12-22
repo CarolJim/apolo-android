@@ -33,15 +33,16 @@ import com.pagatodo.apolo.utils.ValidateForm;
  */
 
 public class MaterialValidationEditText extends LinearLayout implements View.OnClickListener {
-    private EditText         edtMain    = null;
-    private MaterialTextView tvMessage  = null;
+    private EditText edtMain = null;
+    private MaterialTextView tvMessage = null;
     private AppCompatImageView ivStatus = null;
-    private boolean isValidField        = false;
-    private String  type = null;
+    private boolean isValidField = false;
+    private String type = null;
     private OnClickIcon iconListener = null;
     private int mGravity = Gravity.START;
     private int minSizeRequired = -23;
     private int minSize = 6;
+    private int idpSize = 7;
 
     private MaterialValidationEditText edtCompare = null;
     @DrawableRes
@@ -68,7 +69,7 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
         edtMain = (EditText) findViewById(R.id.edtMain);
         edtMain.setId(getId());
         tvMessage = (MaterialTextView) findViewById(R.id.tvMessage);
-        ivStatus  = (AppCompatImageView) findViewById(R.id.ivStatus);
+        ivStatus = (AppCompatImageView) findViewById(R.id.ivStatus);
         int inputType = EditorInfo.TYPE_NULL;
         int textSize = 15;
         String hint = null;
@@ -114,7 +115,7 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
             } else {
                 edtMain.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
             }
-            if (edtMain  != null) {
+            if (edtMain != null) {
                 edtMain.setGravity(mGravity);
             }
 
@@ -142,38 +143,46 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
             setEdtFocusable(focusable);
             if (pinnedIcon != -1) {
                 setIconPinned();
-            }else{
+            } else {
                 clearIcon();
             }
             setMessageText("");
         }
     }
-    private void clearIcon(){
+
+    private void clearIcon() {
         ivStatus.setImageDrawable(null);
         ivStatus.setVisibility(GONE);
     }
+
     public void setSingleLine(boolean singleLine) {
         if (singleLine) {
             edtMain.setLines(1);
         }
     }
+
     public void setHintText(String txt) {
         edtMain.setHint(txt);
     }
-    public String getHint(){
+
+    public String getHint() {
         return edtMain.getHint().toString();
     }
-    public String getText(){
+
+    public String getText() {
         return edtMain.getText().toString();
     }
+
     public void setMaxLines(int n) {
         edtMain.setLines(n);
     }
+
     public void setMaxLength(Integer i) {
         InputFilter[] fArray = new InputFilter[1];
         fArray[0] = new InputFilter.LengthFilter(i);
         edtMain.setFilters(fArray);
     }
+
     private void setCustomFormatAttr(String txt) {
         if (txt != null && !txt.isEmpty()) {
             switch (txt) {
@@ -213,10 +222,15 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
                     edtMain.setInputType(InputType.TYPE_CLASS_TEXT);
                     setValidationListener(txt);
                     break;
+                case "8"://idptext
+                    edtMain.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    setValidationListener(txt);
+                    break;
             }
 
         }
     }
+
     private void setValidationListener(final String type) {
         edtMain.addTextChangedListener(new TextWatcher() {
             @Override
@@ -230,9 +244,9 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
                 boolean result;
                 if (txt.isEmpty()) {
                     setMessageText("");
-                    if(pinnedIcon != -1){
+                    if (pinnedIcon != -1) {
                         setIconPinned();
-                    }else {
+                    } else {
                         clearIcon();
                     }
                     isValidField = false;
@@ -242,9 +256,9 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
                         case "0"://email
                             result = ValidateForm.isValidEmailAddress(txt);
                             message = getMessage(type, result);
-                            if(edtCompare != null && result && edtCompare.isValidField()){
-                                if(edtCompare.isValidField()){
-                                    result =  edtCompare.getText().equals(txt);
+                            if (edtCompare != null && result && edtCompare.isValidField()) {
+                                if (edtCompare.isValidField()) {
+                                    result = edtCompare.getText().equals(txt);
                                     message = getMessageCompare(type, result);
                                 }
                             }
@@ -252,58 +266,68 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
                         case "1"://password
                             result = ValidateForm.isValidPassword(txt);
                             message = result ? getString(R.string.valid_pass) : getString(R.string.invalid_pass);
-                            if(edtCompare != null && result && edtCompare.isValidField()){
+                            if (edtCompare != null && result && edtCompare.isValidField()) {
                                 result = edtCompare.getText().equals(txt);
-                                message = result ? getString(R.string.msg_valid_repass): getString(R.string.msg_invalid_repass);
+                                message = result ? getString(R.string.msg_valid_repass) : getString(R.string.msg_invalid_repass);
                             }
                             break;
                         case "2"://phone
                             result = ValidateForm.isValidPhone(txt);
-                            message = result ? getString(R.string.valid_phonenumber): getString(R.string.invalid_phonenumber);
-                            if(edtCompare != null && result && edtCompare.isValidField()){
+                            message = result ? getString(R.string.valid_phonenumber) : getString(R.string.invalid_phonenumber);
+                            if (edtCompare != null && result && edtCompare.isValidField()) {
                                 result = edtCompare.getText().equals(txt);
-                                message = result ? getString(R.string.msg_valid_repass): getString(R.string.msg_invalid_repass);
+                                message = result ? getString(R.string.msg_valid_repass) : getString(R.string.msg_invalid_repass);
 
                             }
                             break;
                         case "3"://zipcode
                             result = ValidateForm.isValidZipCode(txt);
                             message = result ? getString(R.string.valid_field) : getString(R.string.invalid_field);
-                            if(edtCompare != null && result && edtCompare.isValidField()){
+                            if (edtCompare != null && result && edtCompare.isValidField()) {
                                 result = edtCompare.getText().equals(txt);
-                                message = result ? getString(R.string.msg_valid_refield): getString(R.string.msg_invalid_refield);
+                                message = result ? getString(R.string.msg_valid_refield) : getString(R.string.msg_invalid_refield);
                             }
                             break;
                         case "4"://text
                             result = !txt.isEmpty() && txt.length() >= minSizeRequired;
                             message = result ? getString(R.string.valid_field) : getString(R.string.invalid_field);
-                            if(edtCompare != null && result && edtCompare.isValidField()){
+                            if (edtCompare != null && result && edtCompare.isValidField()) {
                                 result = edtCompare.getText().equals(txt);
-                                message = result ? getString(R.string.msg_valid_refield): getString(R.string.msg_invalid_refield);
+                                message = result ? getString(R.string.msg_valid_refield) : getString(R.string.msg_invalid_refield);
                             }
                             break;
                         case "5"://number
                             result = !txt.isEmpty();
                             message = result ? getString(R.string.valid_field) : getString(R.string.invalid_field);
-                            if(edtCompare != null && result && edtCompare.isValidField()){
+                            if (edtCompare != null && result && edtCompare.isValidField()) {
                                 result = edtCompare.getText().equals(txt);
-                                message = result ? getString(R.string.msg_valid_refield): getString(R.string.msg_invalid_refield);
+                                message = result ? getString(R.string.msg_valid_refield) : getString(R.string.msg_invalid_refield);
                             }
                             break;
                         case "6"://cellPhone
                             result = ValidateForm.isValidCellPhone(txt.trim());
-                            message = result ? getString(R.string.valid_phonenumber): getString(R.string.invalid_phonenumber);
-                            if(edtCompare != null && result && edtCompare.isValidField()){
+                            message = result ? getString(R.string.valid_phonenumber) : getString(R.string.invalid_phonenumber);
+                            if (edtCompare != null && result && edtCompare.isValidField()) {
                                 result = edtCompare.getText().equals(txt);
-                                message = result ? getString(R.string.msg_valid_refield): getString(R.string.msg_invalid_refield);
+                                message = result ? getString(R.string.msg_valid_refield) : getString(R.string.msg_invalid_refield);
                             }
                             break;
+
                         case "7"://pwtext
                             result = !txt.isEmpty() && txt.length() == minSize;
                             message = result ? getString(R.string.valid_field) : getString(R.string.error_min_id_afiliador);
-                            if(edtCompare != null && result && edtCompare.isValidField()){
+                            if (edtCompare != null && result && edtCompare.isValidField()) {
                                 result = edtCompare.getText().equals(txt);
-                                message = result ? getString(R.string.msg_valid_refield): getString(R.string.msg_invalid_refield);
+                                message = result ? getString(R.string.msg_valid_refield) : getString(R.string.msg_invalid_refield);
+                            }
+                            break;
+
+                        case "8": // idptext
+                            result = !txt.isEmpty() && txt.length() == idpSize;
+                            message = result ? getString(R.string.valid_field) : getString(R.string.error_min_idp);
+                            if (edtCompare != null && result && edtCompare.isValidField()) {
+                                result = edtCompare.getText().equals(txt);
+                                message = result ? getString(R.string.msg_valid_refield) : getString(R.string.msg_invalid_refield);
                             }
                             break;
                         default:
@@ -327,7 +351,8 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
             }
         });
     }
-    public void setAddTextChangedListener(TextWatcher watcher){
+
+    public void setAddTextChangedListener(TextWatcher watcher) {
         edtMain.addTextChangedListener(watcher);
     }
 
@@ -343,86 +368,95 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
         setIconResource(R.drawable.warning);
     }
 
-    public void setColorMessageText(@ColorInt int color){
+    public void setColorMessageText(@ColorInt int color) {
         tvMessage.setTextColor(color);
     }
-    public void setIconResource(@DrawableRes int drawable){
-       ivStatus.setImageResource(drawable);
+
+    public void setIconResource(@DrawableRes int drawable) {
+        ivStatus.setImageResource(drawable);
     }
 
     private void setIconPinned() {
         AppCompatImageView icon = (AppCompatImageView) findViewById(R.id.ivStatus);
         if (icon != null && pinnedIcon != -1) {
             Drawable drawable = VectorDrawableCompat.create(App.getInstance().getResources(), pinnedIcon, null);//ContextCompat.getDrawable(App.getInstance(), pinnedIcon);
-            if(drawable != null){
+            if (drawable != null) {
                 icon.setImageDrawable(drawable);
                 icon.setVisibility(VISIBLE);
             }
         }
     }
+
     public void setMessageText(String messageText) {
-        if(tvMessage != null){
+        if (tvMessage != null) {
             tvMessage.setText(messageText);
         }
     }
-    private String getString(@StringRes int string){
+
+    private String getString(@StringRes int string) {
         return App.getInstance().getString(string);
     }
-    public void setEditTextToCompare(MaterialValidationEditText edtCompare){
+
+    public void setEditTextToCompare(MaterialValidationEditText edtCompare) {
         this.edtCompare = edtCompare;
     }
-    public boolean isValidField(){
+
+    public boolean isValidField() {
         return isValidField;
     }
 
-    public void setIsValidField(boolean isValidField){
+    public void setIsValidField(boolean isValidField) {
         this.isValidField = isValidField;
     }
 
     @Override
     public void setOnKeyListener(OnKeyListener l) {
 //        super.setOnKeyListener(l);
-        if(edtMain != null){
+        if (edtMain != null) {
             edtMain.setId(getId());
             edtMain.setOnKeyListener(l);
         }
 
     }
 
-    public EditText getEdtMain(){
+    public EditText getEdtMain() {
         return edtMain;
     }
-    private String getMessageCompare(String type, boolean result){
+
+    private String getMessageCompare(String type, boolean result) {
         String message = "";
         switch (type) {
             case "0"://email
-                return result ? getString(R.string.msg_valid_remail): getString(R.string.msg_invalid_remail);
+                return result ? getString(R.string.msg_valid_remail) : getString(R.string.msg_invalid_remail);
             case "1"://password
-                return result ? getString(R.string.msg_valid_repass): getString(R.string.msg_invalid_repass);
+                return result ? getString(R.string.msg_valid_repass) : getString(R.string.msg_invalid_repass);
             case "2"://phone
-                return result ? getString(R.string.msg_valid_repass): getString(R.string.msg_invalid_repass);
+                return result ? getString(R.string.msg_valid_repass) : getString(R.string.msg_invalid_repass);
             case "3"://zipcode
-                return result ? getString(R.string.msg_valid_refield): getString(R.string.msg_invalid_refield);
+                return result ? getString(R.string.msg_valid_refield) : getString(R.string.msg_invalid_refield);
             case "4"://text
-                return result ? getString(R.string.msg_valid_refield): getString(R.string.msg_invalid_refield);
+                return result ? getString(R.string.msg_valid_refield) : getString(R.string.msg_invalid_refield);
             case "5"://number
-                return result ? getString(R.string.msg_valid_refield): getString(R.string.msg_invalid_refield);
+                return result ? getString(R.string.msg_valid_refield) : getString(R.string.msg_invalid_refield);
             case "6"://cellPhone
-                return result ? getString(R.string.msg_valid_refield): getString(R.string.msg_invalid_refield);
+                return result ? getString(R.string.msg_valid_refield) : getString(R.string.msg_invalid_refield);
             case "7"://pwtext
-                return result ? getString(R.string.msg_valid_refield): getString(R.string.msg_invalid_refield);
+                return result ? getString(R.string.msg_valid_refield) : getString(R.string.msg_invalid_refield);
+            case "8"://ipdtext
+                return result ? getString(R.string.msg_valid_refield) : getString(R.string.msg_invalid_refield);
             default:
                 return getString(R.string.invalid_field);
         }
     }
-    private String getMessage(String type, boolean result){
+
+    private String getMessage(String type, boolean result) {
         switch (type) {
             case "0"://email
                 return result ? getString(R.string.valid_mail) : getString(R.string.invalid_mail);
             case "1"://password
                 return result ? getString(R.string.valid_pass) : getString(R.string.invalid_pass);
             case "2"://phone
-                return  result ? getString(R.string.valid_phonenumber): getString(R.string.invalid_phonenumber);
+                return result ? getString(R.string.valid_phonenumber) : getString(R.string.invalid_phonenumber);
             case "3"://zipcode
                 return result ? getString(R.string.valid_field) : getString(R.string.invalid_field);
             case "4"://text
@@ -430,8 +464,10 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
             case "5"://number
                 return result ? getString(R.string.valid_field) : getString(R.string.invalid_field);
             case "6"://cellPhone
-                return result ? getString(R.string.valid_phonenumber): getString(R.string.invalid_phonenumber);
+                return result ? getString(R.string.valid_phonenumber) : getString(R.string.invalid_phonenumber);
             case "7"://pwtext
+                return result ? getString(R.string.valid_field) : getString(R.string.invalid_field);
+            case "8"://pwtext
                 return result ? getString(R.string.valid_field) : getString(R.string.invalid_field);
             default:
                 return getString(R.string.invalid_field);
@@ -442,60 +478,67 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
         return type;
     }
 
-    public void setText(String text){
+    public void setText(String text) {
         edtMain.setText(text);
     }
-    public boolean validateField(){
+
+    public boolean validateField() {
         boolean result = false;
         String txt = edtMain.getText().toString();
         switch (type) {
             case "0"://email
                 result = ValidateForm.isValidEmailAddress(txt);
-                if(edtCompare != null && result && edtCompare.isValidField()){
-                    if(edtCompare.isValidField()){
-                        result =  edtCompare.getText().equals(txt);
+                if (edtCompare != null && result && edtCompare.isValidField()) {
+                    if (edtCompare.isValidField()) {
+                        result = edtCompare.getText().equals(txt);
                     }
                 }
                 break;
             case "1"://password
                 result = ValidateForm.isValidPassword(txt);
-                if(edtCompare != null && result && edtCompare.isValidField()){
+                if (edtCompare != null && result && edtCompare.isValidField()) {
                     result = edtCompare.getText().equals(txt);
                 }
                 break;
             case "2"://phone
                 result = ValidateForm.isValidPhone(txt);
-                if(edtCompare != null && result && edtCompare.isValidField()){
+                if (edtCompare != null && result && edtCompare.isValidField()) {
                     result = edtCompare.getText().equals(txt);
                 }
                 break;
             case "3"://zipcode
                 result = ValidateForm.isValidZipCode(txt);
-                if(edtCompare != null && result && edtCompare.isValidField()){
+                if (edtCompare != null && result && edtCompare.isValidField()) {
                     result = edtCompare.getText().equals(txt);
                 }
                 break;
             case "4"://text
                 result = !txt.isEmpty();
-                if(edtCompare != null && result && edtCompare.isValidField()){
+                if (edtCompare != null && result && edtCompare.isValidField()) {
                     result = edtCompare.getText().equals(txt);
                 }
                 break;
             case "5"://number
                 result = !txt.isEmpty();
-                if(edtCompare != null && result && edtCompare.isValidField()){
+                if (edtCompare != null && result && edtCompare.isValidField()) {
                     result = edtCompare.getText().equals(txt);
                 }
                 break;
             case "6"://cellPhone
                 result = ValidateForm.isValidCellPhone(txt.trim());
-                if(edtCompare != null && result && edtCompare.isValidField()){
+                if (edtCompare != null && result && edtCompare.isValidField()) {
                     result = edtCompare.getText().equals(txt);
                 }
                 break;
             case "7"://pwtext
                 result = !txt.isEmpty();
-                if(edtCompare != null && result && edtCompare.isValidField()){
+                if (edtCompare != null && result && edtCompare.isValidField()) {
+                    result = edtCompare.getText().equals(txt);
+                }
+                break;
+            case "8"://pwtext
+                result = !txt.isEmpty();
+                if (edtCompare != null && result && edtCompare.isValidField()) {
                     result = edtCompare.getText().equals(txt);
                 }
                 break;
@@ -505,7 +548,8 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
         }
         return result;
     }
-    public void setEditTextEnable(boolean enable){
+
+    public void setEditTextEnable(boolean enable) {
         edtMain.setEnabled(enable);
     }
 
@@ -516,7 +560,7 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
         edtMain.setOnClickListener(l);
     }
 
-    public void validThisFieldToContinue(final MaterialValidationEditText validationEditText){
+    public void validThisFieldToContinue(final MaterialValidationEditText validationEditText) {
         edtMain.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -525,18 +569,18 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(validationEditText.isValidField()){
-                    if(!edtMain.getText().toString().equals(validationEditText.getText())){
+                if (validationEditText.isValidField()) {
+                    if (!edtMain.getText().toString().equals(validationEditText.getText())) {
                         validationEditText.setIsValidField(false);
                         validationEditText.setMessageText(getMessageCompare(type, false));
                         validationEditText.setIconResource(R.drawable.warning);
-                    }else{
+                    } else {
                         validationEditText.setIsValidField(true);
                         validationEditText.setMessageText(getMessageCompare(type, true));
                         validationEditText.setIconResource(R.drawable.done);
                     }
-                }else{
-                    if(validationEditText.validateField() && validateField()){
+                } else {
+                    if (validationEditText.validateField() && validateField()) {
                         validationEditText.setIsValidField(true);
                         validationEditText.setMessageText(getMessageCompare(type, true));
                         validationEditText.setIconResource(R.drawable.done);
@@ -555,7 +599,8 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
         edtMain.setFocusable(edtFocusable);
         edtMain.setFocusableInTouchMode(edtFocusable);
     }
-    public void requestFocusEdt(){
+
+    public void requestFocusEdt() {
         edtMain.requestFocus();
     }
 
@@ -564,40 +609,44 @@ public class MaterialValidationEditText extends LinearLayout implements View.OnC
         //return super.performClick();
         return edtMain.performClick();
     }
+
     @Override
     public void setEnabled(boolean enabled) {
         //super.setEnabled(enabled);
-        if(edtMain != null){
+        if (edtMain != null) {
             edtMain.setEnabled(enabled);
             edtMain.setAlpha(enabled ? 1f : 0.6f);
             edtMain.setTextColor(enabled ? ContextCompat.getColor(getContext(), R.color.colorText) : ContextCompat.getColor(getContext(), R.color.colorHint));
         }
     }
 
-    public void setOnClickIcon(OnClickIcon iconListener){
+    public void setOnClickIcon(OnClickIcon iconListener) {
         this.iconListener = iconListener;
-        if(ivStatus != null){
+        if (ivStatus != null) {
             ivStatus.setOnClickListener(this);
         }
     }
+
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.ivStatus:
-                if(iconListener != null){
+                if (iconListener != null) {
                     iconListener.onClickIcon(this, edtMain, ivStatus);
                 }
                 break;
         }
     }
 
-    public interface OnClickIcon{
+    public interface OnClickIcon {
         void onClickIcon(MaterialValidationEditText view, EditText edtMain, ImageView icon);
     }
-    public void clearIconImage(){
+
+    public void clearIconImage() {
         setPinnedIcon(-1);
         clearIcon();
     }
+
     public void setPinnedIcon(int pinnedIcon) {
         this.pinnedIcon = pinnedIcon;
     }

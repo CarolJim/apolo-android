@@ -37,6 +37,7 @@
             <enum name="number" value="5"/>
             <enum name="celphone" value="6"/>
             <enum name="pwtext" value="7"/>
+            <enum name="idptext" value="8"/>
         </attr>
         <attr name="hintText" format="string"/>
         <attr name="hintColor" format="color"/>

@@ -22,4 +22,7 @@ public class RequestContract {
     public static final String DOCUMENT_UPLOAD              = "/CargarDocumento";
     public static final String SEND_SMS_CONFIRMATION        = "/SendSMSConfirmation";
     public static final String SMS_CODE_VALIDATION          = "/SMSConfirmationCodeValidation";
+
+    // IDS
+    public static final String CHECK_IDP          = "/ValidarIDP";
 }

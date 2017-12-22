@@ -29,7 +29,7 @@
                 android:background="@drawable/input_border_login"
                 android:gravity="center"
                 android:padding="@dimen/dimen_padding_medium"
-                app:formato="pwtext"
+                app:formato="idptext"
                 app:hintColor="@color/colorText"
                 app:hintText="@string/hint_verify_idp"
                 app:maxLength="7" />
