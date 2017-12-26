@@ -4,13 +4,16 @@ import android.util.Log;
 
 import com.pagatodo.apolo.App;
 import com.pagatodo.apolo.R;
+import com.pagatodo.apolo.activity.CheckIDP._presenter.IdpInteractorImpl;
 import com.pagatodo.apolo.data.model.factory.Respuesta;
 import com.pagatodo.apolo.data.model.webservice.remoteconfig.ResponseRemoteConfig;
 import com.pagatodo.apolo.data.model.factory.ModelPattern;
+import com.pagatodo.apolo.data.model.webservice.request.CheckIdpRequest;
 import com.pagatodo.apolo.data.model.webservice.request.CreditRequestRegisterRequest;
 import com.pagatodo.apolo.data.model.webservice.request.DocumentUploadRequest;
 import com.pagatodo.apolo.data.model.webservice.request.SMSCodeValidationRequest;
 import com.pagatodo.apolo.data.model.webservice.request.SMSValidationRequest;
+import com.pagatodo.apolo.data.model.webservice.response.CheckIdpResponse;
 import com.pagatodo.apolo.data.model.webservice.response.CreditRequestRegisterResponse;
 import com.pagatodo.apolo.data.model.webservice.response.GeneralServiceResponse;
 import com.pagatodo.apolo.data.model.webservice.response.GetPromotersResponse;
@@ -30,6 +33,7 @@ import java.util.HashMap;
 
 import static com.android.volley.Request.Method.GET;
 import static com.android.volley.Request.Method.POST;
+import static com.pagatodo.apolo.data.remote.RequestContract.CHECK_IDP;
 import static com.pagatodo.apolo.data.remote.RequestContract.DOCUMENT_UPLOAD;
 import static com.pagatodo.apolo.data.remote.RequestContract.DO_CREDIT_REQUEST_REGISTER;
 import static com.pagatodo.apolo.data.remote.RequestContract.GET_PROMOTERS;
@@ -178,6 +182,19 @@ public class BuildRequest {
                 GeneralServiceResponse.class);
     }
 
+    public static void sendCheckIdp(IdpInteractorImpl result, CheckIdpRequest body, HashMap<String, String> headers){
+        new RequestBuilder().requestPinning(App.getInstance(),
+                R.raw.pagatodo,
+                LOG_DEBUG,
+                CHECK_IDP,
+                POST,
+                headers,
+                RemoteConfig.getUrlServer() + CHECK_IDP,
+                body,
+                result,
+                TIMEOUT,
+                CheckIdpResponse.class);
+    }
 
     public static void sendSMSConfirmation(IRequestResult result, SMSValidationRequest body, HashMap<String,String> headers)
     {

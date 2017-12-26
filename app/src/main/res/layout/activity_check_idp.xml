@@ -2,7 +2,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layoutLogin"
+    android:id="@+id/layoutIdp"
     tools:context="com.pagatodo.apolo.activity.CheckIDP.CheckIDPActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,6 +22,7 @@
             android:gravity="center"
             android:orientation="vertical">
             <!-- Numero de usuario -->
+
             <com.pagatodo.apolo.utils.customviews.MaterialValidationEditText
                 android:id="@+id/edtIDPNumber"
                 android:layout_width="match_parent"
@@ -31,8 +32,23 @@
                 android:padding="@dimen/dimen_padding_medium"
                 app:formato="idptext"
                 app:hintColor="@color/colorText"
+                android:layout_marginBottom="20dp"
                 app:hintText="@string/hint_verify_idp"
-                app:maxLength="7" />
+                app:maxLength="8" >
+            </com.pagatodo.apolo.utils.customviews.MaterialValidationEditText>
+
+
+            <TextView
+                android:visibility="gone"
+                android:layout_gravity="bottom"
+                android:gravity="bottom"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                tools:text="TExto de prueba. Lorem lum epsilum.TExto de prueba. Lorem lum epsilum.TExto de prueba. Lorem lum epsilum.TExto de prueba. Lorem lum epsilum.TExto de prueba. Lorem lum epsilum.TExto de prueba. Lorem lum epsilum."
+                android:id="@+id/tv_error_msn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
         </LinearLayout>
 
         <LinearLayout

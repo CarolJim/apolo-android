@@ -2,6 +2,9 @@ package com.pagatodo.apolo.activity.CheckIDP;
 
 import android.support.design.widget.CoordinatorLayout;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.activity.CheckIDP._presenter.IdpInteractorImpl;
@@ -9,15 +12,22 @@ import com.pagatodo.apolo.activity.CheckIDP._presenter.IdpPresenterImpl;
 import com.pagatodo.apolo.activity.CheckIDP._presenter._interfaces.IdpPresenter;
 import com.pagatodo.apolo.activity.CheckIDP._presenter._interfaces.IdpView;
 import com.pagatodo.apolo.activity.MenuActivity;
+import com.pagatodo.apolo.activity.register.RegisterActivity;
+import com.pagatodo.apolo.data.model.webservice.response.CheckIdpResponse;
+import com.pagatodo.apolo.data.model.webservice.response.GeneralServiceResponse;
 import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterPermissionActivity;
 import com.pagatodo.apolo.ui.base.factoryinterfaces.IValidateForms;
 import com.pagatodo.apolo.utils.ValidateForm;
 import com.pagatodo.apolo.utils.customviews.MaterialButton;
 import com.pagatodo.apolo.utils.customviews.MaterialValidationEditText;
+import com.pagatodo.networkframework.DataManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.pagatodo.apolo.ui.UI.showSnackBar;
+import static com.pagatodo.networkframework.model.ResponseConstants.RESPONSE_CODE_OK;
 
 /**
  * Created by Francisco Manzo on 21-12-17.
@@ -28,10 +38,12 @@ public class CheckIDPActivity extends BasePresenterPermissionActivity<IdpPresent
     private final String TAG = CheckIDPActivity.class.getSimpleName();
     @BindView(R.id.edtIDPNumber)
     MaterialValidationEditText edtIDP;
+    @BindView(R.id.tv_error_msn)
+    TextView errorMsn;
     @BindView(R.id.btnCheck)
     MaterialButton btnCheck;
-    @BindView(R.id.layoutLogin)
-    CoordinatorLayout layoutLogin;
+    @BindView(R.id.layoutIdp)
+    CoordinatorLayout layoutIdp;
     private String numberIdp = "";
 
     @Override
@@ -49,8 +61,8 @@ public class CheckIDPActivity extends BasePresenterPermissionActivity<IdpPresent
 
     }
 
-    private void validateEditText(MaterialButton btnCheck, MaterialValidationEditText edtNumber){
-        if(edtNumber != null){
+    private void validateEditText(MaterialButton btnCheck, MaterialValidationEditText edtNumber) {
+        if (edtNumber != null) {
             ValidateForm.enableBtn(false, btnCheck);
             ValidateForm.validateEditText(btnCheck, edtNumber);
         }
@@ -86,7 +98,7 @@ public class CheckIDPActivity extends BasePresenterPermissionActivity<IdpPresent
     @Override
     public void validateForm() {
         getDataForm();
-        if(numberIdp.isEmpty()){
+        if (numberIdp.isEmpty()) {
             showMessage(getString(R.string.error_min_idp));
             return;
         }
@@ -101,7 +113,7 @@ public class CheckIDPActivity extends BasePresenterPermissionActivity<IdpPresent
 
     @Override
     public void getDataForm() {
-        if(edtIDP != null){
+        if (edtIDP != null) {
             numberIdp = edtIDP.getText();
             return;
         }
@@ -116,5 +128,35 @@ public class CheckIDPActivity extends BasePresenterPermissionActivity<IdpPresent
     @Override
     public void setNavigation() {
 
+    }
+
+    @Override
+    public void onSuccess(DataManager dataManager) {
+        CheckIdpResponse response = (CheckIdpResponse) dataManager.getData();
+        if (response.getCodigo() == RESPONSE_CODE_OK) {
+          //  Toast.makeText(this, response.getMensaje(), Toast.LENGTH_SHORT).show();
+            showView(RegisterActivity.class);
+            errorMsn.setVisibility(View.GONE);
+            finish();
+        } else {
+            //showSnackBar(layoutIdp, response.getMensaje());
+            errorMsn.setVisibility(View.VISIBLE);
+            errorMsn.setText(response.getMensaje());
+          //  showDialogSimple("Mi Dialogo", "Mi mensaje","Aceptar");
+        }
+    }
+
+    private void showDialogSimple(String mTitulo, String mMensaje, String mTituloBtn) {
+
+    }
+
+    @Override
+    public void onFailed(DataManager dataManager) { //dataManager.getData()
+       /* CheckIdpResponse response = (CheckIdpResponse) dataManager.getData();
+        Toast.makeText(this, response.getMensaje(), Toast.LENGTH_SHORT).show();*/
+
+       //showSnackBar(layoutIdp, (String) dataManager.getData());
+        errorMsn.setVisibility(View.VISIBLE);
+        errorMsn.setText(dataManager.getData().toString());
     }
 }

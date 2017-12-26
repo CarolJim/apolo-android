@@ -167,7 +167,8 @@
     <string name="action_back">Regresar</string>
 
     <!-- CheckIDP -->
-    <string name="hint_verify_idp">Ingresa tu IDP a Verificar.</string>
-    <string name="text_verify_idp">Ingresa tu IDP</string>
-    <string name="error_min_idp">Tú IDP es muy Corto.</string>
+    <string name="hint_verify_idp">Ingresa IDP</string>
+    <string name="text_verify_idp">Ingresa IDP</string>
+    <string name="error_min_idp">El IDP es muy Corto</string>
+    <string name="validate_idp_message">Validando IDP</string>
 </resources>
