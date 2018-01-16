@@ -108,4 +108,6 @@ public final class Constants {
     public static final int SOLICITUD_IFE_INE_REVERSO_INDEX     = 2;
     public static final int SOLICITUD_CREDITO_SIMPLE_INDEX      = 3;
     public static final int SOLICITUD_COMPROBANTE_SIMPLE_INDEX  = 4;
+
+    public static final String WEB_VIEW_PATH = "?IdPromotor=";
 }

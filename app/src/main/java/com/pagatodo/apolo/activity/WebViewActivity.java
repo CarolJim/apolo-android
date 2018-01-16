@@ -22,6 +22,8 @@ import com.pagatodo.apolo.utils.Constants;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.apolo.utils.Constants.WEB_VIEW_PATH;
+
 public class WebViewActivity extends BaseActivity {
 
     private float m_downX;
@@ -75,7 +77,7 @@ public class WebViewActivity extends BaseActivity {
 
     private void initWebView() {
 
-        webView.loadUrl(Constants.URL_REGISTER_WEB + mPromotor.getID_Promotor());
+        webView.loadUrl(Constants.URL_REGISTER_WEB + WEB_VIEW_PATH + mPromotor.getID_Promotor());
 
         if(error_network != null){
             error_network.setOnClickListener(new View.OnClickListener() {
