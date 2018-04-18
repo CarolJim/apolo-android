@@ -18,6 +18,8 @@ public class RequestContract {
 
     //General Methods
     public static final String GET_PROMOTERS                = "/ObtenerListaPromotores";
+    public static final String GET_INICIATIVAS              = "/ObtenerCatalogoIniciativas";
+    public static final String GET_TIENDAS                  = "/ObtenerCatalogoTiendas";
     public static final String DO_CREDIT_REQUEST_REGISTER   = "/RegistrarSolicitudCredito";
     public static final String DOCUMENT_UPLOAD              = "/CargarDocumento";
     public static final String SEND_SMS_CONFIRMATION        = "/SendSMSConfirmation";

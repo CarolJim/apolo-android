@@ -11,12 +11,16 @@ import com.pagatodo.apolo.data.model.factory.ModelPattern;
 import com.pagatodo.apolo.data.model.webservice.request.CheckIdpRequest;
 import com.pagatodo.apolo.data.model.webservice.request.CreditRequestRegisterRequest;
 import com.pagatodo.apolo.data.model.webservice.request.DocumentUploadRequest;
+import com.pagatodo.apolo.data.model.webservice.request.IniciativasRequest;
 import com.pagatodo.apolo.data.model.webservice.request.SMSCodeValidationRequest;
 import com.pagatodo.apolo.data.model.webservice.request.SMSValidationRequest;
+import com.pagatodo.apolo.data.model.webservice.request.TiendasRequest;
 import com.pagatodo.apolo.data.model.webservice.response.CheckIdpResponse;
 import com.pagatodo.apolo.data.model.webservice.response.CreditRequestRegisterResponse;
 import com.pagatodo.apolo.data.model.webservice.response.GeneralServiceResponse;
+import com.pagatodo.apolo.data.model.webservice.response.GetIniciativasResponse;
 import com.pagatodo.apolo.data.model.webservice.response.GetPromotersResponse;
+import com.pagatodo.apolo.data.model.webservice.response.GetTiendasResponse;
 import com.pagatodo.apolo.data.remote.notifications.model.webservice.mega.GetPushStatus;
 import com.pagatodo.apolo.data.remote.notifications.model.webservice.mega.MegaBaseModel;
 import com.pagatodo.apolo.data.remote.notifications.model.webservice.requestinbox.RequestGetInbox;
@@ -36,8 +40,10 @@ import static com.android.volley.Request.Method.POST;
 import static com.pagatodo.apolo.data.remote.RequestContract.CHECK_IDP;
 import static com.pagatodo.apolo.data.remote.RequestContract.DOCUMENT_UPLOAD;
 import static com.pagatodo.apolo.data.remote.RequestContract.DO_CREDIT_REQUEST_REGISTER;
+import static com.pagatodo.apolo.data.remote.RequestContract.GET_INICIATIVAS;
 import static com.pagatodo.apolo.data.remote.RequestContract.GET_PROMOTERS;
 import static com.pagatodo.apolo.data.remote.RequestContract.GET_REMOTE_CONFIG;
+import static com.pagatodo.apolo.data.remote.RequestContract.GET_TIENDAS;
 import static com.pagatodo.apolo.data.remote.RequestContract.MEGA_ACTIVATE_PUSH;
 import static com.pagatodo.apolo.data.remote.RequestContract.MEGA_GET_PUSH_STATUS;
 import static com.pagatodo.apolo.data.remote.RequestContract.MEGA_OBTENER_MSJ_INBOX;
@@ -68,8 +74,9 @@ public class BuildRequest {
                 TIMEOUT,
                 ResponseRemoteConfig.class);
     }
+
     //    REQUEST MEGA
-    public static void registerDeviceMega(HashMap<String, String> headers, RequestRegistroDispositivo request, IRequestResult result){
+    public static void registerDeviceMega(HashMap<String, String> headers, RequestRegistroDispositivo request, IRequestResult result) {
         new RequestBuilder().request(App.getInstance(),
                 LOG_DEBUG,
                 MEGA_REGISTER_DEVICE,
@@ -81,7 +88,8 @@ public class BuildRequest {
                 TIMEOUT,
                 ResponseRegistroDispositivo.class);
     }
-    public static void registerUserMega(HashMap<String, String> headers, RequestRegistroUsuario request, IRequestResult result){
+
+    public static void registerUserMega(HashMap<String, String> headers, RequestRegistroUsuario request, IRequestResult result) {
         new RequestBuilder().request(App.getInstance(),
                 LOG_DEBUG,
                 MEGA_REGISTER_USER,
@@ -93,7 +101,8 @@ public class BuildRequest {
                 TIMEOUT,
                 ResponseRegistroUsuario.class);
     }
-    public static void requestGetInboxs(HashMap<String, String> headers, RequestGetInbox request, IRequestResult result){
+
+    public static void requestGetInboxs(HashMap<String, String> headers, RequestGetInbox request, IRequestResult result) {
         new RequestBuilder().request(App.getInstance(),
                 LOG_DEBUG,
                 MEGA_OBTENER_MSJ_INBOX,
@@ -106,7 +115,7 @@ public class BuildRequest {
                 ResponseInbox.class);
     }
 
-    public static void getPushNotificationStatus(HashMap<String, String> headers,IRequestResult result) {
+    public static void getPushNotificationStatus(HashMap<String, String> headers, IRequestResult result) {
         new RequestBuilder().request(App.getInstance(),
                 LOG_DEBUG,
                 MEGA_GET_PUSH_STATUS,
@@ -119,7 +128,7 @@ public class BuildRequest {
                 GetPushStatus.class);
     }
 
-    public static void requestUpdatePushIndicator(HashMap<String, String> headers, RequestUpdateStatus request, IRequestResult result){
+    public static void requestUpdatePushIndicator(HashMap<String, String> headers, RequestUpdateStatus request, IRequestResult result) {
         new RequestBuilder().request(App.getInstance(),
                 LOG_DEBUG,
                 MEGA_ACTIVATE_PUSH,
@@ -132,8 +141,7 @@ public class BuildRequest {
                 MegaBaseModel.class);
     }
 
-    public static void getPromotersRequest(IRequestResult result)
-    {
+    public static void getPromotersRequest(IRequestResult result) {
         new RequestBuilder().requestPinning(App.getInstance(),
                 R.raw.pagatodo,
                 LOG_DEBUG,
@@ -152,8 +160,35 @@ public class BuildRequest {
                 GetPromotersResponse.class);
     }
 
-    public static void doCreditRequestRegister(IRequestResult result, CreditRequestRegisterRequest body, HashMap<String,String> headers)
-    {
+    public static void getIniciativasRequest(IRequestResult result, IniciativasRequest body) {
+        new RequestBuilder().requestPinning(App.getInstance(),
+                R.raw.pagatodo,
+                LOG_DEBUG,
+                GET_INICIATIVAS,
+                POST,
+                null,
+                RemoteConfig.getUrlServer() + GET_INICIATIVAS,
+                body,
+                result,
+                TIMEOUT,
+                GetIniciativasResponse.class);
+    }
+
+    public static void getTiendasRequest(IRequestResult result, TiendasRequest body) {
+        new RequestBuilder().requestPinning(App.getInstance(),
+                R.raw.pagatodo,
+                LOG_DEBUG,
+                GET_TIENDAS,
+                POST,
+                null,
+                RemoteConfig.getUrlServer() + GET_TIENDAS,
+                body,
+                result,
+                TIMEOUT,
+                GetTiendasResponse.class);
+    }
+
+    public static void doCreditRequestRegister(IRequestResult result, CreditRequestRegisterRequest body, HashMap<String, String> headers) {
         new RequestBuilder().requestPinning(App.getInstance(),
                 R.raw.pagatodo,
                 LOG_DEBUG,
@@ -167,8 +202,7 @@ public class BuildRequest {
                 CreditRequestRegisterResponse.class);
     }
 
-    public static void doDocumentUpload(IRequestResult result, DocumentUploadRequest body, HashMap<String,String> headers)
-    {
+    public static void doDocumentUpload(IRequestResult result, DocumentUploadRequest body, HashMap<String, String> headers) {
         new RequestBuilder().requestPinning(App.getInstance(),
                 R.raw.pagatodo,
                 LOG_DEBUG,
@@ -182,7 +216,7 @@ public class BuildRequest {
                 GeneralServiceResponse.class);
     }
 
-    public static void sendCheckIdp(IdpInteractorImpl result, CheckIdpRequest body, HashMap<String, String> headers){
+    public static void sendCheckIdp(IdpInteractorImpl result, CheckIdpRequest body, HashMap<String, String> headers) {
         new RequestBuilder().requestPinning(App.getInstance(),
                 R.raw.pagatodo,
                 LOG_DEBUG,
@@ -196,8 +230,7 @@ public class BuildRequest {
                 CheckIdpResponse.class);
     }
 
-    public static void sendSMSConfirmation(IRequestResult result, SMSValidationRequest body, HashMap<String,String> headers)
-    {
+    public static void sendSMSConfirmation(IRequestResult result, SMSValidationRequest body, HashMap<String, String> headers) {
         new RequestBuilder().requestPinning(App.getInstance(),
                 R.raw.pagatodo,
                 LOG_DEBUG,
@@ -211,8 +244,7 @@ public class BuildRequest {
                 GeneralServiceResponse.class);
     }
 
-    public static void sendSMSCodeValidation(IRequestResult result, SMSCodeValidationRequest body, HashMap<String,String> headers)
-    {
+    public static void sendSMSCodeValidation(IRequestResult result, SMSCodeValidationRequest body, HashMap<String, String> headers) {
         new RequestBuilder().requestPinning(App.getInstance(),
                 R.raw.pagatodo,
                 LOG_DEBUG,

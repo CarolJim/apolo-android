@@ -7,7 +7,7 @@ import android.text.format.DateFormat;
 
 import com.google.gson.Gson;
 import com.pagatodo.apolo.data.local.Preferences;
-import com.pagatodo.apolo.data.model.Promotor;
+import com.pagatodo.apolo.data.room.entities.Promotor;
 import com.pagatodo.apolo.data.remote.notifications.model.TokenMega;
 import com.pagatodo.apolo.data.remote.notifications.model.webservice.requestinbox.RequestGetInbox;
 import com.pagatodo.apolo.data.remote.notifications.model.webservice.requestregistrodispositivo.RequestRegistroDispositivo;

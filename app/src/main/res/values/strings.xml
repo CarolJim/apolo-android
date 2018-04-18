@@ -65,11 +65,17 @@
     <string name="changed_configuration">Cambio de Configuración</string>
     <string name="saved">Guardado</string>
     <string name="msg_update_afiliados">Actualizando Promotores.</string>
+    <string name="msg_update_iniciativas">Actualizando Iniciativas.</string>
+    <string name="msg_update_tiendas">Actualizando Tiendas.</string>
     <string name="not_internet">Sin Internet</string>
     <string name="error">Error</string>
     <string name="delete">Eliminar</string>
     <string name="not_have_promotores">No hay Promotores</string>
+    <string name="not_have_iniciativas">No hay Iniciativas</string>
+    <string name="not_have_tiendas">No hay Tiendas</string>
     <string name="not_search_promotores">No se han Encontrado Promotores en la Base de Datos</string>
+    <string name="not_search_iniciativas">No se han Encontrado Iniciativas en la Base de Datos</string>
+    <string name="not_search_tiendas">No se han Encontrado Tiendas en la Base de Datos</string>
 
     <!-- Camara -->
     <string name="unable_camera">No se Puede Abrir la Cámara.</string>
@@ -141,6 +147,9 @@
     <string name="error_invalid_id">Usuario Invalido.</string>
     <string name="error_empty_id_afiliador">Ingresa tu Usuario.</string>
     <string name="error_min_id_afiliador">Tú Usuario es muy Corto.</string>
+    <string name="error_inactive_promotor">Tú Usuario no se Encuentra Activo.</string>
+    <string name="error_iniciativas_empty">No Cuentas con Iniciativas.</string>
+    <string name="error_tiendas_empty">No Cuentas con Tiendas.</string>
     <string name="error_phone_empty">El Teléfono no Puede Estar Vacio.</string>
     <string name="error_cellphone_empty">El Teléfono Celular no Puede Estar Vacio.</string>
     <string name="error_number_validate">Por Favor Ingrese un Número Teléfonico.</string>

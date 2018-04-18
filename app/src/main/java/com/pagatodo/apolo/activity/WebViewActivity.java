@@ -15,7 +15,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import com.pagatodo.apolo.R;
-import com.pagatodo.apolo.data.model.Promotor;
+import com.pagatodo.apolo.data.room.entities.Promotor;
 import com.pagatodo.apolo.ui.base.factoryactivities.BaseActivity;
 import com.pagatodo.apolo.utils.Constants;
 

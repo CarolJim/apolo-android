@@ -1,66 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layoutLogin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/layoutLogin"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/bg_app">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <LinearLayout
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_weight="2"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="@dimen/dimen_margin_medium"
-        android:layout_marginRight="@dimen/dimen_margin_medium">
-        <!-- Numero de usuario -->
-         <com.pagatodo.apolo.utils.customviews.MaterialValidationEditText
-             android:id="@+id/edtUserNumber"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             app:formato="pwtext"
-             android:padding="@dimen/dimen_padding_medium"
-             app:maxLength="6"
-             android:gravity="center"
-             android:background="@drawable/input_border_login"
-             app:hintColor="@color/colorText"
-             app:hintText="@string/error_empty_id_afiliador"/>
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="@dimen/dimen_margin_medium"
+            android:layout_marginRight="@dimen/dimen_margin_medium"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="vertical">
+            <!-- Numero de usuario -->
+            <com.pagatodo.apolo.utils.customviews.MaterialValidationEditText
+                android:id="@+id/edtUserNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_border_login"
+                android:gravity="center"
+                android:padding="@dimen/dimen_padding_medium"
+                app:formato="pwtext"
+                app:hintColor="@color/colorText"
+                app:hintText="@string/error_empty_id_afiliador" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_margin_small">
+
+                <TextView
+                    android:id="@+id/textview1"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_weight="1"
+                    android:gravity="left|start|center_vertical"
+                    android:text="Selecciona la Iniciativa:"
+                    android:textColor="@color/colorText"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spn_iniciativas"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="2" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_margin_small">
+
+                <TextView
+                    android:id="@+id/textview2"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_weight="1"
+                    android:gravity="left|start|center_vertical"
+                    android:text="Selecciona la Tienda:"
+                    android:textColor="@color/colorText"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spn_tiendas"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dimen_margin_medium"
             android:layout_marginRight="@dimen/dimen_margin_medium"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:orientation="vertical">
             <!-- Boton Login  -->
             <com.pagatodo.apolo.utils.customviews.MaterialButton
                 android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_button_height"
+                android:layout_alignParentBottom="true"
                 android:layout_marginBottom="@dimen/dimen_margin_xl"
                 android:text="@string/txt_button_continue"
-                app:textColor="@color/white"
-                app:hintColor="@color/white"
                 app:buttonNormalColor="@color/teal"
                 app:buttonStrokeColor="@color/teal"
                 app:cornerRadius="@dimen/dimen_button_radius"
-                android:layout_alignParentBottom="true"
-                app:intercepterOnclick="true"/>
+                app:hintColor="@color/white"
+                app:intercepterOnclick="true"
+                app:textColor="@color/white" />
 
             <com.pagatodo.apolo.utils.customviews.MaterialTextView
                 android:id="@+id/tv_version"
-                android:layout_gravity="right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/dimen_textSize_small_ll"
+                android:layout_gravity="right"
                 android:text="1.0.0"
                 android:textColor="@color/colorText"
+                android:textSize="@dimen/dimen_textSize_small_ll"
                 app:tipo="Titulo" />
         </LinearLayout>
     </LinearLayout>

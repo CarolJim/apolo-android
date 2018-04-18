@@ -7,8 +7,8 @@ import android.preference.PreferenceManager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.pagatodo.apolo.data.model.Mensaje;
-import com.pagatodo.apolo.data.model.Promotor;
-import com.pagatodo.apolo.utils.Constants;
+import com.pagatodo.apolo.data.room.DatabaseManager;
+import com.pagatodo.apolo.data.room.entities.Promotor;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -20,13 +20,15 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
+import static com.pagatodo.apolo.data.local.PreferencesContract.CURRENT_PROMOTOR;
+import static com.pagatodo.apolo.data.local.PreferencesContract.INICIATIVA;
 import static com.pagatodo.apolo.data.local.PreferencesContract.IS_SMS_ENABLE;
 import static com.pagatodo.apolo.data.local.PreferencesContract.LIST_NOTIFICATIONS;
-import static com.pagatodo.apolo.data.local.PreferencesContract.LIST_PROMOTORS;
 import static com.pagatodo.apolo.data.local.PreferencesContract.SESSION_ACTIVE;
-import static com.pagatodo.apolo.data.local.PreferencesContract.CURRENT_PROMOTOR;
 import static com.pagatodo.apolo.data.local.PreferencesContract.SFECHA_ACTUALIZACION;
+import static com.pagatodo.apolo.data.local.PreferencesContract.TIENDA;
 
 /**
  * Created by jvazquez on 19/05/2017.
@@ -66,6 +68,7 @@ public class Preferences {
     public Serializable loadData(String key, Boolean isObject) {
         return stringToObject(this.preferences.getString(key, null));
     }
+
     public boolean loadBoolean(String key) {
         return preferences.getBoolean(key, false);
     }
@@ -78,6 +81,9 @@ public class Preferences {
         return preferences.getString(key, "");
     }
 
+    public Integer loadInt(String key) {
+        return Integer.parseInt(preferences.getString(key,"0"));
+    }
 
     public void clearPreferences() {
         SharedPreferences.Editor editor = this.preferences.edit();
@@ -100,24 +106,30 @@ public class Preferences {
         editor.commit();
     }
 
-    public static void createSession(Preferences pref, Promotor promotor) {
+    public static void createSession(Preferences pref, Promotor promotor, int idIniciativa, int idTienda) {
         /*Implementamos el manejo de Sesión*/
-        pref.saveDataBool(SESSION_ACTIVE,true);
+        pref.saveDataBool(SESSION_ACTIVE, true);
         pref.saveData(CURRENT_PROMOTOR, promotor);
+        pref.saveDataInt(INICIATIVA, idIniciativa);
+        pref.saveDataInt(TIENDA, idTienda);
     }
-    public void destroySession(){
+
+    public void destroySession() {
         List<String> preferenciasList = new ArrayList<>();
         preferenciasList.add(SESSION_ACTIVE);
         preferenciasList.add(CURRENT_PROMOTOR);
-        for(String preferencia: preferenciasList){
+        preferenciasList.add(INICIATIVA);
+        preferenciasList.add(TIENDA);
+        for (String preferencia : preferenciasList) {
             clearPreference(preferencia);
         }
 
     }
-    public HashMap<String, String> getHeaders(){
+
+    public HashMap<String, String> getHeaders() {
         HashMap<String, String> params = new HashMap<>();
-        Promotor promotor =  (Promotor) loadData(CURRENT_PROMOTOR, true);
-        if(promotor != null){
+        Promotor promotor = (Promotor) loadData(CURRENT_PROMOTOR, true);
+        if (promotor != null) {
             params.put("Content-type", "application/json");
             params.put("Promotor", String.valueOf(promotor.getID_Promotor()));
             return params;
@@ -125,27 +137,28 @@ public class Preferences {
         return params;
     }
 
-    public Promotor getCurrentPromotor()
-    {
-        Promotor userData =  (Promotor) loadData(CURRENT_PROMOTOR,true);
-        if(userData != null)
+    public Promotor getCurrentPromotor() {
+        Promotor userData = (Promotor) loadData(CURRENT_PROMOTOR, true);
+        if (userData != null)
             return userData;
         return null;
     }
 
-    public boolean getSessionStatus()
-    {
+    public boolean getSessionStatus() {
         return loadBoolean(SESSION_ACTIVE);
     }
 
     public String getFechaActualizacion() {
         return this.preferences.getString(SFECHA_ACTUALIZACION, "");
     }
-    public List<Mensaje> obtenerColaDeMensajes(){
-        Type listType = new TypeToken<ArrayList<Mensaje>>(){}.getType();
+
+    public List<Mensaje> obtenerColaDeMensajes() {
+        Type listType = new TypeToken<ArrayList<Mensaje>>() {
+        }.getType();
         List<Mensaje> mensajes = new Gson().fromJson(loadString(LIST_NOTIFICATIONS), listType);
         return mensajes != null ? mensajes : new ArrayList<Mensaje>();
     }
+
     private static String objectToString(Serializable obj) {
         if (obj == null)
             return "";
@@ -160,26 +173,29 @@ public class Preferences {
             return null;
         }
     }
-    private static String asHexStr (byte buf[]) {
+
+    private static String asHexStr(byte buf[]) {
         StringBuffer strbuf = new StringBuffer(buf.length * 2);
         int i;
         for (i = 0; i < buf.length; i++) {
-            if (( buf[i] & 0xff) < 0x10)
+            if ((buf[i] & 0xff) < 0x10)
                 strbuf.append("0");
-            strbuf.append(Long.toString( buf[i] & 0xff, 16));
+            strbuf.append(Long.toString(buf[i] & 0xff, 16));
         }
         return strbuf.toString();
     }
-    private static byte[] asBytes (String s) {
+
+    private static byte[] asBytes(String s) {
         String s2;
         byte[] b = new byte[s.length() / 2];
         int i;
         for (i = 0; i < s.length() / 2; i++) {
             s2 = s.substring(i * 2, i * 2 + 2);
-            b[i] = (byte)(Integer.parseInt(s2, 16) & 0xff);
+            b[i] = (byte) (Integer.parseInt(s2, 16) & 0xff);
         }
         return b;
     }
+
     private static Serializable stringToObject(String str) {
         if (str == null || str.length() == 0)
             return null;
@@ -193,13 +209,7 @@ public class Preferences {
         }
     }
 
-    public List<Promotor> getListOfPromotors() {
-        Type listType = new TypeToken<ArrayList<Promotor>>(){}.getType();
-        List<Promotor> promotors = new Gson().fromJson(loadString(LIST_PROMOTORS), listType);
-        return promotors != null ? promotors : new ArrayList<Promotor>();
-//        return Constants.dummy_promotores;
-    }
-    public boolean isEnableVerificateSMS(){
+    public boolean isEnableVerificateSMS() {
         return preferences.getBoolean(IS_SMS_ENABLE, true);
     }
 }

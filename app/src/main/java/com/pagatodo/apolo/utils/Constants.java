@@ -3,7 +3,7 @@ package com.pagatodo.apolo.utils;
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.data.model.Cards;
 import com.pagatodo.apolo.data.model.Documento;
-import com.pagatodo.apolo.data.model.Promotor;
+import com.pagatodo.apolo.data.room.entities.Promotor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
 public final class Constants {
 
     //Enable debug logs
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
 
     //RemoteConfig
     public static final boolean isEnableVerificateSMS = true;

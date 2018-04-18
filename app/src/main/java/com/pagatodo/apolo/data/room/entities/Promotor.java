@@ -1,20 +1,37 @@
-package com.pagatodo.apolo.data.model;
+package com.pagatodo.apolo.data.room.entities;
+
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
 import com.pagatodo.apolo.data.model.factory.ModelPattern;
 
 /**
  * Created by jvazquez on 26/07/2017.
  */
-
+@Entity
 public class Promotor extends ModelPattern {
-    private boolean Activo           = false;
-    private String  ApellidoMaterno  = "";
-    private String  ApellidoPaterno  = "";
-    private int     ID_Promotor      =  0;
-    private String  Nombre           = "";
-    private String  Promotor         = "";
 
-    public Promotor(){
+    @ColumnInfo(name = "activo")
+    private boolean Activo = false;
+
+    @ColumnInfo(name = "apellido_materno")
+    private String ApellidoMaterno = "";
+
+    @ColumnInfo(name = "apellido_paterno")
+    private String ApellidoPaterno = "";
+
+    @ColumnInfo(name = "id_promotor")
+    @PrimaryKey
+    private int ID_Promotor = 0;
+
+    @ColumnInfo(name = "nombre")
+    private String Nombre = "";
+
+    @ColumnInfo(name = "promotor")
+    private String Promotor = "";
+
+    public Promotor() {
 
     }
 

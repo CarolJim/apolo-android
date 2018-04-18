@@ -9,4 +9,8 @@ import com.pagatodo.apolo.ui.base.factoryinterfaces.IProcessData;
 public interface ISplashPresenter extends IProcessData {
 
     void getPromotersList();
+
+    void getIniciativasList();
+
+    void getTiendasList();
 }

@@ -1,20 +1,18 @@
 package com.pagatodo.apolo.activity.CheckIDP;
 
-import android.support.design.widget.CoordinatorLayout;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pagatodo.apolo.R;
-import com.pagatodo.apolo.activity.CheckIDP._presenter.IdpInteractorImpl;
 import com.pagatodo.apolo.activity.CheckIDP._presenter.IdpPresenterImpl;
 import com.pagatodo.apolo.activity.CheckIDP._presenter._interfaces.IdpPresenter;
 import com.pagatodo.apolo.activity.CheckIDP._presenter._interfaces.IdpView;
 import com.pagatodo.apolo.activity.MenuActivity;
 import com.pagatodo.apolo.activity.register.RegisterActivity;
+import com.pagatodo.apolo.data.local.PreferencesContract;
 import com.pagatodo.apolo.data.model.webservice.response.CheckIdpResponse;
-import com.pagatodo.apolo.data.model.webservice.response.GeneralServiceResponse;
 import com.pagatodo.apolo.ui.base.factoryactivities.BasePresenterPermissionActivity;
 import com.pagatodo.apolo.ui.base.factoryinterfaces.IValidateForms;
 import com.pagatodo.apolo.utils.ValidateForm;
@@ -26,7 +24,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.pagatodo.apolo.ui.UI.showSnackBar;
 import static com.pagatodo.networkframework.model.ResponseConstants.RESPONSE_CODE_OK;
 
 /**
@@ -134,15 +131,16 @@ public class CheckIDPActivity extends BasePresenterPermissionActivity<IdpPresent
     public void onSuccess(DataManager dataManager) {
         CheckIdpResponse response = (CheckIdpResponse) dataManager.getData();
         if (response.getCodigo() == RESPONSE_CODE_OK) {
-          //  Toast.makeText(this, response.getMensaje(), Toast.LENGTH_SHORT).show();
+            //  Toast.makeText(this, response.getMensaje(), Toast.LENGTH_SHORT).show();
             showView(RegisterActivity.class);
             errorMsn.setVisibility(View.GONE);
+            pref.saveData(PreferencesContract.IDP, numberIdp);
             finish();
         } else {
             //showSnackBar(layoutIdp, response.getMensaje());
             errorMsn.setVisibility(View.VISIBLE);
             errorMsn.setText(response.getMensaje());
-          //  showDialogSimple("Mi Dialogo", "Mi mensaje","Aceptar");
+            //  showDialogSimple("Mi Dialogo", "Mi mensaje","Aceptar");
         }
     }
 
@@ -155,7 +153,7 @@ public class CheckIDPActivity extends BasePresenterPermissionActivity<IdpPresent
        /* CheckIdpResponse response = (CheckIdpResponse) dataManager.getData();
         Toast.makeText(this, response.getMensaje(), Toast.LENGTH_SHORT).show();*/
 
-       //showSnackBar(layoutIdp, (String) dataManager.getData());
+        //showSnackBar(layoutIdp, (String) dataManager.getData());
         errorMsn.setVisibility(View.VISIBLE);
         errorMsn.setText(dataManager.getData().toString());
     }

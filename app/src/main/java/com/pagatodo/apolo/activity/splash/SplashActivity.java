@@ -9,6 +9,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+
 import com.pagatodo.apolo.R;
 import com.pagatodo.apolo.activity.MenuActivity;
 import com.pagatodo.apolo.activity.login.LoginActivity;
@@ -24,11 +25,12 @@ import static com.pagatodo.apolo.data.local.PreferencesContract.SESSION_ACTIVE;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_RE_GET_PROMOTORS;
 import static com.pagatodo.apolo.ui.base.BaseEventContract.EVENT_SALIR;
 
-public class SplashActivity extends BasePresenterActivity<ISplashPresenter> implements ISplashView{
+public class SplashActivity extends BasePresenterActivity<ISplashPresenter> implements ISplashView {
 
     @BindView(R.id.layout_splash)
     FrameLayout layout;
-    @BindView(R.id.ic_launcher) ImageView image_icon;
+    @BindView(R.id.ic_launcher)
+    ImageView image_icon;
     Boolean session = false;
     private Handler splashHandler = new Handler();
     private final static int HANDLER_DELAY = 3000;
@@ -83,17 +85,27 @@ public class SplashActivity extends BasePresenterActivity<ISplashPresenter> impl
 
     @Override
     public void updatePromotorsSuccess() {
+        presenter.getIniciativasList();
+    }
+
+    @Override
+    public void updateIniciativasSuccess() {
+        presenter.getTiendasList();
+    }
+
+    @Override
+    public void updateTiendasSuccess() {
         splashHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 Intent i = new Intent(SplashActivity.this, pref.containsData(SESSION_ACTIVE) ? MenuActivity.class : LoginActivity.class);
                 startActivity(i);
             }
-        },HANDLER_DELAY);
+        }, HANDLER_DELAY);
     }
 
     @Override
-    public void updatePromotorsFailed(String title, String message) {
+    public void updateFailed(String title, String message) {
         showDialog(title, message, android.R.drawable.ic_dialog_alert, getString(R.string.txt_reintent), EVENT_RE_GET_PROMOTORS, getString(R.string.txt_exit), EVENT_SALIR);
     }
 
@@ -110,7 +122,7 @@ public class SplashActivity extends BasePresenterActivity<ISplashPresenter> impl
     @Override
     public void onEvent(String event, Object data) {
         super.onEvent(event, data);
-        switch (event){
+        switch (event) {
             case EVENT_RE_GET_PROMOTORS:
                 presenter.getPromotersList();
                 break;
