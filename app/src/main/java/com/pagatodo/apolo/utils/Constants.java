@@ -15,7 +15,7 @@ import java.util.List;
 public final class Constants {
 
     //Enable debug logs
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
     //RemoteConfig
     public static final boolean isEnableVerificateSMS = true;
