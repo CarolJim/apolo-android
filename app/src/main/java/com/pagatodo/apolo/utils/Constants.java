@@ -36,7 +36,7 @@ public final class Constants {
             //URL_SERVER               = "http://200.53.139.19:8027/WSSolicitudCreditosAM.svc";
             //URL_REGISTER_WEB         = "http://200.53.139.19:8027/BPT_Web_CreditosAdultoMayor";
             URL_SERVER               = "https://wssolicitudcreditosam.pagatodo.com:8028/WSSolicitudCreditosAM.svc";
-            URL_REGISTER_WEB         = "https://wssolicitudcreditosam.pagatodo.com:8028/BPT_Web_CreditosAdultoMayor/home/index?IdPromotor=";
+            URL_REGISTER_WEB         = "https://wssolicitudcreditosam.pagatodo.com:8028/BPT_Web_CreditosAdultoMayor/home/index";
         }
     }
 
