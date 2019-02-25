@@ -30,6 +30,18 @@
                 app:formato="pwtext"
                 app:hintColor="@color/colorText"
                 app:hintText="@string/error_empty_id_afiliador" />
+            <!-- Contraseña del usuario -->
+            <com.pagatodo.apolo.utils.customviews.MaterialValidationEditText
+                android:id="@+id/edtPassUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_border_login"
+                android:gravity="center"
+                android:padding="4dp"
+                app:formato="pwtext"
+                app:hintColor="@color/colorText"
+                app:hintText="Ingresa tu contraseña."/>
+
 
             <LinearLayout
                 android:layout_width="match_parent"

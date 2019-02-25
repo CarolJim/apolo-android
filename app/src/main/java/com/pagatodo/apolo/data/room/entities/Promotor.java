@@ -8,6 +8,7 @@ import com.pagatodo.apolo.data.model.factory.ModelPattern;
 
 /**
  * Created by jvazquez on 26/07/2017.
+ * Modified by cjimenez on 25/02/2019.
  */
 @Entity
 public class Promotor extends ModelPattern {
@@ -31,17 +32,25 @@ public class Promotor extends ModelPattern {
     @ColumnInfo(name = "promotor")
     private String Promotor = "";
 
+    @ColumnInfo(name = "reset_contraseña")
+    private boolean ResetContraseña = true;
+
+    @ColumnInfo(name = "usuario_valido")
+    private boolean UsuarioValido = true;
+
     public Promotor() {
 
     }
 
-    public Promotor(boolean activo, String apellidoMaterno, String apellidoPaterno, int ID_Promotor, String nombre, String promotor) {
+    public Promotor(boolean activo, String apellidoMaterno, String apellidoPaterno, int ID_Promotor, String nombre, String promotor, boolean resetContraseña, boolean usuarioValido) {
         Activo = activo;
         ApellidoMaterno = apellidoMaterno;
         ApellidoPaterno = apellidoPaterno;
         this.ID_Promotor = ID_Promotor;
         Nombre = nombre;
         Promotor = promotor;
+        ResetContraseña = resetContraseña;
+        UsuarioValido = usuarioValido;
     }
 
     public String getApellidoMaterno() {
@@ -90,5 +99,21 @@ public class Promotor extends ModelPattern {
 
     public void setActivo(boolean activo) {
         Activo = activo;
+    }
+
+    public boolean isResetContraseña(){
+        return ResetContraseña;
+    }
+
+    public void setResetContraseña(boolean resetContraseña){
+        ResetContraseña = resetContraseña;
+    }
+
+    public boolean isUsuarioValido(){
+        return UsuarioValido;
+    }
+
+    public void setUsuarioValido(boolean usuarioValido){
+        UsuarioValido = usuarioValido;
     }
 }

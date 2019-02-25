@@ -48,7 +48,7 @@ public class SplashActivity extends BasePresenterActivity<ISplashPresenter> impl
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
         StartAnimations();
-        presenter.getPromotersList();
+        presenter.getPromotersList();  //catalogo de promotores ya no se debe cargar porque debe hacer la validacion en linea
     }
 
     @Override

@@ -31,6 +31,7 @@ import static com.pagatodo.apolo.utils.Constants.MIN_SIZE_ID_AFILIADOR;
 
 /**
  * Created by rvargas on 21-07-17.
+ * Modified by cjimenez on 25/02/2019.
  */
 
 public class LoginActivity extends BasePresenterPermissionActivity<LoginPresenter> implements LoginView, IValidateForms,
@@ -38,6 +39,8 @@ public class LoginActivity extends BasePresenterPermissionActivity<LoginPresente
     private final String TAG = "LoginActivity";
     @BindView(R.id.edtUserNumber)
     MaterialValidationEditText edtNumber;
+    @BindView(R.id.edtPassUser)
+    MaterialValidationEditText edtPass;
     @BindView(R.id.spn_iniciativas)
     Spinner spnIniciativas;
     @BindView(R.id.spn_tiendas)
@@ -57,7 +60,7 @@ public class LoginActivity extends BasePresenterPermissionActivity<LoginPresente
         inflateView(this, R.layout.activity_login);
 //        setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        validateEditText(btnLogin, edtNumber);
+        validateEditText(btnLogin, edtNumber, edtPass);
         requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.RECEIVE_SMS, Manifest.permission.READ_SMS});
         tvVersion = (MaterialTextView) findViewById(R.id.tv_version);
@@ -85,10 +88,10 @@ public class LoginActivity extends BasePresenterPermissionActivity<LoginPresente
         presenter = new LoginPresenterImpl(this);
     }
 
-    private void validateEditText(MaterialButton btnLogin, MaterialValidationEditText edtNumber) {
-        if (edtNumber != null) {
+    private void validateEditText(MaterialButton btnLogin, MaterialValidationEditText edtNumber, MaterialValidationEditText edtPass) {
+        if (edtNumber != null && edtPass !=null) {
             ValidateForm.enableBtn(false, btnLogin);
-            ValidateForm.validateEditText(btnLogin, edtNumber);
+            ValidateForm.validateEditText(btnLogin, edtNumber, edtPass);
         }
     }
 
@@ -105,6 +108,11 @@ public class LoginActivity extends BasePresenterPermissionActivity<LoginPresente
     @Override
     public void setUserNumberError() {
         showMessage(getString((R.string.error_empty_id_afiliador))); //showSnackBar(layoutLogin,getString((R.string.hint_numero_usuario)));
+    }
+
+    @Override
+    public void setUserPassError(){
+        showMessage(getString((R.string.error_empty_pass_afiliador)));
     }
 
     @Override

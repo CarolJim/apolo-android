@@ -13,6 +13,7 @@ public interface LoginInteractor {
         void onSuccess(Promotor promotor);
         void failure(String message);
         void onUserNumberError();
+        void onUserPassError();
     }
     void onLogin(String username, onLoginListener listener);
 }

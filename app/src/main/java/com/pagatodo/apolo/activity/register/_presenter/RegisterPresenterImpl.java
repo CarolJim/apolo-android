@@ -33,6 +33,8 @@ import static com.pagatodo.apolo.utils.Constants.SOLICITUD_COMPROBANTE_DOMICILIO
 import static com.pagatodo.apolo.utils.Constants.SOLICITUD_CREDITO_SIMPLE;
 import static com.pagatodo.apolo.utils.Constants.SOLICITUD_IFE_INE_FRENTE;
 import static com.pagatodo.apolo.utils.Constants.SOLICITUD_IFE_INE_REVERSO;
+import static com.pagatodo.apolo.utils.Constants.SOLICITUD_OTRA_FRENTE;
+import static com.pagatodo.apolo.utils.Constants.SOLICITUD_OTRA_REVERSO;
 import static com.pagatodo.networkframework.model.ResponseConstants.RESPONSE_CODE_OK;
 
 /**
@@ -242,6 +244,10 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterView> implement
                 return getString(R.string.template_doc_credito_simple, folio);
             case SOLICITUD_COMPROBANTE_DOMICILIO:
                 return getString(R.string.template_doc_comprobante_domicilio, folio);
+            case SOLICITUD_OTRA_FRENTE:
+                return getString(R.string.template_doc_otra_frente, folio);
+            case SOLICITUD_OTRA_REVERSO:
+                return getString(R.string.template_doc_otra_reverso, folio);
             default:
                 return "";
         }
@@ -281,6 +287,11 @@ public class RegisterPresenterImpl extends BasePresenter<RegisterView> implement
                 return Constants.SOLICITUD_CREDITO_SIMPLE_INDEX;
             case SOLICITUD_COMPROBANTE_DOMICILIO:
                 return Constants.SOLICITUD_COMPROBANTE_SIMPLE_INDEX;
+            case SOLICITUD_OTRA_FRENTE:
+                return Constants.SOLICITUD_OTRA_IDENTIFICACION_FRENTE_SIMPLE_INDEX;
+            case SOLICITUD_OTRA_REVERSO:
+                return Constants.SOLICITUD_OTRA_IDENTIFICACION_REVERSO_SIMPLE_INDEX;
+
         }
         return 0;
     }

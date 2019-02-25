@@ -63,6 +63,8 @@ public final class Constants {
     public static final String  SOL_IFE_VUELTA = "IfeVuelta";
     public static final String  SOL_CREDITO_SIMPLE  = "CreditoSimple";
     public static final String  SOL_COMPROBANTE_DOM = "ComprobanteDomicilio";
+    public static final String  SOL_OTRA_FRENTE = "OtraFrente";
+    public static final String SOL_OTRA_REVERSO = "OtraReverso";
     public static final Boolean CODIGO_VERIFICADO   = false;
     public static final Boolean ENABLE_VERIFY       = true;
 
@@ -84,6 +86,8 @@ public final class Constants {
     public static final int SOLICITUD_ADULTO_MAYOR    = 3;
     public static final int SOLICITUD_CREDITO_SIMPLE  = 4;
     public static final int SOLICITUD_COMPROBANTE_DOMICILIO = 5;
+    public static final int SOLICITUD_OTRA_FRENTE = 6;
+    public static final int SOLICITUD_OTRA_REVERSO = 7;
 
     public static final List<Documento> DOCUMENTS_LIST = new ArrayList<>();
     static {
@@ -92,6 +96,8 @@ public final class Constants {
         DOCUMENTS_LIST.add(new Documento(SOLICITUD_ADULTO_MAYOR,    "TARJETA ADULTO MAYOR",  "", 0, "", ""));
         DOCUMENTS_LIST.add(new Documento(SOLICITUD_CREDITO_SIMPLE,  "SOLICITUD DE CRÉDITO SIMPLE",    "", 0, "", ""));
         DOCUMENTS_LIST.add(new Documento(SOLICITUD_COMPROBANTE_DOMICILIO,  "COMPROBANTE DOMICILIO",   "", 0, "", ""));
+        DOCUMENTS_LIST.add(new Documento(SOLICITUD_OTRA_FRENTE,  "OTRA IDENTIFICACIÓN FRENTE",   "", 0, "", ""));
+        DOCUMENTS_LIST.add(new Documento(SOLICITUD_OTRA_REVERSO,  "OTRA IDENTIFICACIÓN REVERSO",   "", 0, "", ""));
     }
 
     public static final List<Cards> DOCUMENTS = new ArrayList<>();
@@ -101,6 +107,8 @@ public final class Constants {
         DOCUMENTS.add(new Cards("INE VUELTA",R.drawable.ic_ineback_ap,   R.drawable.ic_check_ap, DOCUMENTS_LIST.get(1)));
         DOCUMENTS.add(new Cards("SOLICITUD DE CRÉDITO",  R.drawable.ic_credito,   R.drawable.ic_check_ap, DOCUMENTS_LIST.get(3)));
         DOCUMENTS.add(new Cards("COMPROBANTE DOMICILIO",  R.drawable.ic_comprobante,   R.drawable.ic_check_ap, DOCUMENTS_LIST.get(4)));
+        DOCUMENTS.add(new Cards("OTRA FRENTE",R.drawable.ic_inefront_ap,  R.drawable.ic_check_ap, DOCUMENTS_LIST.get(5)));
+        DOCUMENTS.add(new Cards("OTRA REVERSO",R.drawable.ic_ineback_ap,   R.drawable.ic_check_ap, DOCUMENTS_LIST.get(6)));
     }
 
     public static final int SOLICITUD_ADULTO_MAYOR_INDEX        = 0;
@@ -108,6 +116,8 @@ public final class Constants {
     public static final int SOLICITUD_IFE_INE_REVERSO_INDEX     = 2;
     public static final int SOLICITUD_CREDITO_SIMPLE_INDEX      = 3;
     public static final int SOLICITUD_COMPROBANTE_SIMPLE_INDEX  = 4;
+    public static final int SOLICITUD_OTRA_IDENTIFICACION_FRENTE_SIMPLE_INDEX  = 5;
+    public static final int SOLICITUD_OTRA_IDENTIFICACION_REVERSO_SIMPLE_INDEX  = 6;
 
     public static final String WEB_VIEW_PATH = "?IdPromotor=";
 }

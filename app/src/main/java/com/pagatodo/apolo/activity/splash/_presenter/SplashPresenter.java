@@ -32,6 +32,7 @@ import static com.pagatodo.networkframework.model.ResponseConstants.RESPONSE_COD
 
 /**
  * Created by jvazquez on 26/07/2017.
+ *
  */
 
 public class SplashPresenter extends BasePresenter<ISplashView> implements ISplashPresenter {

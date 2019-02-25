@@ -141,6 +141,14 @@ public class LoginPresenterImpl extends BasePresenter<LoginView> implements Logi
     }
 
     @Override
+    public void onUserPassError(){
+        if (view != null){
+            view.hideProgress();
+            view.setUserPassError();
+        }
+    }
+
+    @Override
     public void onCreate() {
 
     }

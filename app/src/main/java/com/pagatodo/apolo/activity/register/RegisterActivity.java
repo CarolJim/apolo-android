@@ -110,6 +110,8 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
         outState.putString(Constants.SOL_IFE_VUELTA, instance.get(Constants.SOL_IFE_VUELTA));
         outState.putString(Constants.SOL_CREDITO_SIMPLE, instance.get(Constants.SOL_CREDITO_SIMPLE));
         outState.putString(Constants.SOL_COMPROBANTE_DOM, instance.get(Constants.SOL_COMPROBANTE_DOM));
+        outState.putString(Constants.SOL_OTRA_FRENTE, instance.get(Constants.SOL_OTRA_FRENTE));
+        outState.putString(Constants.SOL_OTRA_REVERSO, instance.get(Constants.SOL_OTRA_REVERSO));
     }
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState){
@@ -377,13 +379,18 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
             showMessage(getString(R.string.error_number_validate));
             return;
         }
-
+        /**
+        * Se modifica logica para realizar la validación de otra identificación
+        */
         String errorDocument = "";
+        int numeroTaskMenos = 1;
+        boolean hasOtra = validateHasOtraIdentificacion();
         for(Documento documento: getFormularioAfiliacion().getDocumentos()){
-            if( (documento.getNombre().equals(getString(R.string.comprobante_domicilio)) && documento.getDocumentoBase64().isEmpty()) ) {
+            if( (documento.getNombre().equals(getString(R.string.comprobante_domicilio)) && documento.getDocumentoBase64().isEmpty()) ||( (documento.getNombre().equals("OTRA IDENTIFICACIÓN FRENTE") && documento.getDocumentoBase64().isEmpty()) ) || ((documento.getNombre().equals("OTRA IDENTIFICACIÓN REVERSO") && documento.getDocumentoBase64().isEmpty())) ) {
                 errorDocument =  "";
-                statusProgresFragment = StatusProgresFragment.newInstance(getTasks()-1);
-                break;
+                numeroTaskMenos++;
+                //statusProgresFragment = StatusProgresFragment.newInstance(getTasks()-1);
+                //break;
             } else if (documento.getDocumentoBase64().isEmpty() || documento.getLongitud() == 0) {
                 errorDocument = documento.getNombre();
                 break;
@@ -393,7 +400,22 @@ public class RegisterActivity extends BasePresenterPermissionActivity<RegisterPr
             showMessage(getString(R.string.error_listaDocumentoVacio, errorDocument));
             return;
         }
+        if(numeroTaskMenos > 1)
+        {
+            statusProgresFragment = StatusProgresFragment.newInstance(getTasks()- numeroTaskMenos);
+        }
         onValidationSuccess();
+    }
+
+    private boolean validateHasOtraIdentificacion()
+    {
+        for(Documento documento: getFormularioAfiliacion().getDocumentos()){
+            if((documento.getNombre().equals(getString(R.string.otra_identificacion_frente)) && documento.getDocumentoBase64().isEmpty()) || (documento.getNombre().equals(getString(R.string.otra_identificacion_reverso)) && documento.getDocumentoBase64().isEmpty()) )
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

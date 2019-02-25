@@ -146,6 +146,8 @@
 
     <string name="error_invalid_id">Usuario Invalido.</string>
     <string name="error_empty_id_afiliador">Ingresa tu Usuario.</string>
+    <!-- errores de contraseña -->
+    <string name="error_empty_pass_afiliador">Ingresa tu Contraseña.</string>
     <string name="error_min_id_afiliador">Tú Usuario es muy Corto.</string>
     <string name="error_inactive_promotor">Tú Usuario no se Encuentra Activo.</string>
     <string name="error_iniciativas_empty">No Cuentas con Iniciativas.</string>
@@ -165,7 +167,11 @@
     <string name="template_doc_adulto_mayor">adulto_mayor_%1$s.jpg</string>
     <string name="template_doc_credito_simple">credito_simple_%1$s.jpg</string>
     <string name="template_doc_comprobante_domicilio">comprobante_domicilio_%1$s.jpg</string>
+    <string name="template_doc_otra_frente">otra_frente_%1$s.jpg</string>
+    <string name="template_doc_otra_reverso">otra_reverso_%1$s.jpg</string>
     <string name="comprobante_domicilio">COMPROBANTE DOMICILIO</string>
+    <string name="otra_identificacion_frente">OTRA IDENTIFICACIÓN FRENTE</string>
+    <string name="otra_identificacion_reverso">OTRA IDENTIFICACIÓN REVERSO</string>
     <!-- txt btns-->
     <string name="txt_reintent">Reintentar</string>
     <string name="txt_exit">Salir</string>

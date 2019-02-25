@@ -24,10 +24,11 @@ public class LoginInteractorImpl implements LoginInteractor {
     Context context = App.getInstance();
 
     @Override
-    public void onLogin(String numberUser,onLoginListener listener) {
-        Promotor promotor = validateUser(numberUser);
-        if (TextUtils.isEmpty(numberUser)) {
+    public void onLogin(String numberUser, String passwordUser, onLoginListener listener) {
+        Promotor promotor = validateUser(numberUser, passwordUser);
+        if (TextUtils.isEmpty(numberUser) && (TextUtils.isEmpty(passwordUser))) {
             listener.onUserNumberError();
+            listener.onUserPassError();
         } else if (promotor != null) {
             listener.onSuccess(promotor);
         } else {
@@ -35,7 +36,7 @@ public class LoginInteractorImpl implements LoginInteractor {
         }
     }
 
-    private Promotor validateUser(String passPromotor) {
+    private Promotor validateUser(String passPromotor, String passwordUser) {
         List<Promotor> promotores = new ArrayList<>();
         try {
             promotores = new DatabaseManager().getPromotorList();
